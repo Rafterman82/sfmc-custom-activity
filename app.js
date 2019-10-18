@@ -33,6 +33,8 @@ var targetDataExtensionPromotionsInsert = marketingCloud.insertDataExtension;
 console.dir(targetDataExtensionPromotionsFetch);
 console.dir(targetDataExtensionPromotionsInsert);
 
+console.dir(authUrl);
+
 // Configure Express
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.raw({type: 'application/jwt'}));
