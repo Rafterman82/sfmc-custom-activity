@@ -48,8 +48,8 @@ app.get("/dataextension/lookup", (req, res, next) => {
 		url: authUrl,
 		data:{
 		"grant_type": "client_credentials",
-		"client_id": clientId,
-		"client_secret": clientSecret
+		"client_id": marketingCloud.clientId,
+		"client_secret": marketingCloud.clientSecret
 	}
 	})
 	.then(function (response) {
@@ -58,7 +58,7 @@ app.get("/dataextension/lookup", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const getUrl = restUrl + "data/v1/customobjectdata/key/" + targetDataExtensionPromotionsFetch + "/rowset?$filter=globalCampaignID%20eq%20'GC'";
+	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + targetDataExtensionPromotionsFetch + "/rowset?$filter=globalCampaignID%20eq%20'GC'";
 	    console.dir(getUrl);
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
@@ -105,11 +105,11 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
    	axios({
 		method: 'post',
-		url: authUrl,
+		url: marketingCloud.authUrl,
 		data:{
 		"grant_type": "client_credentials",
-		"client_id": clientId,
-		"client_secret": clientSecret
+		"client_id": marketingCloud.clientId,
+		"client_secret": marketingCloud.clientSecret
 	}
 	})
 	.then(function (response) {
@@ -118,7 +118,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const postUrl = restUrl + "hub/v1/dataevents/key:" + targetDataExtensionPromotionsInsert + "/rowset";
+	    const postUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + targetDataExtensionPromotionsInsert + "/rowset";
 	    console.dir(postUrl);
 	   	
 	   	axios({
