@@ -43,19 +43,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Express in Development Mode
 if ('development' == app.get('env')) {
-  app.use(errorhandler());
+	app.use(errorhandler());
 }
 
 //Fetch rows from data extension
 app.get("/dataextension/lookup", (req, res, next) => {
 	axios({
 		method: 'post',
-		url: authUrl,
+		url: marketingCloud.authUrl,
 		data:{
-		"grant_type": "client_credentials",
-		"client_id": marketingCloud.clientId,
-		"client_secret": marketingCloud.clientSecret
-	}
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
 	})
 	.then(function (response) {
 		//console.dir(response.data.access_token);
