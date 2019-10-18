@@ -18,8 +18,6 @@ define([
         console.log("Current Step is: " + currentStep);
     }
 
-    var targetDataExtension = '4804E6F7-9D0B-4946-A821-1028EDFEE9D7';
-
     $(window).ready(onRender);
 
     connection.on('initActivity', initialize);
