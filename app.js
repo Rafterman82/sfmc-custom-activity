@@ -24,9 +24,14 @@ var marketingCloud = {
   insertDataExtension: process.env.insertDataExtension
 };
 
+console.dir(marketingCloud);
+
 // define Data Extension External ID's
 var targetDataExtensionPromotionsFetch = marketingCloud.fetchDataExtension;
 var targetDataExtensionPromotionsInsert = marketingCloud.insertDataExtension;
+
+console.dir(targetDataExtensionPromotionsFetch);
+console.dir(targetDataExtensionPromotionsInsert);
 
 // Configure Express
 app.set('port', process.env.PORT || 3000);
