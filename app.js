@@ -33,7 +33,7 @@ var targetDataExtensionPromotionsInsert = marketingCloud.insertDataExtension;
 console.dir(targetDataExtensionPromotionsFetch);
 console.dir(targetDataExtensionPromotionsInsert);
 
-console.dir(authUrl);
+console.dir(marketingCloud.authUrl);
 
 // Configure Express
 app.set('port', process.env.PORT || 3000);
