@@ -1,0 +1,76 @@
+{
+    "workflowApiVersion": "1.1",
+    "metaData": {
+        "icon": "images/icon.png",
+        "iconSmall": "images/icon.png",
+        "category": "custom"
+    },
+    "type": "REST",
+    "lang": {
+        "en-US": {
+          "name": "Associate Promotion",
+          "description": "Associate an In Store code with a journey",
+          "step1Label": "Configure Push Message",
+          "step2label": "Summary"
+        }
+    },
+    "arguments": {
+        "execute": {
+           "inArguments":[
+        {
+          "contactKey": "{{Contact.Key}}" 
+                }                 
+      ],
+          "outArguments": [],
+          "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/execute",
+           "verb": "POST",
+            "body": "",
+            "header": "",
+            "format": "json",
+            "useJwt": true,
+            "timeout": 10000
+        }
+    },
+    "configurationArguments": {
+      "applicationExtensionKey": "7df48b87-3167-4448-a644-ab0def165941",
+      "save": {
+        "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/save",
+          "verb": "POST",
+        "useJwt": true
+       },
+       "publish": {
+        "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/publish",
+           "verb": "POST",
+        "useJwt": true
+       },
+      "stop": {
+        "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/stop",
+           "verb": "POST",
+        "useJwt": true
+      },
+      "validate": {
+        "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/validate",
+        "verb": "POST",
+        "useJwt": true
+      }
+    },
+    "wizardSteps": [
+        { "label": "Configure Activity", "key": "step1" },
+        { "label": "Summary", "key": "step2" }
+    ],
+   "userInterfaces": {
+      "configModal": {
+          "height": 200,
+          "width": 300,
+          "fullscreen": true
+      }
+   },
+    "schema": {
+        "arguments": {
+            "execute": {
+                "inArguments": [],
+                "outArguments": []
+            }
+        }
+    }
+}

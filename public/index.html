@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Custom Journey Builder Activity</title>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Salesforce Lightning Styles -->
+    <link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/require.js"></script>
+    <script type="text/javascript">
+        (function() {
+            var config = {
+                baseUrl: 'js'
+            };
+
+            var dependencies = [
+                'customActivity'
+            ];
+
+            require(config, dependencies);
+        })();
+    </script>
+
+</head>
+<body>
+<div id="step1" class="step">
+
+    <div class="slds-grid">
+        <main class="slds-col">
+
+            <div class="slds-form-element" id="form_element__campaign">
+                <label class="slds-form-element__label" for="form-element-01">Campaign Name</label>
+                <div style="position:relative">
+                    <a href="javascript:void(0)" aria-describedby="help" id="campaign__help__button">Help Text</a>
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left slds-slide-from-top-to-bottom" role="tooltip" id="campaign__help__block" style="position:absolute;top:-20px;left:35px">
+                        <div class="slds-popover__body">Please name the campaign and use the same campaign name in this journey. Examples: "Welcome Campaign", "New Order Campaign"</div>
+                    </div>
+                </div>
+                <div class="slds-form-element__control">
+                    <input id="campaign" type="text" name="campaign" />
+                </div>
+                <div class="slds-form-element__help" id="form-error__campaign">This field is required</div>
+            </div>
+
+            <div class="slds-form-element" id="form_element__channel">
+                <label class="slds-form-element__label" for="form-element-02">Channel</label>
+                <div style="position:relative">
+                    <a href="javascript:void(0)" aria-describedby="help" id="channel__help__button">Help Text</a>
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left slds-slide-from-top-to-bottom" role="tooltip" id="channel__help__block" style="position:absolute;top:-20px;left:35px">
+                        <div class="slds-popover__body">Select the channel this promotion is associated with.</div>
+                    </div>
+                </div>
+                <div class="slds-form-element__control">
+                    <select id="channel" name="channel">
+                        <option value="notselected" selected>Please select a channel</option>
+                        <option value="edm">EDM</option>
+                        <!--<option value="dm">DM</option>-->
+                        <!--<option value="push">PUSH</option>-->
+                    </select>
+                </div>
+                <div class="slds-form-element__help" id="form-error__channel">This field is required</div>
+            </div>
+
+            <div class="slds-form-element" id="form_element__activity">
+                <label class="slds-form-element__label" for="form-element-03">Activity Name</label>
+                <div style="position:relative">
+                    <a href="javascript:void(0)" aria-describedby="help" id="activity__help__button">Help Text</a>
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left slds-slide-from-top-to-bottom" role="tooltip" id="activity__help__block" style="position:absolute;top:-20px;left:35px">
+                        <div class="slds-popover__body">Give this activity a name. Examples: "Wave 1", "Wave 2", "Wave 3"</div>
+                    </div>
+                </div>
+                <div class="slds-form-element__control">
+                    <input id="activity" type="text" name="activity" />
+                </div>
+                <div class="slds-form-element__help" id="form-error__activity">This field is required</div>
+            </div>
+
+            <div class="slds-form-element" id="form_element__promotion">
+                <label class="slds-form-element__label" for="form-element-04">Select promotion code</label>
+                <div style="position:relative">
+                    <a href="javascript:void(0)" aria-describedby="help" id="promotion__help__button">Help Text</a>
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left slds-slide-from-top-to-bottom" role="tooltip" id="promotion__help__block" style="position:absolute;top:-20px;left:35px">
+                        <div class="slds-popover__body">Please select a campaign code.</div>
+                    </div>
+                </div>
+                <div class="slds-form-element__control">
+                    <select id="promotion" name="promotions">
+                        <option value ="notselected" selected>Please select a promotion</option>
+                    </select>
+                </div>
+                <div class="slds-form-element__help" id="form-error__promotion">This field is required</div>
+            </div>
+
+        </main>
+    </div>
+    <br />
+    <button id="test-api-insert">Test API Insert</button>
+</div>
+<div id="step2" class="step">
+    <div class="slds-grid">
+        <main class="slds-col">
+
+            <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Campaign</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static" id="campaignSummary"></div>
+                </div>
+            </div>
+
+            <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Channel</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static" id="channelSummary"></div>
+                </div>
+            </div>
+
+            <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Activity</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static" id="activitySummary"></div>
+                </div>
+            </div>
+
+            <div class="slds-form-element slds-form-element_readonly">
+                <span class="slds-form-element__label">Promotion Code</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static" id="promotionSummary"></div>
+                </div>
+            </div>
+            <br />
+            <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-utility-info" title="information">
+                        <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Promotion Association Key</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <p>Your unique Promotion Association Key is: <span id="keySummary"></span>. Copy this key and use it in the Update Contact widget.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+</body>
+</html>
