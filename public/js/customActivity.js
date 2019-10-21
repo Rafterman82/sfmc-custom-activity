@@ -11,10 +11,10 @@ define([
     var onlineSetupStepEnabled      = false;
     var instoreSetupStepEnabled     = false;
     var steps                       = [
-        { "label": "Promotion Type", "key": "step1" },
-        { "label": "Online Voucher Setup", "key": "step2", "active": false },
-        { "label": "In-store Voucher Setup", "key": "step3", "active": false },
-        { "label": "Summary", "key": "step4" }
+        { "label": "Step 1", "key": "step1" },
+        { "label": "Step 2", "key": "step2" },
+        { "label": "Step 3", "key": "step3" },
+        { "label": "Step 4", "key": "step4", "active": false }
     ];
     var currentStep = steps[0].key;
 
@@ -73,9 +73,9 @@ define([
         // Toggle step 4 active/inactive
         // If inactive, wizard hides it and skips over it during navigation
         $('#toggleLastStep').click(function() {
-            lastStepEnabled = !lastStepEnabled; // toggle status
-            steps[3].active = !steps[3].active; // toggle active
-
+            onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
+            steps[2].active = !steps[2].active; // toggle active
+            console.log(steps);
             connection.trigger('updateSteps', steps);
         });
 
