@@ -79,19 +79,19 @@ define([
 
             if ( promotionType === 'online' ) {
 
-                // Toggle step 4 active/inactive
-                // If inactive, wizard hides it and skips over it during navigation
                 $('#step2').show();
                 onlineSetupStepEnabled      = true; // toggle status
                 steps[2].active             = true; // toggle active
+                instoreSetupStepEnabled     = false; // toggle status
+                steps[3].active             = false; // toggle active
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'instore' ) {
 
-                // Toggle step 4 active/inactive
-                // If inactive, wizard hides it and skips over it during navigation
                 $('#step3').show();
+                onlineSetupStepEnabled      = false; // toggle status
+                steps[2].active             = false; // toggle active
                 instoreSetupStepEnabled     = true; // toggle status
                 steps[3].active             = true; // toggle active
                 connection.trigger('updateSteps', steps);
@@ -107,13 +107,6 @@ define([
                 connection.trigger('updateSteps', steps);
             }
         });
-
-        // error logic
-        //$('.slds-col').on('keyup change paste', 'input, select, textarea', function(){
-            //console.log('Form changed!');
-            //console.log(this);
-            //runFormValidation()
-        //});
 
         // hide the tool tips on page load
         $('.slds-popover_tooltip').hide();
@@ -335,8 +328,6 @@ define([
 
         console.log("Current Step:");
         console.log(step);
-
-        $('.step').hide();
 
         if ( currentStep.key == 'step1' ) {
 
