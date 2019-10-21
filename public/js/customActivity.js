@@ -80,10 +80,8 @@ define([
             if ( promotionType === 'online' ) {
 
                 $('#step2').show();
-                onlineSetupStepEnabled      = true; // toggle status
-                steps[2].active             = true; // toggle active
-                instoreSetupStepEnabled     = false; // toggle status
-                steps[3].active             = false; // toggle active
+                onlineSetupStepEnabled      = !onlineSetupStepEnabled; // toggle status
+                steps[2].active             = !steps[2].active; // toggle active
                 console.log("steps");
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
@@ -91,10 +89,8 @@ define([
             } else if ( promotionType === 'instore' ) {
 
                 $('#step3').show();
-                onlineSetupStepEnabled      = false; // toggle status
-                steps[2].active             = false; // toggle active
-                instoreSetupStepEnabled     = true; // toggle status
-                steps[3].active             = true; // toggle active
+                instoreSetupStepEnabled     = !instoreSetupStepEnabled; // toggle status
+                steps[3].active             = !steps[3].active; // toggle active
                 console.log("steps");
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
@@ -103,10 +99,10 @@ define([
 
                 $('#step2').show();
                 $('#step3').show();
-                onlineSetupStepEnabled      = true; // toggle status
-                steps[2].active             = true; // toggle active
-                instoreSetupStepEnabled     = true; // toggle status
-                steps[3].active             = true; // toggle active
+                onlineSetupStepEnabled      = !onlineSetupStepEnabled; // toggle status
+                steps[2].active             = !steps[2].active; // toggle active
+                instoreSetupStepEnabled     = !instoreSetupStepEnabled; // toggle status
+                steps[3].active             = !steps[3].active; // toggle active
                 console.log("steps");
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
