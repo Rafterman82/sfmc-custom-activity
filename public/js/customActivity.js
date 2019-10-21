@@ -81,6 +81,7 @@ define([
 
                 // Toggle step 4 active/inactive
                 // If inactive, wizard hides it and skips over it during navigation
+                $('#step2').show();
                 onlineSetupStepEnabled      = true; // toggle status
                 steps[2].active             = true; // toggle active
                 console.log(steps);
@@ -90,12 +91,15 @@ define([
 
                 // Toggle step 4 active/inactive
                 // If inactive, wizard hides it and skips over it during navigation
+                $('#step3').show();
                 instoreSetupStepEnabled     = true; // toggle status
                 steps[3].active             = true; // toggle active
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'online-instore' ) {
 
+                $('#step2').show();
+                $('#step3').show();
                 onlineSetupStepEnabled      = true; // toggle status
                 steps[2].active             = true; // toggle active
                 instoreSetupStepEnabled     = true; // toggle status
@@ -336,7 +340,6 @@ define([
 
         if ( currentStep.key == 'step1' ) {
 
-            $('#step1').show();
             connection.trigger('updateButton', {
                 button: 'next'
                 //enabled: Boolean(getMessage())
@@ -348,7 +351,7 @@ define([
 
         } else if ( currentStep.key == 'step2' ) {
 
-            $('#step2').show();
+            
             connection.trigger('updateButton', {
                 button: 'back',
                 visible: true
@@ -361,7 +364,6 @@ define([
 
         } else if ( currentStep.key == 'step3') {
 
-            $('#step3').show();
             connection.trigger('updateButton', {
                 button: 'back',
                 visible: true
@@ -374,7 +376,6 @@ define([
 
         } else {
 
-            $('#step4').show();
             connection.trigger('updateButton', {
                 button: 'back',
                 visible: true
