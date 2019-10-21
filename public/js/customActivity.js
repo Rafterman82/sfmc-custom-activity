@@ -12,9 +12,9 @@ define([
     var instoreSetupStepEnabled     = false;
     var steps                       = [
         { "label": "Step 1", "key": "step1" },
-        { "label": "Step 2", "key": "step2" },
-        { "label": "Step 3", "key": "step3" },
-        { "label": "Step 4", "key": "step4", "active": false }
+        { "label": "Step 2", "key": "step2", "active": false },
+        { "label": "Step 3", "key": "step3", "active": false },
+        { "label": "Step 4", "key": "step4" }
     ];
     var currentStep = steps[0].key;
 
@@ -72,9 +72,16 @@ define([
 
         // Toggle step 4 active/inactive
         // If inactive, wizard hides it and skips over it during navigation
-        $('#toggleLastStep').click(function() {
+        $('#toggleStep2').click(function() {
             onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
             steps[2].active = !steps[2].active; // toggle active
+            console.log(steps);
+            connection.trigger('updateSteps', steps);
+        });
+
+        $('#toggleStep3').click(function() {
+            instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
+            steps[3].active = !steps[3].active; // toggle active
             console.log(steps);
             connection.trigger('updateSteps', steps);
         });
