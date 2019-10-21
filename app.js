@@ -56,7 +56,7 @@ app.get("/dataextension/lookup/offer_types", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.offerTypesListDataExtension + "/rowset?$filter=Uzes%20eq%20'1'";
+	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.offerTypesListDataExtension + "/rowset?$filter=Uses%20eq%20'1'";
 	    console.dir(getUrl);
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
