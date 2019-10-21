@@ -5,11 +5,12 @@ define([
 ) {
     'use strict';
 
-    var debug = true;
-    var connection = new Postmonger.Session();
-    var payload = {};
-    var lastStepEnabled = false;
-    var steps = [ // initialize to the same value as what's set in config.json for consistency
+    var debug                       = true;
+    var connection                  = new Postmonger.Session();
+    var payload                     = {};
+    var onlineSetupStepEnabled      = false;
+    var instoreSetupStepEnabled     = false;
+    var steps                       = [
         { "label": "Promotion Type", "key": "step1" },
         { "label": "Online Voucher Setup", "key": "step2", "active": false },
         { "label": "In-store Voucher Setup", "key": "step3", "active": false },
@@ -78,21 +79,25 @@ define([
 
                 // Toggle step 4 active/inactive
                 // If inactive, wizard hides it and skips over it during navigation
-                lastStepEnabled = !lastStepEnabled; // toggle status
-                steps[2].active = !steps[2].active; // toggle active
+                onlineSetupStepEnabled  = !onlineSetupStepEnabled; // toggle status
+                steps[2].active         = !steps[2].active; // toggle active
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'instore' ) {
 
                 // Toggle step 4 active/inactive
                 // If inactive, wizard hides it and skips over it during navigation
-                lastStepEnabled = !lastStepEnabled; // toggle status
-                steps[3].active = !steps[3].active; // toggle active
+                instoreSetupStepEnabled     = !instoreSetupStepEnabled; // toggle status
+                steps[3].active             = !steps[3].active; // toggle active
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'online-instore' ) {
-                $("#column2").show();
-                $("#column3").show();
+
+                onlineSetupStepEnabled  = !onlineSetupStepEnabled; // toggle status
+                steps[2].active         = !steps[2].active; // toggle active
+                instoreSetupStepEnabled     = !instoreSetupStepEnabled; // toggle status
+                steps[3].active             = !steps[3].active; // toggle active
+                connection.trigger('updateSteps', steps);
             }
         });
 
@@ -316,6 +321,8 @@ define([
 
         currentStep = step;
 
+        console.log(step);
+
         $('.step').hide();
 
         switch(currentStep.key) {
@@ -345,25 +352,22 @@ define([
             case 'step3':
                 $('#step3').show();
                 connection.trigger('updateButton', {
-                     button: 'back',
-                     visible: true
+                    button: 'back',
+                    visible: true
                 });
-                if (lastStepEnabled) {
-                    connection.trigger('updateButton', {
-                        button: 'next',
-                        text: 'next',
-                        visible: true
-                    });
-                } else {
-                    connection.trigger('updateButton', {
+                connection.trigger('updateButton', {
+                    button: 'next',
+                    text: 'next',
+                    visible: true
+                });
+                break;
+            case 'step4':
+                $('#step4').show();
+                connection.trigger('updateButton', {
                         button: 'next',
                         text: 'done',
                         visible: true
                     });
-                }
-                break;
-            case 'step4':
-                $('#step4').show();
                 break;
         }
     }
