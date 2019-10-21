@@ -81,7 +81,7 @@ define([
 
         $('#toggleStep2').click(function() {
             instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
-            steps[2].active = !steps[1].active; // toggle active
+            steps[2].active = !steps[2].active; // toggle active
             console.log(steps);
             connection.trigger('updateSteps', steps);
         });
@@ -305,8 +305,8 @@ define([
         $('.step').hide();
 
         switch(currentStep.key) {
-            case 'step1':
-                $('#step1').show();
+            case 'step0':
+                $('#step0').show();
                 connection.trigger('updateButton', {
                     button: 'next',
                     //enabled: Boolean(getMessage())
@@ -316,25 +316,13 @@ define([
                     visible: false
                 });
                 break;
-            case 'step2':
-                $('#step2').show();
+            case 'step1':
+                $('#step1').show();
                 connection.trigger('updateButton', {
                     button: 'back',
                     visible: true
                 });
-                connection.trigger('updateButton', {
-                    button: 'next',
-                    text: 'next',
-                    visible: true
-                });
-                break;
-            case 'step3':
-                $('#step3').show();
-                connection.trigger('updateButton', {
-                     button: 'back',
-                     visible: true
-                });
-                if (lastStepEnabled) {
+                if (onlineSetupStepEnabled) {
                     connection.trigger('updateButton', {
                         button: 'next',
                         text: 'next',
@@ -343,13 +331,33 @@ define([
                 } else {
                     connection.trigger('updateButton', {
                         button: 'next',
-                        text: 'done',
+                        text: 'next',
                         visible: true
                     });
                 }
                 break;
-            case 'step4':
-                $('#step4').show();
+            case 'step2':
+                $('#step2').show();
+                connection.trigger('updateButton', {
+                     button: 'back',
+                     visible: true
+                });
+                if (instoreSetupStepEnabled) {
+                    connection.trigger('updateButton', {
+                        button: 'next',
+                        text: 'next',
+                        visible: true
+                    });
+                } else {
+                    connection.trigger('updateButton', {
+                        button: 'next',
+                        text: 'next',
+                        visible: true
+                    });
+                }
+                break;
+            case 'step3':
+                $('#step3').show();
                 break;
         }
     }
