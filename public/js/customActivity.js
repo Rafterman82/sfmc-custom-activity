@@ -84,6 +84,7 @@ define([
                 steps[2].active             = true; // toggle active
                 instoreSetupStepEnabled     = false; // toggle status
                 steps[3].active             = false; // toggle active
+                console.log("steps");
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
 
@@ -94,6 +95,8 @@ define([
                 steps[2].active             = false; // toggle active
                 instoreSetupStepEnabled     = true; // toggle status
                 steps[3].active             = true; // toggle active
+                console.log("steps");
+                console.log(steps);
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'online-instore' ) {
@@ -104,6 +107,8 @@ define([
                 steps[2].active             = true; // toggle active
                 instoreSetupStepEnabled     = true; // toggle status
                 steps[3].active             = true; // toggle active
+                console.log("steps");
+                console.log(steps);
                 connection.trigger('updateSteps', steps);
             }
         });
