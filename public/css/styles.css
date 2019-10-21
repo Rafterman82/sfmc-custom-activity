@@ -10,3 +10,16 @@ body {
 #step1 {
     display: block;
 }
+#column1 {
+	padding-right:15px;
+}
+#column2 {
+	display: none;
+	padding-right:15px;
+}
+#column3 {
+	display: none;
+}
+#test-api-insert {
+	display: none;
+}

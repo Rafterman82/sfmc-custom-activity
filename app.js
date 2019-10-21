@@ -20,20 +20,10 @@ var marketingCloud = {
   clientId: process.env.clientId,
   clientSecret: process.env.clientSecret,
   restUrl: process.env.restUrl,
-  fetchDataExtension: process.env.fetchDataExtension,
+  promotionsListDataExtension: process.env.promotionsListDataExtension,
+  offerTypesListDataExtension: process.env.offerTypesListDataExtension,
   insertDataExtension: process.env.insertDataExtension
 };
-
-console.dir(marketingCloud);
-
-// define Data Extension External ID's
-var targetDataExtensionPromotionsFetch = marketingCloud.fetchDataExtension;
-var targetDataExtensionPromotionsInsert = marketingCloud.insertDataExtension;
-
-console.dir(targetDataExtensionPromotionsFetch);
-console.dir(targetDataExtensionPromotionsInsert);
-
-console.dir(marketingCloud.authUrl);
 
 // Configure Express
 app.set('port', process.env.PORT || 3000);
@@ -48,8 +38,9 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
-//Fetch rows from data extension
-app.get("/dataextension/lookup", (req, res, next) => {
+// fetch rows from promotion metadata data extension
+// ensure communication cell code is unique
+app.get("/dataextension/lookup/offer_types", (req, res, next) => {
 	axios({
 		method: 'post',
 		url: marketingCloud.authUrl,
@@ -65,7 +56,41 @@ app.get("/dataextension/lookup", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + targetDataExtensionPromotionsFetch + "/rowset?$filter=globalCampaignID%20eq%20'GC'";
+	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.offerTypesListDataExtension + "/rowset?$filter=Uzes%20eq%20'1'";
+	    console.dir(getUrl);
+	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
+	        // If request is good...
+	        //console.dir(response.data);
+	        res.json(response.data);
+	    }).catch((error) => {
+	        console.dir('error is ' + error);
+	    });		
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
+});
+
+//Fetch rows from promotions data extension
+app.get("/dataextension/lookup/promotions", (req, res, next) => {
+	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.promotionsListDataExtension + "/rowset?$filter=globalCampaignID%20eq%20'GC'";
 	    console.dir(getUrl);
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
@@ -125,7 +150,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const postUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + targetDataExtensionPromotionsInsert + "/rowset";
+	    const postUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
 	    console.dir(postUrl);
 	   	
 	   	axios({

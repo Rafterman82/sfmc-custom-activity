@@ -44,159 +44,73 @@ define([
         connection.trigger('requestEndpoints');
 
         // access promotions and build select input
-        $.ajax({url: "/dataextension/lookup", success: function(result){
-            console.log('lookup executed');
+        $.ajax({url: "/dataextension/lookup/offer_types", success: function(result){
+            console.log('lookup offers executed');
             console.log(result.items);
             var i;
             for (i = 0; i < result.items.length; ++i) {
                 // do something with `substr[i]
-                $("#promotion").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
+                $("#offer_type_online").append("<option value=" + encodeURI(result.items[i].keys.offertype) + ">" + result.items[i].keys.offertype + "</option>");
             }
         }});
 
-        // hide tooltips
-        $("#promotion__help__block").hide();
-        $("#campaign__help__block").hide();
-        $("#activity__help__block").hide();
-        $("#channel__help__block").hide();
+        // access offer types and build select input
+        $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
+            console.log('lookup promotions executed');
+            console.log(result.items);
+            var i;
+            for (i = 0; i < result.items.length; ++i) {
+                // do something with `substr[i]
+                $("#instore_code").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
+            }
+        }});
 
-        // hide error message
-        $("#form-error__promotion").hide();
-        $("#form-error__campaign").hide();
-        $("#form-error__activity").hide();
-        $("#form-error__channel").hide();
+
+        // layout controller
+        $(".promotion_type").on("change", function() {
+            
+            var promotionType = $("input[name='promotionType']:checked").val();
+
+            if ( promotionType === 'online' ) {
+                $("#column2").show();
+                $("#column3").hide();
+            } else if ( promotionType === 'instore' ) {
+                $("#column2").hide();
+                $("#column3").show();
+            } else if ( promotionType === 'online-instore' ) {
+                $("#column2").show();
+                $("#column3").show();
+            }
+        });
 
         // error logic
-
-        $('#campaign').blur(function() {
-            if ( debug ) {
-                console.log("Blur changed for campaign name");
-            }
-            
-            var campaignValue = getInputValue('#campaign', 'value');
-
-            if ( !campaignValue ) {
-
-                $('#form_element__campaign').addClass('slds-has-error');
-                $('#form-error__campaign').show();
-
-            } else {
-
-                $('#form_element__campaign').removeClass('slds-has-error');
-                $('#form-error__campaign').hide();
-                $('#campaignSummary').html(campaignValue);
-
-                if ( debug ) {
-                    console.log("campaign name changed" + campaignValue);
-                }
-            }
+        $('.slds-col').on('keyup change paste', 'input, select, textarea', function(){
+            console.log('Form changed!');
+            console.log(this);
+            //runFormValidation()
         });
 
-        $('#promotion').blur(function() {
-            if ( debug ) {
-                console.log("Blur changed for promotions");
-            }
-            
-            var promotionValue = getInputValue('#promotion', 'value');
-
-            if ( !promotionValue || promotionValue == 'notselected') {
-
-                $('#form_element__promotion').addClass('slds-has-error');
-                $('#form-error__promotion').show();
-
-            } else {
-
-                $('#form_element__promotion').removeClass('slds-has-error');
-                $('#form-error__promotion').hide();
-                $('#promotionSummary').html(promotionValue);
-
-                if ( debug ) {
-                    console.log("promotions changed" + promotionValue);
-                }
-            }
-        });
-
-        $('#channel').blur(function() {
-            if ( debug ) {
-                console.log("Blur changed for channel");
-            }
-            
-            var channelValue = getInputValue('#channel', 'value');
-
-            if ( !channelValue  || channelValue == 'notselected') {
-
-                $('#form_element__channel').addClass('slds-has-error');
-                $('#form-error__channel').show();
-
-            } else {
-
-                $('#form_element__channel').removeClass('slds-has-error');
-                $('#form-error__channel').hide();
-                $('#channelSummary').html(channelValue);
-
-                if ( debug ) {
-                    console.log("channel changed" + channelValue);
-                }
-            }
-        });
-
-        $('#activity').blur(function() {
-            if ( debug ) {
-                console.log("Blur changed for activity");
-            }
-            
-            var activityValue = getInputValue('#activity', 'value');
-
-            if ( !activityValue ) {
-
-                $('#form_element__activity').addClass('slds-has-error');
-                $('#form-error__activity').show();
-
-            } else {
-
-                $('#form_element__activity').removeClass('slds-has-error');
-                $('#form-error__activity').hide();
-                $('#activitySummary').html(activityValue);
-
-                if ( debug ) {
-                    console.log("activity changed" + activityValue);
-                }
-            }
-        });
-
-        // hide all tooltips
+        // hide the tool tips on page load
         $('.slds-popover_tooltip').hide();
 
-        // tool tip controls
-        $("#promotion__help__button").click(function(e) {
-            $('.slds-popover_tooltip').hide();
-            $("#promotion__help__block").show();
-            e.stopPropagation(); //stops click event from reaching document
-        });
+        // hide error messages
+        $('.slds-form-element__help').hide();
 
-        $("#campaign__help__button").click(function(e) {
-            $('.slds-popover_tooltip').hide();
-            $("#campaign__help__block").show();
-            e.stopPropagation(); //stops click event from reaching document
-        });
+        // locate and show relevant tooltip
+        $('.slds-button_icon').on("click",function(e){
 
+            // make sure any opened tooltips are closed
+            //$('.slds-popover_tooltip').hide();
+            var clickedElement = $(this).attr('id').split("__");
+            console.log(clickedElement);
+            var helpBlock = "#" + clickedElement[0] + "__help";
+            console.log(helpBlock);
+            $(helpBlock).show();
+            setTimeout(function() {
+                $(helpBlock).fadeOut();
+                }, 5000);
 
-        $("#activity__help__button").click(function(e) {
-            $('.slds-popover_tooltip').hide();
-            $("#activity__help__block").show();
-            e.stopPropagation(); //stops click event from reaching document
-        });
-
-
-        $("#channel__help__button").click(function(e) {
-            $('.slds-popover_tooltip').hide();
-            $("#channel__help__block").show();
-            e.stopPropagation(); //stops click event from reaching document
-        });
-
-        $("body").click(function() {
-            $('.slds-popover_tooltip').hide();
-        });
+            });
 
         $('#test-api-insert').click(function() {
 
@@ -289,6 +203,7 @@ define([
                 console.log("Key in else is: " + campaignKey);
             }
             
+            // update other summary values
             $('#keySummary').html(campaignKey);
             showStep(null, 2);
 
