@@ -72,20 +72,20 @@ define([
 
         // Toggle step 4 active/inactive
         // If inactive, wizard hides it and skips over it during navigation
-        $('#toggleStep1').click(function() {
+        $('#toggleStepOne').click(function() {
             console.log("trigger step 1");
-            onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
-            steps[1].active = !steps[1].active; // toggle active
-            console.log(steps);
-            connection.trigger('updateSteps', steps);
+            //onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
+            //steps[1].active = !steps[1].active; // toggle active
+            //console.log(steps);
+            //connection.trigger('updateSteps', steps);
         });
 
-        $('#toggleStep2').click(function() {
+        $('#toggleStepTwo').click(function() {
             console.log("trigger step 2");
-            instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
-            steps[2].active = !steps[2].active; // toggle active
-            console.log(steps);
-            connection.trigger('updateSteps', steps);
+            //instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
+            //steps[2].active = !steps[2].active; // toggle active
+            //console.log(steps);
+            //connection.trigger('updateSteps', steps);
         });
 
         // hide the tool tips on page load
