@@ -70,43 +70,13 @@ define([
         }});
 
 
-        // layout controller
-        $(".promotion_type").on("change", function() {
-            
-            var promotionType = $("input[name='promotionType']:checked").val();
+        // Toggle step 4 active/inactive
+        // If inactive, wizard hides it and skips over it during navigation
+        $('#toggleLastStep').click(function() {
+            lastStepEnabled = !lastStepEnabled; // toggle status
+            steps[3].active = !steps[3].active; // toggle active
 
-            console.log(promotionType);
-
-            if ( promotionType === 'online' ) {
-
-                $('#step2').show();
-                onlineSetupStepEnabled      = !onlineSetupStepEnabled; // toggle status
-                steps[2].active             = !steps[2].active; // toggle active
-                console.log("steps");
-                console.log(steps);
-                connection.trigger('updateSteps', steps);
-
-            } else if ( promotionType === 'instore' ) {
-
-                $('#step3').show();
-                instoreSetupStepEnabled     = !instoreSetupStepEnabled; // toggle status
-                steps[3].active             = !steps[3].active; // toggle active
-                console.log("steps");
-                console.log(steps);
-                connection.trigger('updateSteps', steps);
-
-            } else if ( promotionType === 'online-instore' ) {
-
-                $('#step2').show();
-                $('#step3').show();
-                onlineSetupStepEnabled      = !onlineSetupStepEnabled; // toggle status
-                steps[2].active             = !steps[2].active; // toggle active
-                instoreSetupStepEnabled     = !instoreSetupStepEnabled; // toggle status
-                steps[3].active             = !steps[3].active; // toggle active
-                console.log("steps");
-                console.log(steps);
-                connection.trigger('updateSteps', steps);
-            }
+            connection.trigger('updateSteps', steps);
         });
 
         // hide the tool tips on page load
@@ -317,68 +287,62 @@ define([
     }
 
     function showStep(step, stepIndex) {
-
-        console.log("Step Index:");
-        console.log(stepIndex);
-
         if (stepIndex && !step) {
             step = steps[stepIndex-1];
         }
 
         currentStep = step;
 
-        console.log("Current Step:");
-        console.log(step);
+        $('.step').hide();
 
-        if ( currentStep.key == 'step1' ) {
-
-            connection.trigger('updateButton', {
-                button: 'next'
-                //enabled: Boolean(getMessage())
-            });
-            connection.trigger('updateButton', {
-                button: 'back',
-                visible: false
-            });
-
-        } else if ( currentStep.key == 'step2' ) {
-
-            
-            connection.trigger('updateButton', {
-                button: 'back',
-                visible: true
-            });
-            connection.trigger('updateButton', {
-                button: 'next',
-                text: 'next',
-                visible: true
-            });
-
-        } else if ( currentStep.key == 'step3') {
-
-            connection.trigger('updateButton', {
-                button: 'back',
-                visible: true
-            });
-            connection.trigger('updateButton', {
-                button: 'next',
-                text: 'next',
-                visible: true
-            });
-
-        } else {
-
-            connection.trigger('updateButton', {
-                button: 'back',
-                visible: true
-            });
-            connection.trigger('updateButton', {
-                button: 'next',
-                text: 'done',
-                visible: true
-             });            
+        switch(currentStep.key) {
+            case 'step1':
+                $('#step1').show();
+                connection.trigger('updateButton', {
+                    button: 'next',
+                    //enabled: Boolean(getMessage())
+                });
+                connection.trigger('updateButton', {
+                    button: 'back',
+                    visible: false
+                });
+                break;
+            case 'step2':
+                $('#step2').show();
+                connection.trigger('updateButton', {
+                    button: 'back',
+                    visible: true
+                });
+                connection.trigger('updateButton', {
+                    button: 'next',
+                    text: 'next',
+                    visible: true
+                });
+                break;
+            case 'step3':
+                $('#step3').show();
+                connection.trigger('updateButton', {
+                     button: 'back',
+                     visible: true
+                });
+                if (lastStepEnabled) {
+                    connection.trigger('updateButton', {
+                        button: 'next',
+                        text: 'next',
+                        visible: true
+                    });
+                } else {
+                    connection.trigger('updateButton', {
+                        button: 'next',
+                        text: 'done',
+                        visible: true
+                    });
+                }
+                break;
+            case 'step4':
+                $('#step4').show();
+                break;
         }
-
     }
 
     function save() {
