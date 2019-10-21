@@ -54,9 +54,24 @@
         "useJwt": true
       }
     },
-    "wizardSteps": [
-        { "label": "Configure Activity", "key": "step1" },
-        { "label": "Summary", "key": "step2" }
+    "wizardSteps": [{
+        "label": "Promotion Type",
+        "key": "step1"
+      },
+      {
+        "label": "Online Voucher Setup",
+        "key": "step2",
+        "active": false
+      },
+      {
+        "label": "Instore Voucher Setup",
+        "key": "step3",
+        "active": false
+      },
+      {
+        "label": "Summary",
+        "key": "step4"
+      }
     ],
    "userInterfaces": {
       "configModal": {

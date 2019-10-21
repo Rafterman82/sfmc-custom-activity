@@ -8,9 +8,12 @@ define([
     var debug = true;
     var connection = new Postmonger.Session();
     var payload = {};
+    var lastStepEnabled = false;
     var steps = [ // initialize to the same value as what's set in config.json for consistency
-        { "label": "Step 1", "key": "step1" },
-        { "label": "Step 2", "key": "step2" }
+        { "label": "Promotion Type", "key": "step1" },
+        { "label": "Online Voucher Setup", "key": "step2", "active": false },
+        { "label": "In-store Voucher Setup", "key": "step3", "active": false },
+        { "label": "Summary", "key": "step4" }
     ];
     var currentStep = steps[0].key;
 
@@ -72,11 +75,21 @@ define([
             var promotionType = $("input[name='promotionType']:checked").val();
 
             if ( promotionType === 'online' ) {
-                $("#column2").show();
-                $("#column3").hide();
+
+                // Toggle step 4 active/inactive
+                // If inactive, wizard hides it and skips over it during navigation
+                lastStepEnabled = !lastStepEnabled; // toggle status
+                steps[2].active = !steps[2].active; // toggle active
+                connection.trigger('updateSteps', steps);
+
             } else if ( promotionType === 'instore' ) {
-                $("#column2").hide();
-                $("#column3").show();
+
+                // Toggle step 4 active/inactive
+                // If inactive, wizard hides it and skips over it during navigation
+                lastStepEnabled = !lastStepEnabled; // toggle status
+                steps[3].active = !steps[3].active; // toggle active
+                connection.trigger('updateSteps', steps);
+
             } else if ( promotionType === 'online-instore' ) {
                 $("#column2").show();
                 $("#column3").show();
@@ -280,11 +293,9 @@ define([
     }
 
     function onClickedNext () {
-        if ( currentStep.key === 'step2' ) {
+        if ( currentStep.key === 'step4' ) {
             save();
         } else {
-            saveToDataExtension();
-            updateSummaryPage();
             connection.trigger('nextStep');
         }
     }
@@ -311,8 +322,8 @@ define([
             case 'step1':
                 $('#step1').show();
                 connection.trigger('updateButton', {
-                    button: 'next',
-                    enabled: true
+                    button: 'next'
+                    //enabled: Boolean(getMessage())
                 });
                 connection.trigger('updateButton', {
                     button: 'back',
@@ -327,9 +338,32 @@ define([
                 });
                 connection.trigger('updateButton', {
                     button: 'next',
-                    text: 'done',
+                    text: 'next',
                     visible: true
                 });
+                break;
+            case 'step3':
+                $('#step3').show();
+                connection.trigger('updateButton', {
+                     button: 'back',
+                     visible: true
+                });
+                if (lastStepEnabled) {
+                    connection.trigger('updateButton', {
+                        button: 'next',
+                        text: 'next',
+                        visible: true
+                    });
+                } else {
+                    connection.trigger('updateButton', {
+                        button: 'next',
+                        text: 'done',
+                        visible: true
+                    });
+                }
+                break;
+            case 'step4':
+                $('#step4').show();
                 break;
         }
     }
