@@ -75,38 +75,41 @@ define([
             
             var promotionType = $("input[name='promotionType']:checked").val();
 
+            console.log(promotionType);
+
             if ( promotionType === 'online' ) {
 
                 // Toggle step 4 active/inactive
                 // If inactive, wizard hides it and skips over it during navigation
-                onlineSetupStepEnabled  = !onlineSetupStepEnabled; // toggle status
-                steps[2].active         = !steps[2].active; // toggle active
+                onlineSetupStepEnabled      = true; // toggle status
+                steps[2].active             = true; // toggle active
+                console.log(steps);
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'instore' ) {
 
                 // Toggle step 4 active/inactive
                 // If inactive, wizard hides it and skips over it during navigation
-                instoreSetupStepEnabled     = !instoreSetupStepEnabled; // toggle status
-                steps[3].active             = !steps[3].active; // toggle active
+                instoreSetupStepEnabled     = true; // toggle status
+                steps[3].active             = true; // toggle active
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'online-instore' ) {
 
-                onlineSetupStepEnabled  = !onlineSetupStepEnabled; // toggle status
-                steps[2].active         = !steps[2].active; // toggle active
-                instoreSetupStepEnabled     = !instoreSetupStepEnabled; // toggle status
-                steps[3].active             = !steps[3].active; // toggle active
+                onlineSetupStepEnabled      = true; // toggle status
+                steps[2].active             = true; // toggle active
+                instoreSetupStepEnabled     = true; // toggle status
+                steps[3].active             = true; // toggle active
                 connection.trigger('updateSteps', steps);
             }
         });
 
         // error logic
-        $('.slds-col').on('keyup change paste', 'input, select, textarea', function(){
-            console.log('Form changed!');
-            console.log(this);
+        //$('.slds-col').on('keyup change paste', 'input, select, textarea', function(){
+            //console.log('Form changed!');
+            //console.log(this);
             //runFormValidation()
-        });
+        //});
 
         // hide the tool tips on page load
         $('.slds-popover_tooltip').hide();
@@ -310,13 +313,14 @@ define([
     }
 
     function onGotoStep (step) {
+        console.log(step)
         showStep(step);
         connection.trigger('ready');
     }
 
     function showStep(step, stepIndex) {
 
-        
+        console.log("Step Index:");
         console.log(stepIndex);
 
         if (stepIndex && !step) {
@@ -325,6 +329,7 @@ define([
 
         currentStep = step;
 
+        console.log("Current Step:");
         console.log(step);
 
         $('.step').hide();
@@ -370,6 +375,10 @@ define([
         } else {
 
             $('#step4').show();
+            connection.trigger('updateButton', {
+                button: 'back',
+                visible: true
+            });
             connection.trigger('updateButton', {
                 button: 'next',
                 text: 'done',
