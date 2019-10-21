@@ -2,23 +2,11 @@ body {
     padding: 20px;
     margin: 0;
 }
-
 .step {
     display: none;
 }
-
-#step1 {
+#step0 {
     display: block;
-}
-#column1 {
-	padding-right:15px;
-}
-#column2 {
-	display: none;
-	padding-right:15px;
-}
-#column3 {
-	display: none;
 }
 #test-api-insert {
 	display: none;
