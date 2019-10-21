@@ -9,9 +9,7 @@
     "lang": {
         "en-US": {
           "name": "Associate Promotion",
-          "description": "Associate an In Store code with a journey",
-          "step1Label": "Configure Push Message",
-          "step2label": "Summary"
+          "description": "Associate an promotion with part of a journey"
         }
     },
     "arguments": {
@@ -55,22 +53,22 @@
       }
     },
     "wizardSteps": [{
-        "label": "Promotion Type",
-        "key": "step1"
+        "label": "Step 0",
+        "key": "step0"
       },
       {
-        "label": "Online Voucher Setup",
+        "label": "Step 1",
+        "key": "step1",
+        "active": false
+      },
+      {
+        "label": "Step 2",
         "key": "step2",
         "active": false
       },
       {
-        "label": "Instore Voucher Setup",
-        "key": "step3",
-        "active": false
-      },
-      {
-        "label": "Summary",
-        "key": "step4"
+        "label": "Step 3",
+        "key": "step3"
       }
     ],
    "userInterfaces": {
