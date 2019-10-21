@@ -315,6 +315,10 @@ define([
     }
 
     function showStep(step, stepIndex) {
+
+        
+        console.log(stepIndex);
+
         if (stepIndex && !step) {
             step = steps[stepIndex-1];
         }
@@ -325,51 +329,54 @@ define([
 
         $('.step').hide();
 
-        switch(currentStep.key) {
-            case 'step1':
-                $('#step1').show();
-                connection.trigger('updateButton', {
-                    button: 'next'
-                    //enabled: Boolean(getMessage())
-                });
-                connection.trigger('updateButton', {
-                    button: 'back',
-                    visible: false
-                });
-                break;
-            case 'step2':
-                $('#step2').show();
-                connection.trigger('updateButton', {
-                    button: 'back',
-                    visible: true
-                });
-                connection.trigger('updateButton', {
-                    button: 'next',
-                    text: 'next',
-                    visible: true
-                });
-                break;
-            case 'step3':
-                $('#step3').show();
-                connection.trigger('updateButton', {
-                    button: 'back',
-                    visible: true
-                });
-                connection.trigger('updateButton', {
-                    button: 'next',
-                    text: 'next',
-                    visible: true
-                });
-                break;
-            case 'step4':
-                $('#step4').show();
-                connection.trigger('updateButton', {
-                        button: 'next',
-                        text: 'done',
-                        visible: true
-                    });
-                break;
+        if ( currentStep.key == 'step1' ) {
+
+            $('#step1').show();
+            connection.trigger('updateButton', {
+                button: 'next'
+                //enabled: Boolean(getMessage())
+            });
+            connection.trigger('updateButton', {
+                button: 'back',
+                visible: false
+            });
+
+        } else if ( currentStep.key == 'step2' ) {
+
+            $('#step2').show();
+            connection.trigger('updateButton', {
+                button: 'back',
+                visible: true
+            });
+            connection.trigger('updateButton', {
+                button: 'next',
+                text: 'next',
+                visible: true
+            });
+
+        } else if ( currentStep.key == 'step3') {
+
+            $('#step3').show();
+            connection.trigger('updateButton', {
+                button: 'back',
+                visible: true
+            });
+            connection.trigger('updateButton', {
+                button: 'next',
+                text: 'next',
+                visible: true
+            });
+
+        } else {
+
+            $('#step4').show();
+            connection.trigger('updateButton', {
+                button: 'next',
+                text: 'done',
+                visible: true
+             });            
         }
+
     }
 
     function save() {
