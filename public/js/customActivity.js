@@ -11,10 +11,10 @@ define([
     var onlineSetupStepEnabled      = false;
     var instoreSetupStepEnabled     = false;
     var steps                       = [
-        { "label": "Step 0", "key": "step0" },
-        { "label": "Step 1", "key": "step1", "active": false },
-        { "label": "Step 2", "key": "step2", "active": false },
-        { "label": "Step 3", "key": "step3" }
+        { "label": "Promotion Type", "key": "step0" },
+        { "label": "Online Voucher Setup", "key": "step1", "active": false },
+        { "label": "Instore Voucher Setup", "key": "step2", "active": false },
+        { "label": "Summary", "key": "step3" }
     ];
     var currentStep = steps[0].key;
 
@@ -360,6 +360,15 @@ define([
                 break;
             case 'step3':
                 $('#step3').show();
+                connection.trigger('updateButton', {
+                    button: 'next',
+                    text: 'done'
+                    //enabled: Boolean(getMessage())
+                });
+                connection.trigger('updateButton', {
+                    button: 'back',
+                    visible: true
+                });
                 break;
         }
     }

@@ -53,21 +53,21 @@
       }
     },
     "wizardSteps": [{
-        "label": "Step 0",
+        "label": "Promotion Type",
         "key": "step0"
       },
       {
-        "label": "Step 1",
+        "label": "Online Voucher Setup",
         "key": "step1",
         "active": false
       },
       {
-        "label": "Step 2",
+        "label": "Instore Voucher Setup",
         "key": "step2",
         "active": false
       },
       {
-        "label": "Step 3",
+        "label": "Summary",
         "key": "step3"
       }
     ],
