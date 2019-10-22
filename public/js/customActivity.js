@@ -323,7 +323,7 @@ define([
             // online code setup
             var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
-            var instantInWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
+            var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
             var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
