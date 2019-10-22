@@ -28,7 +28,7 @@
 <body>
     <div id="step0" class="step">
         <div class="slds-grid">
-            <div class="slds-col" id="column1">
+            <div class="slds-col">
                 <h2>Promotion Type</h2>
                 <button id="toggle_step1">Toggle Step 1</button>
                 <button id="toggle_step2">Toggle Step 2</button>
@@ -76,8 +76,13 @@
                     </div>
                 </div>
             </div>
+            <div class="slds-col">
+                <h2>Promotion Type</h2>
+                <p>Possible options: Online, Instore, Online and Instore. This option allows the script within email templates to know what vouchers to select</p>
+                <h2>Target Data Extension</h2>
+                <p>The Update Contact widget requires a Data Extension, please enter the Data Extension Name here.</p>
+            </div>
         </div>
-        <br />
         <button id="test-api-insert">Test API Insert</button>
     </div>
 
@@ -235,6 +240,10 @@
                 </div>
 
             </div>
+            <div class="slds-col">
+                <h2>Online Vouhcer Setup</h2>
+                <p>This is where you can configure and Online Voucher Code. The "Offer Type" allows the script to narrow the search for a code. Promotion ID and Promotion Group ID must be entered manually. Promotion Group ID must be unique to this campaign.</p>
+            </div>
         </div>
     </div>
 
@@ -372,6 +381,10 @@
                         <input type="text" id="promotion_group_id_instore" placeholder="Promotion Group ID" class="slds-input" />
                     </div>
                 </div>
+            </div>
+            <div class="slds-col">
+                <h2>Instore Voucher Setup</h2>
+                <p>Here you can select a Promotion Code from IF023 (Diebold). Promotion Group ID is entered manually.</p>
             </div>
         </div>
     </div>

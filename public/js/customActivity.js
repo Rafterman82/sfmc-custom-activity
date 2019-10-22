@@ -69,25 +69,6 @@ define([
             }
         }});
 
-
-        // Toggle step 4 active/inactive
-        // If inactive, wizard hides it and skips over it during navigation
-        $('#toggle_step1').click(function() {
-            console.log("trigger step 1");
-            onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
-            steps[1].active = !steps[1].active; // toggle active
-            console.log(steps);
-            connection.trigger('updateSteps', steps);
-        });
-
-        $('#toggle_step2').click(function() {
-            console.log("trigger step 2");
-            instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
-            steps[2].active = !steps[2].active; // toggle active
-            console.log(steps);
-            connection.trigger('updateSteps', steps);
-        });
-
         $('.promotion_type').click(function() {
 
             var promotionType = $("input[name='promotionType']:checked").val();
