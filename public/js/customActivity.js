@@ -327,7 +327,14 @@ define([
         // specific promo data
         if ( promotionType == 'online' || promotionType == 'online_instore' ) {
 
+            // comms history
             var communicationCellCodeOnline = $("#step1 input[name='promotionType']:checked").val();
+            var cellCodeOnline              = $("#step1 .slds-form-element__control #cell_code_online").val();
+            var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
+            var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
+            var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
+
+            // online code setup
             var offerType                   = $("#step1 .slds-form-element__control #offer_type").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantInWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
@@ -336,7 +343,14 @@ define([
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
 
-            $('#communication_cell_code_online_summary').html(communicationCellCodeOnline);            
+            // update online comms history summary
+            $('#communication_cell_code_online_summary').html(communicationCellCodeOnline);
+            $('#cell_code_online_summary').html(cellCodeOnline);
+            $('#cell_name_online_summary').html(cellNameOnline);
+            $('#campaign_name_online_summary').html(campaignNameOnline);
+            $('#campaign_id_online_summary').html(campaignIdOnline);
+
+            // update online voucher setup summary
             $('#offer_type_summary').html(offerType);
             $('#print_at_till_online_summary').html(printAtTillOnline);
             $('#instant_win_online_summary').html(instantInWinOnline);
@@ -346,6 +360,12 @@ define([
             $('#mc_unique_promotion_id_online_summary').html(mcUniquePromotionIdOnline);
 
             if ( promotionType == 'online' ) {
+
+                $('#communication_cell_code_instore_summary').html("-");
+                $('#cell_code_instore_summary').html("-");
+                $('#cell_name_instore_summary').html("-");
+                $('#campaign_name_instore_summary').html("-");
+                $('#campaign_id_instore_summary').html("-");
 
                 $('#communication_cell_code_instore_summary').html("-");            
                 $('#print_at_till_instore_summary').html("-");
@@ -359,6 +379,14 @@ define([
 
         } else if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
 
+            // comms instore history
+            var communicationCellCodeInstore    = $("#step1 input[name='promotionType']:checked").val();
+            var cellCodeInstore                 = $("#step1 .slds-form-element__control #cell_code_instore").val();
+            var cellNameInstore                 = $("#step1 .slds-form-element__control #cell_name_instore").val();
+            var campaignNameInstore             = $("#step1 .slds-form-element__control #campaign_name_instore").val();
+            var campaignIdInstore               = $("#step1 .slds-form-element__control #campaign_id_instore").val();
+
+            // instore voucher setup
             var communicationCellCodeInstore    = $("#step2 .slds-form-element__control #communication_cell_code_instore").val();
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
             var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
@@ -367,6 +395,14 @@ define([
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
 
+            // update instore comms history summary
+            $('#communication_cell_code_instore_summary').html(communicationCellCodeInstore);
+            $('#cell_code_instore_summary').html(cellCodeInstore);
+            $('#cell_name_instore_summary').html(cellNameInstore);
+            $('#campaign_name_instore_summary').html(campaignNameInstore);
+            $('#campaign_id_instore_summary').html(campaignIdInstore);
+
+            // update instore setup
             $('#communication_cell_code_instore_summary').html(communicationCellCodeInstore);            
             $('#print_at_till_instore_summary').html(printAtTillInstore);
             $('#instant_win_instore_summary').html(instantInWinInstore);
@@ -377,7 +413,12 @@ define([
 
             if ( promotionType == 'instore' ) {
 
-                $('#communication_cell_code_online_summary').html("-");            
+                $('#communication_cell_code_online_summary').html("-");
+                $('#cell_code_online_summary').html("-");
+                $('#cell_name_online_summary').html("-");
+                $('#campaign_name_online_summary').html("-");
+                $('#campaign_id_online_summary').html("-");
+
                 $('#offer_type_summary').html("-");
                 $('#print_at_till_online_summary').html("-");
                 $('#instant_win_online_summary').html("-");
