@@ -426,6 +426,8 @@ define([
             } else if ( currentStep.key === 'step2' ) {
                 saveToDataExtension();
                 save();
+            } else {
+                connection.trigger('nextStep');
             }
 
         } else if ( promotionType == 'instore' ) {
@@ -436,6 +438,8 @@ define([
             } else if ( currentStep.key === 'step2' ) {
                 saveToDataExtension();
                 save();
+            } else {
+                connection.trigger('nextStep');
             }
 
         } else if ( promotionType == 'online_instore' ) {
@@ -446,7 +450,10 @@ define([
             } else if ( currentStep.key === 'step3' ) {
                 saveToDataExtension();
                 save();
+            } else {
+                connection.trigger('nextStep');
             }
+            
         } else {
             connection.trigger('nextStep');
         }
