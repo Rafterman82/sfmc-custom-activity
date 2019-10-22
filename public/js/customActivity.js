@@ -409,7 +409,7 @@ define([
             // update instore setup
             $('#communication_cell_code_instore_summary').html(communicationCellCodeInstore);            
             $('#print_at_till_instore_summary').html(printAtTillInstore);
-            $('#instant_win_instore_summary').html(instantInWinInstore);
+            $('#instant_win_instore_summary').html(instantWinInstore);
             $('#medium_instore_summary').html(mediumInstore);
             $('#instore_code_summary').html(instoreCode);
             $('#promotion_group_id_instore_summary').html(promotionGroupIdInstore);
