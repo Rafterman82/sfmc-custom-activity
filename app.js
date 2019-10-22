@@ -109,7 +109,9 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 
 
 // insert data into data extension
-app.post('/dataextension/add', urlencodedparser, function (req, res){  
+app.post('/dataextension/add', urlencodedparser, function (req, res){ 
+
+	console.dir("here");
 	
 	console.log(req.body);
 

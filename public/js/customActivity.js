@@ -582,7 +582,6 @@ define([
             console.log(currentStep.key);            
         }
 
-
         if ( promotionType == 'online' ) {
 
             if ( currentStep.key === 'step1' ) {
