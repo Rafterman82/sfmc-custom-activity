@@ -319,10 +319,8 @@ define([
     function updateSummaryPage() {
 
          // main promo data
-        var promotionType       = $("#step0 .slds-radio input[name='promotionType']:checked").val();
-        var targetDataExtension = $("#step0 #target_data_extension").val();
+        var promotionType = $("#step0 .slds-radio input[name='promotionType']:checked").val();
         $('#promotion_type_summary').html(promotionType);
-        $('#target_data_extension_summary').html(targetDataExtension);
 
         // specific promo data
         if ( promotionType == 'online' || promotionType == 'online_instore' ) {
@@ -344,9 +342,6 @@ define([
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
-
-            // promotion type
-            $("#promotion_type_summary").html(promotionType);
 
             // update online comms history summary
             $('#communication_cell_code_online_summary').html(communicationCellCodeOnline);
@@ -382,7 +377,9 @@ define([
 
             }
 
-        } else if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
+        }
+        
+        if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
 
             console.log("hit promotype instore/online_instore");
 
@@ -401,9 +398,6 @@ define([
             var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
-
-            // promotion type
-            $("#promotion_type_summary").html(promotionType);
 
             // update instore comms history summary
             $('#communication_cell_code_instore_summary').html(communicationCellCodeInstore);
@@ -442,10 +436,10 @@ define([
                 $('#promotion_id_online_summary').html("-");
                 $('#promotion_group_id_online_summary').html("-");
                 $('#mc_unique_promotion_id_online_summary').html("-");
-                
+
             }
 
-        }            
+        }           
        
     }
 
