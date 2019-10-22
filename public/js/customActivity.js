@@ -416,6 +416,7 @@ define([
 
         var promotionType = $("#step0 .slds-radio input[name='promotionType']:checked").val();
         console.log(promotionType);
+        console.log(currentStep.key);
 
         if ( promotionType == 'online' ) {
 
