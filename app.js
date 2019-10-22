@@ -125,12 +125,14 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	            "campaign_name": req.body.campaign_name,
 	            "campaign_id": req.body.campaign_id,
 	            "offer_type": req.body.offer_type,
+	            "instore_code": req.body.instore_code,
 	            "print_at_till": req.body.print_at_till,
 	            "instant_win": req.body.instant_win,
 	            "offer_channel": req.body.offer_channel,
 	            "offer_medium": req.body.offer_medium,
 	            "promotion_id": req.body.promotion_id,
-	            "promotion_group_id": req.body.promotion_group_id
+	            "promotion_group_id": req.body.promotion_group_id,
+	            "promotion_type": req.body.promotion_type
 	        }
 	    }
 	];
