@@ -329,7 +329,7 @@ define([
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
 
-            var row = {
+            var rowOnline = {
                 "promotion_type": promotionType,
                 "communication_cell_code": communicationCellCodeOnline,
                 "cell_code": cellCodeOnline,
@@ -347,7 +347,11 @@ define([
                 "mc_unique_promotion_id" : mcUniquePromotionIdOnline
             }
 
-            addRow(row);
+            if ( debug ) {
+                console.log(rowOnline);
+            }
+
+            addRow(rowOnline);
 
         }
 
@@ -372,7 +376,7 @@ define([
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
             
-            var row = {
+            var rowInstore = {
                 "promotion_type": promotionType,
                 "communication_cell_code": communicationCellCodeInstore,
                 "cell_code": cellCodeInstore,
@@ -390,32 +394,38 @@ define([
             }
 
             if ( debug ) {
-                console.log(row);
+                console.log(rowInstore);
             }
 
-            addRow(row);
+            addRow(rowInstore);
 
         }    
 
     }
 
     function addRow(row) {
-        $.ajax({ 
-            url: '/dataextension/add',
-            type: 'POST',
-            cache: false, 
-            data: row, 
-            success: function(data){
-                if ( debug ) {
-                    console.log(data);    
+
+        try {
+            $.ajax({ 
+                url: '/dataextension/add',
+                type: 'POST',
+                cache: false, 
+                data: row, 
+                success: function(data){
+                    if ( debug ) {
+                        console.log(data);    
+                    }
                 }
-            }
-            , error: function(jqXHR, textStatus, err){
-                if ( debug ) {
-                    console.log(err);
+                , error: function(jqXHR, textStatus, err){
+                    if ( debug ) {
+                        console.log(err);
+                    }
                 }
-            }
-        }); 
+            }); 
+        } catch(e) {
+            console.log(e);
+        }
+
     }
 
     function updateSummaryPage() {
@@ -591,8 +601,11 @@ define([
 
             } else if ( currentStep.key === 'step2' ) {
 
+                console.log("save to de");
                 saveToDataExtension();
-                save();
+                setTimeout(function() {
+                    save();
+                }, 3000);
 
             } else {
 
@@ -609,8 +622,12 @@ define([
 
             } else if ( currentStep.key === 'step2' ) {
 
+                console.log("save to de");
                 saveToDataExtension();
-                save();
+                setTimeout(function() {
+                    save();
+                }, 3000);
+                
 
             } else {
 
@@ -626,8 +643,11 @@ define([
 
             } else if ( currentStep.key === 'step3' ) {
 
+                console.log("save to de");
                 saveToDataExtension();
-                save();
+                setTimeout(function() {
+                    save();
+                }, 3000);
 
             } else {
 

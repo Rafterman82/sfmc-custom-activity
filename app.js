@@ -110,10 +110,8 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 
 // insert data into data extension
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
-
-	console.dir("here");
 	
-	console.log(req.body);
+	console.dir(req.body);
 
 	var row = [
 	    {
@@ -136,8 +134,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	        }
 	    }
 	];
-	console.log(row);
-   	console.log('req received');
+	console.dir(row);
+   	console.dir('req received');
    	res.redirect('/');
 
    	axios({
