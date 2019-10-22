@@ -337,6 +337,7 @@ define([
                 "camapign_name": campaignNameOnline,
                 "campaign_id": campaignIdOnline,
                 "offer_type": offerType,
+                "instore_code": "-",
                 "print_at_till": printAtTillOnline,
                 "instant_win": instantInWinOnline,
                 "offer_channel": "Online",
@@ -735,13 +736,28 @@ define([
 
     function save() {
 
-        var campaign    = getInputValue('#campaign', 'value');
-        var channel     = getInputValue('#channel', 'value');
-        var activity    = getInputValue('#activity', 'value');
-        var promotion   = getInputValue('#promotion', 'value');
-        var id          = campaign + "-" + activity + "-" + channel + "-" + promotion;
-        var name = id;
-        var value = id;
+        var promotionType = $("#step0 .slds-radio input[name='promotionType']:checked").val();
+
+        if ( promotionType == "online" ) {
+
+            var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
+
+        } else if ( promotionType == "instore" ) {
+
+            var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_instore").val();
+
+        } else if ( promotionType == "online_store" ) {
+
+            var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val() + $("#step1 .slds-form-element__control #mc_unique_promotion_id_instore").val();
+
+        }
+
+        if ( debug ) {
+            console.log(mc_unique_code);
+        }
+
+        var name = mc_unique_code;
+        var value = mc_unique_code;
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
