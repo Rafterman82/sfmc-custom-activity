@@ -418,7 +418,7 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input type="text" id="mc_unique_promotion_id_instore" placeholder="Communication Cell Code" class="slds-input" />
+                        <input type="text" id="mc_unique_promotion_id_instore" placeholder="MC Unique Promotion ID" class="slds-input" />
                     </div>
                 </div>
 
@@ -556,34 +556,22 @@
 
     <div id="step3" class="step">
         <div class="slds-grid slds-gutters">
-            <div class="slds-col slds-size_1-of-3">
 
+            <div class="slds-col slds-size_1-of-5">
                 <div class="slds-form-element slds-form-element_readonly">
                     <span class="slds-form-element__label">Promotion Type</span>
                     <div class="slds-form-element__control">
                         <div class="slds-form-element__static" id="promotion_type"></div>
                     </div>
                 </div>
-
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Target Data Extension</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="target_data_extension"></div>
-                    </div>
-                </div>
             </div>
 
-            <div class="slds-col slds-size_1-of-3">
+            <div class="slds-col slds-size_1-of-5">
+                <h2>Online Voucher Setup</h2>
                 <div class="slds-form-element slds-form-element_readonly">
                     <span class="slds-form-element__label">MC Unique Promotion ID</span>
                     <div class="slds-form-element__control">
                         <div class="slds-form-element__static" id="mc_unique_promotion_id_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Online Communication Cell Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="communication_cell_code_online_summary"></div>
                     </div>
                 </div>
                 <div class="slds-form-element slds-form-element_readonly">
@@ -624,7 +612,41 @@
                 </div>
             </div>
 
-             <div class="slds-col slds-size_1-of-3">
+            <div class="slds-col slds-size_1-of-5">
+                <h2>Online Comms History</h2>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Online Communication Cell Code</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="communication_cell_code_online_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Online Cell Code</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="cell_code_online_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Online Cell Name</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="cell_name_online_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Online Campaign Name</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="campaign_name_online_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Online Campaign ID</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="campaign_id_online_summary"></div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-form-element slds-form-element_readonly">
                     <span class="slds-form-element__label">Communication Cell Code Instore</span>
                     <div class="slds-form-element__control">
@@ -662,24 +684,74 @@
                     </div>
                 </div>
             </div>
+
+            <div class="slds-col slds-size_1-of-5">
+                <h2>Instore Comms History</h2>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Instore Communication Cell Code</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="communication_cell_code_instore_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Instore Cell Code</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="cell_code_instore_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Instore Cell Name</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="cell_name_instore_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Instore Campaign Name</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="campaign_name_instore_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Instore Campaign ID</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="campaign_id_instore_summary"></div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div class="slds-grid slds-gutters">
-            <div class="slds-col">         
+            <div class="slds-col">
                 <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
                     <div class="slds-media__figure">
                         <span class="slds-icon_container slds-icon-utility-info" title="information">
                             <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
-                            <span class="slds-assistive-text">Promotion Association Key</span>
+                            <span class="slds-assistive-text">Online Promotion Association Key</span>
                         </span>
                     </div>
                     <div class="slds-media__body">
-                        <p>Your unique Promotion Association Key is: <b><span id="keySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
+                        <p>Your unique Online Promotion Association Key is: <b><span id="onlineKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
+                    </div>
+                </div>        
+                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-utility-info" title="information">
+                            <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Instore Promotion Association Key</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <p>Your unique Instore Promotion Association Key is: <b><span id="instoreKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 </body>
 </html>
