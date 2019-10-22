@@ -414,28 +414,40 @@ define([
 
     function onClickedNext () {
 
-        console.log("steps");
-        console.log(steps);
+        var promotionType = $("#step0 .slds-radio input[name='promotionType']:checked").val();
+        console.log(promotionType);
 
-        if ( steps[2].active && !steps[3].active ) {
-            if ( currentStep.key === 'step1') {
+        if ( promotionType == 'online' ) {
+
+            if ( currentStep.key === 'step1' ) {
                 updateSummaryPage();
-            } else if ( currentStep.key === 'step2') {
-                saveToDataExtension();
-                save();               
-            } else {
                 connection.trigger('nextStep');
-            }
-        } else if ( steps[2].active && steps[3].active ) {
-            if ( currentStep.key === 'step2') {
-                updateSummaryPage();
-            } else if ( currentStep.key === 'step3') {
+            } else if ( currentStep.key === 'step2' ) {
                 saveToDataExtension();
                 save();
-            } else {
-                connection.trigger('nextStep');
             }
 
+        } else if ( promotionType == 'instore' ) {
+
+            if ( currentStep.key === 'step1' ) {
+                updateSummaryPage();
+                connection.trigger('nextStep');
+            } else if ( currentStep.key === 'step2' ) {
+                saveToDataExtension();
+                save();
+            }
+
+        } else if ( promotionType == 'online_instore' ) {
+            
+            if ( currentStep.key === 'step2') {
+                updateSummaryPage();
+                connection.trigger('nextStep');
+            } else if ( currentStep.key === 'step3' ) {
+                saveToDataExtension();
+                save();
+            }
+        } else {
+            connection.trigger('nextStep');
         }
     }
 
