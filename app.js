@@ -112,22 +112,25 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 app.post('/dataextension/add', urlencodedparser, function (req, res){  
 	
 	console.log(req.body);
-	var id = decodeURI(req.body.id);
-	var campaign = req.body.campaign;
-	var channel = req.body.channel;
-	var activity = req.body.activity;
-	var promotion = decodeURI(req.body.promotion);
 
 	var row = [
 	    {
 	        "keys": {
-	            "id": id
+	            "mc_unique_promotion_id": req.body.mc_unique_promotion_id
 	        },
 	        "values": {
-	            "campaign": campaign,
-	            "channel": channel,
-	            "activity": activity,
-	            "promotion": promotion
+	        	"communication_cell_code": req.body.communication_cell_code,
+	        	"cell_code": req.body.cell_code,
+	        	"cell_name": req.body.cell_name,
+	            "campaign_name": req.body.campaign_name,
+	            "campaign_id": req.body.campaign_id,
+	            "offer_type": req.body.offer_type,
+	            "print_at_till": req.body.print_at_till,
+	            "instant_win": req.body.instant_win,
+	            "offer_channel": req.body.offer_channel,
+	            "offer_medium": req.body.offer_medium,
+	            "promotion_id": req.body.promotion_id,
+	            "promotion_group_id": req.body.promotion_group_id
 	        }
 	    }
 	];

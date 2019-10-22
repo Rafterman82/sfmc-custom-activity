@@ -42,9 +42,14 @@ define([
 
         // access promotions and build select input
         $.ajax({url: "/dataextension/lookup/offer_types", success: function(result){
-            console.log('lookup offers executed');
-            console.log(result.items);
+
+            if ( debug ) {
+                console.log('lookup offers executed');
+                console.log(result.items);                
+            }
+
             var i;
+
             for (i = 0; i < result.items.length; ++i) {
                 // do something with `substr[i]
                 $("#offer_type_online").append("<option value=" + result.items[i].keys.offertype.replace(/ /g,"_") + ">" + result.items[i].keys.offertype + "</option>");
@@ -53,8 +58,12 @@ define([
 
         // access offer types and build select input
         $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
-            console.log('lookup promotions executed');
-            console.log(result.items);
+
+            if ( debug ) {
+                console.log('lookup promotions executed');
+                console.log(result.items);               
+            }
+
             var i;
             for (i = 0; i < result.items.length; ++i) {
                 // do something with `substr[i]
@@ -66,44 +75,74 @@ define([
 
             var promotionType = $("input[name='promotionType']:checked").val();
 
-            console.log(promotionType);
+            if ( debug ) {
+
+                console.log(promotionType);
+
+            }
+            
 
             if ( promotionType === 'online' ) {
 
-                console.log("trigger step 1");
+                if ( debug ) {
+                    console.log("trigger step 1");   
+                }
+                
                 onlineSetupStepEnabled = true; // toggle status
                 steps[1].active = true; // toggle active
                 instoreSetupStepEnabled = false; // toggle status
                 steps[2].active = false; // toggle active
-                console.log(onlineSetupStepEnabled);
-                console.log(instoreSetupStepEnabled);
-                console.log(steps);
+
+                if ( debug ) {
+                    console.log(onlineSetupStepEnabled);
+                    console.log(instoreSetupStepEnabled);
+                    console.log(steps);                    
+                }
+
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'instore' ) {
 
-                console.log("trigger step 2");
+                if ( debug ) {
+                    console.log("trigger step 2");   
+                }
+                
                 onlineSetupStepEnabled = false; // toggle status
                 steps[1].active = false; // toggle active
                 instoreSetupStepEnabled = true; // toggle status
                 steps[2].active = true; // toggle active
-                console.log(onlineSetupStepEnabled);
-                console.log(instoreSetupStepEnabled);
-                console.log(steps);
+
+                if ( debug ) {
+                    console.log(onlineSetupStepEnabled);
+                    console.log(instoreSetupStepEnabled);
+                    console.log(steps);                    
+                }
+
                 connection.trigger('updateSteps', steps);
 
             } else if ( promotionType === 'online_instore' ) {
 
-                console.log("trigger step 1 & 2");
+                if ( debug ) {
+                    console.log("trigger step 1 & 2");                    
+                }
+
                 onlineSetupStepEnabled = true; // toggle status
                 steps[1].active = true; // toggle active
-                console.log(steps);
+
+                if ( debug ) {
+                    console.log(steps);                    
+                }
+
                 instoreSetupStepEnabled = true; // toggle status
                 steps[2].active = true; // toggle active
-                console.log(steps);
-                console.log(onlineSetupStepEnabled);
-                console.log(instoreSetupStepEnabled);
+
+                if ( debug ) {
+                    console.log(steps);
+                    console.log(onlineSetupStepEnabled);
+                    console.log(instoreSetupStepEnabled);
+                }
                 connection.trigger('updateSteps', steps);
+
 
             }
 
@@ -121,9 +160,17 @@ define([
             // make sure any opened tooltips are closed
             //$('.slds-popover_tooltip').hide();
             var clickedElement = $(this).attr('id').split("__");
-            console.log(clickedElement);
+
+            if ( debug ) {
+                console.log(clickedElement);
+            }
+            
             var helpBlock = "#" + clickedElement[0] + "__help";
-            console.log(helpBlock);
+
+            if ( debug ) {
+                console.log(helpBlock);    
+            }
+            
             $(helpBlock).show();
             setTimeout(function() {
                 $(helpBlock).fadeOut();
@@ -238,67 +285,96 @@ define([
 
     function saveToDataExtension() {
 
-        // main promo data
-        var promotionType       = $("#step0 .slds-radio input[name='promotionType']:checked").val();
-        var targetDataExtension = $("#step0 #target_data_extension").val();
+        var promotionType = $("#step0 .slds-radio input[name='promotionType']:checked").val();
+        $('#promotion_type_summary').html(promotionType);
 
         // specific promo data
         if ( promotionType == 'online' || promotionType == 'online_instore' ) {
 
-            var communicationCellCodeOnline = $("#step1 input[name='promotionType']:checked").val();
-            var offerType                   = $("#step1 .slds-select_container #offer_type").val();
-            var printAtTillOnline           = $("#step1 .slds-select_container #print_at_till_online").val();
-            var instantInWinOnline          = $("#step1 .slds-select_container #instant_win_online").val();
-            var mediumOnline                = $("#step1 .slds-select_container #medium_online").val();
+
+            if ( debug ) {
+                console.log("hit promotype online/online_instore");    
+            }
+            
+            // comms history
+            var communicationCellCodeOnline = $("#step1 .slds-form-element__control #communication_cell_code_online").val();
+            var cellCodeOnline              = $("#step1 .slds-form-element__control #cell_code_online").val();
+            var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
+            var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
+            var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
+
+            // online code setup
+            var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
+            var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
+            var instantInWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
+            var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
 
             row = {
                 "promotion_type": promotionType,
-                "target_data_extension": targetDataExtension,
                 "communication_cell_code": communicationCellCodeOnline,
+                "cell_code": cellCodeOnline,
+                "cell_name": cellNameOnline,
+                "camapign_name": campaignNameOnline,
+                "campaign_id": campaignIdOnline,
                 "offer_type": offerType,
                 "print_at_till": printAtTillOnline,
                 "instant_win": instantInWinOnline,
                 "offer_channel": 'Online',
-                "offer_medium": medium_online,
-                "promotion_id": promotion_id_online,
+                "offer_medium": mediumOnline,
+                "promotion_id": promotionIdOnline,
                 "promotion_group_id": promotionGroupIdOnline,
                 "mc_unique_promotion_id" : mcUniquePromotionIdOnline
             }
 
-            console.log(row);
-
             addRow(row);
 
-        } else if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
+        }
 
+        if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
+
+            if ( debug ) {
+                console.log("hit promotype instore/online_instore");
+            }
+
+            // comms instore history
             var communicationCellCodeInstore    = $("#step2 .slds-form-element__control #communication_cell_code_instore").val();
-            var printAtTillInstore              = $("#step2 .slds-select_container #print_at_till_instore").val();
-            var instantWinInstore               = $("#step2 .slds-select_container #instant_win_instore").val();
-            var mediumInstore                   = $("#step2 .slds-select_container #medium_instore").val();
+            var cellCodeInstore                 = $("#step2 .slds-form-element__control #cell_code_instore").val();
+            var cellNameInstore                 = $("#step2 .slds-form-element__control #cell_name_instore").val();
+            var campaignNameInstore             = $("#step2 .slds-form-element__control #campaign_name_instore").val();
+            var campaignIdInstore               = $("#step2 .slds-form-element__control #campaign_id_instore").val();
+
+            // instore voucher setup
+            var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
+            var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
+            var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
             var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
-
+            
             row = {
                 "promotion_type": promotionType,
-                "target_data_extension": targetDataExtension,
                 "communication_cell_code": communicationCellCodeInstore,
+                "cell_code": cellCodeInstore,
+                "cell_name": cellNameInstore,
+                "camapign_name": campaignNameInstore,
+                "campaign_id": campaignIdInstore,
+                "offer_type": "-",
                 "print_at_till": printAtTillInstore,
-                "instant_win": instantInWinInstore,
-                "offer_channel": 'Store',
+                "instant_win": instantInWinInstoree,
+                "offer_channel": 'Instore',
                 "offer_medium": mediumInstore,
-                "instore_code": instoreCode,
+                "promotion_id": instoreCode,
                 "promotion_group_id": promotionGroupIdInstore,
-                "mc_unique_promotion_id": mcUniquePromotionIdInstore
+                "mc_unique_promotion_id" : mcUniquePromotionIdInstore
             }
 
-            console.log(row);
-
             addRow(row);
-        }
+
+        }    
+
     }
 
     function addRow(row) {
@@ -308,10 +384,14 @@ define([
             cache: false, 
             data: row, 
             success: function(data){
-                //console.log(data);
+                if ( debug ) {
+                    console.log(data);    
+                }
             }
             , error: function(jqXHR, textStatus, err){
-                console.log(err);
+                if ( debug ) {
+                    console.log(err);
+                }
             }
         }); 
     }
@@ -325,8 +405,11 @@ define([
         // specific promo data
         if ( promotionType == 'online' || promotionType == 'online_instore' ) {
 
-            console.log("hit promotype online/online_instore");
 
+            if ( debug ) {
+                console.log("hit promotype online/online_instore");    
+            }
+            
             // comms history
             var communicationCellCodeOnline = $("#step1 .slds-form-element__control #communication_cell_code_online").val();
             var cellCodeOnline              = $("#step1 .slds-form-element__control #cell_code_online").val();
@@ -377,11 +460,15 @@ define([
 
             }
 
+        } else {
+
         }
 
         if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
 
-            console.log("hit promotype instore/online_instore");
+            if ( debug ) {
+                console.log("hit promotype instore/online_instore");
+            }
 
             // comms instore history
             var communicationCellCodeInstore    = $("#step2 .slds-form-element__control #communication_cell_code_instore").val();
@@ -438,6 +525,8 @@ define([
 
             }
 
+        } else {
+
         }           
        
     }
@@ -465,45 +554,68 @@ define([
     function onClickedNext () {
 
         var promotionType = $("#step0 .slds-radio input[name='promotionType']:checked").val();
-        console.log(promotionType);
-        console.log(currentStep.key);
+
+        if ( debug ) {
+            console.log(promotionType);
+            console.log(currentStep.key);            
+        }
+
 
         if ( promotionType == 'online' ) {
 
             if ( currentStep.key === 'step1' ) {
+
                 updateSummaryPage();
                 connection.trigger('nextStep');
+
             } else if ( currentStep.key === 'step2' ) {
+
                 saveToDataExtension();
                 save();
+
             } else {
+
                 connection.trigger('nextStep');
+
             }
 
         } else if ( promotionType == 'instore' ) {
 
             if ( currentStep.key === 'step1' ) {
+
                 updateSummaryPage();
                 connection.trigger('nextStep');
+
             } else if ( currentStep.key === 'step2' ) {
+
                 saveToDataExtension();
                 save();
+
             } else {
+
                 connection.trigger('nextStep');
             }
 
         } else if ( promotionType == 'online_instore' ) {
             
             if ( currentStep.key === 'step2') {
+
                 updateSummaryPage();
                 connection.trigger('nextStep');
+
             } else if ( currentStep.key === 'step3' ) {
+
                 saveToDataExtension();
                 save();
+
             } else {
+
                 connection.trigger('nextStep');
+
             }
+
         } else {
+
             connection.trigger('nextStep');
         }
     }
@@ -513,12 +625,18 @@ define([
     }
 
     function onGotoStep (step) {
-        console.log(step)
+
+        if ( debug ) {
+            console.log(step);
+        }
+        
         showStep(step);
         connection.trigger('ready');
+
     }
 
     function showStep(step, stepIndex) {
+
         if (stepIndex && !step) {
             step = steps[stepIndex-1];
         }
