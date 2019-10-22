@@ -99,6 +99,8 @@ define([
                 steps[1].active = !steps[1].active; // toggle active
                 instoreSetupStepEnabled = instoreSetupStepEnabled; // toggle status
                 steps[2].active = steps[2].active; // toggle active
+                console.log(onlineSetupStepEnabled);
+                console.log(instoreSetupStepEnabled);
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
 
@@ -109,6 +111,8 @@ define([
                 steps[1].active = steps[1].active; // toggle active
                 instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
                 steps[2].active = !steps[2].active; // toggle active
+                console.log(onlineSetupStepEnabled);
+                console.log(instoreSetupStepEnabled);
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
 
@@ -125,6 +129,9 @@ define([
                 steps[2].active = !steps[2].active; // toggle active
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
+
+                console.log(onlineSetupStepEnabled);
+                console.log(instoreSetupStepEnabled);
 
             }
 
