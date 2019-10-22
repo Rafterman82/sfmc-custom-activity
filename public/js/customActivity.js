@@ -327,21 +327,26 @@ define([
         // specific promo data
         if ( promotionType == 'online' || promotionType == 'online_instore' ) {
 
+            console.log("hit promotype online/online_instore");
+
             // comms history
-            var communicationCellCodeOnline = $("#step1 input[name='promotionType']:checked").val();
+            var communicationCellCodeOnline = $("#step1 .slds-form-element__control #communication_cell_code_online").val();
             var cellCodeOnline              = $("#step1 .slds-form-element__control #cell_code_online").val();
             var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
             var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
             var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
 
             // online code setup
-            var offerType                   = $("#step1 .slds-form-element__control #offer_type").val();
+            var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantInWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
             var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
+
+            // promotion type
+            $("#promotion_type_summary").html(promotionType);
 
             // update online comms history summary
             $('#communication_cell_code_online_summary').html(communicationCellCodeOnline);
@@ -379,8 +384,10 @@ define([
 
         } else if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
 
+            console.log("hit promotype instore/online_instore");
+
             // comms instore history
-            var communicationCellCodeInstore    = $("#step1 input[name='promotionType']:checked").val();
+            var communicationCellCodeInstore    = $("#step1 .slds-form-element__control #communication_cell_code_instore").val();
             var cellCodeInstore                 = $("#step1 .slds-form-element__control #cell_code_instore").val();
             var cellNameInstore                 = $("#step1 .slds-form-element__control #cell_name_instore").val();
             var campaignNameInstore             = $("#step1 .slds-form-element__control #campaign_name_instore").val();
@@ -394,6 +401,9 @@ define([
             var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
+
+            // promotion type
+            $("#promotion_type_summary").html(promotionType);
 
             // update instore comms history summary
             $('#communication_cell_code_instore_summary').html(communicationCellCodeInstore);
@@ -411,14 +421,20 @@ define([
             $('#promotion_group_id_instore_summary').html(promotionGroupIdInstore);
             $('#mc_unique_promotion_id_instore_summary').html(mcUniquePromotionIdInstore);
 
+            //update key
+            $("#onlineKeySummary").html(mcUniquePromotionIdOnline);
+            $("#instoreKeySummary").html(mcUniquePromotionIdInstore);
+
             if ( promotionType == 'instore' ) {
 
+                // update online comms history
                 $('#communication_cell_code_online_summary').html("-");
                 $('#cell_code_online_summary').html("-");
                 $('#cell_name_online_summary').html("-");
                 $('#campaign_name_online_summary').html("-");
                 $('#campaign_id_online_summary').html("-");
 
+                // update online voucher summary
                 $('#offer_type_summary').html("-");
                 $('#print_at_till_online_summary').html("-");
                 $('#instant_win_online_summary').html("-");

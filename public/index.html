@@ -537,13 +537,47 @@
     </div>
 
     <div id="step3" class="step">
+
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-utility-info" title="information">
+                            <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Online Promotion Association Key</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <p>Your unique Online Promotion Association Key is: <b><span id="onlineKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-utility-info" title="information">
+                            <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Instore Promotion Association Key</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <p>Your unique Instore Promotion Association Key is: <b><span id="instoreKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="slds-grid slds-gutters">
 
             <div class="slds-col slds-size_1-of-5">
                 <div class="slds-form-element slds-form-element_readonly">
                     <span class="slds-form-element__label">Promotion Type</span>
                     <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="promotion_type"></div>
+                        <div class="slds-form-element__static" id="promotion_type_summary"></div>
                     </div>
                 </div>
             </div>
@@ -629,6 +663,7 @@
             </div>
 
              <div class="slds-col slds-size_1-of-5">
+                <h2>Instore Voucher Setup</h2>
                 <div class="slds-form-element slds-form-element_readonly">
                     <span class="slds-form-element__label">Communication Cell Code Instore</span>
                     <div class="slds-form-element__control">
@@ -701,40 +736,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="slds-grid slds-gutters">
-            <div class="slds-col">
-                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
-                    <div class="slds-media__figure">
-                        <span class="slds-icon_container slds-icon-utility-info" title="information">
-                            <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Online Promotion Association Key</span>
-                        </span>
-                    </div>
-                    <div class="slds-media__body">
-                        <p>Your unique Online Promotion Association Key is: <b><span id="onlineKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
-                    </div>
-                </div>
-                <br >      
-                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
-                    <div class="slds-media__figure">
-                        <span class="slds-icon_container slds-icon-utility-info" title="information">
-                            <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Instore Promotion Association Key</span>
-                        </span>
-                    </div>
-                    <div class="slds-media__body">
-                        <p>Your unique Instore Promotion Association Key is: <b><span id="instoreKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </body>
 </html>
