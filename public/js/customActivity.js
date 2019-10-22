@@ -88,6 +88,44 @@ define([
             connection.trigger('updateSteps', steps);
         });
 
+        $('.promotion_type').click(function() {
+
+            var promotionType = $("input[name='promotionType']:checked").val();
+
+            if ( promotionType === 'online' ) {
+
+                console.log("trigger step 1");
+                onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
+                steps[1].active = !steps[1].active; // toggle active
+                console.log(steps);
+                connection.trigger('updateSteps', steps);
+
+            } else if ( promotionType === 'instore' ) {
+
+                console.log("trigger step 2");
+                instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
+                steps[2].active = !steps[2].active; // toggle active
+                console.log(steps);
+                connection.trigger('updateSteps', steps);
+
+            } else if ( promotionType === 'online-instore' ) {
+
+                console.log("trigger step 1");
+                onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
+                steps[1].active = !steps[1].active; // toggle active
+                console.log(steps);
+                connection.trigger('updateSteps', steps);
+
+                console.log("trigger step 2");
+                instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
+                steps[2].active = !steps[2].active; // toggle active
+                console.log(steps);
+                connection.trigger('updateSteps', steps);
+
+            }
+
+        });
+
         // hide the tool tips on page load
         $('.slds-popover_tooltip').hide();
 
