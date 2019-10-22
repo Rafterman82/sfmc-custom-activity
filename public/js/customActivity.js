@@ -738,6 +738,8 @@ define([
 
         var promotionType = $("#step0 .slds-radio input[name='promotionType']:checked").val();
 
+        console.log(promotionType);
+
         if ( promotionType == "online" ) {
 
             var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
@@ -748,7 +750,7 @@ define([
 
         } else if ( promotionType == "online_store" ) {
 
-            var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val() + $("#step1 .slds-form-element__control #mc_unique_promotion_id_instore").val();
+            var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val() + "_" + $("#step1 .slds-form-element__control #mc_unique_promotion_id_instore").val();
 
         }
 
