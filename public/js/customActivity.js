@@ -197,7 +197,7 @@ define([
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
 
             var row = {
-                "promotion_type": 'online',
+                "promotion_type": "online",
                 "communication_cell_code": communicationCellCodeOnline,
                 "cell_code": cellCodeOnline,
                 "cell_name": cellNameOnline,
@@ -206,7 +206,7 @@ define([
                 "offer_type": offerType,
                 "print_at_till": printAtTillOnline,
                 "instant_win": instantInWinOnline,
-                "offer_channel": 'Online',
+                "offer_channel": "Online",
                 "offer_medium": mediumOnline,
                 "promotion_id": promotionIdOnline,
                 "promotion_group_id": promotionGroupIdOnline,
@@ -221,7 +221,7 @@ define([
                 cache: false, 
                 data: row, 
                 success: function(data){
-                    console.log(data);
+                    //console.log(data);
                 }
                 , error: function(jqXHR, textStatus, err){
                     console.log(err);
@@ -339,7 +339,7 @@ define([
                 "offer_type": offerType,
                 "print_at_till": printAtTillOnline,
                 "instant_win": instantInWinOnline,
-                "offer_channel": 'Online',
+                "offer_channel": "Online",
                 "offer_medium": mediumOnline,
                 "promotion_id": promotionIdOnline,
                 "promotion_group_id": promotionGroupIdOnline,
@@ -381,11 +381,15 @@ define([
                 "offer_type": "-",
                 "print_at_till": printAtTillInstore,
                 "instant_win": instantInWinInstoree,
-                "offer_channel": 'Instore',
+                "offer_channel": "Instore",
                 "offer_medium": mediumInstore,
                 "promotion_id": instoreCode,
                 "promotion_group_id": promotionGroupIdInstore,
                 "mc_unique_promotion_id" : mcUniquePromotionIdInstore
+            }
+
+            if ( debug ) {
+                console.log(row);
             }
 
             addRow(row);
