@@ -245,14 +245,14 @@ define([
         // specific promo data
         if ( promotionType == 'online' || promotionType == 'online_instore' ) {
 
-            var communicationCellCodeOnline = $("input[name='promotionType']:checked").val();
-            var offerType                   = $(".slds-form-element__control #offer_type").val();
-            var printAtTillOnline           = $(".slds-form-element__control #print_at_till_online").val();
-            var instantInWinOnline          = $(".slds-form-element__control #instant_win_online").val();
-            var mediumOnline                = $(".slds-form-element__control #medium_online").val();
-            var promotionIdOnline           = $(".slds-form-element__control #promotion_id_online").val();
-            var promotionGroupIdOnline      = $(".slds-form-element__control #promotion_group_id_online").val();
-            var mcUniquePromotionIdOnline   = $(".slds-form-element__control #mc_unique_promotion_id_online").val();
+            var communicationCellCodeOnline = $("#step1 input[name='promotionType']:checked").val();
+            var offerType                   = $("#step1 .slds-select_container #offer_type").val();
+            var printAtTillOnline           = $("#step1 .slds-select_container #print_at_till_online").val();
+            var instantInWinOnline          = $("#step1 .slds-select_container #instant_win_online").val();
+            var mediumOnline                = $("#step1 .slds-select_container #medium_online").val();
+            var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
+            var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
+            var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
 
             row = {
                 "promotion_type": promotionType,
@@ -274,13 +274,13 @@ define([
 
         } else if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
 
-            var communicationCellCodeInstore    = $(".slds-form-element__control #communication_cell_code_instore").val();
-            var printAtTillInstore              = $(".slds-form-element__control #print_at_till_instore").val();
-            var instantWinInstore               = $(".slds-form-element__control #instant_win_instore").val();
-            var mediumInstore                   = $(".slds-form-element__control #medium_instore").val();
-            var instoreCode                     = $(".slds-form-element__control #instore_code").val();
-            var promotionGroupIdInstore         = $(".slds-form-element__control #promotion_group_id_instore").val();
-            var mcUniquePromotionIdInstore      = $(".slds-form-element__control #mc_unique_promotion_id_instore").val();
+            var communicationCellCodeInstore    = $("#step2 .slds-form-element__control #communication_cell_code_instore").val();
+            var printAtTillInstore              = $("#step2 .slds-select_container #print_at_till_instore").val();
+            var instantWinInstore               = $("#step2 .slds-select_container #instant_win_instore").val();
+            var mediumInstore                   = $("#step2 .slds-select_container #medium_instore").val();
+            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
+            var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
+            var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
 
             row = {
                 "promotion_type": promotionType,
@@ -453,7 +453,6 @@ define([
             } else {
                 connection.trigger('nextStep');
             }
-
         } else {
             connection.trigger('nextStep');
         }

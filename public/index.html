@@ -30,8 +30,6 @@
         <div class="slds-grid slds-gutters">
             <div class="slds-col slds-size_1-of-2">
                 <h2>Promotion Type</h2>
-                <button id="toggle_step1">Toggle Step 1</button>
-                <button id="toggle_step2">Toggle Step 2</button>
                 <fieldset class="slds-form-element slds-form-element_stacked">
                     <legend class="slds-form-element__legend slds-form-element__label">Select the type of promotion</legend>
                     <div class="slds-form-element__control">
@@ -58,23 +56,6 @@
                         </span>
                     </div>
                 </fieldset>
-                <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Target Data Extension</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="target_data_extension__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="target_data_extension__help" style="position:absolute;top:-63px;left:-16px;width:168px">
-                            <div class="slds-popover__body">You must provide a Data Extension Key of the Data Extension used in the Update Contact widget.</div>
-                        </div>
-                    </div>
-                    <div class="slds-form-element__control">
-                        <input type="text" id="target_data_extension" placeholder="External Key" class="slds-input" />
-                    </div>
-                </div>
             </div>
         </div>
         <button id="test-api-insert">Test API Insert</button>
@@ -82,6 +63,96 @@
 
     <div id="step1" class="step">
         <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <h2>Communication History Data</h2>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Communication Cell Code</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="communication_cell_code_online__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="communication_cell_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a communication cell code.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="communication_cell_code_online" placeholder="Communication Cell Code" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Code</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="cell_code_online__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a cell code.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="cell_code_online" placeholder="Cell Code" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Name</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="cell_name_online__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_name_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a cell name.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="cell_name_online" placeholder="Cell Name" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Name</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="campaign_name_online__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_name_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a Campaign Name</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="campaign_name_online" placeholder="Campaign Name" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign ID</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="communication_cell_code_online__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_id_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a communication cell code.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="campaign_id_online" placeholder="Campaign ID" class="slds-input" />
+                    </div>
+                </div>
+            </div>
+
             <div class="slds-col slds-size_1-of-2">
 
                 <h2>Online Code Setup</h2>
@@ -101,24 +172,6 @@
                     </div>
                     <div class="slds-form-element__control">
                         <input type="text" id="mc_unique_promotion_id_online" placeholder="Communication Cell Code" class="slds-input" />
-                    </div>
-                </div>
-
-                <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Communication Cell Code</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="communication_cell_code_online__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="communication_cell_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a communication cell code.</div>
-                        </div>
-                    </div>
-                    <div class="slds-form-element__control">
-                        <input type="text" id="communication_cell_code_online" placeholder="Communication Cell Code" class="slds-input" />
                     </div>
                 </div>
 
@@ -256,6 +309,97 @@
 
     <div id="step2" class="step">
         <div class="slds-grid slds-gutters">
+
+            <div class="slds-col slds-size_1-of-2">
+                <h2>Communication History Data</h2>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Communication Cell Code</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="communication_cell_code_instore__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="communication_cell_code_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a communication cell code.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="communication_cell_code_instore" placeholder="Communication Cell Code" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Code</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="cell_code_instore__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_code_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a cell code.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="cell_code_instore" placeholder="Cell Code" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Name</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="cell_name_instore__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_name_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a cell name.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="cell_name_instore" placeholder="Cell Name" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Name</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="campaign_name_instore__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_name_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a Campaign Name</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="campaign_name_instore" placeholder="Campaign Name" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign ID</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="communication_cell_code_instore__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_id_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a communication cell code.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="campaign_id_instore" placeholder="Campaign ID" class="slds-input" />
+                    </div>
+                </div>
+            </div>
+
             <div class="slds-col slds-size_1-of-2">
 
                 <h2>In-store Code Setup</h2>
