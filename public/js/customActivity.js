@@ -47,7 +47,7 @@ define([
             var i;
             for (i = 0; i < result.items.length; ++i) {
                 // do something with `substr[i]
-                $("#offer_type_online").append("<option value=" + encodeURI(result.items[i].keys.offertype) + ">" + result.items[i].keys.offertype + "</option>");
+                $("#offer_type_online").append("<option value=" + result.items[i].keys.offertype + ">" + result.items[i].keys.offertype + "</option>");
             }
         }});
 
@@ -378,7 +378,7 @@ define([
             }
 
         }
-        
+
         if ( promotionType == 'instore' || promotionType == 'online_instore' ) {
 
             console.log("hit promotype instore/online_instore");
