@@ -47,7 +47,7 @@ define([
             var i;
             for (i = 0; i < result.items.length; ++i) {
                 // do something with `substr[i]
-                $("#offer_type_online").append("<option value=" + result.items[i].keys.offertype + ">" + result.items[i].keys.offertype + "</option>");
+                $("#offer_type_online").append("<option value=" + result.items[i].keys.offertype.replace(/ /g,"_") + ">" + result.items[i].keys.offertype + "</option>");
             }
         }});
 
