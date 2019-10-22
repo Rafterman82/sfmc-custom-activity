@@ -391,7 +391,6 @@ define([
             var campaignIdInstore               = $("#step2 .slds-form-element__control #campaign_id_instore").val();
 
             // instore voucher setup
-            var communicationCellCodeInstore    = $("#step2 .slds-form-element__control #communication_cell_code_instore").val();
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
             var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
             var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
