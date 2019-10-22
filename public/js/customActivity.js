@@ -92,13 +92,15 @@ define([
 
             var promotionType = $("input[name='promotionType']:checked").val();
 
+            console.log(promotionType);
+
             if ( promotionType === 'online' ) {
 
                 console.log("trigger step 1");
-                onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
-                steps[1].active = !steps[1].active; // toggle active
-                instoreSetupStepEnabled = instoreSetupStepEnabled; // toggle status
-                steps[2].active = steps[2].active; // toggle active
+                onlineSetupStepEnabled = true; // toggle status
+                steps[1].active = true; // toggle active
+                instoreSetupStepEnabled = false; // toggle status
+                steps[2].active = false; // toggle active
                 console.log(onlineSetupStepEnabled);
                 console.log(instoreSetupStepEnabled);
                 console.log(steps);
@@ -107,31 +109,27 @@ define([
             } else if ( promotionType === 'instore' ) {
 
                 console.log("trigger step 2");
-                onlineSetupStepEnabled = onlineSetupStepEnabled; // toggle status
-                steps[1].active = steps[1].active; // toggle active
-                instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
-                steps[2].active = !steps[2].active; // toggle active
+                onlineSetupStepEnabled = false; // toggle status
+                steps[1].active = false; // toggle active
+                instoreSetupStepEnabled = true; // toggle status
+                steps[2].active = true; // toggle active
                 console.log(onlineSetupStepEnabled);
                 console.log(instoreSetupStepEnabled);
                 console.log(steps);
                 connection.trigger('updateSteps', steps);
 
-            } else if ( promotionType === 'online-instore' ) {
+            } else if ( promotionType === 'online_instore' ) {
 
-                console.log("trigger step 1");
-                onlineSetupStepEnabled = !onlineSetupStepEnabled; // toggle status
-                steps[1].active = !steps[1].active; // toggle active
+                console.log("trigger step 1 & 2");
+                onlineSetupStepEnabled = true; // toggle status
+                steps[1].active = true; // toggle active
                 console.log(steps);
-                connection.trigger('updateSteps', steps);
-
-                console.log("trigger step 2");
-                instoreSetupStepEnabled = !instoreSetupStepEnabled; // toggle status
-                steps[2].active = !steps[2].active; // toggle active
+                instoreSetupStepEnabled = true; // toggle status
+                steps[2].active = true; // toggle active
                 console.log(steps);
-                connection.trigger('updateSteps', steps);
-
                 console.log(onlineSetupStepEnabled);
                 console.log(instoreSetupStepEnabled);
+                connection.trigger('updateSteps', steps);
 
             }
 
