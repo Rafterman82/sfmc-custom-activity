@@ -9,7 +9,7 @@ body {
     display: block;
 }
 #test-api-insert {
-	display: none;
+	display: block;
 }
 .margin-top-grid {
 	margin-top: 15px;
