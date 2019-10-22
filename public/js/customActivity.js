@@ -180,21 +180,38 @@ define([
 
         $('#test-api-insert').click(function() {
 
-            var campaign    = getInputValue('#campaign', 'value');
-            var channel     = getInputValue('#channel', 'value');
-            var activity    = getInputValue('#activity', 'value');
-            var promotion   = getInputValue('#promotion', 'value');
-            var id          = campaign + "-" + activity + "-" + channel + "-" + promotion;
+            // comms history
+            var communicationCellCodeOnline = $("#step1 .slds-form-element__control #communication_cell_code_online").val();
+            var cellCodeOnline              = $("#step1 .slds-form-element__control #cell_code_online").val();
+            var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
+            var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
+            var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
 
-            console.log("campaign = " + campaign +", channel = " + channel + ", activity = " + activity + ", promotion = " + promotion + ", id = " + id);
-            
+            // online code setup
+            var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
+            var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
+            var instantInWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
+            var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
+            var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
+            var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
+            var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
+
             var row = {
-                "id": id,
-                "campaign": campaign,
-                "channel": channel,
-                "activity": activity,
-                "promotion": promotion
-            };
+                "promotion_type": 'online',
+                "communication_cell_code": communicationCellCodeOnline,
+                "cell_code": cellCodeOnline,
+                "cell_name": cellNameOnline,
+                "camapign_name": campaignNameOnline,
+                "campaign_id": campaignIdOnline,
+                "offer_type": offerType,
+                "print_at_till": printAtTillOnline,
+                "instant_win": instantInWinOnline,
+                "offer_channel": 'Online',
+                "offer_medium": mediumOnline,
+                "promotion_id": promotionIdOnline,
+                "promotion_group_id": promotionGroupIdOnline,
+                "mc_unique_promotion_id" : mcUniquePromotionIdOnline
+            }
 
             console.log(row);
 
@@ -312,7 +329,7 @@ define([
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
 
-            row = {
+            var row = {
                 "promotion_type": promotionType,
                 "communication_cell_code": communicationCellCodeOnline,
                 "cell_code": cellCodeOnline,
@@ -354,7 +371,7 @@ define([
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
             
-            row = {
+            var row = {
                 "promotion_type": promotionType,
                 "communication_cell_code": communicationCellCodeInstore,
                 "cell_code": cellCodeInstore,
