@@ -384,11 +384,11 @@ define([
             console.log("hit promotype instore/online_instore");
 
             // comms instore history
-            var communicationCellCodeInstore    = $("#step1 .slds-form-element__control #communication_cell_code_instore").val();
-            var cellCodeInstore                 = $("#step1 .slds-form-element__control #cell_code_instore").val();
-            var cellNameInstore                 = $("#step1 .slds-form-element__control #cell_name_instore").val();
-            var campaignNameInstore             = $("#step1 .slds-form-element__control #campaign_name_instore").val();
-            var campaignIdInstore               = $("#step1 .slds-form-element__control #campaign_id_instore").val();
+            var communicationCellCodeInstore    = $("#step2 .slds-form-element__control #communication_cell_code_instore").val();
+            var cellCodeInstore                 = $("#step2 .slds-form-element__control #cell_code_instore").val();
+            var cellNameInstore                 = $("#step2 .slds-form-element__control #cell_name_instore").val();
+            var campaignNameInstore             = $("#step2 .slds-form-element__control #campaign_name_instore").val();
+            var campaignIdInstore               = $("#step2 .slds-form-element__control #campaign_id_instore").val();
 
             // instore voucher setup
             var communicationCellCodeInstore    = $("#step2 .slds-form-element__control #communication_cell_code_instore").val();
