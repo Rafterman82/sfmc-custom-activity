@@ -414,6 +414,9 @@ define([
 
     function onClickedNext () {
 
+        console.log("steps");
+        console.log(steps);
+
         if ( steps[2].active && !steps[3].active ) {
             if ( currentStep.key === 'step1') {
                 updateSummaryPage();
