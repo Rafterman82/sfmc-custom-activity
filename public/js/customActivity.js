@@ -255,6 +255,9 @@ define([
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
 
         $.each(inArguments, function(index, inArgument) {
+            if ( debug ) {
+                console.log(inArgument);
+            }
             $.each(inArgument, function(key, val) {
 
                 if ( debug ) {
@@ -273,11 +276,11 @@ define([
         
         if (!campaignKey) {
 
-            showStep(null, 0);
-            connection.trigger('updateButton', { button: 'next', enabled: true });
+            //showStep(null, 0);
+            //connection.trigger('updateButton', { button: 'next', enabled: true });
 
             if ( debug ) {
-                console.log("You should be dumped on step1 and be forced to input values");
+                console.log("key is false " + campaignKey);
             }
 
         } else {
@@ -287,8 +290,8 @@ define([
             }
             
             // update other summary values
-            $('#keySummary').html(campaignKey);
-            showStep(null, 2);
+            //$('#keySummary').html(campaignKey);
+            //showStep(null, 2);
 
         }
         
@@ -786,10 +789,7 @@ define([
         // may be overridden as desired.
         payload.name = name;
 
-        payload['arguments'].execute.inArguments = [{ 
-            "campaignKey": value,
-            "promotionType" : promotionType
-         }];
+        payload['arguments'].execute.inArguments = [{"campaignKey": value}];
 
         payload['metaData'].isConfigured = true;
 
