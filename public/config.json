@@ -14,9 +14,19 @@
     },
     "arguments": {
         "execute": {
-          "inArguments":[],
+           "inArguments":[
+        {
+          "contactKey": "{{Contact.Key}}" 
+                }                 
+      ],
           "outArguments": [],
           "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/execute",
+           "verb": "POST",
+            "body": "",
+            "header": "",
+            "format": "json",
+            "useJwt": true,
+            "timeout": 10000
         }
     },
     "configurationArguments": {
@@ -40,12 +50,7 @@
         "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/validate",
         "verb": "POST",
         "useJwt": true
-      },
-      "unpublish": {
-        "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/unpublish",
-        "verb": "POST",
-        "useJwt": true
-       },
+      }
     },
     "wizardSteps": [{
         "label": "Promotion Type",
