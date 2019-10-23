@@ -768,7 +768,7 @@ define([
 
             var mc_unique_code = $('#mc_unique_promotion_id_instore_summary').text();
 
-        } else if ( promotionType == "online_store" ) {
+        } else if ( promotionType == "online_instore" ) {
 
             var mc_unique_code = $('#mc_unique_promotion_id_online_summary').text() + "_" + $('#mc_unique_promotion_id_instore_summary').text();
 
