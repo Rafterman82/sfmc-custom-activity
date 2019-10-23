@@ -789,7 +789,7 @@ define([
         // may be overridden as desired.
         payload.name = name;
 
-        payload['arguments'].execute.inArguments = [{"campaignKey": value}];
+        payload['arguments'].execute.inArguments = [{"campaignKey": value, "promotionType": promotionType}];
 
         payload['metaData'].isConfigured = true;
 
