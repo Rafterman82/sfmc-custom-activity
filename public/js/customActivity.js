@@ -271,10 +271,9 @@ define([
             console.log("key is: " + campaignKey);
         }
         
-        /**
         if (!campaignKey) {
 
-            showStep(null, 1);
+            showStep(null, 0);
             connection.trigger('updateButton', { button: 'next', enabled: true });
 
             if ( debug ) {
@@ -292,7 +291,7 @@ define([
             showStep(null, 2);
 
         }
-        */
+        
 
     }
 
@@ -787,7 +786,10 @@ define([
         // may be overridden as desired.
         payload.name = name;
 
-        payload['arguments'].execute.inArguments = [{ "campaignKey": value }];
+        payload['arguments'].execute.inArguments = [{ 
+            "campaignKey": value,
+            "promotionType" : promotionType
+         }];
 
         payload['metaData'].isConfigured = true;
 
