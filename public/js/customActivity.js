@@ -190,7 +190,7 @@ define([
             // online code setup
             var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
-            var instantInWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
+            var instantWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
             var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
@@ -205,7 +205,7 @@ define([
                 "campaign_id": campaignIdOnline,
                 "offer_type": offerType,
                 "print_at_till": printAtTillOnline,
-                "instant_win": instantInWinOnline,
+                "instant_win": instantWinOnline,
                 "offer_channel": "Online",
                 "offer_medium": mediumOnline,
                 "promotion_id": promotionIdOnline,
@@ -471,7 +471,7 @@ define([
             // update online voucher setup summary
             $('#offer_type_summary').html(offerType);
             $('#print_at_till_online_summary').html(printAtTillOnline);
-            $('#instant_win_online_summary').html(instantInWinOnline);
+            $('#instant_win_online_summary').html(instantWinOnline);
             $('#medium_online_summary').html(mediumOnline);
             $('#promotion_id_online_summary').html(promotionIdOnline);
             $('#promotion_group_id_online_summary').html(promotionGroupIdOnline);
