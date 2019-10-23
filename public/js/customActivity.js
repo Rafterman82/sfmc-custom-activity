@@ -414,7 +414,7 @@ define([
                 data: row, 
                 success: function(data){
                     if ( debug ) {
-                        console.log(data);    
+                        //console.log(data);    
                     }
                 }
                 , error: function(jqXHR, textStatus, err){
@@ -762,15 +762,15 @@ define([
 
         if ( promotionType == "online" ) {
 
-            var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
+            var mc_unique_code = $('#mc_unique_promotion_id_online_summary').text()
 
         } else if ( promotionType == "instore" ) {
 
-            var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_instore").val();
+            var mc_unique_code = $('#mc_unique_promotion_id_instore_summary').text();
 
         } else if ( promotionType == "online_store" ) {
 
-            var mc_unique_code = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val() + "_" + $("#step1 .slds-form-element__control #mc_unique_promotion_id_instore").val();
+            var mc_unique_code = $('#mc_unique_promotion_id_online_summary').text() + "_" + $('#mc_unique_promotion_id_instore_summary').text();
 
         }
 
