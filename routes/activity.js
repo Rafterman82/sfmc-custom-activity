@@ -114,6 +114,26 @@ exports.publish = function (req, res) {
 };
 
 /*
+ * POST Handler for /publish/ route of Activity.
+ */
+exports.unpublish = function (req, res) {
+    // Data from the req and put it in an array accessible to the main app.
+    //console.log( req.body );
+    logData(req);
+    res.send(200, 'Unpublish');
+};
+
+/*
+ * POST Handler for /publish/ route of Activity.
+ */
+exports.stop = function (req, res) {
+    // Data from the req and put it in an array accessible to the main app.
+    //console.log( req.body );
+    logData(req);
+    res.send(200, 'Stop');
+};
+
+/*
  * POST Handler for /validate/ route of Activity.
  */
 exports.validate = function (req, res) {
