@@ -43,7 +43,7 @@
       },
       "unpublish": {
         "url": "https://mc-jb-custom-activity-ca.herokuapp.com/journeybuilder/unpublish",
-           "verb": "POST",
+        "verb": "POST",
         "useJwt": true
        },
     },
