@@ -40,22 +40,6 @@ define([
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
 
-        // access promotions and build select input
-        $.ajax({url: "/dataextension/lookup/offer_types", success: function(result){
-
-            if ( debug ) {
-                console.log('lookup offers executed');
-                console.log(result.items);                
-            }
-
-            var i;
-
-            for (i = 0; i < result.items.length; ++i) {
-                // do something with `substr[i]
-                $("#offer_type_online").append("<option value=" + result.items[i].keys.offertype.replace(/ /g,"_") + ">" + result.items[i].keys.offertype + "</option>");
-            }
-        }});
-
         // access offer types and build select input
         $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
 
@@ -80,7 +64,6 @@ define([
                 console.log(promotionType);
 
             }
-            
 
             if ( promotionType === 'online' ) {
 
@@ -252,10 +235,33 @@ define([
         );
 
         if ( debug ) {
-            console.log("Payload arguements are: " + payload['arguements']);
+            console.log("Payload arguements are: " + payload['arguments']);
         }
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
+
+        if ( inArguments.inArgument.['mc_unique_promotion_id_online'] ) {
+
+            var prePop = 'online';
+
+        } else if ( inArguments.inArgument.['mc_unique_promotion_id_instore'] ) {
+
+            var prePop = 'instore';
+
+        } else if ( inArguments.inArgument.['mc_unique_promotion_id_online'] && inArguments.inArgument.['mc_unique_promotion_id_instore'] ) {
+            
+            var prePop = 'online_instore';
+
+        } else {
+
+            var prePop = 'not-set';
+
+        }
+
+        if ( debug ) {
+            console.log(prePop);
+        }
+        
 
         $.each(inArguments, function(index, inArgument) {
             if ( debug ) {
@@ -266,7 +272,7 @@ define([
                 if ( debug ) {
                     console.log("The key for this row is: " + key + ". The value for this row is: " + val);
                 }
-                if (key === 'campaignKey') {
+                if (key === 'communication_cell_code_online') {
                     campaignKey = val;
                 }
             });
@@ -294,7 +300,7 @@ define([
             
             // update other summary values
             //$('#keySummary').html(campaignKey);
-            //showStep(null, 2);
+            showStep(null, 3);
 
         }
         
