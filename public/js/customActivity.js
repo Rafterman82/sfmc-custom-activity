@@ -300,7 +300,7 @@ define([
             }, 10);
             setTimeout(function() {
                 connection.trigger('nextStep');
-            }, 200);
+            }, 20);
             setTimeout(function() {
                 connection.trigger('nextStep');
             }, 30);
