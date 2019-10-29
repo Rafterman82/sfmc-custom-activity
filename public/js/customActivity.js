@@ -126,7 +126,6 @@ define([
                 }
                 connection.trigger('updateSteps', steps);
 
-
             }
 
         });
@@ -210,7 +209,9 @@ define([
                     //console.log(data);
                 }
                 , error: function(jqXHR, textStatus, err){
-                    console.log(err);
+                    if ( debug ) {
+                        console.log(err);
+                    }
                 }
             });
 
@@ -270,19 +271,20 @@ define([
 
         if ( mcOnlineBool && !mcInstoreBool ) {
             prePop = 'online';
-            showStep(null, 2);
+            showStep(2, 2);
         } else if ( !mcOnlineBool && mcInstoreBool ) {
             prePop = 'instore';
-            showStep(null, 2);
+            showStep(2, 2);
         } else  if ( mcOnlineBool && mcInstoreBool ) {
             prePop = 'online_instore';
-            showStep(null, 3);
+            showStep(3, 3);
         } else{
             prePop = 'not-set';
-            showStep(null, 0);
+            showStep(0, 0);
         }
-
-        console.log(prePop);
+        if ( debug ) {
+            console.log(prePop);
+        }
         
     }
 
@@ -684,7 +686,7 @@ define([
     function showStep(step, stepIndex) {
 
         if (stepIndex && !step) {
-            step = steps[stepIndex-1];
+            step = steps[stepIndex];
         }
 
         currentStep = step;
