@@ -286,8 +286,9 @@ define([
             steps[1].active = true;
             steps[2].active = true;
             steps[3].active = true;
-            connection.trigger('updateSteps', steps);
+            
             showStep(null, 3);
+            connection.trigger('updateSteps', steps);
         } else{
             prePop = 'not-set';
             showStep(null, 0);
