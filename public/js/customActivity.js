@@ -273,20 +273,25 @@ define([
             prePop = 'online';
             steps[1].active = true;
             steps[2].active = false;
+            steps[3].active = true;
             connection.trigger('updateSteps', steps);
-            showStep(2, 2);
+            connection.on('gotoStep', onGotoStep(3));
+            showStep(3, 3);
         } else if ( !mcOnlineBool && mcInstoreBool ) {
             prePop = 'instore';
             steps[1].active = false;
             steps[2].active = true;
+            steps[3].active = true;
             connection.trigger('updateSteps', steps);
-            showStep(2, 2);
+            connection.on('gotoStep', onGotoStep(3));
+            showStep(3, 3);
         } else  if ( mcOnlineBool && mcInstoreBool ) {
             prePop = 'online_instore';
             steps[1].active = true;
             steps[2].active = true;
             steps[3].active = true;
             connection.trigger('updateSteps', steps);
+            connection.on('gotoStep', onGotoStep(3));
             showStep(3, 3);
         } else{
             prePop = 'not-set';
