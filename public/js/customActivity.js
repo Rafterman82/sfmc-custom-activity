@@ -276,7 +276,7 @@ define([
             steps[3].active = true;
             connection.trigger('updateSteps', steps);
             connection.on('gotoStep', onGotoStep(3));
-            showStep(3, 3);
+            showStep(null, 3);
         } else if ( !mcOnlineBool && mcInstoreBool ) {
             prePop = 'instore';
             steps[1].active = false;
@@ -284,7 +284,7 @@ define([
             steps[3].active = true;
             connection.trigger('updateSteps', steps);
             connection.on('gotoStep', onGotoStep(3));
-            showStep(3, 3);
+            showStep(null, 3);
         } else  if ( mcOnlineBool && mcInstoreBool ) {
             prePop = 'online_instore';
             steps[1].active = true;
@@ -292,10 +292,10 @@ define([
             steps[3].active = true;
             connection.trigger('updateSteps', steps);
             connection.on('gotoStep', onGotoStep(3));
-            showStep(3, 3);
+            showStep(null, 3);
         } else{
             prePop = 'not-set';
-            showStep(0, 0);
+            showStep(null, 0);
         }
         if ( debug ) {
             console.log(prePop);
