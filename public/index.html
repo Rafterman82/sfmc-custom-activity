@@ -23,7 +23,6 @@
             require(config, dependencies);
         })();
     </script>
-
 </head>
 <body>
     <div id="step0" class="step">
@@ -136,18 +135,35 @@
                 <div class="slds-form-element">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign ID</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="communication_cell_code_online__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="campaign_id_online__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
                         <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_id_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a communication cell code.</div>
+                            <div class="slds-popover__body">Enter a Campaign ID</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
                         <input type="text" id="campaign_id_online" placeholder="Campaign ID" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Code</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="campaign_code_online__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a Campaign Code</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="campaign_code_online" placeholder="Campaign Code" class="slds-input" />
                     </div>
                 </div>
             </div>
@@ -383,7 +399,7 @@
                 <div class="slds-form-element">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign ID</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="communication_cell_code_instore__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="campaign_id_instore__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
@@ -395,6 +411,23 @@
                     </div>
                     <div class="slds-form-element__control">
                         <input type="text" id="campaign_id_instore" placeholder="Campaign ID" class="slds-input" />
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Code</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="campaign_code_instore__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a Campaign Code</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="campaign_code_online" placeholder="Campaign Code Instore" class="slds-input" />
                     </div>
                 </div>
             </div>
@@ -484,7 +517,7 @@
                         <div class="slds-select_container">
                             <select class="slds-select" id="medium_instore">
                                 <option value="Email" selected>Email - Marketing Cloud</option>
-                                <!--<option value="EPOS">EPOS</option>-->
+                                <option value="EPOS">EPOS</option>
                                 <option value="Whitemail">Whitemail - Direct Mail</option>
                                 <option value="Mobilize">Mobilize - Matalan App</option>
                             </select>
@@ -607,6 +640,12 @@
                         <div class="slds-form-element__static" id="campaign_id_online_summary"></div>
                     </div>
                 </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Online Campaign Code</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="campaign_code_online_summary"></div>
+                    </div>
+                </div>
             </div>
 
             <div class="slds-col slds-size_1-of-5">
@@ -685,6 +724,12 @@
                     <span class="slds-form-element__label">Instore Campaign ID</span>
                     <div class="slds-form-element__control">
                         <div class="slds-form-element__static" id="campaign_id_instore_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Instore Campaign Code</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="campaign_code_instore_summary"></div>
                     </div>
                 </div>
             </div>
