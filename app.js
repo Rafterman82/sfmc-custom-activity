@@ -125,7 +125,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	            "campaign_name": req.body.campaign_name,
 	            "campaign_id": req.body.campaign_id,
 	            "campaign_code": req.body.campaign_code,
-	            "voucher_pot": req.body.offer_type,
+	            "voucher_pot": req.body.voucher_pot,
 	            "code": req.body.code,
 	            "print_at_till": req.body.print_at_till,
 	            "instant_win": req.body.instant_win,
