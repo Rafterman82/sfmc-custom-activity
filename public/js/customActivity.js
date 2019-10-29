@@ -297,16 +297,16 @@ define([
             connection.trigger('updateSteps', steps);
             setTimeout(function() {
                 connection.trigger('nextStep');
-            }, 400);
+            }, 10);
             setTimeout(function() {
                 connection.trigger('nextStep');
-            }, 600);
+            }, 200);
             setTimeout(function() {
                 connection.trigger('nextStep');
-            }, 800);
+            }, 30);
             setTimeout(function() {
                 showStep(null, 3);
-            }, 1000);
+            }, 100);
         } else{
             prePop = 'not-set';
             showStep(null, 0);
