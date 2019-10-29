@@ -274,6 +274,8 @@ define([
             steps[1].active = true;
             steps[3].active = true;
             connection.trigger('updateSteps', steps);
+            connection.trigger('nextStep');
+            connection.trigger('nextStep');
             setTimeout(function() {
                 showStep(null, 3);
             }, 3000);
@@ -281,6 +283,8 @@ define([
             prePop = 'instore';
             steps[2].active = true;
             steps[3].active = true;
+            connection.trigger('nextStep');
+            connection.trigger('nextStep');
             connection.trigger('updateSteps', steps);
             setTimeout(function() {
                 showStep(null, 3);
@@ -290,6 +294,9 @@ define([
             steps[1].active = true;
             steps[2].active = true;
             steps[3].active = true;
+            connection.trigger('nextStep');
+            connection.trigger('nextStep');
+            connection.trigger('nextStep');
             connection.trigger('updateSteps', steps);
             setTimeout(function() {
                 showStep(null, 3);
