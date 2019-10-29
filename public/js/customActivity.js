@@ -154,66 +154,10 @@ define([
             }
             
             $(helpBlock).show();
+
             setTimeout(function() {
                 $(helpBlock).fadeOut();
-                }, 5000);
-
-            });
-
-        $('#test-api-insert').click(function() {
-
-            // comms history
-            var communicationCellCodeOnline = $("#step1 .slds-form-element__control #communication_cell_code_online").val();
-            var cellCodeOnline              = $("#step1 .slds-form-element__control #cell_code_online").val();
-            var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
-            var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
-            var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
-            var campaignCodeOnline          = $("#step1 .slds-form-element__control #campaign_code_online").val();
-
-            // online code setup
-            var voucherPot                  = $("#step1 .slds-form-element__control #voucher_pot_online").val();
-            var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
-            var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
-            var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
-            var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
-            var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
-            var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
-
-            var row = {
-                "promotion_type"            : "online",
-                "communication_cell_code"   : communicationCellCodeOnline,
-                "cell_code"                 : cellCodeOnline,
-                "cell_name"                 : cellNameOnline,
-                "camapign_name"             : campaignNameOnline,
-                "campaign_id"               : campaignIdOnline,
-                "campaign_code"             : campaignCodeOnline,
-                "voucher_pot"               : voucherPot,
-                "code"                      : globalCodeOnline,
-                "print_at_till"             : printAtTillOnline,
-                "instant_win"               : instantWinOnline,
-                "offer_channel"             : "Online",
-                "offer_medium"              : mediumOnline,
-                "promotion_id"              : promotionIdOnline,
-                "promotion_group_id"        : promotionGroupIdOnline,
-                "mc_unique_promotion_id"    : mcUniquePromotionIdOnline
-            }
-
-            console.log(row);
-
-            $.ajax({ 
-                url: '/dataextension/add',
-                type: 'POST',
-                cache: false, 
-                data: row, 
-                success: function(data){
-                    //console.log(data);
-                }
-                , error: function(jqXHR, textStatus, err){
-                    if ( debug ) {
-                        console.log(err);
-                    }
-                }
-            });
+            }, 5000);
 
         });
     }
@@ -271,26 +215,37 @@ define([
 
         if ( mcOnlineBool && !mcInstoreBool ) {
             prePop = 'online';
+            prePopulateFields(prePop, inArguments);
             steps[1].active = true;
             steps[3].active = true;
             connection.trigger('updateSteps', steps);
-            connection.trigger('nextStep');
-            connection.trigger('nextStep');
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
             setTimeout(function() {
                 showStep(null, 3);
-            }, 1000);
+            }, 100);
         } else if ( !mcOnlineBool && mcInstoreBool ) {
             prePop = 'instore';
+            prePopulateFields(prePop, inArguments);
             steps[2].active = true;
             steps[3].active = true;
             connection.trigger('updateSteps', steps);
-            connection.trigger('nextStep');
-            connection.trigger('nextStep');
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
             setTimeout(function() {
                 showStep(null, 3);
-            }, 1000);
+            }, 100);
         } else  if ( mcOnlineBool && mcInstoreBool ) {
             prePop = 'online_instore';
+            prePopulateFields(prePop, inArguments);
             steps[1].active = true;
             steps[2].active = true;
             steps[3].active = true;
@@ -315,6 +270,29 @@ define([
             console.log(prePop);
         }
         
+    }
+
+    function prePopulateFields(prePop, inArguments) {
+        $.each(inArguments, function(index, inArgument) {
+            $.each(inArgument, function(key, val) {
+
+                if ( key == 'promotion_type_instore' || key == 'promotion_type_online' ) {
+
+                    if ( val == 'online_instore' ) {
+                        $('#radio-3').attr('checked', 'checked');
+                    } else if ( val == 'instore' ) {
+                        $('#radio-2').attr('checked', 'checked');
+                    } else if ( val == 'online' ) {
+                        $('#radio-1').attr('checked', 'checked');
+                    }
+                    
+                } else {
+                    $('#'key).val(val);
+                    $('#'key'_summary').html(val);
+                }
+
+            });
+        });
     }
 
     /*
@@ -399,6 +377,7 @@ define([
             var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
             var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
+            var promotionIdInstore              = $("#step2 .slds-form-element__control #promotion_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
             
             var rowInstore = {
@@ -415,7 +394,7 @@ define([
                 "instant_win": instantWinInstore,
                 "offer_channel": "Instore",
                 "offer_medium": mediumInstore,
-                "promotion_id": instoreCode,
+                "promotion_id": promotionIdInstore,
                 "promotion_group_id": promotionGroupIdInstore,
                 "mc_unique_promotion_id" : mcUniquePromotionIdInstore
             }
@@ -519,6 +498,7 @@ define([
                 $('#instant_win_instore_summary').html("-");
                 $('#medium_instore_summary').html("-");
                 $('#instore_code_summary').html("-");
+                $('#promotion_id_instore_summary').html("-");
                 $('#promotion_group_id_instore_summary').html("-");
                 $('#mc_unique_promotion_id_instore_summary').html("-");
 
@@ -548,6 +528,7 @@ define([
             var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
             var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
+            var promotionIdInstore              = $("#step2 .slds-form-element__control #promotion_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
 
             // update instore comms history summary
@@ -564,6 +545,7 @@ define([
             $('#instant_win_instore_summary').html(instantWinInstore);
             $('#medium_instore_summary').html(mediumInstore);
             $('#instore_code_summary').html(instoreCode);
+            $('#promotion_id_instore_summary').html(promotionIdInstore);
             $('#promotion_group_id_instore_summary').html(promotionGroupIdInstore);
             $('#mc_unique_promotion_id_instore_summary').html(mcUniquePromotionIdInstore);
 
@@ -873,6 +855,7 @@ define([
             var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
             var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
             var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
+            var promotionIdInstore              = $("#step2 .slds-form-element__control #promotion_id_instore").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
 
@@ -889,7 +872,7 @@ define([
                 "instant_win_instore"               : instantWinInstore,
                 "offer_channel_instore"             : "Instore",
                 "offer_medium_instore"              : mediumInstore,
-                "promotion_id_instore"              : instoreCode,
+                "promotion_id_instore"              : promotionIdInstore,
                 "promotion_group_id_instore"        : promotionGroupIdInstore,
                 "promotion_type_instore"            : promotionType
             }];
@@ -929,6 +912,7 @@ define([
             var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
             var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
             var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
+            var promotionIdInstore              = $("#step2 .slds-form-element__control #promotion_id_instore").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
 
@@ -945,7 +929,7 @@ define([
                 "instant_win_instore"               : instantWinInstore,
                 "offer_channel_instore"             : "Instore",
                 "offer_medium_instore"              : mediumInstore,
-                "promotion_id_instore"              : instoreCode,
+                "promotion_id_instore"              : promotionIdInstore,
                 "promotion_group_id_instore"        : promotionGroupIdInstore,
                 "promotion_type_instore"            : promotionType,
                 "mc_unique_promotion_id_online"     : mcUniquePromotionIdOnline,

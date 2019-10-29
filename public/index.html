@@ -570,6 +570,24 @@
                 </div>
 
                 <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion ID</label>
+                    <div class="slds-form-element__icon">
+                        <button class="slds-button slds-button_icon" id="promotion_id_instore__help_button" aria-describedby="help">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="promotion_id_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Enter a Promotion Group ID.</div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="promotion_id_instore" placeholder="Promotion ID" class="slds-input" />
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion Group ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="promotion_group_id_instore__help_button" aria-describedby="help">
@@ -792,6 +810,12 @@
                     <span class="slds-form-element__label">Instore Code</span>
                     <div class="slds-form-element__control">
                         <div class="slds-form-element__static" id="instore_code_summary"></div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Promotion ID Instore</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static" id="promotion_id_instore_summary"></div>
                     </div>
                 </div>
                 <div class="slds-form-element slds-form-element_readonly">
