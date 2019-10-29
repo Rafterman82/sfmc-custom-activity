@@ -273,18 +273,27 @@ define([
             prePop = 'online';
             steps[1].active = true;
             steps[3].active = true;
-            showStep(null, 3);
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 3000);
         } else if ( !mcOnlineBool && mcInstoreBool ) {
             prePop = 'instore';
             steps[2].active = true;
             steps[3].active = true;
-            showStep(null, 3);
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 3000);
         } else  if ( mcOnlineBool && mcInstoreBool ) {
             prePop = 'online_instore';
             steps[1].active = true;
             steps[2].active = true;
             steps[3].active = true;
-            showStep(null, 3);
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 3000);
         } else{
             prePop = 'not-set';
             showStep(null, 0);
