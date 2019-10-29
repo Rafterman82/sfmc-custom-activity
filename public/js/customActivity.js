@@ -287,8 +287,8 @@ define([
                     }
                     
                 } else {
-                    $('#'key).val(val);
-                    $('#'key'_summary').html(val);
+                    $('#' + key).val(val);
+                    $('#' + key + '_summary').html(val);
                 }
 
             });
