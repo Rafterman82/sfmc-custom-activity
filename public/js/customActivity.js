@@ -273,17 +273,20 @@ define([
             prePop = 'online';
             steps[1].active = true;
             steps[3].active = true;
+            connection.trigger('updateSteps', steps);
             showStep(null, 3);
         } else if ( !mcOnlineBool && mcInstoreBool ) {
             prePop = 'instore';
             steps[2].active = true;
             steps[3].active = true;
+            connection.trigger('updateSteps', steps);
             showStep(null, 3);
         } else  if ( mcOnlineBool && mcInstoreBool ) {
             prePop = 'online_instore';
             steps[1].active = true;
             steps[2].active = true;
             steps[3].active = true;
+            connection.trigger('updateSteps', steps);
             showStep(null, 3);
         } else{
             prePop = 'not-set';
