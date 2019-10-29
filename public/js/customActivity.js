@@ -685,11 +685,23 @@ define([
 
     function showStep(step, stepIndex) {
 
+        if ( debug ) {
+            console.log(step);
+            console.log(stepIndex);
+        }
+
         if (stepIndex && !step) {
             step = steps[stepIndex];
+            if ( debug ) {
+                console.log(step);
+            }
         }
 
         currentStep = step;
+
+        if ( debug ) {
+            console.log(currentStep);
+        }
 
         $('.step').hide();
 
