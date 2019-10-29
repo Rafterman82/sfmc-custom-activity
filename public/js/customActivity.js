@@ -281,6 +281,8 @@ define([
             prePop = 'not-set';
             showStep(null, 0);
         }
+
+        console.log(prePop);
         
     }
 
