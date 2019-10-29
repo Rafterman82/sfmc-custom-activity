@@ -186,31 +186,34 @@ define([
             var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
             var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
             var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
+            var campaignCodeOnline          = $("#step1 .slds-form-element__control #campaign_code_online").val();
 
             // online code setup
-            var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
+            var voucherPot                  = $("#step1 .slds-form-element__control #voucher_pot_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
-            var instantWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
+            var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
             var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
 
             var row = {
-                "promotion_type": "online",
-                "communication_cell_code": communicationCellCodeOnline,
-                "cell_code": cellCodeOnline,
-                "cell_name": cellNameOnline,
-                "camapign_name": campaignNameOnline,
-                "campaign_id": campaignIdOnline,
-                "offer_type": offerType,
-                "print_at_till": printAtTillOnline,
-                "instant_win": instantWinOnline,
-                "offer_channel": "Online",
-                "offer_medium": mediumOnline,
-                "promotion_id": promotionIdOnline,
-                "promotion_group_id": promotionGroupIdOnline,
-                "mc_unique_promotion_id" : mcUniquePromotionIdOnline
+                "promotion_type"            : "online",
+                "communication_cell_code"   : communicationCellCodeOnline,
+                "cell_code"                 : cellCodeOnline,
+                "cell_name"                 : cellNameOnline,
+                "camapign_name"             : campaignNameOnline,
+                "campaign_id"               : campaignIdOnline,
+                "campaign_code"             : campaignCodeOnline,
+                "voucher_pot"               : voucherPot,
+                "code"                      : globalCodeOnline,
+                "print_at_till"             : printAtTillOnline,
+                "instant_win"               : instantWinOnline,
+                "offer_channel"             : "Online",
+                "offer_medium"              : mediumOnline,
+                "promotion_id"              : promotionIdOnline,
+                "promotion_group_id"        : promotionGroupIdOnline,
+                "mc_unique_promotion_id"    : mcUniquePromotionIdOnline
             }
 
             console.log(row);
@@ -321,9 +324,11 @@ define([
             var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
             var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
             var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
+            var campaignCodeOnline          = $("#step1 .slds-form-element__control #campaign_code_online").val();
 
             // online code setup
-            var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
+            var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
+            var voucherPotOnline            = $("#step1 .slds-form-element__control #voucher_pot_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
             var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
@@ -338,8 +343,9 @@ define([
                 "cell_name": cellNameOnline,
                 "campaign_name": campaignNameOnline,
                 "campaign_id": campaignIdOnline,
-                "offer_type": offerType,
-                "instore_code": "-",
+                "campaign_code": campaignCodeOnline,
+                "voucher_pot": voucherPotOnline,
+                "code": globalCodeOnline,
                 "print_at_till": printAtTillOnline,
                 "instant_win": instantWinOnline,
                 "offer_channel": "Online",
@@ -369,6 +375,7 @@ define([
             var cellNameInstore                 = $("#step2 .slds-form-element__control #cell_name_instore").val();
             var campaignNameInstore             = $("#step2 .slds-form-element__control #campaign_name_instore").val();
             var campaignIdInstore               = $("#step2 .slds-form-element__control #campaign_id_instore").val();
+            var campaignCodeInstore             = $("#step2 .slds-form-element__control #campaign_code_instore").val();
 
             // instore voucher setup
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
@@ -385,8 +392,9 @@ define([
                 "cell_name": cellNameInstore,
                 "campaign_name": campaignNameInstore,
                 "campaign_id": campaignIdInstore,
-                "offer_type": "-",
-                "instore_code": instoreCode,
+                "campaign_code": campaignCodeInstore,
+                "voucher_pot": "-",
+                "code": instoreCode,
                 "print_at_till": printAtTillInstore,
                 "instant_win": instantWinInstore,
                 "offer_channel": "Instore",
@@ -451,9 +459,11 @@ define([
             var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
             var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
             var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
+            var campaignCodeOnline          = $("#step1 .slds-form-element__control #campaign_code_online").val();
 
             // online code setup
-            var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
+            var voucherPotOnline            = $("#step1 .slds-form-element__control #voucher_pot_online").val();
+            var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
             var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
@@ -467,9 +477,11 @@ define([
             $('#cell_name_online_summary').html(cellNameOnline);
             $('#campaign_name_online_summary').html(campaignNameOnline);
             $('#campaign_id_online_summary').html(campaignIdOnline);
+            $('#campaign_code_online_summary').html(campaignCodeOnline);
 
             // update online voucher setup summary
-            $('#offer_type_summary').html(offerType);
+            $('#voucher_pot_online_summary').html(voucherPotOnline);
+            $('#global_code_online_summary').html(globalCodeOnline);
             $('#print_at_till_online_summary').html(printAtTillOnline);
             $('#instant_win_online_summary').html(instantWinOnline);
             $('#medium_online_summary').html(mediumOnline);
@@ -484,6 +496,7 @@ define([
                 $('#cell_name_instore_summary').html("-");
                 $('#campaign_name_instore_summary').html("-");
                 $('#campaign_id_instore_summary').html("-");
+                $('#campaign_code_instore_summary').html("-");
 
                 $('#communication_cell_code_instore_summary').html("-");            
                 $('#print_at_till_instore_summary').html("-");
@@ -511,6 +524,7 @@ define([
             var cellNameInstore                 = $("#step2 .slds-form-element__control #cell_name_instore").val();
             var campaignNameInstore             = $("#step2 .slds-form-element__control #campaign_name_instore").val();
             var campaignIdInstore               = $("#step2 .slds-form-element__control #campaign_id_instore").val();
+            var campaignCodeInstore             = $("#step2 .slds-form-element__control #campaign_code_instore").val();
 
             // instore voucher setup
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
@@ -526,6 +540,7 @@ define([
             $('#cell_name_instore_summary').html(cellNameInstore);
             $('#campaign_name_instore_summary').html(campaignNameInstore);
             $('#campaign_id_instore_summary').html(campaignIdInstore);
+            $('#campaign_code_instore_summary').html(campaignIdInstore);
 
             // update instore setup
             $('#communication_cell_code_instore_summary').html(communicationCellCodeInstore);            
@@ -548,9 +563,11 @@ define([
                 $('#cell_name_online_summary').html("-");
                 $('#campaign_name_online_summary').html("-");
                 $('#campaign_id_online_summary').html("-");
+                $('#campaign_code_online_summary').html("-");
 
                 // update online voucher summary
-                $('#offer_type_summary').html("-");
+                $('#voucher_pot_online_summary').html("-");
+                $('#global_code_online_summary').html("-");
                 $('#print_at_till_online_summary').html("-");
                 $('#instant_win_online_summary').html("-");
                 $('#medium_online_summary').html("-");
@@ -776,9 +793,11 @@ define([
             var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
             var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
             var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
+            var campaignCodeOnline          = $("#step1 .slds-form-element__control #campaign_code_online").val();
 
             // online code setup
-            var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
+            var voucherPotOnline            = $("#step1 .slds-form-element__control #voucher_pot_online").val();
+            var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
             var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
@@ -793,8 +812,9 @@ define([
                 "cell_name_online"                  : cellNameOnline,
                 "campaign_name_online"              : campaignNameOnline,
                 "campaign_id_online"                : campaignIdOnline,
-                "offer_type_online"                 : offerType,
-                "instore_code_online"               : "-",
+                "campaign_code_online"              : campaignCodeOnline,
+                "voucher_pot_online"                : voucherPotOnline,
+                "global_code_online"                : globalCodeOnline,
                 "print_at_till_online"              : printAtTillOnline,
                 "instant_win_online"                : instantWinOnline,
                 "offer_channel_online"              : "Online",
@@ -818,6 +838,7 @@ define([
             var cellNameInstore                 = $("#step2 .slds-form-element__control #cell_name_instore").val();
             var campaignNameInstore             = $("#step2 .slds-form-element__control #campaign_name_instore").val();
             var campaignIdInstore               = $("#step2 .slds-form-element__control #campaign_id_instore").val();
+            var campaignCodeInstore             = $("#step2 .slds-form-element__control #campaign_code_instore").val();
 
             // instore voucher setup
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
@@ -834,7 +855,7 @@ define([
                 "cell_name_instore"                 : cellNameInstore,
                 "campaign_name_instore"             : campaignNameInstore,
                 "campaign_id_instore"               : campaignIdInstore,
-                "offer_type_instore"                : "-",
+                "campaign_code_instore"             : campaignCodeInstore,
                 "instore_code_instore"              : instoreCode,
                 "print_at_till_instore"             : printAtTillInstore,
                 "instant_win_instore"               : instantWinInstore,
@@ -855,11 +876,13 @@ define([
             var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
             var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
             var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
+            var campaignCodeOnline          = $("#step1 .slds-form-element__control #campaign_code_online").val();
 
             // online code setup
-            var offerType                   = $("#step1 .slds-form-element__control #offer_type_online").val();
+            var voucherPotOnline            = $("#step1 .slds-form-element__control #voucher_pot_online").val();
+            var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
-            var instantWinOnline          = $("#step1 .slds-form-element__control #instant_win_online").val();
+            var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
             var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
@@ -871,6 +894,7 @@ define([
             var cellNameInstore                 = $("#step2 .slds-form-element__control #cell_name_instore").val();
             var campaignNameInstore             = $("#step2 .slds-form-element__control #campaign_name_instore").val();
             var campaignIdInstore               = $("#step2 .slds-form-element__control #campaign_id_instore").val();
+            var campaignCodeInstore             = $("#step2 .slds-form-element__control #campaign_code_instore").val();
 
             // instore voucher setup
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
@@ -887,7 +911,7 @@ define([
                 "cell_name_instore"                 : cellNameInstore,
                 "campaign_name_instore"             : campaignNameInstore,
                 "campaign_id_instore"               : campaignIdInstore,
-                "offer_type_instore"                : "-",
+                "campaign_code_instore"             : campaignCodeInstore,
                 "instore_code_instore"              : instoreCode,
                 "print_at_till_instore"             : printAtTillInstore,
                 "instant_win_instore"               : instantWinInstore,
@@ -902,8 +926,9 @@ define([
                 "cell_name_online"                  : cellNameOnline,
                 "campaign_name_online"              : campaignNameOnline,
                 "campaign_id_online"                : campaignIdOnline,
-                "offer_type_online"                 : offerType,
-                "instore_code_online"               : "-",
+                "campaign_code_online"              : campaignCodeOnline,
+                "voucher_pot_online"                : voucherPotOnline,
+                "global_code_online"                : globalCodeOnline,
                 "print_at_till_online"              : printAtTillOnline,
                 "instant_win_online"                : instantWinOnline,
                 "offer_channel_online"              : "Online",
