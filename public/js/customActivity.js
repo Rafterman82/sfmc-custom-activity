@@ -240,28 +240,8 @@ define([
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
 
-        if ( inArguments.inArgument.['mc_unique_promotion_id_online'] ) {
-
-            var prePop = 'online';
-
-        } else if ( inArguments.inArgument.['mc_unique_promotion_id_instore'] ) {
-
-            var prePop = 'instore';
-
-        } else if ( inArguments.inArgument.['mc_unique_promotion_id_online'] && inArguments.inArgument.['mc_unique_promotion_id_instore'] ) {
-            
-            var prePop = 'online_instore';
-
-        } else {
-
-            var prePop = 'not-set';
-
-        }
-
-        if ( debug ) {
-            console.log(prePop);
-        }
-        
+        var mcOnlineBool = false;
+        var mcInstoreBool = false;
 
         $.each(inArguments, function(index, inArgument) {
             if ( debug ) {
@@ -272,39 +252,36 @@ define([
                 if ( debug ) {
                     console.log("The key for this row is: " + key + ". The value for this row is: " + val);
                 }
-                if (key === 'communication_cell_code_online') {
-                    campaignKey = val;
+
+                if ( key == 'mc_unique_promotion_id_online' && val ) {
+
+                    mcOnlineBool = true;
+
+                } else if ( key == 'mc_unique_promotion_id_instore' && val ) {
+
+                    mcInstoreBool = true;
+
                 }
+
             });
         });
 
-        // If there is no message selected, disable the next button
-        if ( debug ) {
-            console.log("key is: " + campaignKey);
-        }
-        
-        if (!campaignKey) {
+        var prePop;
 
-            //showStep(null, 0);
-            //connection.trigger('updateButton', { button: 'next', enabled: true });
-
-            if ( debug ) {
-                console.log("key is false " + campaignKey);
-            }
-
-        } else {
-
-            if ( debug ) {
-                console.log("Key in else is: " + campaignKey);
-            }
-            
-            // update other summary values
-            //$('#keySummary').html(campaignKey);
+        if ( mcOnlineBool && !mcInstoreBool ) {
+            prePop = 'online';
+            showStep(null, 2);
+        } else if ( !mcOnlineBool && mcInstoreBool ) {
+            prePop = 'instore';
+            showStep(null, 2);
+        } else  if ( mcOnlineBool && mcInstoreBool ) {
+            prePop = 'online_instore';
             showStep(null, 3);
-
+        } else{
+            prePop = 'not-set';
+            showStep(null, 0);
         }
         
-
     }
 
     /*
