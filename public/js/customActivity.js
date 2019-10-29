@@ -706,7 +706,7 @@ define([
         }
 
         if (stepIndex && !step) {
-            step = steps[stepIndex];
+            step = steps[stepIndex-1];
             if ( debug ) {
                 console.log(step);
             }
