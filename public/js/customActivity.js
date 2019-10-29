@@ -278,29 +278,35 @@ define([
             connection.trigger('nextStep');
             setTimeout(function() {
                 showStep(null, 3);
-            }, 3000);
+            }, 1000);
         } else if ( !mcOnlineBool && mcInstoreBool ) {
             prePop = 'instore';
             steps[2].active = true;
             steps[3].active = true;
-            connection.trigger('nextStep');
-            connection.trigger('nextStep');
             connection.trigger('updateSteps', steps);
+            connection.trigger('nextStep');
+            connection.trigger('nextStep');
             setTimeout(function() {
                 showStep(null, 3);
-            }, 3000);
+            }, 1000);
         } else  if ( mcOnlineBool && mcInstoreBool ) {
             prePop = 'online_instore';
             steps[1].active = true;
             steps[2].active = true;
             steps[3].active = true;
-            connection.trigger('nextStep');
-            connection.trigger('nextStep');
-            connection.trigger('nextStep');
             connection.trigger('updateSteps', steps);
             setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 400);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 600);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 800);
+            setTimeout(function() {
                 showStep(null, 3);
-            }, 3000);
+            }, 1000);
         } else{
             prePop = 'not-set';
             showStep(null, 0);
