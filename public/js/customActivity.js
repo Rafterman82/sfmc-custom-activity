@@ -735,16 +735,9 @@ define([
         if ( debug ) {
             console.log(currentStep);
         }
-
-        currentStep = step;
-
-        if ( currentStep == null ) {
-            currentStep.key = 'step0';
-        }
-
-        if ( debug ) {
-            console.log(currentStep);
-        }
+        if ( step == !0 ) {
+            currentStep = step;
+        } 
 
 
         $('.step').hide();
