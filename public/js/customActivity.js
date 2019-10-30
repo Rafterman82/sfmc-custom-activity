@@ -736,46 +736,17 @@ define([
             }
         }
 
-        if ( debug ) {
-            console.log("Current Step before transform");
-            console.log(currentStep);
-        }
-        if ( step == !0 ) {
-            currentStep = step;
-        } else {
-            currentStep = steps[0].key;
-        }
-
-        if ( debug ) {
-            console.log("Steps 0 key is:");
-            console.log(steps[0].key);
-        }
-
-        if ( debug ) {
-            console.log("Current Step after transform");
-            console.log(currentStep);
-        }
-
-        $('.step').hide();
-
-        if ( debug ) {
-            console.log("Current Step Key is");
-            console.log(currentStep.key);
-        }
-
-        if ( !currentStep.key ) {
-            steps = [
-                { "label": "Promotion Type", "key": "step0" },
-                { "label": "Online Voucher Setup", "key": "step1", "active": false },
-                { "label": "Instore Voucher Setup", "key": "step2", "active": false },
-                { "label": "Summary", "key": "step3" }
-            ];
-            currentStep = steps[0].key;
-        }
-
-        if ( debug ) {
-            console.log("Current Step after transform Key is");
-            console.log(currentStep);
+        if ( step == 0) {
+            $('#step0').show();
+            connection.trigger('updateButton', {
+                button: 'next',
+                //enabled: Boolean(getMessage())
+            });
+            connection.trigger('updateButton', {
+                button: 'back',
+                visible: false
+                
+            });
         }
 
         switch(currentStep.key) {
