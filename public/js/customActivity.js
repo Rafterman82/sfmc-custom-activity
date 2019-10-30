@@ -40,20 +40,7 @@ define([
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
 
-        // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
-
-            if ( debug ) {
-                console.log('lookup promotions executed');
-                console.log(result.items);               
-            }
-
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
-                // do something with `substr[i]
-                $("#instore_code").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
-            }
-        }});
+        lookupPromos();
 
         $('.promotion_type').click(function() {
 
@@ -163,6 +150,7 @@ define([
     }
 
     function initialize (data) {
+        lookupPromos();
         if (data) {
             payload = data;
         }
@@ -279,24 +267,26 @@ define([
                 if ( key == 'promotion_type_instore' || key == 'promotion_type_online' ) {
 
                     if ( val == 'online_instore' ) {
-                        $('#radio-3').attr('checked', 'checked');
-                        $("#onlineKeySummary").html(val);
+                        $('#radio-3').attr('checked', 'checked');;
                         $("#onlineKey").show();
-                        $("#instoreKeySummary").html(val);
                         $("#instoreKey").show();
                         $("#promotion_type_summary").html(val);
                     } else if ( val == 'instore' ) {
                         $('#radio-2').attr('checked', 'checked');
-                        $("#instoreKeySummary").html(val);
                         $("#instoreKey").show();
                         $("#promotion_type_summary").html(val);
                     } else if ( val == 'online' ) {
                         $('#radio-1').attr('checked', 'checked');
-                        $("#onlineKeySummary").html(val);
                         $("#onlineKey").show();
                         $("#promotion_type_summary").html(val);
                     }
                     
+                } else if ( key == 'mc_unique_promotion_id_online' ) {
+                    $("#onlineKeySummary").html(val);
+                } else if ( key == 'mc_unique_promotion_id_instore' ) {
+                    $("#instoreKeySummary").html(val);
+                } else if () {
+
                 } else {
                     $('#' + key).val(val);
                     $('#' + key + '_summary').html(val);
@@ -304,6 +294,22 @@ define([
 
             });
         });
+    }
+    function lookupPromos() {
+            // access offer types and build select input
+        $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
+
+            if ( debug ) {
+                console.log('lookup promotions executed');
+                console.log(result.items);               
+            }
+
+            var i;
+            for (i = 0; i < result.items.length; ++i) {
+                // do something with `substr[i]
+                $("#instore_code").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
+            }
+        }});
     }
 
     /*
