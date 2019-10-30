@@ -640,7 +640,7 @@ define([
                 updateSummaryPage();
                 connection.trigger('nextStep');
 
-            } else if ( currentStep.key === 'step2' ) {
+            } else if ( currentStep.key === 'step3' ) {
 
                 console.log("save to de");
                 saveToDataExtension();
@@ -833,7 +833,7 @@ define([
             var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
-            var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
+            var mediumOnline                = $("#step1 .slds-form-element__control #offer_medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
@@ -876,8 +876,8 @@ define([
             // instore voucher setup
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
             var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
-            var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
-            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
+            var mediumInstore                   = $("#step2 .slds-form-element__control #offer_medium_instore").val();
+            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code_instore").val();
             var promotionIdInstore              = $("#step2 .slds-form-element__control #promotion_id_instore").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
@@ -917,7 +917,7 @@ define([
             var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
-            var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
+            var mediumOnline                = $("#step1 .slds-form-element__control #offer_xmedium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
@@ -933,8 +933,8 @@ define([
             // instore voucher setup
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
             var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
-            var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
-            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
+            var mediumInstore                   = $("#step2 .slds-form-element__control #offer_medium_instore").val();
+            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code_instore").val();
             var promotionIdInstore              = $("#step2 .slds-form-element__control #promotion_id_instore").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
