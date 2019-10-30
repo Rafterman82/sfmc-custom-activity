@@ -283,8 +283,12 @@ define([
                     
                 } else if ( key == 'mc_unique_promotion_id_online' ) {
                     $("#onlineKeySummary").html(val);
+                    $('#' + key).val(val);
+                    $('#' + key + '_summary').html(val);
                 } else if ( key == 'mc_unique_promotion_id_instore' ) {
                     $("#instoreKeySummary").html(val);
+                    $('#' + key).val(val);
+                    $('#' + key + '_summary').html(val);
                 } else {
                     $('#' + key).val(val);
                     $('#' + key + '_summary').html(val);
@@ -305,7 +309,7 @@ define([
             var i;
             for (i = 0; i < result.items.length; ++i) {
                 // do something with `substr[i]
-                $("#instore_code").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
+                $("#instore_code_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
             }
         }});
     }
