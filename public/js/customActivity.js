@@ -254,7 +254,9 @@ define([
             prePop = 'not-set';
             steps[0].active = true;
             connection.trigger('updateSteps', steps);
-            showStep(null, 0);
+            setTimeout(function() {
+                showStep(null, 0);
+            }, 100);
         }
         if ( debug ) {
             console.log(prePop);
