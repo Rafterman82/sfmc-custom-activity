@@ -775,7 +775,7 @@ define([
 
         if ( debug ) {
             console.log("Current Step after transform Key is");
-            console.log(currentStep.key);
+            console.log(currentStep);
         }
 
         switch(currentStep.key) {
