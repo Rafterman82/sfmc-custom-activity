@@ -764,13 +764,13 @@ define([
         }
 
         if ( !currentStep.key ) {
-            steps                       = [
+            steps = [
                 { "label": "Promotion Type", "key": "step0" },
                 { "label": "Online Voucher Setup", "key": "step1", "active": false },
                 { "label": "Instore Voucher Setup", "key": "step2", "active": false },
                 { "label": "Summary", "key": "step3" }
             ];
-            currentStep.key = steps[0].key;
+            currentStep = steps[0].key;
         }
 
         if ( debug ) {
