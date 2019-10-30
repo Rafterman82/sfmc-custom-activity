@@ -737,6 +737,7 @@ define([
         }
 
         if ( debug ) {
+            console.log("Current Step before transform");
             console.log(currentStep);
         }
         if ( step == !0 ) {
@@ -745,6 +746,10 @@ define([
             currentStep = steps[0].key;
         }
 
+        if ( debug ) {
+            console.log("Current Step after transform");
+            console.log(currentStep);
+        }
 
         $('.step').hide();
 
