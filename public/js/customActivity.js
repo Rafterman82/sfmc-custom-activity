@@ -732,6 +732,10 @@ define([
             }
         }
 
+        if ( debug ) {
+            console.log(currentStep);
+        }
+
         currentStep = step;
 
         if ( currentStep == null ) {
