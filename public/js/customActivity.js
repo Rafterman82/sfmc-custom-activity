@@ -747,6 +747,11 @@ define([
         }
 
         if ( debug ) {
+            console.log("Steps 0 key is:");
+            console.log(steps[0].key);
+        }
+
+        if ( debug ) {
             console.log("Current Step after transform");
             console.log(currentStep);
         }
@@ -759,7 +764,7 @@ define([
         }
 
         if ( !currentStep.key ) {
-            currentStep = steps[0].key;
+            currentStep.key = 'step0';
         }
 
         if ( debug ) {
