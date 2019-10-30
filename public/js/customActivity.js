@@ -289,6 +289,9 @@ define([
                     $("#instoreKeySummary").html(val);
                     $('#' + key).val(val);
                     $('#' + key + '_summary').html(val);
+                } else if ( key == 'instore_code_instore') {
+                    $("option[value='"+val+"']").prop('selected',true);
+                    $('#' + key + '_summary').html(val);
                 } else {
                     $('#' + key).val(val);
                     $('#' + key + '_summary').html(val);
