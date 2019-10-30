@@ -735,7 +735,6 @@ define([
         currentStep = step;
 
         if ( currentStep == null ) {
-            currentStep = 0;
             currentStep.key = 'step0';
         }
 
