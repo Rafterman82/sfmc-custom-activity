@@ -736,7 +736,7 @@ define([
             }
         }
 
-        if ( step == 0) {
+        if ( step == 0 && !stepIndex) {
             $('#step0').show();
             connection.trigger('updateButton', {
                 button: 'next',
