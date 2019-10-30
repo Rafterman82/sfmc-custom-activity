@@ -758,6 +758,15 @@ define([
             console.log(currentStep.key);
         }
 
+        if ( !currentStep.key ) {
+            currentStep = steps[0].key;
+        }
+
+        if ( debug ) {
+            console.log("Current Step after transform Key is");
+            console.log(currentStep.key);
+        }
+
         switch(currentStep.key) {
             case 'step0':
                 if ( debug ) {
