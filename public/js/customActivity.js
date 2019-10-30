@@ -739,7 +739,7 @@ define([
         }
 
         if ( stepIndex == '0' ) {
-            currentStep.key = '0';
+            currentStep.key = 'step0';
         }
 
         $('.step').hide();
