@@ -252,6 +252,8 @@ define([
             }, 100);
         } else{
             prePop = 'not-set';
+            steps[0].active = true;
+            connection.trigger('updateSteps', steps);
             showStep(null, 0);
         }
         if ( debug ) {
