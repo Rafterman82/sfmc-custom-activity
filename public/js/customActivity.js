@@ -753,6 +753,11 @@ define([
 
         $('.step').hide();
 
+        if ( debug ) {
+            console.log("Current Step Key is");
+            console.log(currentStep.key);
+        }
+
         switch(currentStep.key) {
             case 'step0':
                 if ( debug ) {
