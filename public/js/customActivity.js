@@ -738,6 +738,10 @@ define([
             console.log(currentStep);
         }
 
+        if ( stepIndex == '0' ) {
+            currentStep.key = '0';
+        }
+
         $('.step').hide();
 
         switch(currentStep.key) {
