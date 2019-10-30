@@ -734,13 +734,15 @@ define([
 
         currentStep = step;
 
+        if ( currentStep == null ) {
+            currentStep = 0;
+            currentStep.key = 'step0';
+        }
+
         if ( debug ) {
             console.log(currentStep);
         }
 
-        if ( stepIndex == '0' ) {
-            currentStep.key = 'step0';
-        }
 
         $('.step').hide();
 
