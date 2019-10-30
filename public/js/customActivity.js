@@ -280,12 +280,21 @@ define([
 
                     if ( val == 'online_instore' ) {
                         $('#radio-3').attr('checked', 'checked');
-                        $("#onlineKeySummary").html();
-                        $("#instoreKeySummary").html();
+                        $("#onlineKeySummary").html(val);
+                        $("#onlineKey").show();
+                        $("#instoreKeySummary").html(val);
+                        $("#instoreKey").show();
+                        $("#promotion_type_summary").html(val);
                     } else if ( val == 'instore' ) {
                         $('#radio-2').attr('checked', 'checked');
+                        $("#instoreKeySummary").html(val);
+                        $("#instoreKey").show();
+                        $("#promotion_type_summary").html(val);
                     } else if ( val == 'online' ) {
                         $('#radio-1').attr('checked', 'checked');
+                        $("#onlineKeySummary").html(val);
+                        $("#onlineKey").show();
+                        $("#promotion_type_summary").html(val);
                     }
                     
                 } else {
