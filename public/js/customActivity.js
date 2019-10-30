@@ -252,11 +252,6 @@ define([
             }, 100);
         } else{
             prePop = 'not-set';
-            steps[0].active = true;
-            connection.trigger('updateSteps', steps);
-            setTimeout(function() {
-                showStep(null, 0);
-            }, 100);
         }
         if ( debug ) {
             console.log(prePop);
@@ -724,30 +719,17 @@ define([
 
     function showStep(step, stepIndex) {
 
-        if ( debug ) {
-            console.log(step);
-            console.log(stepIndex);
-        }
-
         if (stepIndex && !step) {
-            step = steps[stepIndex];
-            if ( debug ) {
-                console.log(step);
-            }
+            step = steps[stepIndex-1];
         }
 
-        if ( step == 0 && !stepIndex) {
-            $('#step0').show();
-            connection.trigger('updateButton', {
-                button: 'next',
-                //enabled: Boolean(getMessage())
-            });
-            connection.trigger('updateButton', {
-                button: 'back',
-                visible: false
-                
-            });
+        currentStep = step;
+
+        if ( debug ) {
+            console.log(currentStep);
         }
+
+        $('.step').hide();
 
         switch(currentStep.key) {
             case 'step0':
