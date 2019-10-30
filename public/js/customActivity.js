@@ -280,6 +280,8 @@ define([
 
                     if ( val == 'online_instore' ) {
                         $('#radio-3').attr('checked', 'checked');
+                        $("#onlineKeySummary").html();
+                        $("#instoreKeySummary").html();
                     } else if ( val == 'instore' ) {
                         $('#radio-2').attr('checked', 'checked');
                     } else if ( val == 'online' ) {
@@ -325,7 +327,7 @@ define([
             var voucherPotOnline            = $("#step1 .slds-form-element__control #voucher_pot_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
-            var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
+            var mediumOnline                = $("#step1 .slds-form-element__control #offer_medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
@@ -374,8 +376,8 @@ define([
             // instore voucher setup
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
             var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
-            var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
-            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
+            var mediumInstore                   = $("#step2 .slds-form-element__control #offer_medium_instore").val();
+            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code_instore").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var promotionIdInstore              = $("#step2 .slds-form-element__control #promotion_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
@@ -461,7 +463,7 @@ define([
             var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
-            var mediumOnline                = $("#step1 .slds-form-element__control #medium_online").val();
+            var mediumOnline                = $("#step1 .slds-form-element__control #offer_medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
@@ -479,7 +481,7 @@ define([
             $('#global_code_online_summary').html(globalCodeOnline);
             $('#print_at_till_online_summary').html(printAtTillOnline);
             $('#instant_win_online_summary').html(instantWinOnline);
-            $('#medium_online_summary').html(mediumOnline);
+            $('#offer_medium_online_summary').html(mediumOnline);
             $('#promotion_id_online_summary').html(promotionIdOnline);
             $('#promotion_group_id_online_summary').html(promotionGroupIdOnline);
             $('#mc_unique_promotion_id_online_summary').html(mcUniquePromotionIdOnline);
@@ -497,10 +499,13 @@ define([
                 $('#print_at_till_instore_summary').html("-");
                 $('#instant_win_instore_summary').html("-");
                 $('#medium_instore_summary').html("-");
-                $('#instore_code_summary').html("-");
+                $('#instore_code_instore_summary').html("-");
                 $('#promotion_id_instore_summary').html("-");
                 $('#promotion_group_id_instore_summary').html("-");
                 $('#mc_unique_promotion_id_instore_summary').html("-");
+
+                $("#onlineKeySummary").html(mcUniquePromotionIdOnline);
+                $("#onlineKey").show();
 
             }
 
@@ -525,8 +530,8 @@ define([
             // instore voucher setup
             var printAtTillInstore              = $("#step2 .slds-form-element__control #print_at_till_instore").val();
             var instantWinInstore               = $("#step2 .slds-form-element__control #instant_win_instore").val();
-            var mediumInstore                   = $("#step2 .slds-form-element__control #medium_instore").val();
-            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code").val();
+            var mediumInstore                   = $("#step2 .slds-form-element__control #offer_medium_instore").val();
+            var instoreCode                     = $("#step2 .slds-form-element__control #instore_code_instore").val();
             var promotionGroupIdInstore         = $("#step2 .slds-form-element__control #promotion_group_id_instore").val();
             var promotionIdInstore              = $("#step2 .slds-form-element__control #promotion_id_instore").val();
             var mcUniquePromotionIdInstore      = $("#step2 .slds-form-element__control #mc_unique_promotion_id_instore").val();
@@ -543,15 +548,11 @@ define([
             $('#communication_cell_code_instore_summary').html(communicationCellCodeInstore);            
             $('#print_at_till_instore_summary').html(printAtTillInstore);
             $('#instant_win_instore_summary').html(instantWinInstore);
-            $('#medium_instore_summary').html(mediumInstore);
-            $('#instore_code_summary').html(instoreCode);
+            $('#offer_medium_instore_summary').html(mediumInstore);
+            $('#instore_code_instore_summary').html(instoreCode);
             $('#promotion_id_instore_summary').html(promotionIdInstore);
             $('#promotion_group_id_instore_summary').html(promotionGroupIdInstore);
             $('#mc_unique_promotion_id_instore_summary').html(mcUniquePromotionIdInstore);
-
-            //update key
-            $("#onlineKeySummary").html(mcUniquePromotionIdOnline);
-            $("#instoreKeySummary").html(mcUniquePromotionIdInstore);
 
             if ( promotionType == 'instore' ) {
 
@@ -568,10 +569,13 @@ define([
                 $('#global_code_online_summary').html("-");
                 $('#print_at_till_online_summary').html("-");
                 $('#instant_win_online_summary').html("-");
-                $('#medium_online_summary').html("-");
+                $('#offer_medium_online_summary').html("-");
                 $('#promotion_id_online_summary').html("-");
                 $('#promotion_group_id_online_summary').html("-");
                 $('#mc_unique_promotion_id_online_summary').html("-");
+
+                $("#instoreKeySummary").html(mcUniquePromotionIdInstore);
+                $("#instoreKey").show();
 
             }
 

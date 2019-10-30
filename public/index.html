@@ -283,19 +283,19 @@
                 <div class="slds-form-element">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Medium</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="medium_online__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="offer_medium_online__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="medium_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="offer_medium_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
                             <div class="slds-popover__body">What medium will this code be sent over?</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
                         <div class="slds-select_container">
-                            <select class="slds-select" id="medium_online">
+                            <select class="slds-select" id="offer_medium_online">
                             <option value="Email" selected>Email - Marketing Cloud</option>
                             <option value="EPOS">EPOS</option>
                             <option value="Whitemail">Whitemail - Direct Mail</option>
@@ -525,19 +525,19 @@
                 <div class="slds-form-element">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Medium</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="medium_instore__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="offer_medium_instore__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="medium_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="offer_medium_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
                             <div class="slds-popover__body">What medium will this code be sent over?</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
                         <div class="slds-select_container">
-                            <select class="slds-select" id="medium_instore">
+                            <select class="slds-select" id="offer_medium_instore">
                                 <option value="Email" selected>Email - Marketing Cloud</option>
                                 <option value="EPOS">EPOS</option>
                                 <option value="Whitemail">Whitemail - Direct Mail</option>
@@ -550,19 +550,19 @@
                 <div class="slds-form-element">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">In-store Code</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="instore_code__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="instore_code_instore__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="instore_code__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="instore_code_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
                             <div class="slds-popover__body">Select In-store Promotion Code</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
                         <div class="slds-select_container">
-                            <select class="slds-select" id="instore_code">
+                            <select class="slds-select" id="instore_code_instore">
                                 <option selected>Please select a code</option>
                             </select>
                         </div>
@@ -619,7 +619,7 @@
                         <div class="slds-form-element__static" id="promotion_type_summary"></div>
                     </div>
                 </div>
-                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
+                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status" id="onlineKey">
                     <div class="slds-media__figure">
                         <span class="slds-icon_container slds-icon-utility-info" title="information">
                             <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
@@ -632,7 +632,7 @@
                         <p>Your unique Online Promotion Association Key is: <b><span id="onlineKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
                     </div>
                 </div>
-                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light margin-top-grid" role="status">
+                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light margin-top-grid" id="storeKey" role="status">
                     <div class="slds-media__figure">
                         <span class="slds-icon_container slds-icon-utility-info" title="information">
                             <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
@@ -723,7 +723,7 @@
                 <div class="slds-form-element slds-form-element_readonly">
                     <span class="slds-form-element__label">Medium Online</span>
                     <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="medium_online_summary"></div>
+                        <div class="slds-form-element__static" id="offer_medium_online_summary"></div>
                     </div>
                 </div>
                 <div class="slds-form-element slds-form-element_readonly">
@@ -803,13 +803,13 @@
                 <div class="slds-form-element slds-form-element_readonly">
                     <span class="slds-form-element__label">Medium Instore</span>
                     <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="medium_instore_summary"></div>
+                        <div class="slds-form-element__static" id="offer_medium_instore_summary"></div>
                     </div>
                 </div>
                 <div class="slds-form-element slds-form-element_readonly">
                     <span class="slds-form-element__label">Instore Code</span>
                     <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="instore_code_summary"></div>
+                        <div class="slds-form-element__static" id="instore_code_instore_summary"></div>
                     </div>
                 </div>
                 <div class="slds-form-element slds-form-element_readonly">

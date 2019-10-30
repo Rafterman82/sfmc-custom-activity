@@ -17,3 +17,6 @@ body {
 .slds-form-element__help {
 	display: none;
 }
+#onlineKey, #instoreKey {
+	display: none;
+}
