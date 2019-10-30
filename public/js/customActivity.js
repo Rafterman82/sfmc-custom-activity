@@ -755,6 +755,9 @@ define([
 
         switch(currentStep.key) {
             case 'step0':
+                if ( debug ) {
+                    console.log("step0 case hit");
+                }
                 $('#step0').show();
                 connection.trigger('updateButton', {
                     button: 'next',
