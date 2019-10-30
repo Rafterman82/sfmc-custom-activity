@@ -725,7 +725,7 @@ define([
         }
 
         if (stepIndex && !step) {
-            step = steps[stepIndex-1];
+            step = steps[stepIndex];
         }
 
         currentStep = step;
