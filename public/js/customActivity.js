@@ -656,12 +656,12 @@ define([
 
         } else if ( promotionType == 'instore' ) {
 
-            if ( currentStep.key === 'step1' ) {
+            if ( currentStep.key === 'step2' ) {
 
                 updateSummaryPage();
                 connection.trigger('nextStep');
 
-            } else if ( currentStep.key === 'step2' ) {
+            } else if ( currentStep.key === 'step3' ) {
 
                 console.log("save to de");
                 saveToDataExtension();
