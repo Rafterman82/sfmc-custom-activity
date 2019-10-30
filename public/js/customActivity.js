@@ -285,8 +285,6 @@ define([
                     $("#onlineKeySummary").html(val);
                 } else if ( key == 'mc_unique_promotion_id_instore' ) {
                     $("#instoreKeySummary").html(val);
-                } else if () {
-
                 } else {
                     $('#' + key).val(val);
                     $('#' + key + '_summary').html(val);
