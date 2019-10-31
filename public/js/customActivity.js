@@ -543,7 +543,10 @@ define([
                 $('#mc_unique_promotion_id_instore_summary').html("-");
 
                 $("#onlineKeySummary").html(mcUniquePromotionIdOnline);
+                $("#instoreKey").hide();
+                $("#onlineKey").attr('class', '.slds-col .slds-size_1-of-1');
                 $("#onlineKey").show();
+                
 
             }
 
@@ -612,8 +615,10 @@ define([
                 $('#promotion_group_id_online_summary').html("-");
                 $('#mc_unique_promotion_id_online_summary').html("-");
 
-                $("#instoreKeySummary").html(mcUniquePromotionIdInstore);
+                $("#onlineKey").hide();
+                $("#instoreKey").attr('class', '.slds-col .slds-size_1-of-1');
                 $("#instoreKey").show();
+
 
             }
 
