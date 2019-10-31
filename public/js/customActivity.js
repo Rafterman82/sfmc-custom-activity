@@ -150,7 +150,7 @@ define([
     }
 
     function initialize (data) {
-        lookupPromos();
+        
         if (data) {
             payload = data;
         }
