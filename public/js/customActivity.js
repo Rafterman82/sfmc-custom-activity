@@ -303,7 +303,7 @@ define([
 
         $('#instore_code_instore')
             .empty()
-            .append('<option selected="selected" value="whatever">text</option>')
+            .append('<option selected="selected">Please select a code</option>')
         ;
 
         // access offer types and build select input
