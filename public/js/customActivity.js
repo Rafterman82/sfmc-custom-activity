@@ -827,7 +827,6 @@ define([
                 $("#instoreKey").attr('class', '.slds-col .slds-size_1-of-1');
                 $("#instoreKey").show();
 
-
             }
 
         }          

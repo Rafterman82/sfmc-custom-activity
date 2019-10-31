@@ -8,12 +8,6 @@ body {
 #step0 {
     display: block;
 }
-#test-api-insert {
-	display: none;
-}
-.margin-top-grid {
-	margin-top: 15px;
-}
 .slds-form-element__help {
 	display: none;
 }
