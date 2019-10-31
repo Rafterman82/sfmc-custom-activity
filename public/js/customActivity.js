@@ -832,7 +832,7 @@ define([
 
         }
         if ( promotionType == 'online_instore' ) {
-            ("#onlineKey").show();
+            $("#onlineKey").show();
             $("#instoreKey").show();
         }           
        
