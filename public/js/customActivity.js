@@ -6,6 +6,7 @@ define([
     'use strict';
 
     var debug                       = true;
+    var stepToValidate;
     var connection                  = new Postmonger.Session();
     var payload                     = {};
     var onlineSetupStepEnabled      = false;
@@ -299,6 +300,15 @@ define([
             });
         });
     }
+
+    function validateFields(stepToValidate) {
+        if ( debug ) {
+            console.log("validating fields");
+            console.log(stepToValidate);
+        }
+        return true;
+    }
+
     function lookupPromos() {
 
         $('#instore_code_instore')
@@ -646,8 +656,10 @@ define([
 
             if ( currentStep.key === 'step1' ) {
 
-                updateSummaryPage();
-                connection.trigger('nextStep');
+                if ( validateFields('step1') ) {
+                    updateSummaryPage();
+                    connection.trigger('nextStep');
+                }
 
             } else if ( currentStep.key === 'step3' ) {
 
@@ -667,8 +679,10 @@ define([
 
             if ( currentStep.key === 'step2' ) {
 
-                updateSummaryPage();
-                connection.trigger('nextStep');
+                if ( validateFields('step2') ) {
+                    updateSummaryPage();
+                    connection.trigger('nextStep');
+                }
 
             } else if ( currentStep.key === 'step3' ) {
 
@@ -688,8 +702,10 @@ define([
             
             if ( currentStep.key === 'step2') {
 
-                updateSummaryPage();
-                connection.trigger('nextStep');
+                if ( validateFields('step2') ) {
+                    updateSummaryPage();
+                    connection.trigger('nextStep');
+                }
 
             } else if ( currentStep.key === 'step3' ) {
 
@@ -699,10 +715,10 @@ define([
                     save();
                 }, 3000);
 
-            } else {
-
-                connection.trigger('nextStep');
-
+            } else if ( currentStep.key === 'step1' ) {
+                if ( validateFields('step1') ) {
+                    connection.trigger('nextStep');
+                }
             }
 
         } else {
