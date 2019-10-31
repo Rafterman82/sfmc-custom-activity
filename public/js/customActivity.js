@@ -724,6 +724,8 @@ define([
                 if ( validateFields('step1') ) {
                     connection.trigger('nextStep');
                 }
+            } else {
+                connection.trigger('nextStep');
             }
 
         } else {
