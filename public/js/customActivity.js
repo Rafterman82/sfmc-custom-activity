@@ -40,6 +40,8 @@ define([
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
 
+        lookupPromos();
+
         $('.promotion_type').click(function() {
 
             var promotionType = $("input[name='promotionType']:checked").val();
