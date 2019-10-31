@@ -316,6 +316,9 @@ define([
 
             var i;
             for (i = 0; i < result.items.length; ++i) {
+                if ( debug ) {
+                    console.log(result.items[i].keys.discountid);
+                }
                 // do something with `substr[i]
                 $("#instore_code_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
             }
