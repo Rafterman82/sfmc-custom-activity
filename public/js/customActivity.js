@@ -40,8 +40,6 @@ define([
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
 
-        lookupPromos();
-
         $('.promotion_type').click(function() {
 
             var promotionType = $("input[name='promotionType']:checked").val();
@@ -300,7 +298,14 @@ define([
         });
     }
     function lookupPromos() {
-            // access offer types and build select input
+        $('#instore_code_instore')
+            .find('option')
+            .remove()
+            .end()
+            .append('<option selected>Please select a code</option>')
+        ;
+
+        // access offer types and build select input
         $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
 
             if ( debug ) {
