@@ -830,11 +830,7 @@ define([
 
             }
 
-        }
-        if ( promotionType == 'online_instore' ) {
-            $("#onlineKey").show();
-            $("#instoreKey").show();
-        }           
+        }          
        
     }
 

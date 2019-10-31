@@ -17,12 +17,6 @@ body {
 .slds-form-element__help {
 	display: none;
 }
-#onlineKey {
-	display: none;
-}
-#instoreKey {
-	display: none;
-}
 .summary-key {
 	color: #FF0000;
 }
