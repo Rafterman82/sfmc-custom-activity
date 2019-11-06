@@ -309,7 +309,52 @@ define([
             console.log("validating fields");
             console.log(stepToValidate);
         }
+
+        if ( stepToValidate === 'step1' ) {
+            
+            if ( debug ) {
+                console.log("validating online data");
+            }
+
+            // validate online promo info
+
+            // check if fields are empty
+
+            // check if certain fields are numbers
+
+            // check if specific field is unique
+
+        } else if ( stepToValidate === 'step2' ) {
+
+            if ( debug ) {
+                console.log("validating instore data");
+            }
+
+            // validate instore promo info
+
+            // check if fields are empty
+
+            // check if certain fields are numbers
+
+            // check if specific field is unique
+            if ( checkUniqueness ) {
+
+            }
+
+        } else {
+
+            return true;
+
+        }
+
+        
+    }
+
+    function checkUniqueness() {
+
+        // lookup uniqueness on mc promotion id if not unique return false
         return true;
+
     }
 
     function lookupPromos() {
@@ -545,8 +590,7 @@ define([
                 saveToDataExtension();
                 setTimeout(function() {
                     save();
-                }, 3000);
-                
+                }, 3000);      
 
             } else {
 
@@ -571,26 +615,21 @@ define([
                 }, 3000);
 
             } else if ( currentStep.key === 'step1' ) {
+
                 if ( validateFields('step1') ) {
+
                     connection.trigger('nextStep');
+
                 }
+
             } else {
+
                 connection.trigger('nextStep');
+
             }
 
-        } else {
-            if ( currentStep.key === 'step0' ) {
-                if ( debug ) {
-                    console.log("coming from step 0, check promotion type");
-                }
-                if ( validateFields('step0') ) {
-                    if ( debug ) {
-                        console.log("fields validated, moving user along");
-                    }
-                    connection.trigger('nextStep');
-                }
-            } 
-        }
+        } 
+
     }
 
     function onClickedBack () {
