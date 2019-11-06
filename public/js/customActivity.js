@@ -43,6 +43,10 @@ define([
 
         lookupPromos();
 
+        // simulate click on first radio
+        $("#radio-1").prop("checked", true).trigger("click");
+
+        // render relevant steps based on input
         $('.promotion_type').click(function() {
 
             var promotionType = $("input[name='promotionType']:checked").val();
@@ -498,7 +502,8 @@ define([
 
         if ( debug ) {
             console.log(promotionType);
-            console.log(currentStep.key);            
+            console.log(currentStep.key);
+            console.log("next clicked");           
         }
 
         if ( promotionType == 'online' ) {
