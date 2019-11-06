@@ -160,7 +160,6 @@ define([
             console.log("Payload is: " + payload);
         }
 
-        var campaignKey;
         var hasInArguments = Boolean(
             payload['arguments'] &&
             payload['arguments'].execute &&
@@ -270,15 +269,14 @@ define([
                         $('#radio-3').attr('checked', 'checked');;
                         $("#onlineKey").show();
                         $("#instoreKey").show();
-                        $("#promotion_type_summary").html(val);
                     } else if ( val == 'instore' ) {
                         $('#radio-2').attr('checked', 'checked');
                         $("#instoreKey").show();
-                        $("#promotion_type_summary").html(val);
+                        $("#onlineKey").hide();
                     } else if ( val == 'online' ) {
                         $('#radio-1').attr('checked', 'checked');
                         $("#onlineKey").show();
-                        $("#promotion_type_summary").html(val);
+                        $("#instoreKey").hide();
                     }
                     
                 } else if ( key == 'mc_unique_promotion_id_online' ) {
@@ -575,8 +573,11 @@ define([
             }
 
         } else {
-
-            connection.trigger('nextStep');
+            if ( currentStep.key === 'step0' ) {
+                if ( validateFields('step0') ) {
+                    connection.trigger('nextStep');
+                }
+            } 
         }
     }
 
@@ -829,7 +830,12 @@ define([
 
             }
 
-        }          
+        }
+
+        if ( promotionType == 'online_instore' ) {
+            $("#onlineKeySummary").html(mcUniquePromotionIdOnline);
+            $("#instoreKeySummary").html(mcUniquePromotionIdInstore);
+        }      
        
     }
 
@@ -944,7 +950,7 @@ define([
             var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
             var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
             var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
-            var mediumOnline                = $("#step1 .slds-form-element__control #offer_xmedium_online").val();
+            var mediumOnline                = $("#step1 .slds-form-element__control #offer_medium_online").val();
             var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
             var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
             var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
