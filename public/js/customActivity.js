@@ -43,9 +43,6 @@ define([
 
         lookupPromos();
 
-        // simulate click on first radio
-        $("#radio-1").prop("checked", true).trigger("click");
-
         // render relevant steps based on input
         $('.promotion_type').click(function() {
 
@@ -256,6 +253,10 @@ define([
             }, 100);
         } else{
             prePop = 'not-set';
+            if ( debug ) {
+                console.log('nothing to pre-pop setting step 0 and first radio checked');
+            }
+            $("#radio-1").prop("checked", true).trigger("click");
         }
         if ( debug ) {
             console.log(prePop);
