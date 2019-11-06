@@ -580,7 +580,13 @@ define([
 
         } else {
             if ( currentStep.key === 'step0' ) {
+                if ( debug ) {
+                    console.log("coming from step 0, check promotion type");
+                }
                 if ( validateFields('step0') ) {
+                    if ( debug ) {
+                        console.log("fields validated, moving user along");
+                    }
                     connection.trigger('nextStep');
                 }
             } 
