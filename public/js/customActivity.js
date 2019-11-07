@@ -320,14 +320,14 @@ define([
 
             $('#online_communication_history').find('input').each(function () {
                 if ( debug ) {
-                    console.log(this);
+                    console.log($(this).val());
                 }
 
-                if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
+                if ( $(this).data("attributeType") === 'int' && isEmpty($(this).val()) && !isWholeNumber($(this).val()) && $(this).val() > $(this).data("attributeLength") ) {
 
                     step1ValidationStatus = false;
 
-                } else if ( $(this).data("attributeType") === 'varchar' && isEmpty(this.value) && this.value > $(this).data("attributeLength") ) {
+                } else if ( $(this).data("attributeType") === 'varchar' && isEmpty($(this).val()) && $(this).val() > $(this).data("attributeLength") ) {
 
                     step1ValidationStatus = false;
 
@@ -338,14 +338,14 @@ define([
             $('#online_data').find('input').each(function () {
 
                 if ( debug ) {
-                    console.log(this);
+                    console.log($(this).val());
                 }
 
-                if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
+                if ( $(this).data("attributeType") === 'int' && isEmpty($(this).val()) && !isWholeNumber($(this).val()) && $(this).val() > $(this).data("attributeLength") ) {
 
                     step1ValidationStatus = false;
 
-                } else if ( $(this).data("attributeType") === 'varchar' && isEmpty(this.value) && this.value > $(this).data("attributeLength") ) {
+                } else if ( $(this).data("attributeType") === 'varchar' && isEmpty($(this).val()) && $(this).val() > $(this).data("attributeLength") ) {
 
                     step1ValidationStatus = false;
 
