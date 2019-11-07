@@ -318,9 +318,9 @@ define([
                 console.log("validating online data");
             }
 
-            $('#online_communication_history').find('input').each(function () {
+            $('#online_communication_history').find('input').each(function(index, elem) {
                 if ( debug ) {
-                    console.log($(this).val());
+                    console.log($(elem).val());
                 }
 
                 if ( $(this).data("attributeType") === 'int' && isEmpty($(this).val()) && !isWholeNumber($(this).val()) && $(this).val() > $(this).data("attributeLength") ) {
