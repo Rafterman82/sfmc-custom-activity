@@ -320,7 +320,7 @@ define([
 
             $('#online_communication_history').find('input').each(function(index, elem) {
                 if ( debug ) {
-                    console.log($(elem).val());
+                    console.log($("input" + elem).val());
                 }
 
                 if ( $(this).data("attributeType") === 'int' && isEmpty($(this).val()) && !isWholeNumber($(this).val()) && $(this).val() > $(this).data("attributeLength") ) {
@@ -338,7 +338,7 @@ define([
             $('#online_data').find('input').each(function () {
 
                 if ( debug ) {
-                    console.log($(this).val());
+                    console.log(this);
                 }
 
                 if ( $(this).data("attributeType") === 'int' && isEmpty($(this).val()) && !isWholeNumber($(this).val()) && $(this).val() > $(this).data("attributeLength") ) {
