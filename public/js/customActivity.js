@@ -305,6 +305,8 @@ define([
     }
 
     function validateFields(stepToValidate) {
+
+        /*
         if ( debug ) {
             console.log("validating fields");
             console.log(stepToValidate);
@@ -318,9 +320,9 @@ define([
                 console.log("validating online data");
             }
 
-            $('#online_communication_history').find('input').each(function(index, elem) {
+            $('#online_communication_history input[type=text]').each(function(){
                 if ( debug ) {
-                    console.log($("input" + elem).val());
+                    console.log($(this).val());
                 }
 
                 if ( $(this).data("attributeType") === 'int' && isEmpty($(this).val()) && !isWholeNumber($(this).val()) && $(this).val() > $(this).data("attributeLength") ) {
@@ -414,7 +416,8 @@ define([
 
             return true;
 
-        }
+        }*/
+        return true;
         
     }
 
