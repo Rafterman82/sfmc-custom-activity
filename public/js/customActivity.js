@@ -311,18 +311,49 @@ define([
         }
 
         if ( stepToValidate === 'step1' ) {
+
+            var step1ValidationStatus = true;
             
             if ( debug ) {
                 console.log("validating online data");
             }
 
-            // validate online promo info
+            $('#online_communication_history').find('input').each(function () {
+                if ( debug ) {
+                    console.log(this.value);
+                }
 
-            // check if fields are empty
+                if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
 
-            // check if certain fields are numbers
+                    step1ValidationStatus = false;
 
-            // check if specific field is unique
+                } else if ( $(this).data("attributeType") === 'varchar' && isEmpty(this.value) && this.value > $(this).data("attributeLength") ) {
+
+                    step1ValidationStatus = false;
+
+                } 
+
+            });
+
+            $('#online_data').find('input').each(function () {
+
+                if ( debug ) {
+                    console.log(this.value);
+                }
+
+                if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
+
+                    step1ValidationStatus = false;
+
+                } else if ( $(this).data("attributeType") === 'varchar' && isEmpty(this.value) && this.value > $(this).data("attributeLength") ) {
+
+                    step1ValidationStatus = false;
+
+                } 
+
+            });
+
+            return step1ValidationStatus;
 
         } else if ( stepToValidate === 'step2' ) {
 
@@ -330,23 +361,50 @@ define([
                 console.log("validating instore data");
             }
 
-            // validate instore promo info
+            var step2ValidationStatus = true;
 
-            // check if fields are empty
+            $('#instore_communication_history').find('input').each(function () {
+                if ( debug ) {
+                    console.log(this.value);
+                }
 
-            // check if certain fields are numbers
+                if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
 
-            // check if specific field is unique
-            if ( checkUniqueness ) {
+                    step2ValidationStatus = false;
 
-            }
+                } else if ( $(this).data("attributeType") === 'varchar' && isEmpty(this.value) && this.value >= $(this).data("attributeLength") ) {
+
+                    step2ValidationStatus = false;
+
+                } 
+
+            });
+
+            $('#instore_data').find('input').each(function () {
+
+                if ( debug ) {
+                    console.log(this.value);
+                }
+
+                if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
+
+                    step2ValidationStatus = false;
+
+                } else if ( $(this).data("attributeType") === 'varchar' && isEmpty(this.value) && this.value > $(this).data("attributeLength") ) {
+
+                    step2ValidationStatus = false;
+
+                } 
+
+            });
+
+            return step2ValidationStatus;
 
         } else {
 
             return true;
 
         }
-
         
     }
 
@@ -355,6 +413,27 @@ define([
         // lookup uniqueness on mc promotion id if not unique return false
         return true;
 
+    }
+
+    function isEmpty (value) {
+        return ((value == null) || 
+                (value.hasOwnProperty('length') && 
+                value.length === 0) || 
+                (value.constructor === Object && 
+                Object.keys(value).length === 0) 
+            );
+    }
+
+    function isWholeNumber(num) {
+        return num === Math.round(num);
+    }
+
+    function isTwoValuesUsed(voucherPotValue, globalOnlineCodeValue) {
+        return voucherPotValue != '' && globalOnlineCodeValue != '';
+    }
+
+    function isValidInstoreCode(selectedCode) {
+        return selectedCode !== 'Please select a code' && selectedCode != '';
     }
 
     function lookupPromos() {
