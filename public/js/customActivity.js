@@ -320,7 +320,7 @@ define([
 
             $('#online_communication_history').find('input').each(function () {
                 if ( debug ) {
-                    console.log(this.value);
+                    console.log(this);
                 }
 
                 if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
@@ -338,7 +338,7 @@ define([
             $('#online_data').find('input').each(function () {
 
                 if ( debug ) {
-                    console.log(this.value);
+                    console.log(this);
                 }
 
                 if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
@@ -353,6 +353,11 @@ define([
 
             });
 
+            if ( debug ) {
+                console.log("validation status online");
+                console.log(step1ValidationStatus);
+            }
+
             return step1ValidationStatus;
 
         } else if ( stepToValidate === 'step2' ) {
@@ -365,7 +370,7 @@ define([
 
             $('#instore_communication_history').find('input').each(function () {
                 if ( debug ) {
-                    console.log(this.value);
+                    console.log(this);
                 }
 
                 if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
@@ -383,7 +388,7 @@ define([
             $('#instore_data').find('input').each(function () {
 
                 if ( debug ) {
-                    console.log(this.value);
+                    console.log(this);
                 }
 
                 if ( $(this).data("attributeType") === 'int' && isEmpty(this.value) && !isWholeNumber(this.value) && this.value > $(this).data("attributeLength") ) {
@@ -397,6 +402,11 @@ define([
                 } 
 
             });
+
+            if ( debug ) {
+                console.log("validation status instore");
+                console.log(step2ValidationStatus);
+            }
 
             return step2ValidationStatus;
 
