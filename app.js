@@ -75,8 +75,49 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 });
 
 //lookup voucher pot DE
-app.get("/dataextension/lookup/voucherpots", (req, res) => res.send('Hello World!'));
+app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, res){ 
+	
+	console.dir(req.body);
 
+	var externalKey = req.body.voucher_pot;
+
+	console.dir(row);
+   	console.dir('req received');
+   	res.redirect('/');
+
+   	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+		"grant_type": "client_credentials",
+		"client_id": marketingCloud.clientId,
+		"client_secret": marketingCloud.clientSecret
+	}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    const voucherUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + externalKey + "/rowset?$filter=IsClaimer%20eq%20'False'";
+	    console.dir(voucherUrl);
+	    axios.get(voucherUrl, { headers: { Authorization: authToken } }).then(response => {
+	        // If request is good...
+	        console.dir(response.data);
+	        console.dir(response.data.length);
+	        res.json(response.data);
+	    }).catch((error) => {
+	        console.dir('error is ' + error);
+	    });		
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
+
+});
 // insert data into data extension
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
 	
