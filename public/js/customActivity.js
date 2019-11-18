@@ -187,7 +187,7 @@ define([
             };
             $.ajax({ 
                 url: '/dataextension/lookup/voucherpot',
-                type: 'POST',
+                type: 'GET',
                 cache: false, 
                 data: lookupData, 
                 success: function(data){
@@ -198,7 +198,7 @@ define([
                 }
             });
         });
-        
+
         // hide the tool tips on page load
         $('.slds-popover_tooltip').hide();
 
