@@ -100,6 +100,11 @@ define([
 
                 // set comm cell code as ready only on step 2
                 $("#communication_cell_code_instore").attr('readonly', true);
+                $("#cell_code_instore").attr('readonly', true);
+                $("#cell_name_instore").attr('readonly', true);
+                $("#campaign_name_instore").attr('readonly', true);
+                $("#campaign_code_instore").attr('readonly', true);
+                $("#campaign_id_instore").attr('readonly', true);
 
                 onlineSetupStepEnabled = true; // toggle status
                 steps[1].active = true; // toggle active
@@ -516,6 +521,26 @@ define([
         if ( elementId == "communication_cell_code_online" && $("input[name='promotionType']:checked").val() == 'online_instore' ) {
             // copy online comm value to instore comm value
             $("#communication_cell_code_instore").val(elementValue);
+
+        } else if ( elementId == "cell_code_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
+
+            $("#cell_code_instore").val(elementValue);
+
+        } else if ( elementId == "cell_name_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
+
+            $("#cell_name_instore").val(elementValue);
+
+        } else if ( elementId == "campaign_name_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
+
+            $("#campaign_name_instore").val(elementValue);
+
+        } else if ( elementId == "campaign_code_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
+
+            $("#campaign_code_instore").val(elementValue);
+
+        } else if ( elementId == "campaign_id_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
+
+            $("#campaign_id_instore").val(elementValue);
 
         } else if ( elementId == "promotion_id_online" ) {
 
