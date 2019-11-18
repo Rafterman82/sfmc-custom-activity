@@ -191,7 +191,7 @@ define([
                 "externalkey": dataextension
             };
             $.ajax({ 
-                url: '/dataextension/lookup/voucherpot',
+                url: '/dataextension/lookup/voucherpots',
                 type: 'POST',
                 cache: false, 
                 data: lookupData, 
