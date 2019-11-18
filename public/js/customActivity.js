@@ -198,8 +198,7 @@ define([
                 }
             });
         });
-
-
+        
         // hide the tool tips on page load
         $('.slds-popover_tooltip').hide();
 
