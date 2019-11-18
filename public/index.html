@@ -28,7 +28,8 @@
     <div id="step0" class="step">
         <div class="slds-grid slds-gutters">
             <div class="slds-col slds-size_1-of-2">
-                <h2>Promotion Type</h2>
+                <h1><strong>Promotion Type</strong></h1>
+                <p>There are three types of promotion, online only, instore and online-instore. You will be taken through a setup process to associate a promotion to your email template.</p>
                 <fieldset class="slds-form-element slds-form-element_stacked">
                     <legend class="slds-form-element__legend slds-form-element__label">Select the type of promotion</legend>
                     <div class="slds-form-element__control">
@@ -64,7 +65,7 @@
             <div id="online_communication_history" class="slds-col slds-size_1-of-2">
                 <h2>Communication History Data</h2>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Communication Cell Code</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="communication_cell_code_online__help_button" aria-describedby="help">
@@ -78,12 +79,12 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="int" data-attribute-length="30" type="text" id="communication_cell_code_online" placeholder="Communication Cell Code" class="slds-input" />
+                        <input data-attribute-type="int" data-attribute-length="30" type="number" id="communication_cell_code_online" placeholder="Communication Cell Code (e.g 12345)" class="slds-input" />
                     </div>
                     <div class="slds-form-element__help" id="form-error__communication_cell_code_online">This field is required</div>
 
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Code</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="cell_code_online__help_button" aria-describedby="help">
@@ -97,11 +98,11 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="varchar" data-attribute-length="30" type="text" id="cell_code_online" placeholder="Cell Code" class="slds-input" />
+                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="cell_code_online" placeholder="Cell Code (e.g some-cell-code)" class="slds-input" />
                     </div>
                     <div class="slds-form-element__help" id="form-error__cell_code_online">This field is required</div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Name</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="cell_name_online__help_button" aria-describedby="help">
@@ -115,11 +116,11 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="varchar" data-attribute-length="30" type="text" id="cell_name_online" placeholder="Cell Name" class="slds-input" />
+                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="cell_name_online" placeholder="Cell Name (e.g some-cell-name)" class="slds-input" />
                     </div>
                     <div class="slds-form-element__help" id="form-error__cell_name_online">This field is required</div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Name</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="campaign_name_online__help_button" aria-describedby="help">
@@ -133,11 +134,11 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="varchar" data-attribute-length="30" type="text" id="campaign_name_online" placeholder="Campaign Name" class="slds-input" />
+                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="campaign_name_online" placeholder="Campaign Name (e.g some-campaign-name)" class="slds-input" />
                     </div>
                     <div class="slds-form-element__help" id="form-error__campaign_name_online">This field is required</div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="campaign_id_online__help_button" aria-describedby="help">
@@ -151,11 +152,11 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="int" data-attribute-length="30" id="campaign_id_online" placeholder="Campaign ID" class="slds-input" />
+                        <input data-attribute-type="int" data-attribute-length="30" id="campaign_id_online" placeholder="Campaign ID (e.g 12345)" class="slds-input" />
                     </div>
                     <div class="slds-form-element__help" id="form-error__campaign_id_online">This field is required</div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Code</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="campaign_code_online__help_button" aria-describedby="help">
@@ -169,7 +170,7 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="varchar" data-attribute-length="30" type="text" id="campaign_code_online" placeholder="Campaign Code" class="slds-input" />
+                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="campaign_code_online" placeholder="Campaign Code (e.g some-campaign-code)" class="slds-input" />
                     </div>
                     <div class="slds-form-element__help" id="form-error__campaign_code_online">This field is required</div>
                 </div>
@@ -179,7 +180,7 @@
 
                 <h2>Online Code Setup</h2>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">MC Unique Promotion ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="mc_unique_promotion_id_online__help_button" aria-describedby="help">
@@ -193,12 +194,12 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="int" data-attribute-length="30" id="mc_unique_promotion_id_online" placeholder="MC Unique Promotion ID" class="slds-input" />
+                        <input data-attribute-type="int" data-attribute-length="30" id="mc_unique_promotion_id_online" placeholder="MC Unique Promotion ID (e.g 12345)" class="slds-input" />
                     </div>
-                    <div class="slds-form-element__help" id="form-error__campaign_code_online">This field must be unique.</div>
+                    <div class="slds-form-element__help" id="form-error__mc_unique_promotion_id_online">This field must be unique. Less than 30 characters and cannot be empty.</div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Online Code</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="global_code_online__help_button" aria-describedby="help">
@@ -212,12 +213,13 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="varchar" data-attribute-length="30" type="text" id="global_code_online" placeholder="Global Online Code" class="slds-input" />
+                        <input type="text" id="global_code_online" placeholder="Global Online Code (e.g BCN1213NOV03)" class="slds-input" />
                     </div>
+                    <div class="slds-form-element__help" id="form-error__global_code_online">You must select only an Online Code OR a Voucher Pot, not both. Value can only be empty if other field is not.</div>
                 </div>
 
-                <div class="slds-form-element">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Online Voucher Pot</label>
+                <div class="slds-form-element sfmc-input">
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Online Voucher Pot Data Extension External Key</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="voucher_pot_online__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
@@ -230,11 +232,13 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="int" data-attribute-length="300" type="text" id="voucher_pot_online" placeholder="Voucher Pot Name" class="slds-input" />
+                        <input id="voucher_pot_online" placeholder="Voucher Pot Name (e.g A_Voucer_Pot)" class="slds-input" />
                     </div>
+                    <div class="slds-form-element__help" id="form-error__voucher_pot_online">You must select only an Online Code OR a Voucher Pot, not both. Value can only be empty if other field is not.</div>
+                    <button id="checkVoucherPot">Check Voucher Pot</button>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Print at Till</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="print_at_till_online__help_button" aria-describedby="help">
@@ -257,7 +261,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Instant Win</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="instant_win_online__help_button" aria-describedby="help">
@@ -280,7 +284,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Medium</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="offer_medium_online__help_button" aria-describedby="help">
@@ -305,7 +309,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="promotion_id_online__help_button" aria-describedby="help">
@@ -319,11 +323,12 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="int" data-attribute-length="30" type="text" id="promotion_id_online" placeholder="Promotion ID" class="slds-input" />
+                        <input data-attribute-type="int" data-attribute-length="30" type="text" id="promotion_id_online" placeholder="Promotion ID (e.g 12345)" class="slds-input" />
                     </div>
+                    <div class="slds-form-element__help" id="form-error__promotion_id_online">Cannot be empty and must be less than 30 characters. Must be a number.</div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion Group ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="promotion_group_id_online__help_button" aria-describedby="help">
@@ -337,8 +342,9 @@
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribue-type="int" data-attribute-length="30" type="text" id="promotion_group_id_online" placeholder="Promotion Group ID" class="slds-input" />
+                        <input data-attribute-type="int" data-attribute-length="30" type="text" id="promotion_group_id_online" placeholder="Promotion Group ID (e.g 12345)" class="slds-input" />
                     </div>
+                    <div class="slds-form-element__help" id="form-error__promotion_group_id_online">Cannot be empty and must be less than 30 characters. Must be a number.</div>
                 </div>
             </div>
         </div>
@@ -350,7 +356,7 @@
             <div id="instore_communication_history" class="slds-col slds-size_1-of-2">
                 <h2>Communication History Data</h2>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Communication Cell Code</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="communication_cell_code_instore__help_button" aria-describedby="help">
@@ -367,7 +373,7 @@
                         <input data-attriubute-type="int" data-attribute-length="30" type="text" id="communication_cell_code_instore" placeholder="Communication Cell Code" class="slds-input" />
                     </div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Code</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="cell_code_instore__help_button" aria-describedby="help">
@@ -384,7 +390,7 @@
                         <input data-attriubute-type="varchar" data-attribute-length="30" type="text" id="cell_code_instore" placeholder="Cell Code" class="slds-input" />
                     </div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Name</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="cell_name_instore__help_button" aria-describedby="help">
@@ -401,7 +407,7 @@
                         <input data-attriubute-type="varchar" data-attribute-length="30" type="text" id="cell_name_instore" placeholder="Cell Name" class="slds-input" />
                     </div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Name</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="campaign_name_instore__help_button" aria-describedby="help">
@@ -418,7 +424,7 @@
                         <input data-attriubute-type="varchar" data-attribute-length="30" type="text" id="campaign_name_instore" placeholder="Campaign Name" class="slds-input" />
                     </div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="campaign_id_instore__help_button" aria-describedby="help">
@@ -435,7 +441,7 @@
                         <input data-attriubute-type="int" data-attribute-length="30" id="campaign_id_instore" placeholder="Campaign ID" class="slds-input" />
                     </div>
                 </div>
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Code</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="campaign_code_instore__help_button" aria-describedby="help">
@@ -458,7 +464,7 @@
 
                 <h2>In-store Code Setup</h2>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">MC Unique Promotion ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="mc_unique_promotion_id_instore__help_button" aria-describedby="help">
@@ -476,7 +482,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Print at Till</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="print_at_till_instore__help_button" aria-describedby="help">
@@ -499,7 +505,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Instant Win</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="instant_win_instore__help_button" aria-describedby="help">
@@ -522,7 +528,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Medium</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="offer_medium_instore__help_button" aria-describedby="help">
@@ -547,7 +553,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">In-store Code</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="instore_code_instore__help_button" aria-describedby="help">
@@ -569,7 +575,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="promotion_id_instore__help_button" aria-describedby="help">
@@ -587,7 +593,7 @@
                     </div>
                 </div>
 
-                <div class="slds-form-element">
+                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion Group ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="promotion_group_id_instore__help_button" aria-describedby="help">

@@ -98,6 +98,9 @@ define([
                     console.log("trigger step 1 & 2");                    
                 }
 
+                // set comm cell code as ready only on step 2
+                $("#communication_cell_code_instore").attr('readonly', true);
+
                 onlineSetupStepEnabled = true; // toggle status
                 steps[1].active = true; // toggle active
 
@@ -118,6 +121,84 @@ define([
             }
 
         });
+
+        // validate single field
+        $("input").blur(function() {
+
+            validateSingleField($(this));
+
+        });
+        $("input").change(function() {
+
+            validateSingleField($(this));
+
+        });
+
+        $("#global_code_online").blur(function() {
+
+            if ( $("#global_code_online").val() == "" && $("#voucher_pot_online").val() == "" ) {
+
+                console.log("both fields are empty");
+
+                // both fields cannot be empty
+                $("#global_code_online").parents().eq(1).addClass("slds-has-error");
+                $("#form-error__global_code_online").html("You must enter a voucher pot name OR a online code (not both)");
+                $("#form-error__global_code_online").show();
+
+                $("#voucher_pot_online").parents().eq(1).addClass("slds-has-error");
+                $("#form-error__voucher_pot_online").html("You must enter a voucher pot name OR a online code (not both)");
+                $("#form-error__voucher_pot_online").show();
+
+
+            } else if ( $("#global_code_online").val() && $("#voucher_pot_online").val() ) {
+
+                // both fields cannot be populated
+                console.log("both fields are populated");
+                // both fields cannot be empty
+                $("#global_code_online").parents().eq(1).addClass("slds-has-error");
+                $("#form-error__global_code_online").html("You must enter a voucher pot name OR a online code (not both)");
+                $("#form-error__global_code_online").show();
+
+                $("#voucher_pot_online").parents().eq(1).addClass("slds-has-error");
+                $("#form-error__voucher_pot_online").html("You must enter a voucher pot name OR a online code (not both)");
+                $("#form-error__voucher_pot_online").show();
+
+            } else {
+
+                console.log("only one field is populated passes validation");
+
+                // hide any errors
+                $("#form-error__voucher_pot_online").hide();
+                $("#form-error__global_code_online").hide();
+                $("#form-error__global_code_online").parents().eq(1).removeClass("slds-has-error");
+                $("#form-error__voucher_pot_online").parents().eq(1).removeClass("slds-has-error");
+
+            }
+
+        });
+
+        // check voucher pot
+        $('#checkVoucherPot').click(function() {
+
+            var dataextension = $("#voucher_pot_online").val();
+
+            var lookupData = {
+                "externalkey": dataextension
+            };
+            $.ajax({ 
+                url: '/dataextension/lookup/voucherpot',
+                type: 'POST',
+                cache: false, 
+                data: lookupData, 
+                success: function(data){
+                    console.log(data);
+                }
+                , error: function(jqXHR, textStatus, err){
+                    console.log(err);
+                }
+            });
+        });
+
 
         // hide the tool tips on page load
         $('.slds-popover_tooltip').hide();
@@ -419,6 +500,72 @@ define([
         }*/
         return true;
         
+    }
+
+    function validateSingleField(element) {
+
+        // your code
+        console.log($(element).val());
+        console.log($(element).attr("data-attribute-length"));
+        console.log($(element).attr("data-attribute-type"));
+
+        var elementValue = $(element).val();
+        var elementId = $(element).attr('id');
+        var elementLength = $(element).attr("data-attribute-length");
+        var elementType = $(element).attr("data-attribute-type");
+
+        if ( elementId == "communication_cell_code_online" && $("input[name='promotionType']:checked").val() == 'online_instore' ) {
+            // copy online comm value to instore comm value
+            $("#communication_cell_code_instore").val(elementValue);
+
+        } else if ( elementId == "promotion_id_online" ) {
+
+            $("#promotion_group_id_online").val(elementValue);
+
+        } else if ( elementId == "promotion_id_instore" ) {
+
+            $("#promotion_group_id_instore").val(elementValue);
+
+        }
+
+        if ( elementType == 'int' ) {
+
+            // value must be number
+            if ( !isWholeNumber(elementValue) && elementValue <= 0 && elementValue.length <= elementLength) {
+
+                $(element).parents().eq(1).addClass("slds-has-error");
+                $("#form-error__" + elementId).html("This value must be a number. Less than 30 digits and cannot be empty");
+                $("#form-error__" + elementId).show();
+
+            } else {
+
+                console.log("hiding error");
+                $("#form-error__" + elementId).hide();
+                $(element).parents().eq(1).removeClass("slds-has-error");
+
+            }
+
+        } else if ( elementType == 'varchar' ) {
+
+            // value must be varchar
+            if ( elementValue.length >= elementLength || isEmpty(elementValue) ) {
+
+                console.log("value is empty or greater than required length")
+                // value must be less than length
+                $(element).parents().eq(1).addClass("slds-has-error");
+                $("#form-error__" + elementId).html("Value must be less than " + elementLength +" characters and cannot be empty");
+                $("#form-error__" + elementId).show();
+            
+            } else {
+
+                console.log("hiding error");
+                $("#form-error__" + elementId).hide();
+                $(element).parents().eq(1).removeClass("slds-has-error");
+
+            }
+
+        }
+
     }
 
     function checkUniqueness() {

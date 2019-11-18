@@ -12,18 +12,20 @@ var routes      		= require('./routes');
 var activity    		= require('./routes/activity');
 var urlencodedparser 	= bodyParser.urlencoded({extended:false});
 var app 				= express();
-var local       		= true;
+var local       		= false;
 
 // access Heroku variables
-var marketingCloud = {
-  authUrl: process.env.authUrl,
-  clientId: process.env.clientId,
-  clientSecret: process.env.clientSecret,
-  restUrl: process.env.restUrl,
-  promotionsListDataExtension: process.env.promotionsListDataExtension,
-  offerTypesListDataExtension: process.env.offerTypesListDataExtension,
-  insertDataExtension: process.env.insertDataExtension
-};
+if ( !local ) {
+	var marketingCloud = {
+	  authUrl: process.env.authUrl,
+	  clientId: process.env.clientId,
+	  clientSecret: process.env.clientSecret,
+	  restUrl: process.env.restUrl,
+	  promotionsListDataExtension: process.env.promotionsListDataExtension,
+	  offerTypesListDataExtension: process.env.offerTypesListDataExtension,
+	  insertDataExtension: process.env.insertDataExtension
+	};	
+}
 
 // Configure Express
 app.set('port', process.env.PORT || 3000);
@@ -107,6 +109,41 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	});
 });
 
+//lookup voucher pot DE
+app.get("/dataextension/lookup/voucherpot", (req, res, next) => {
+	console.dir(req.body);
+	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + req.body.voucher_pot + "/rowset?$filter=IsClaimed%20eq%20'False'";
+	    console.dir(getUrl);
+	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
+	        // If request is good...
+	        console.dir(response.data);
+	        console.dir(response.data.length);
+	        res.json(response.data);
+	    }).catch((error) => {
+	        console.dir('error is ' + error);
+	    });		
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
+});
 
 // insert data into data extension
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
