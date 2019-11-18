@@ -192,7 +192,7 @@ define([
             };
             $.ajax({ 
                 url: '/dataextension/lookup/voucherpot',
-                type: 'GET',
+                type: 'POST',
                 cache: false, 
                 data: lookupData, 
                 success: function(data){
