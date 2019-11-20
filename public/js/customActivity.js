@@ -623,10 +623,10 @@ define([
 
     function lookupPromos() {
 
-        $('#instore_code_instore')
+        /*$('#instore_code_instore')
             .empty()
             .append('<option selected="selected">Please select a code</option>')
-        ;
+        ;*/
 
         // access offer types and build select input
         $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
