@@ -378,6 +378,7 @@ define([
                     $('#' + key).val(val);
                     $('#' + key + '_summary').html(val);
                 } else if ( key == 'instore_code_instore') {
+                    console.log("instore code should be selected");
                     $("option[value='"+val+"']").prop('selected',true);
                     $('#' + key + '_summary').html(val);
                 } else {
