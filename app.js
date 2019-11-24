@@ -110,7 +110,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 		    [
 		        "name"
 		    ]
-		};
+		}];
 
 	axios({
 		method: 'post',
