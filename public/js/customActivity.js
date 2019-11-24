@@ -42,6 +42,7 @@ define([
         connection.trigger('requestEndpoints');
 
         lookupPromos();
+        lookupTemplates();
 
         // render relevant steps based on input
         $('.promotion_type').click(function() {
@@ -515,6 +516,26 @@ define([
                 $("#instore_code_1_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
                 $("#instore_code_2_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
                 $("#instore_code_3_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
+            }
+        }});
+    }
+
+    function lookupTemplates() {
+
+        // access offer types and build select input
+        $.ajax({url: "/dataextension/lookup/templates", success: function(result){
+
+            if ( debug ) {
+                console.log('lookup templates executed');
+                console.log(result.items);               
+            }
+
+            var i;
+            for (i = 0; i < result.items.length; ++i) {
+                if ( debug ) {
+                    console.log(result.items[i]);
+                }
+                // do something with substr[i]
             }
         }});
     }

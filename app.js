@@ -74,6 +74,83 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	});
 });
 
+//Fetch email templates
+app.get("/dataextension/lookup/templates", (req, res, next) => {
+
+	var templatePayload = [{
+		    "page":
+		    {
+		        "page":1,
+		        "pageSize":1000
+		    },
+
+		    "query":
+		    {
+		        "leftOperand":
+		        {
+		            "property":"name",
+		            "simpleOperator":"contains",
+		            "value":"BAU"
+		        },
+		        "logicalOperator":"AND",
+		        "rightOperand":
+		        {
+		            "property":"assetType.name",
+		            "simpleOperator":"equal",
+		            "value":"templatebasedemail"
+		        }
+		    },
+
+		    "sort":
+		    [
+		        { "property":"id", "direction":"ASC" }
+		    ],
+
+		    "fields":
+		    [
+		        "name"
+		    ]
+		};
+
+	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    const postTemplateUrl = marketingCloud.restUrl + "asset/v1/content/assets/query";
+	    console.dir(postTemplateUrl);
+
+	   	axios({
+			method: 'post',
+			url: postTemplateUrl,
+			headers: {'Authorization': authToken},
+			data: templatePayload
+		})
+		.then(function (response) {
+			console.dir(response.data);
+		})
+		.catch(function (error) {
+			console.dir(error);
+			return error;
+		});	
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
+});
+
 
 //lookup voucher pot DE
 app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, res){ 
