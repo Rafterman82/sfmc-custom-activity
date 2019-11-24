@@ -138,7 +138,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 		})
 		.then(function (response) {
 			console.dir(response.data);
-			res.json({"success": true});
+			res.json(response.data);
 		})
 		.catch(function (error) {
 			console.dir(error);
