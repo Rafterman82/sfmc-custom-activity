@@ -77,7 +77,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 //Fetch email templates
 app.get("/dataextension/lookup/templates", (req, res, next) => {
 
-	var templatePayload = [{
+	var templatePayload = {
 		    "page":
 		    {
 		        "page":1,
@@ -110,7 +110,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 		    [
 		        "name"
 		    ]
-		}];
+		};
 
 	axios({
 		method: 'post',
