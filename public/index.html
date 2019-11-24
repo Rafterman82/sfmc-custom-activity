@@ -25,11 +25,20 @@
     </script>
 </head>
 <body>
+
+    <!--
+      _________ __                   ____ 
+     /   _____//  |_  ____ ______   /_   |
+     \_____  \\   __\/ __ \\____ \   |   |
+     /        \|  | \  ___/|  |_> >  |   |
+    /_______  /|__|  \___  >   __/   |___|
+            \/           \/|__|           
+    -->
     <div id="step0" class="step">
         <div class="slds-grid slds-gutters">
             <div class="slds-col slds-size_1-of-2">
                 <h1><strong>Promotion Type</strong></h1>
-                <p>There are three types of promotion, online only, instore and online-instore. You will be taken through a setup process to associate a promotion to your email template.</p>
+                <p>There are three types of promotion and one option to not use a code (if you wish to only use the communication cell feature and control group feature). The promotion types are "Online only", "Instore only" and "Online & Instore". You will be taken through a setup process to associate a promotion to your email template.</p>
                 <fieldset class="slds-form-element slds-form-element_stacked">
                     <legend class="slds-form-element__legend slds-form-element__label">Select the type of promotion</legend>
                     <div class="slds-form-element__control">
@@ -54,190 +63,384 @@
                                 <span class="slds-form-element__label">Online and In-store Code</span>
                             </label>
                         </span>
+
+                        <!--
+                        <span class="slds-radio">
+                            <input type="radio" class="promotion_type" id="radio-4" value="no_code" name="promotionType" />
+                            <label class="slds-radio__label" for="radio-3">
+                                <span class="slds-radio_faux"></span>
+                                <span class="slds-form-element__label">No Code</span>
+                            </label>
+                        </span>
+                        -->
+                    </div>
+                </fieldset>
+                <fieldset class="slds-form-element slds-form-element_stacked">
+                    <legend class="slds-form-element__legend slds-form-element__label">Email Template</legend>
+                    <div class="slds-form-element sfmc-input">
+                        <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Select the Email template you want to use this promotion on.</label>
+                        <div class="slds-form-element__icon">
+                            <button class="slds-button slds-button_icon" id="email_template__help_button" aria-describedby="help">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="email_template__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                                <div class="slds-popover__body">Select the template that you intend to use this voucher on. Only Email templates that contain "BAU" in there name will appear here. If your email template does not appear here please rename it.</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="email_template">
+                                      <option value="no-code">No Template</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="slds-form-element slds-form-element_stacked">
+                    <legend class="slds-form-element__legend slds-form-element__label">Control Group Data Extension Name</legend>
+                    <div class="slds-form-element sfmc-input">
+                        <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Control Group</label>
+                        <div class="slds-form-element__icon">
+                            <button class="slds-button slds-button_icon" id="control_group__help_button" aria-describedby="help">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="control_group__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                                <div class="slds-popover__body">Select the Data Extension that will log Control Group users. The data extension must reside in "Data Extensions > BAU Journey Data > BAU Control Groups".</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="control_group">
+                                    <option value="no-code">No Control Group</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
             </div>
-        </div>
-    </div>
-
-    <div id="step1" class="step">
-        <div class="slds-grid slds-gutters">
-            <div id="online_communication_history" class="slds-col slds-size_1-of-2">
+            <div id="communication_history" class="slds-col slds-size_1-of-2">
                 <h2>Communication History Data</h2>
 
                 <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Communication Cell Code</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="communication_cell_code_online__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="communication_cell_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a communication cell code.</div>
-                        </div>
-                    </div>
-                    <div class="slds-form-element__control">
-                        <input data-attribute-type="int" data-attribute-length="30" type="number" id="communication_cell_code_online" placeholder="Communication Cell Code (e.g 12345)" class="slds-input" />
-                    </div>
-                    <div class="slds-form-element__help" id="form-error__communication_cell_code_online">This field is required</div>
-
-                </div>
-                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Code</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="cell_code_online__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="cell_code__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_code__help" style="position:absolute;top:-34px;left:-16px;width:168px">
                             <div class="slds-popover__body">Enter a cell code.</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="cell_code_online" placeholder="Cell Code (e.g some-cell-code)" class="slds-input" />
+                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="cell_code" placeholder="Cell Code (e.g some-cell-code)" class="slds-input" />
                     </div>
-                    <div class="slds-form-element__help" id="form-error__cell_code_online">This field is required</div>
+                    <div class="slds-form-element__help" id="form-error__cell_code">This field is required</div>
                 </div>
                 <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Name</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="cell_name_online__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="cell_name__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_name_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_name__help" style="position:absolute;top:-34px;left:-16px;width:168px">
                             <div class="slds-popover__body">Enter a cell name.</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="cell_name_online" placeholder="Cell Name (e.g some-cell-name)" class="slds-input" />
+                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="cell_name" placeholder="Cell Name (e.g some-cell-name)" class="slds-input" />
                     </div>
-                    <div class="slds-form-element__help" id="form-error__cell_name_online">This field is required</div>
+                    <div class="slds-form-element__help" id="form-error__cell_name">This field is required</div>
                 </div>
                 <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Name</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="campaign_name_online__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="campaign_name__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_name_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_name__help" style="position:absolute;top:-34px;left:-16px;width:168px">
                             <div class="slds-popover__body">Enter a Campaign Name</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="campaign_name_online" placeholder="Campaign Name (e.g some-campaign-name)" class="slds-input" />
+                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="campaign_name" placeholder="Campaign Name (e.g some-campaign-name)" class="slds-input" />
                     </div>
-                    <div class="slds-form-element__help" id="form-error__campaign_name_online">This field is required</div>
+                    <div class="slds-form-element__help" id="form-error__campaign_name">This field is required</div>
                 </div>
                 <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign ID</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="campaign_id_online__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="campaign_id__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_id_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_id__help" style="position:absolute;top:-34px;left:-16px;width:168px">
                             <div class="slds-popover__body">Enter a Campaign ID</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribute-type="int" data-attribute-length="30" id="campaign_id_online" placeholder="Campaign ID (e.g 12345)" class="slds-input" />
+                        <input data-attribute-type="int" data-attribute-length="30" id="campaign_id" placeholder="Campaign ID (e.g 12345)" class="slds-input" />
                     </div>
-                    <div class="slds-form-element__help" id="form-error__campaign_id_online">This field is required</div>
+                    <div class="slds-form-element__help" id="form-error__campaign_id">This field is required</div>
                 </div>
                 <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Code</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="campaign_code_online__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="campaign_code__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_code__help" style="position:absolute;top:-34px;left:-16px;width:168px">
                             <div class="slds-popover__body">Enter a Campaign Code</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="campaign_code_online" placeholder="Campaign Code (e.g some-campaign-code)" class="slds-input" />
+                        <input data-attribute-type="varchar" data-attribute-length="30" type="text" id="campaign_code" placeholder="Campaign Code (e.g some-campaign-code)" class="slds-input" />
                     </div>
-                    <div class="slds-form-element__help" id="form-error__campaign_code_online">This field is required</div>
+                    <div class="slds-form-element__help" id="form-error__campaign_code">This field is required</div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+    <!--
+      _________ __                  ________  
+     /   _____//  |_  ____ ______   \_____  \ 
+     \_____  \\   __\/ __ \\____ \   /  ____/ 
+     /        \|  | \  ___/|  |_> > /       \ 
+    /_______  /|__|  \___  >   __/  \_______ \
+            \/           \/|__|             \/
+    -->
+
+    <div id="step1" class="step">
+        <div class="slds-grid slds-gutters">
 
             <div id="online_data" class="slds-col slds-size_1-of-2">
 
                 <h2>Online Code Setup</h2>
+                <legend class="slds-form-element__legend slds-form-element__label">Do you wish to use a global code or a voucher pot?</legend>
+                <fieldset class="slds-form-element slds-form-element_stacked">
+                    <legend class="slds-form-element__legend slds-form-element__label">Select type of online promotion</legend>
+                    <div class="slds-form-element__control">
+                        <span class="slds-radio">
+                            <input type="radio" class="online_promotion_type" id="radio-5" value="global" name="onlinePromotionType" checked="checked" />
+                            <label class="slds-radio__label" for="radio-5">
+                                <span class="slds-radio_faux"></span>
+                                <span class="slds-form-element__label">Global Online Code</span>
+                            </label>
+                        </span>
+                        <span class="slds-radio">
+                            <input type="radio" class="online_promotion_type" id="radio-6" value="unique" name="onlinePromotionType" />
+                            <label class="slds-radio__label" for="radio-6">
+                                <span class="slds-radio_faux"></span>
+                                <span class="slds-form-element__label">Voucher Pot</span>
+                            </label>
+                        </span>
+                    </div>
+                </fieldset>
 
-                <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">MC Unique Promotion ID</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="mc_unique_promotion_id_online__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="mc_unique_promotion_id_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a unique code for the MC Promotion ID.</div>
+                <div class="slds-grid slds-gutters" id="show_global_codes">
+
+                    <div class="slds-form-element sfmc-input">
+                        <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Global Online Code 1</label>
+                        <div class="slds-form-element__icon">
+                            <button class="slds-button slds-button_icon" id="global_code_1__help_button" aria-describedby="help">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="global_code_1__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                                <div class="slds-popover__body">Please select a code</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="global_code_1">
+                                    <option value="no-code">No Code</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="slds-form-element__control">
-                        <input data-attribute-type="int" data-attribute-length="30" id="mc_unique_promotion_id_online" placeholder="MC Unique Promotion ID (e.g 12345)" class="slds-input" />
-                    </div>
-                    <div class="slds-form-element__help" id="form-error__mc_unique_promotion_id_online">This field must be unique. Less than 30 characters and cannot be empty.</div>
-                </div>
 
-                <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Online Code</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="global_code_online__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="global_code_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">If left empty, the system will assume you wish to use a voucher pot.</div>
+                    <div class="slds-form-element sfmc-input">
+                        <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Global Online Code 2</label>
+                        <div class="slds-form-element__icon">
+                            <button class="slds-button slds-button_icon" id="global_code_2__help_button" aria-describedby="help">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="global_code_2__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                                <div class="slds-popover__body">Please select a code</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="global_code_2">
+                                    <option value="no-code">No Code</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="slds-form-element__control">
-                        <input type="text" id="global_code_online" placeholder="Global Online Code (e.g BCN1213NOV03)" class="slds-input" />
-                    </div>
-                    <div class="slds-form-element__help" id="form-error__global_code_online">You must select only an Online Code OR a Voucher Pot, not both. Value can only be empty if other field is not.</div>
-                </div>
 
-                <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Online Voucher Pot Data Extension External Key</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="voucher_pot_online__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="voucher_pot_online__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">If you're not using a global online code, please enter the Data Extension name for the voucher pot you will be using.</div>
+                    <div class="slds-form-element sfmc-input">
+                        <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Global Online Code 3</label>
+                        <div class="slds-form-element__icon">
+                            <button class="slds-button slds-button_icon" id="global_code_3__help_button" aria-describedby="help">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="global_code_3__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                                <div class="slds-popover__body">Please select a code</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="global_code_3">
+                                    <option value="no-code">No Code</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="slds-form-element__control">
-                        <input id="voucher_pot_online" placeholder="Voucher Pot Name (e.g A_Voucer_Pot)" class="slds-input" />
-                    </div>
-                    <div class="slds-form-element__help" id="form-error__voucher_pot_online">You must select only an Online Code OR a Voucher Pot, not both. Value can only be empty if other field is not.</div>
-                    <button id="checkVoucherPot">Check Voucher Pot</button>
                 </div>
 
+                <div class="slds-grid slds-gutters" id="show_unique_codes">
+
+          
+                    <div class="slds-form-element sfmc-input">
+                        <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Unique Vouhcer Pot 1</label>
+                        <div class="slds-form-element__icon">
+                            <button class="slds-button slds-button_icon" id="voucher_pot_1__help_button" aria-describedby="help">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="voucher_pot_1__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                                <div class="slds-popover__body">Please select a code</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="voucher_pot_1">
+                                    <option value="no-code">No Code</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" name="options" id="reuse_voucher_pot_1" value="reuse1"/>
+                                <label class="slds-checkbox__label" for="reuse_voucher_pot_1">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Re-use old codes?</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="slds-form-element sfmc-input">
+                        <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Unique Vouhcer Pot 2</label>
+                        <div class="slds-form-element__icon">
+                            <button class="slds-button slds-button_icon" id="voucher_pot_2__help_button" aria-describedby="help">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="voucher_pot_2__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                                <div class="slds-popover__body">Please select a code</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="voucher_pot_2">
+                                    <option value="no-code">No Code</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" name="options" id="reuse_voucher_pot_2" value="reuse2"/>
+                                <label class="slds-checkbox__label" for="reuse_voucher_pot_2">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Re-use old codes?</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element sfmc-input">
+                        <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Unique Vouhcer Pot 3</label>
+                        <div class="slds-form-element__icon">
+                            <button class="slds-button slds-button_icon" id="voucher_pot_3__help_button" aria-describedby="help">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="voucher_pot_3__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                                <div class="slds-popover__body">Please select a code</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="voucher_pot_3">
+                                    <option value="no-code">No Code</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" name="options" id="reuse_voucher_pot_3" value="reuse3"/>
+                                <label class="slds-checkbox__label" for="reuse_voucher_pot_3">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Re-use old codes?</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                        
+
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-2">
                 <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Print at Till</label>
                     <div class="slds-form-element__icon">
@@ -350,137 +553,92 @@
         </div>
     </div>
 
+    <!--
+      _________ __                  ________  
+     /   _____//  |_  ____ ______   \_____  \ 
+     \_____  \\   __\/ __ \\____ \    _(__  < 
+     /        \|  | \  ___/|  |_> >  /       \
+    /_______  /|__|  \___  >   __/  /______  /
+            \/           \/|__|            \/ 
+    -->
+
     <div id="step2" class="step">
         <div class="slds-grid slds-gutters">
 
-            <div id="instore_communication_history" class="slds-col slds-size_1-of-2">
-                <h2>Communication History Data</h2>
+            <div id="instore_data" class="slds-col slds-size_1-of-2">
+
 
                 <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Communication Cell Code</label>
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">In-store Code 1</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="communication_cell_code_instore__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="instore_code_1_instore__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="communication_cell_code_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a communication cell code number. This must be a number and less than 30 digits.</div>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="instore_code_instore_1__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Select In-store Promotion Code</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attriubute-type="int" data-attribute-length="30" type="text" id="communication_cell_code_instore" placeholder="Communication Cell Code" class="slds-input" />
+                        <div class="slds-select_container">
+                            <select class="slds-select" id="instore_code_1_instore">
+                                <option value="no-code">No Code</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+
                 <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Code</label>
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">In-store Code 2</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="cell_code_instore__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="instore_code_2_instore__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_code_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a cell code.</div>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="instore_code_instore_2__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Select In-store Promotion Code</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attriubute-type="varchar" data-attribute-length="30" type="text" id="cell_code_instore" placeholder="Cell Code" class="slds-input" />
+                        <div class="slds-select_container">
+                            <select class="slds-select" id="instore_code_2_instore">
+                                <option value="no-code">No Code</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+
                 <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Cell Name</label>
+                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">In-store Code 3</label>
                     <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="cell_name_instore__help_button" aria-describedby="help">
+                        <button class="slds-button slds-button_icon" id="instore_code_instore_3__help_button" aria-describedby="help">
                             <svg class="slds-button__icon" aria-hidden="true">
                                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
                             </svg>
                             <span class="slds-assistive-text">Help</span>
                         </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="cell_name_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a cell name.</div>
+                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="instore_code_instore_3__help" style="position:absolute;top:-34px;left:-16px;width:168px">
+                            <div class="slds-popover__body">Select In-store Promotion Code</div>
                         </div>
                     </div>
                     <div class="slds-form-element__control">
-                        <input data-attriubute-type="varchar" data-attribute-length="30" type="text" id="cell_name_instore" placeholder="Cell Name" class="slds-input" />
-                    </div>
-                </div>
-                <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Name</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="campaign_name_instore__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_name_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a Campaign Name</div>
+                        <div class="slds-select_container">
+                            <select class="slds-select" id="instore_code_3_instore">
+                                <option value="no-code">No Code</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="slds-form-element__control">
-                        <input data-attriubute-type="varchar" data-attribute-length="30" type="text" id="campaign_name_instore" placeholder="Campaign Name" class="slds-input" />
-                    </div>
                 </div>
-                <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign ID</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="campaign_id_instore__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_id_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a communication cell code.</div>
-                        </div>
-                    </div>
-                    <div class="slds-form-element__control">
-                        <input data-attriubute-type="int" data-attribute-length="30" id="campaign_id_instore" placeholder="Campaign ID" class="slds-input" />
-                    </div>
-                </div>
-                <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Campaign Code</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="campaign_code_instore__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="campaign_code_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a Campaign Code</div>
-                        </div>
-                    </div>
-                    <div class="slds-form-element__control">
-                        <input data-attriubute-type="varchar" data-attribute-length="30" type="text" id="campaign_code_instore" placeholder="Campaign Code Instore" class="slds-input" />
-                    </div>
-                </div>
+
             </div>
 
             <div id="instore_data" class="slds-col slds-size_1-of-2">
 
                 <h2>In-store Code Setup</h2>
-
-                <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">MC Unique Promotion ID</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="mc_unique_promotion_id_instore__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="mc_unique_promotion_id_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Enter a unique code for the MC Promotion ID. Must be a number.</div>
-                        </div>
-                    </div>
-                    <div class="slds-form-element__control">
-                        <input data-attriubute-type="int" data-attribute-length="30" id="mc_unique_promotion_id_instore" placeholder="MC Unique Promotion ID" class="slds-input" />
-                    </div>
-                </div>
 
                 <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Print at Till</label>
@@ -554,28 +712,6 @@
                 </div>
 
                 <div class="slds-form-element sfmc-input">
-                    <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">In-store Code</label>
-                    <div class="slds-form-element__icon">
-                        <button class="slds-button slds-button_icon" id="instore_code_instore__help_button" aria-describedby="help">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Help</span>
-                        </button>
-                        <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-left" role="tooltip" id="instore_code_instore__help" style="position:absolute;top:-34px;left:-16px;width:168px">
-                            <div class="slds-popover__body">Select In-store Promotion Code</div>
-                        </div>
-                    </div>
-                    <div class="slds-form-element__control">
-                        <div class="slds-select_container">
-                            <select class="slds-select" id="instore_code_instore">
-                                
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slds-form-element sfmc-input">
                     <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion ID</label>
                     <div class="slds-form-element__icon">
                         <button class="slds-button slds-button_icon" id="promotion_id_instore__help_button" aria-describedby="help">
@@ -614,218 +750,20 @@
         </div>
     </div>
 
+    <!--
+      _________ __                     _____  
+     /   _____//  |_  ____ ______     /  |  | 
+     \_____  \\   __\/ __ \\____ \   /   |  |_
+     /        \|  | \  ___/|  |_> > /    ^   /
+    /_______  /|__|  \___  >   __/  \____   | 
+            \/           \/|__|          |__| 
+    -->
+
     <div id="step3" class="step">
 
-        <div class="slds-grid slds-gutters">
-
-            <div id="onlineKey" class="slds-col slds-size_1-of-2">
-                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
-                    <div class="slds-media__figure">
-                        <span class="slds-icon_container slds-icon-utility-info" title="information">
-                            <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Online Promotion Association Key</span>
-                        </span>
-                    </div>
-                    <div class="slds-media__body">
-                        <p>Your unique <b>Online Promotion Association Key</b> is: <b><span class="summary-key" id="onlineKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
-                    </div>
-                </div>
-            </div>
-            <div id="instoreKey" class="slds-col slds-size_1-of-2">
-                <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
-                    <div class="slds-media__figure">
-                        <span class="slds-icon_container slds-icon-utility-info" title="information">
-                            <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
-                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Instore Promotion Association Key</span>
-                        </span>
-                    </div>
-                    <div class="slds-media__body">
-                        <p>Your unique <b>Instore Promotion Association Key is:</b> <b><span class="summary-key" id="instoreKeySummary"></span></b>. Copy this key and use it in the Update Contact widget.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="slds-grid slds-gutters" id="summary-margin-top">
-            <div class="slds-col slds-size_1-of-4">
-                <h2><b>Online Comms History</b></h2>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Online Communication Cell Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="communication_cell_code_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Online Cell Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="cell_code_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Online Cell Name</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="cell_name_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Online Campaign Name</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="campaign_name_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Online Campaign ID</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="campaign_id_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Online Campaign Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="campaign_code_online_summary"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slds-col slds-size_1-of-4">
-                <h2><b>Online Voucher Setup</b></h2>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">MC Unique Promotion ID Online</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="mc_unique_promotion_id_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Global Online Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="global_code_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Voucher Pot</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="voucher_pot_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Print at Till Online</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="print_at_till_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instant Win Online</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="instant_win_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Medium Online</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="offer_medium_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Promotion ID Online</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="promotion_id_online_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Promotion ID Group Online</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="promotion_group_id_online_summary"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slds-col slds-size_1-of-4">
-                <h2><b>Instore Comms History</b></h2>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instore Communication Cell Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="communication_cell_code_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instore Cell Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="cell_code_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instore Cell Name</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="cell_name_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instore Campaign Name</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="campaign_name_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instore Campaign ID</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="campaign_id_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instore Campaign Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="campaign_code_instore_summary"></div>
-                    </div>
-                </div>
-            </div>
-
-             <div class="slds-col slds-size_1-of-4">
-                <h2><b>Instore Voucher Setup</b></h2>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">MC Unique Promotion ID Instore</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="mc_unique_promotion_id_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Print at Till Instore</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="print_at_till_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instant Win Instore</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="instant_win_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Medium Instore</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="offer_medium_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Instore Code</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="instore_code_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Promotion ID Instore</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="promotion_id_instore_summary"></div>
-                    </div>
-                </div>
-                <div class="slds-form-element slds-form-element_readonly">
-                    <span class="slds-form-element__label">Promotion ID Group Instore</span>
-                    <div class="slds-form-element__control">
-                        <div class="slds-form-element__static" id="promotion_group_id_instore_summary"></div>
-                    </div>
-                </div>
+            <div class="slds-col slds-size_1-of-3">
+                <h1>All Set</h1>
             </div>
         </div>
     </div>

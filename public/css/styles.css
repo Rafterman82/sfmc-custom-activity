@@ -17,3 +17,9 @@ body {
 #summary-margin-top {
 	margin-top:20px;
 }
+#show_unique_codes {
+	display: none;
+}
+#show_global_codes {
+	display: none;
+}

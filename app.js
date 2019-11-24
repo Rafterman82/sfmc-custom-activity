@@ -74,6 +74,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	});
 });
 
+
 //lookup voucher pot DE
 app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, res){ 
 	
