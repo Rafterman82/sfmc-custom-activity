@@ -310,24 +310,51 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	var row = [
 	    {
 	        "keys": {
-	            "mc_unique_promotion_id": req.body.mc_unique_promotion_id
+	            "mc_unique_promotion_id": "12345"
 	        },
 	        "values": {
-	        	"communication_cell_code": req.body.communication_cell_code,
-	        	"cell_code": req.body.cell_code,
-	        	"cell_name": req.body.cell_name,
-	            "campaign_name": req.body.campaign_name,
-	            "campaign_id": req.body.campaign_id,
-	            "campaign_code": req.body.campaign_code,
-	            "voucher_pot": req.body.voucher_pot,
-	            "code": req.body.code,
-	            "print_at_till": req.body.print_at_till,
-	            "instant_win": req.body.instant_win,
-	            "offer_channel": req.body.offer_channel,
-	            "offer_medium": req.body.offer_medium,
-	            "promotion_id": req.body.promotion_id,
-	            "promotion_group_id": req.body.promotion_group_id,
-	            "promotion_type": req.body.promotion_type
+
+	            "promotion_type"            : req.body.promotion_typ,
+
+	            "control_group"             : req.body.control_group,
+
+	            "email_template"            : req.body.email_template,
+
+	        	"communication_cell_code"	: "testcommcode",
+
+	        	"cell_code"					: req.body.cell_code,
+	        	"cell_name"					: req.body.cell_name,
+	            "campaign_name"				: req.body.campaign_name,
+	            "campaign_id"				: req.body.campaign_id,
+	            "campaign_code"				: req.body.campaign_code,
+
+	            "global_code_1"				: req.body.global_code_1,
+	            "global_code_2"				: req.body.global_code_2,
+	            "global_code_3"				: req.body.global_code_3,
+
+	            "voucher_pot_1"				: req.body.voucher_pot_1,
+	            "voucher_pot_2"				: req.body.voucher_pot_2,
+	            "voucher_pot_2"				: req.body.voucher_pot_3,
+
+            	"re_use_voucher_pot_1" 		: req.body.re_use_voucher_pot_1,
+        		"re_use_voucher_pot_2" 		: req.body.re_use_voucher_pot_2,
+            	"re_use_voucher_pot_3" 		: req.body.re_use_voucher_pot_3,
+
+            	"instore_code_1"            : req.body.instore_code_1,
+            	"instore_code_2"            : req.body.instore_code_2,
+            	"instore_code_3"            : req.body.instore_code_3,
+
+	            "print_at_till_online"      : req.body.print_at_till_online,
+	            "instant_win_online"        : req.body.instant_win_online,
+	            "offer_medium_online"       : req.body.offer_medium_online,
+	            "promotion_id_online"       : req.body.promotion_id_online,
+	            "promotion_group_id_online" : req.body.promotion_group_id_online,
+
+	            "print_at_till_instore"     : req.body.print_at_till_instore,
+	            "instant_win_instore"       : req.body.instant_win_instore,
+	            "offer_medium_instore"      : req.body.offer_medium_instore,
+	            "promotion_id_instore"      : req.body.promotion_id_instore,
+	            "promotion_group_id_instore": req.body.promotion_group_id_instore
 	        }
 	    }
 	];
@@ -335,6 +362,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
    	console.dir('req received');
    	res.redirect('/');
 
+   	/*
    	axios({
 		method: 'post',
 		url: marketingCloud.authUrl,
@@ -372,6 +400,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		console.dir(error);
 		return error;
 	});
+	*/
 
 });
 

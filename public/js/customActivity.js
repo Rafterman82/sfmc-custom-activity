@@ -580,7 +580,7 @@ define([
             } else if ( currentStep.key === 'step3' ) {
 
                 console.log("save to de");
-                saveToDataExtension();
+                saveToDataExtension(buildActivityPayload());
                 setTimeout(function() {
                     save();
                 }, 3000);
@@ -640,7 +640,7 @@ define([
             } else if ( currentStep.key === 'step3' ) {
 
                 console.log("save to de");
-                saveToDataExtension();
+                saveToDataExtension(buildActivityPayload());
                 setTimeout(function() {
                     save();
                 }, 3000);      
@@ -700,7 +700,7 @@ define([
             } else if ( currentStep.key === 'step3' ) {
 
                 console.log("save to de");
-                saveToDataExtension();
+                saveToDataExtension(buildActivityPayload());
                 setTimeout(function() {
                     save();
                 }, 3000);
@@ -862,57 +862,7 @@ define([
      * Function add data to data extension
      */
 
-    function saveToDataExtension() {
-
-        var promotionType = $("#step0 .slds-radio input[name='promotionType']:checked").val();
-        
-        // comms history
-        var communicationCellCodeOnline = $("#step1 .slds-form-element__control #communication_cell_code_online").val();
-        var cellCodeOnline              = $("#step1 .slds-form-element__control #cell_code_online").val();
-        var cellNameOnline              = $("#step1 .slds-form-element__control #cell_name_online").val();
-        var campaignNameOnline          = $("#step1 .slds-form-element__control #campaign_name_online").val();
-        var campaignIdOnline            = $("#step1 .slds-form-element__control #campaign_id_online").val();
-        var campaignCodeOnline          = $("#step1 .slds-form-element__control #campaign_code_online").val();
-
-        // online code setup
-        var globalCodeOnline            = $("#step1 .slds-form-element__control #global_code_online").val();
-        var voucherPotOnline            = $("#step1 .slds-form-element__control #voucher_pot_online").val();
-        var printAtTillOnline           = $("#step1 .slds-form-element__control #print_at_till_online").val();
-        var instantWinOnline            = $("#step1 .slds-form-element__control #instant_win_online").val();
-        var mediumOnline                = $("#step1 .slds-form-element__control #offer_medium_online").val();
-        var promotionIdOnline           = $("#step1 .slds-form-element__control #promotion_id_online").val();
-        var promotionGroupIdOnline      = $("#step1 .slds-form-element__control #promotion_group_id_online").val();
-        var mcUniquePromotionIdOnline   = $("#step1 .slds-form-element__control #mc_unique_promotion_id_online").val();
-
-        var rowOnline = {
-            "promotion_type": promotionType,
-            "communication_cell_code": communicationCellCodeOnline,
-            "cell_code": cellCodeOnline,
-            "cell_name": cellNameOnline,
-            "campaign_name": campaignNameOnline,
-            "campaign_id": campaignIdOnline,
-            "campaign_code": campaignCodeOnline,
-            "voucher_pot": voucherPotOnline,
-            "code": globalCodeOnline,
-            "print_at_till": printAtTillOnline,
-            "instant_win": instantWinOnline,
-            "offer_channel": "Online",
-            "offer_medium": mediumOnline,
-            "promotion_id": promotionIdOnline,
-            "promotion_group_id": promotionGroupIdOnline,
-            "mc_unique_promotion_id" : mcUniquePromotionIdOnline
-        }
-
-        if ( debug ) {
-            console.log(rowOnline);
-        }
-
-        //addRow(rowOnline);
-   
-
-    }
-
-    function addRow(row) {
+    function saveToDataExtension(payloadToSave) {
 
         try {
             $.ajax({ 
@@ -1026,8 +976,8 @@ define([
             "promotion_group_id_online"         : promotionGroupIdOnline,
 
             "instore_code_1"                    : instoreCode1,
-            "instore_code_2"                    : instoreCode1,
-            "instore_code_3"                    : instoreCode1,
+            "instore_code_2"                    : instoreCode2,
+            "instore_code_3"                    : instoreCode3,
 
             "print_at_till_instore"             : printAtTillInstore,
             "instant_win_instore"               : instantWinInstore,
@@ -1050,7 +1000,7 @@ define([
         $("#summary_json").html(buildPayload['arguments'].execute.inArguments);
     }
 
-    function save(payload) {
+    function save(payloadToSave) {
 
         payload.name = "test name";
 
