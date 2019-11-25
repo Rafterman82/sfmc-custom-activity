@@ -870,6 +870,7 @@ define([
     function saveToDataExtension(payloadToSave) {
 
         if ( debug ) {
+            console.log("Data Object to be saved is: ");
             console.log(payloadToSave);
         }
 
