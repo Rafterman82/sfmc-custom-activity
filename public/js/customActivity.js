@@ -999,6 +999,10 @@ define([
 
         }];
 
+        if ( debug ) {
+            console.log(payload);
+        }
+
         return payload;
 
     }
