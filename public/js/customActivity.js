@@ -201,6 +201,7 @@ define([
             if ( debug ) {
                 console.log($(this).val());
                 console.log($(this));
+                console.log($(this)[0]);
             }
 
             if ( $(this).val() == "no-template") {
@@ -218,6 +219,7 @@ define([
             if ( debug ) {
                 console.log($(this).val());
                 console.log($(this));
+                console.log($(this)[0]);
             }
 
             if ( $(this).val() == "no-template") {
