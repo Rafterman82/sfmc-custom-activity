@@ -786,7 +786,7 @@ define([
                 if ( debug ) {
                     console.log("step 2 case clicked");
                 }
-                
+
                 $('#step2').show();
                 connection.trigger('updateButton', {
                      button: 'back',
@@ -812,6 +812,8 @@ define([
                     console.log("step 3 case clicked");
                 }
 
+                updateSummaryPage();
+
                 $('#step3').show();
                 connection.trigger('updateButton', {
                     button: 'next',
@@ -827,8 +829,8 @@ define([
     }
 
     function updateSummaryPage() {
-        var builtPayload = buildPayload(); 
-        $("#summary_json").html(builtPayload);
+        var buildPayload = buildPayload(); 
+        $("#summary_json").html(buildPayload);
     }
 
     /*
