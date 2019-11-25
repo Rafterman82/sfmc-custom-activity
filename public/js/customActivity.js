@@ -152,6 +152,32 @@ define([
 
         });
 
+        // validate single field
+        $("#email_template").blur(function() {
+
+            if ( $(this).val() == "no-template") {
+                $($(this).id).parents().eq(1).addClass("slds-has-error");
+                $("#form-error__" + $(this).id).html("You must select a template.");
+                $("#form-error__" + $(this).id).show();
+            } else {
+                $($(this).id).parents().eq(1).removeClass("slds-has-error");
+                $("#form-error__" + $(this).id).hide();                
+            }
+
+        });
+        $("#email_template").change(function() {
+
+            if ( $(this).val() == "no-template") {
+                $($(this).id).parents().eq(1).addClass("slds-has-error");
+                $("#form-error__" + $(this).id).html("You must select a template.");
+                $("#form-error__" + $(this).id).show();
+            } else {
+                $($(this).id).parents().eq(1).removeClass("slds-has-error");
+                $("#form-error__" + $(this).id).hide();                
+            }
+
+        });
+
 
         // hide the tool tips on page load
         $('.slds-popover_tooltip').hide();
@@ -392,39 +418,6 @@ define([
         var elementLength = $(element).attr("data-attribute-length");
         var elementType = $(element).attr("data-attribute-type");
 
-        if ( elementId == "communication_cell_code_online" && $("input[name='promotionType']:checked").val() == 'online_instore' ) {
-            // copy online comm value to instore comm value
-            $("#communication_cell_code_instore").val(elementValue);
-
-        } else if ( elementId == "cell_code_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
-
-            $("#cell_code_instore").val(elementValue);
-
-        } else if ( elementId == "cell_name_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
-
-            $("#cell_name_instore").val(elementValue);
-
-        } else if ( elementId == "campaign_name_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
-
-            $("#campaign_name_instore").val(elementValue);
-
-        } else if ( elementId == "campaign_code_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
-
-            $("#campaign_code_instore").val(elementValue);
-
-        } else if ( elementId == "campaign_id_online" && $("input[name='promotionType']:checked").val() == 'online_instore'  ) {
-
-            $("#campaign_id_instore").val(elementValue);
-
-        } else if ( elementId == "promotion_id_online" ) {
-
-            $("#promotion_group_id_online").val(elementValue);
-
-        } else if ( elementId == "promotion_id_instore" ) {
-
-            $("#promotion_group_id_instore").val(elementValue);
-
-        }
 
         if ( elementType == 'int' ) {
 
