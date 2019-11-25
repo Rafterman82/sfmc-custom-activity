@@ -43,6 +43,7 @@ define([
         connection.trigger('requestEndpoints');
 
         lookupPromos();
+        lookupGlobalCodes();
         lookupTemplates();
         lookupVoucherPots();
         lookupControlGroups();
