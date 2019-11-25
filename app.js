@@ -87,7 +87,7 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 		return error;
 	});
 
-}
+});
 
 //Fetch rows from promotions data extension
 app.get("/dataextension/lookup/promotions", (req, res, next) => {
