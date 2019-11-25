@@ -264,14 +264,6 @@ define([
             $(this).val(this.checked ? true : false);
         });
 
-        $("#promotion_id_online").on('change', function(){
-            $("#promotion_id_group_online").val($(this).val());
-        });
-
-        $("#promotion_id_instore").on('change', function(){
-            $("#promotion_id_group_instore").val($(this).val());
-        });
-
     }
 
     function prePopulateFields(prePop, inArguments) {
@@ -313,6 +305,15 @@ define([
         var elementLength = $(element).attr("data-attribute-length");
         var elementType = $(element).attr("data-attribute-type");
 
+        if ( elementId == "promotion_id_online" ) {
+
+            $("#promotion_group_id_online").val(elementValue);
+
+        } else if ( elementId == "promotion_id_instore" ) {
+
+            $("#promotion_group_id_instore").val(elementValue);
+
+        }
 
         if ( elementType == 'int' ) {
 
