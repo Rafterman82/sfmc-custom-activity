@@ -315,7 +315,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	        },
 	        "values": {
 
-	            "promotion_type"            : req.body.promotion_type,
+	            "promotion_type"            : req.body.arguments[execute][inArguments][0][promotion_type],
 
 	            "control_group"             : req.body.control_group,
 
