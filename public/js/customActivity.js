@@ -198,6 +198,11 @@ define([
         // validate single field
         $("#email_template").blur(function() {
 
+            if ( debug ) {
+                console.log($(this).val());
+                console.log($(this).id);
+            }
+
             if ( $(this).val() == "no-template") {
                 $($(this).id).parents().eq(1).addClass("slds-has-error");
                 $("#form-error__" + $(this).id).html("You must select a template.");
@@ -209,6 +214,11 @@ define([
 
         });
         $("#email_template").change(function() {
+
+            if ( debug ) {
+                console.log($(this).val());
+                console.log($(this).id);
+            }
 
             if ( $(this).val() == "no-template") {
                 $($(this).id).parents().eq(1).addClass("slds-has-error");
@@ -252,6 +262,8 @@ define([
             }, 5000);
 
         });
+
+        $("#radio-1").click();
 
     }
 
