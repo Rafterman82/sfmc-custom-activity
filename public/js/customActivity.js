@@ -1011,14 +1011,14 @@ define([
 
     function save(payloadToSave) {
 
-        payload.name = "test name";
+        //payload.name = "test name";
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
 
-        payload['metaData'].isConfigured = true;
+        //payload['metaData'].isConfigured = true;
 
         //connection.trigger('updateActivity', payload);
 
