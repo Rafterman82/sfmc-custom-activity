@@ -69,8 +69,9 @@ function getIncrements() {
 	        // If request is good...
 	        
 	        var incrementResponse = json(response.data);
-	        console.dir(incrementResponse);
-	        
+	        console.dir("Response Data is :");
+	        console.dir(response.data);
+
 	    }).catch((error) => {
 	        console.dir('error is ' + error);
 	    });		
