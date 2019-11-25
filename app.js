@@ -352,7 +352,7 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
 	
 	console.dir("Request Body is ");
-	console.dir(req);
+	console.dir(req.body);
 
 	var row = [
 	    {
@@ -417,8 +417,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         res.json({"success": true});
 
 	}).catch((error) => {
-	        console.dir('error is ' + error);
-	        res.json({"success": false});
+        console.dir('error is ' + error);
+        res.json({"success": false});
 	});
 
    	/*
