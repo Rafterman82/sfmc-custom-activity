@@ -266,7 +266,11 @@ define([
 
     function validateStep(stepToValidate) {
 
-        if ( $("#step" + stepToValidate).find('.slds-has-error') > 0 ) {
+        if (debug) {
+            console.log("Step that will be validated");
+        }
+
+        if ( $("#step" + stepToValidate).find('.slds-has-error').length > 0 ) {
 
             return false;
 
