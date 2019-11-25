@@ -381,7 +381,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	            "voucher_pot_1"				: req.body.voucher_pot_1,
 	            "voucher_pot_2"				: req.body.voucher_pot_2,
-	            "voucher_pot_2"				: req.body.voucher_pot_3,
+	            "voucher_pot_3"				: req.body.voucher_pot_3,
 
             	"re_use_voucher_pot_1" 		: req.body.re_use_voucher_pot_1,
         		"re_use_voucher_pot_2" 		: req.body.re_use_voucher_pot_2,
@@ -414,9 +414,11 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         // If request is good...
         console.dir(response);
         //res.json(response.data.items.values);
+        res.json({"success": true});
 
 	}).catch((error) => {
 	        console.dir('error is ' + error);
+	        res.json({"success": false});
 	});
 
    	/*
