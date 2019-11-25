@@ -869,7 +869,7 @@ define([
                 url: '/dataextension/add',
                 type: 'POST',
                 cache: false, 
-                data: row, 
+                data: payloadToSave, 
                 success: function(data){
                     if ( debug ) {
                         //console.log(data);    
