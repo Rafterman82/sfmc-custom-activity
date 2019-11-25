@@ -350,10 +350,10 @@ define([
     function lookupGlobalCodes() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
+        $.ajax({url: "/dataextension/lookup/globalcodes", success: function(result){
 
             if ( debug ) {
-                console.log('lookup promotions executed');
+                console.log('lookup global codes executed');
                 console.log(result.items);               
             }
 
@@ -365,7 +365,7 @@ define([
                 // do something with `substr[i]
                 $("#global_code_1").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
                 $("#global_code_2").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_2").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_3").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
             }
         }});
     }
