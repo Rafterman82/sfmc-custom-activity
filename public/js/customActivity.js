@@ -203,7 +203,7 @@ define([
                 $("#form-error__email_template").show();
             } else {
                 $("#email_template_select").removeClass("slds-has-error");
-                $("#form-error__email_template".hide();                
+                $("#form-error__email_template").hide();                
             }
 
         });
