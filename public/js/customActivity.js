@@ -785,6 +785,7 @@ define([
 
                 if ( debug ) {
                     console.log("step 2 case clicked");
+                }
                 
                 $('#step2').show();
                 connection.trigger('updateButton', {
