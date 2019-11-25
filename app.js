@@ -308,7 +308,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir("Request Body is ");
 	console.dir(req.body);
 
-	var row = [
+	/*var row = [
 	    {
 	        "keys": {
 	            "mc_unique_promotion_id": "12345"
@@ -361,8 +361,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	];
 	console.dir("Row data is ");
 	console.dir(row);
-   	console.dir('req received');
-   	//res.redirect('/');
+   	console.dir('req received');*/
+   	res.json({"success": true});
 
    	/*
    	axios({

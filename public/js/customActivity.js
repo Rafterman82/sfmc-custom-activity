@@ -953,7 +953,7 @@ define([
         var promotionIdInstore          = $(step2Selector +  " #promotion_id_instore").val();
         var promotionGroupIdInstore     = $(step2Selector +  " #promotion_group_id_instore").val();
 
-        payload['arguments'].execute.inArguments = [{
+        payload = [{
 
             "promotion_type"                    : promotionType,
 
@@ -1006,8 +1006,7 @@ define([
     }
 
     function updateSummaryPage() {
-        var buildPayload = buildActivityPayload(); 
-        $("#summary_json").html(buildPayload['arguments'].execute.inArguments);
+        //var buildPayload = buildActivityPayload(); 
     }
 
     function save(payloadToSave) {
