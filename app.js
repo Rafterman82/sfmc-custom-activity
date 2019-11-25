@@ -410,6 +410,15 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
    	console.dir('req received');
    	res.json({"success": true});
 
+   	axios.get("/dataextension/lookup/increments").then(response => {
+        // If request is good...
+        console.dir(response.data.items.values);
+        //res.json(response.data.items.values);
+
+	}).catch((error) => {
+	        console.dir('error is ' + error);
+	});
+
    	/*
    	axios({
 		method: 'post',
