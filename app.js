@@ -354,57 +354,127 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir("Request Body is ");
 	console.dir(req.body);
 
-	var row = [
-	    {
-	        "keys": {
-	            "mc_unique_promotion_id": "12345"
-	        },
-	        "values": {
+	var communicationCellData = {
 
-	            "promotion_type"            : req.body.promotion_type,
+    	"cell_code"					: req.body.cell_code,
+    	"cell_name"					: req.body.cell_name,
+        "campaign_name"				: req.body.campaign_name,
+        "campaign_id"				: req.body.campaign_id,
+        "campaign_code"				: req.body.campaign_code
+	};
 
-	            "control_group"             : req.body.control_group,
+	var promotionDescriptionData = {
 
-	            "email_template"            : req.body.email_template,
+		"promotions": {
 
-	        	"communication_cell_code"	: "testcommcode",
+			"promotion_1": {
+				"offer_channel"				: "Online",
+				"global_code_1"				: req.body.global_code_1,
+				"voucher_pot_1"				: req.body.voucher_pot_1,
+				"print_at_till_online"      : req.body.print_at_till_online,
+        		"instant_win_online"        : req.body.instant_win_online,
+        		"offer_medium_online"       : req.body.offer_medium_online,
+        		"promotion_id_online"       : req.body.promotion_id_online,
+        		"promotion_group_id_online" : req.body.promotion_group_id_online
+			},
+			"promotion_2": {
+				"offer_channel"				: "Online",
+				"global_code_2"				: req.body.global_code_2,
+				"voucher_pot_2"				: req.body.voucher_pot_2,
+				"print_at_till_online"      : req.body.print_at_till_online,
+        		"instant_win_online"        : req.body.instant_win_online,
+        		"offer_medium_online"       : req.body.offer_medium_online,
+        		"promotion_id_online"       : req.body.promotion_id_online,
+        		"promotion_group_id_online" : req.body.promotion_group_id_online
+			},
+			"promotion_3": {
+				"offer_channel"				: "Online",
+				"global_code_3"				: req.body.global_code_3,
+				"voucher_pot_3"				: req.body.voucher_pot_3,
+				"print_at_till_online"      : req.body.print_at_till_online,
+        		"instant_win_online"        : req.body.instant_win_online,
+        		"offer_medium_online"       : req.body.offer_medium_online,
+        		"promotion_id_online"       : req.body.promotion_id_online,
+        		"promotion_group_id_online" : req.body.promotion_group_id_online
+			},			
+			"promotion_4": {
+				"offer_channel"					: "Store",
+				"instore_code_1"            	: req.body.instore_code_1,
+				"number_of_redemptions_allowed" : "999",
+		        "print_at_till_instore"     	: req.body.print_at_till_instore,
+		        "instant_win_instore"       	: req.body.instant_win_instore,
+		        "offer_medium_instore"      	: req.body.offer_medium_instore,
+		        "promotion_id_instore"      	: req.body.promotion_id_instore,
+		        "promotion_group_id_instore"	: req.body.promotion_group_id_instore
+			},
+			"promotion_5": {
+				"offer_channel"					: "Store",
+				"instore_code_2"            	: req.body.instore_code_2,
+				"number_of_redemptions_allowed" : "999",
+		        "print_at_till_instore"     	: req.body.print_at_till_instore,
+		        "instant_win_instore"       	: req.body.instant_win_instore,
+		        "offer_medium_instore"      	: req.body.offer_medium_instore,
+		        "promotion_id_instore"      	: req.body.promotion_id_instore,
+		        "promotion_group_id_instore"	: req.body.promotion_group_id_instore
+			},
+			"promotion_6": {
+				"offer_channel"					: "Store",
+				"instore_code_3"            	: req.body.instore_code_3,
+				"number_of_redemptions_allowed" : "999",
+		        "print_at_till_instore"     	: req.body.print_at_till_instore,
+		        "instant_win_instore"       	: req.body.instant_win_instore,
+		        "offer_medium_instore"      	: req.body.offer_medium_instore,
+		        "promotion_id_instore"      	: req.body.promotion_id_instore,
+		        "promotion_group_id_instore"	: req.body.promotion_group_id_instore
 
-	        	"cell_code"					: req.body.cell_code,
-	        	"cell_name"					: req.body.cell_name,
-	            "campaign_name"				: req.body.campaign_name,
-	            "campaign_id"				: req.body.campaign_id,
-	            "campaign_code"				: req.body.campaign_code,
+			},			
+		}
 
-	            "global_code_1"				: req.body.global_code_1,
-	            "global_code_2"				: req.body.global_code_2,
-	            "global_code_3"				: req.body.global_code_3,
+	};
 
-	            "voucher_pot_1"				: req.body.voucher_pot_1,
-	            "voucher_pot_2"				: req.body.voucher_pot_2,
-	            "voucher_pot_3"				: req.body.voucher_pot_3,
+	var campaignPromotionAssociationData = {
 
-            	"re_use_voucher_pot_1" 		: req.body.re_use_voucher_pot_1,
-        		"re_use_voucher_pot_2" 		: req.body.re_use_voucher_pot_2,
-            	"re_use_voucher_pot_3" 		: req.body.re_use_voucher_pot_3,
+        "promotion_type"            : req.body.promotion_type,
+        "control_group"             : req.body.control_group,
+        "email_template"            : req.body.email_template,
 
-            	"instore_code_1"            : req.body.instore_code_1,
-            	"instore_code_2"            : req.body.instore_code_2,
-            	"instore_code_3"            : req.body.instore_code_3,
+    	"cell_code"					: req.body.cell_code,
+    	"cell_name"					: req.body.cell_name,
+        "campaign_name"				: req.body.campaign_name,
+        "campaign_id"				: req.body.campaign_id,
+        "campaign_code"				: req.body.campaign_code,
 
-	            "print_at_till_online"      : req.body.print_at_till_online,
-	            "instant_win_online"        : req.body.instant_win_online,
-	            "offer_medium_online"       : req.body.offer_medium_online,
-	            "promotion_id_online"       : req.body.promotion_id_online,
-	            "promotion_group_id_online" : req.body.promotion_group_id_online,
+        "global_code_1"				: req.body.global_code_1,
+        "global_code_2"				: req.body.global_code_2,
+        "global_code_3"				: req.body.global_code_3,
 
-	            "print_at_till_instore"     : req.body.print_at_till_instore,
-	            "instant_win_instore"       : req.body.instant_win_instore,
-	            "offer_medium_instore"      : req.body.offer_medium_instore,
-	            "promotion_id_instore"      : req.body.promotion_id_instore,
-	            "promotion_group_id_instore": req.body.promotion_group_id_instore
-	        }
-	    }
-	];
+        "voucher_pot_1"				: req.body.voucher_pot_1,
+        "voucher_pot_2"				: req.body.voucher_pot_2,
+        "voucher_pot_3"				: req.body.voucher_pot_3,
+
+    	"re_use_voucher_pot_1" 		: req.body.re_use_voucher_pot_1,
+		"re_use_voucher_pot_2" 		: req.body.re_use_voucher_pot_2,
+    	"re_use_voucher_pot_3" 		: req.body.re_use_voucher_pot_3,
+
+    	"instore_code_1"            : req.body.instore_code_1,
+    	"instore_code_2"            : req.body.instore_code_2,
+    	"instore_code_3"            : req.body.instore_code_3,
+
+        "print_at_till_online"      : req.body.print_at_till_online,
+        "instant_win_online"        : req.body.instant_win_online,
+        "offer_medium_online"       : req.body.offer_medium_online,
+        "promotion_id_online"       : req.body.promotion_id_online,
+        "promotion_group_id_online" : req.body.promotion_group_id_online,
+
+        "print_at_till_instore"     : req.body.print_at_till_instore,
+        "instant_win_instore"       : req.body.instant_win_instore,
+        "offer_medium_instore"      : req.body.offer_medium_instore,
+        "promotion_id_instore"      : req.body.promotion_id_instore,
+        "promotion_group_id_instore": req.body.promotion_group_id_instore
+
+	};
+
+
 	console.dir("Row data is ");
 	console.dir(row);
    	console.dir('req received');
@@ -416,55 +486,74 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir(response.data.items[0].values);
         //res.json(response.data.items.values);
 
-        var mc_unique_promotion_id_increment = response.data.items[0].values.mc_unique_promotion_id_increment;
-        var communication_cell_code_id_increment = response.data.items[0].values.communication_cell_code_id_increment;
-        var promotion_key = response.data.items[0].values.promotion_key;
-        res.json({"success": true});
+        var incrementObject = response.data.items[0].values;
+
+        var mc_unique_promotion_id_increment = incrementObject.mc_unique_promotion_id_increment;
+        var communication_cell_code_id_increment = incrementObject.communication_cell_code_id_increment;
+        var promotion_key = incrementObject.promotion_key;
+
+        // set promotion_key in json object
+        campaignPromotionAssociationData.promotion_key = promotion_key;
+
+        console.dir(campaignPromotionAssociationData);
+
+        // increment promotion key up 1 and save new increment in DE
+        var newPromotionKey = promotion_key + 1;
+
+        // store new promotion key in increments object
+        incrementObject.promotion_key = newPromotionKey;
+
+        console.dir(incrementObject);
+
+        // loop through codes and count required mc ids
+
+        // set mc 
+
+        /*
+	   	axios({
+			method: 'post',
+			url: marketingCloud.authUrl,
+			data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+		})
+		.then(function (response) {
+			//console.dir(response.data.access_token);
+			const oauth_access_token = response.data.access_token;
+			//return response.data.access_token;
+			console.dir(oauth_access_token);
+			const authToken = 'Bearer '.concat(oauth_access_token);
+		    const postUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
+		    console.dir(postUrl);
+		   	
+		   	axios({
+				method: 'post',
+				url: postUrl,
+				headers: {'Authorization': authToken},
+				data: row
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir(error);
+				return error;
+			});	
+
+		})
+		.catch(function (error) {
+			console.dir(error);
+			return error;
+		});*/
+
 
 	}).catch((error) => {
         console.dir('error is ' + error);
         res.json({"success": false});
 	});
-
-   	/*
-   	axios({
-		method: 'post',
-		url: marketingCloud.authUrl,
-		data:{
-		"grant_type": "client_credentials",
-		"client_id": marketingCloud.clientId,
-		"client_secret": marketingCloud.clientSecret
-	}
-	})
-	.then(function (response) {
-		//console.dir(response.data.access_token);
-		const oauth_access_token = response.data.access_token;
-		//return response.data.access_token;
-		console.dir(oauth_access_token);
-		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const postUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
-	    console.dir(postUrl);
-	   	
-	   	axios({
-			method: 'post',
-			url: postUrl,
-			headers: {'Authorization': authToken},
-			data: row
-		})
-		.then(function (response) {
-			console.dir(response.data);
-		})
-		.catch(function (error) {
-			console.dir(error);
-			return error;
-		});	
-
-	})
-	.catch(function (error) {
-		console.dir(error);
-		return error;
-	});
-	*/
 
 });
 
