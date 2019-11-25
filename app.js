@@ -475,6 +475,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	};
 
    	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
+        
+   		res.json({"success": false});
         // If request is good...
         console.dir(response.data.items);
         console.dir(response.data.items[0].values);
@@ -498,6 +500,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         incrementObject.promotion_key = newPromotionKey;
 
         console.dir(incrementObject);
+
+
 
         // loop through codes and count required mc ids
 
