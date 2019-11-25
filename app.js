@@ -25,7 +25,8 @@ if ( !local ) {
 	  controlGroupsDataExtension: process.env.controlGroupsDataExtension,
 	  voucherPotsDataExtension: process.env.voucherPotsDataExtension,
 	  insertDataExtension: process.env.insertDataExtension
-	};	
+	};
+	console.dir(marketingCloud);
 }
 
 // Configure Express
