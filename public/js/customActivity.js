@@ -557,7 +557,7 @@ define([
                     console.log(result.items[i]);
                 }
                 // do something with substr[i]
-                /*$("#control_group").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");*/
+                $("#control_group").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
             }
         }});
     }
@@ -578,7 +578,9 @@ define([
                     console.log(result.items[i]);
                 }
                 // do something with substr[i]
-                /*$("#control_group").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");*/
+                $("#voucher_pot_1").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_2").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_3").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
             }
         }});
     }
