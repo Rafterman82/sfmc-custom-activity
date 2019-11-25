@@ -23,3 +23,12 @@ body {
 #show_global_codes {
 	display: none;
 }
+#step1alert {
+	display: none;
+}
+#step2alert {
+	display: none;
+}
+#step3alert {
+	display: none;
+}

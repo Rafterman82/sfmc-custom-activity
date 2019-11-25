@@ -18,6 +18,7 @@ define([
         { "label": "Summary", "key": "step3" }
     ];
     var currentStep = steps[0].key;
+    var stepValidation = false;
 
     if ( debug ) {
         console.log("Current Step is: " + currentStep);
@@ -45,6 +46,48 @@ define([
         lookupTemplates();
         lookupVoucherPots();
         lookupControlGroups();
+        loadEvents();
+    }
+
+    function initialize (data) {
+        
+        if (data) {
+            payload = data;
+        }
+
+        if ( debug ) {
+            console.log("Payload is: " + payload);
+        }
+
+        var hasInArguments = Boolean(
+            payload['arguments'] &&
+            payload['arguments'].execute &&
+            payload['arguments'].execute.inArguments &&
+            payload['arguments'].execute.inArguments.length > 0
+        );
+
+        if ( debug ) {
+            console.log("Payload arguements are: " + payload['arguments']);
+        }
+
+        var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
+
+        $.each(inArguments, function(index, inArgument) {
+            if ( debug ) {
+                console.log(inArgument);
+            }
+            $.each(inArgument, function(key, val) {
+
+                if ( debug ) {
+                    console.log("The key for this row is: " + key + ". The value for this row is: " + val);
+                }
+
+            });
+        });
+        
+    }
+
+    function loadEvents() {
 
         // render relevant steps based on input
         $('.promotion_type').click(function() {
@@ -209,138 +252,7 @@ define([
             }, 5000);
 
         });
-    }
 
-    function initialize (data) {
-        
-        if (data) {
-            payload = data;
-        }
-
-        if ( debug ) {
-            console.log("Payload is: " + payload);
-        }
-
-        var hasInArguments = Boolean(
-            payload['arguments'] &&
-            payload['arguments'].execute &&
-            payload['arguments'].execute.inArguments &&
-            payload['arguments'].execute.inArguments.length > 0
-        );
-
-        if ( debug ) {
-            console.log("Payload arguements are: " + payload['arguments']);
-        }
-
-        var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
-
-        var mcOnlineBool = false;
-        var mcInstoreBool = false;
-
-        $.each(inArguments, function(index, inArgument) {
-            if ( debug ) {
-                console.log(inArgument);
-            }
-            $.each(inArgument, function(key, val) {
-
-                if ( debug ) {
-                    console.log("The key for this row is: " + key + ". The value for this row is: " + val);
-                }
-
-                if ( key == 'mc_unique_promotion_id_online' && val ) {
-
-                    mcOnlineBool = true;
-
-                } else if ( key == 'mc_unique_promotion_id_instore' && val ) {
-
-                    mcInstoreBool = true;
-
-                }
-
-            });
-        });
-
-        var prePop;
-
-        if ( mcOnlineBool && !mcInstoreBool ) {
-
-            prePop = 'online';
-            prePopulateFields(prePop, inArguments);
-            steps[1].active = true;
-            steps[3].active = true;
-            connection.trigger('updateSteps', steps);
-
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 10);
-
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 20);
-
-            setTimeout(function() {
-                showStep(null, 3);
-            }, 100);
-
-        } else if ( !mcOnlineBool && mcInstoreBool ) {
-
-            prePop = 'instore';
-            prePopulateFields(prePop, inArguments);
-            steps[2].active = true;
-            steps[3].active = true;
-            connection.trigger('updateSteps', steps);
-
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 10);
-
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 20);
-
-            setTimeout(function() {
-                showStep(null, 3);
-            }, 100);
-
-        } else  if ( mcOnlineBool && mcInstoreBool ) {
-
-            prePop = 'online_instore';
-            prePopulateFields(prePop, inArguments);
-            steps[1].active = true;
-            steps[2].active = true;
-            steps[3].active = true;
-            connection.trigger('updateSteps', steps);
-
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 10);
-
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 20);
-
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 30);
-
-            setTimeout(function() {
-                showStep(null, 3);
-            }, 100);
-
-        } else{
-
-            prePop = 'not-set';
-            if ( debug ) {
-                console.log('nothing to pre-pop setting step 0 and first radio checked');
-            }
-            $("#radio-1").prop("checked", true).trigger("click");
-
-        }
-
-        if ( debug ) {
-            console.log(prePop);
-        }
-        
     }
 
     function prePopulateFields(prePop, inArguments) {
@@ -348,58 +260,11 @@ define([
         $.each(inArguments, function(index, inArgument) {
             $.each(inArgument, function(key, val) {
 
-                if ( key == 'promotion_type_instore' || key == 'promotion_type_online' ) {
-
-                    if ( val == 'online_instore' ) {
-
-                        $('#radio-3').attr('checked', 'checked');;
-                        $("#onlineKey").show();
-                        $("#instoreKey").show();
-
-                    } else if ( val == 'instore' ) {
-
-                        $('#radio-2').attr('checked', 'checked');
-                        $("#instoreKey").show();
-                        $("#onlineKey").hide();
-
-                    } else if ( val == 'online' ) {
-
-                        $('#radio-1').attr('checked', 'checked');
-                        $("#onlineKey").show();
-                        $("#instoreKey").hide();
-
-                    }
-                    
-                } else if ( key == 'mc_unique_promotion_id_online' ) {
-
-                    $("#onlineKeySummary").html(val);
-                    $('#' + key).val(val);
-                    $('#' + key + '_summary').html(val);
-
-                } else if ( key == 'mc_unique_promotion_id_instore' ) {
-
-                    $("#instoreKeySummary").html(val);
-                    $('#' + key).val(val);
-                    $('#' + key + '_summary').html(val);
-
-                } else if ( key == 'instore_code_instore') {
-
-                    console.log("instore code should be selected");
-                    $("option[value='"+val+"']").prop('selected',true);
-                    $('#' + key + '_summary').html(val);
-
-                } else {
-
-                    $('#' + key).val(val);
-                    $('#' + key + '_summary').html(val);
-
-                }
-
             });
         });
     }
 
-    function validateFields(stepToValidate) {
+    function validateStep(stepToValidate) {
 
 
         return true;
@@ -459,12 +324,6 @@ define([
 
     }
 
-    function checkUniqueness() {
-
-        // lookup uniqueness on mc promotion id if not unique return false
-        return true;
-
-    }
 
     function isEmpty (value) {
         return ((value == null) || 
@@ -488,11 +347,6 @@ define([
     }
 
     function lookupPromos() {
-
-        /*$('#instore_code_instore')
-            .empty()
-            .append('<option selected="selected">Please select a code</option>')
-        ;*/
 
         // access offer types and build select input
         $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
@@ -719,6 +573,15 @@ define([
 
     }
 
+    function toggleStepError(errorStep, errorStatus) {
+
+        if ( errorStatus == "show" ) {
+            $("#step" + errorStep + "alert").show();
+        } else {
+            $("#step" + errorStep + "alert").hide();
+        }
+    }
+
     function onGetTokens (tokens) {
         // Response: tokens == { token: <legacy token>, fuel2token: <fuel api token> }
         // console.log(tokens);
@@ -751,10 +614,22 @@ define([
 
         if ( promotionType == 'online' ) {
 
-            if ( currentStep.key === 'step1' ) {
+            if ( currentStep.key === 'step0') {
+
+                if ( validateStep("step0") ) {
+
+                    toggleStepError(0, "hide");
+                    connection.trigger('nextStep');
+
+                } else {
+
+                    toggleStepError("step0", "show");
+
+                }
+
+            } else if ( currentStep.key === 'step1' ) {
 
                 if ( validateFields('step1') ) {
-                    updateSummaryPage();
                     connection.trigger('nextStep');
                 }
 
@@ -777,7 +652,6 @@ define([
             if ( currentStep.key === 'step2' ) {
 
                 if ( validateFields('step2') ) {
-                    updateSummaryPage();
                     connection.trigger('nextStep');
                 }
 
@@ -799,7 +673,6 @@ define([
             if ( currentStep.key === 'step2') {
 
                 if ( validateFields('step2') ) {
-                    updateSummaryPage();
                     connection.trigger('nextStep');
                 }
 
