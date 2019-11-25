@@ -94,7 +94,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    var productionVoucherPotUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.productionVoucherPot + "/rowset?$filter=IsClaimedD%20eq%20'True'";
+	    var productionVoucherPotUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.productionVoucherPot + "/rowset";
 	    console.dir(productionVoucherPotUrl);
 	    axios.get(productionVoucherPotUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
