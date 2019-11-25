@@ -412,7 +412,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
    	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
         // If request is good...
-        console.dir(response.data.items[0].values);
+        console.dir(response.data.items);
         //res.json(response.data.items.values);
         res.json({"success": true});
 
