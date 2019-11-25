@@ -202,6 +202,7 @@ define([
                 console.log($(this).val());
                 console.log($(this));
                 console.log($(this)[0]);
+                console.log($(this)[0].id);
             }
 
             if ( $(this).val() == "no-template") {
@@ -220,6 +221,7 @@ define([
                 console.log($(this).val());
                 console.log($(this));
                 console.log($(this)[0]);
+                console.log($(this)[0].id);
             }
 
             if ( $(this).val() == "no-template") {
