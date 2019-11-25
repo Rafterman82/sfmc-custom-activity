@@ -618,12 +618,20 @@ define([
 
                 if ( validateStep("step0") ) {
 
+                    if ( debug ) {
+                        console.log("step 0 validated");           
+                    }                    
+
                     toggleStepError(0, "hide");
                     connection.trigger('nextStep');
 
                 } else {
 
-                    toggleStepError("step0", "show");
+                    if ( debug ) {
+                        console.log("step 0 not validated");           
+                    }  
+
+                    toggleStepError(0, "show");
 
                 }
 
@@ -649,7 +657,28 @@ define([
 
         } else if ( promotionType == 'instore' ) {
 
-            if ( currentStep.key === 'step2' ) {
+            if ( currentStep.key === 'step0') {
+
+                if ( validateStep("step0") ) {
+
+                    if ( debug ) {
+                        console.log("step 0 validated");           
+                    }                    
+
+                    toggleStepError(0, "hide");
+                    connection.trigger('nextStep');
+
+                } else {
+
+                    if ( debug ) {
+                        console.log("step 0 not validated");           
+                    }  
+
+                    toggleStepError(0, "show");
+
+                }
+
+            } else if ( currentStep.key === 'step2' ) {
 
                 if ( validateFields('step2') ) {
                     connection.trigger('nextStep');
@@ -670,7 +699,29 @@ define([
 
         } else if ( promotionType == 'online_instore' ) {
             
-            if ( currentStep.key === 'step2') {
+            
+            if ( currentStep.key === 'step0') {
+
+                if ( validateStep("step0") ) {
+
+                    if ( debug ) {
+                        console.log("step 0 validated");           
+                    }                    
+
+                    toggleStepError(0, "hide");
+                    connection.trigger('nextStep');
+
+                } else {
+
+                    if ( debug ) {
+                        console.log("step 0 not validated");           
+                    }  
+
+                    toggleStepError(0, "show");
+
+                }
+
+            } else if ( currentStep.key === 'step2') {
 
                 if ( validateFields('step2') ) {
                     connection.trigger('nextStep');
