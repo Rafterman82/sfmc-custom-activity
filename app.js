@@ -415,6 +415,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir(response.data.items);
         console.dir(response.data.items[0].values);
         //res.json(response.data.items.values);
+
+        var mc_unique_promotion_id_increment = response.data.items[0].values.mc_unique_promotion_id_increment;
+        var communication_cell_code_id_increment = response.data.items[0].values.communication_cell_code_id_increment;
+        var promotion_key = response.data.items[0].values.promotion_key;
         res.json({"success": true});
 
 	}).catch((error) => {
