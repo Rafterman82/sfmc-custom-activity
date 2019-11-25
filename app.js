@@ -67,8 +67,10 @@ function getIncrements() {
 	    console.dir(incrementsUrl);
 	    axios.get(incrementsUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
-	        console.dir(response.data);
-	        res.json(response.data);
+	        
+	        var incrementResponse = json(response.data);
+	        console.dir(incrementResponse);
+	        
 	    }).catch((error) => {
 	        console.dir('error is ' + error);
 	    });		
@@ -78,6 +80,7 @@ function getIncrements() {
 		console.dir(error);
 		return error;
 	});
+
 }
 
 //Fetch rows from promotions data extension
