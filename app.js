@@ -17,15 +17,16 @@ var local       		= false;
 // access Heroku variables
 if ( !local ) {
 	var marketingCloud = {
-	  authUrl: process.env.authUrl,
-	  clientId: process.env.clientId,
-	  clientSecret: process.env.clientSecret,
-	  restUrl: process.env.restUrl,
-	  promotionsListDataExtension: process.env.promotionsListDataExtension,
-	  controlGroupsDataExtension: process.env.controlGroupsDataExtension,
-	  voucherPotsDataExtension: process.env.voucherPotsDataExtension,
-	  insertDataExtension: process.env.insertDataExtension,
-	  productionVoucherPot: process.env.productionVoucherPot
+	  authUrl: 									process.env.authUrl,
+	  clientId: 								process.env.clientId,
+	  clientSecret: 							process.env.clientSecret,
+	  restUrl: 									process.env.restUrl,
+	  promotionsListDataExtension: 				process.env.promotionsListDataExtension,
+	  controlGroupsDataExtension: 				process.env.controlGroupsDataExtension,
+	  voucherPotsDataExtension: 				process.env.voucherPotsDataExtension,
+	  insertDataExtension: 						process.env.insertDataExtension,
+	  productionVoucherPot: 					process.env.productionVoucherPot,
+	  promotionIncrementExtension:  			process.env.promotionIncrementExtension
 	};
 	console.dir(marketingCloud);
 }
@@ -41,6 +42,42 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Express in Development Mode
 if ('development' == app.get('env')) {
 	app.use(errorhandler());
+}
+
+getIncrements();
+
+//Fetch increment values
+function getIncrements() {
+	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    var incrementsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.promotionIncrementExtension + "/rowset";
+	    console.dir(incrementsUrl);
+	    axios.get(incrementsUrl, { headers: { Authorization: authToken } }).then(response => {
+	        // If request is good...
+	        console.dir(response.data);
+	        res.json(response.data);
+	    }).catch((error) => {
+	        console.dir('error is ' + error);
+	    });		
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
 }
 
 //Fetch rows from promotions data extension
@@ -308,14 +345,14 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir("Request Body is ");
 	console.dir(req);
 
-	/*var row = [
+	var row = [
 	    {
 	        "keys": {
 	            "mc_unique_promotion_id": "12345"
 	        },
 	        "values": {
 
-	            "promotion_type"            : req.body['arguments']['execute.inArguments'][0]['promotion_type'],
+	            "promotion_type"            : req.body.promotion_type,
 
 	            "control_group"             : req.body.control_group,
 
@@ -361,7 +398,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	];
 	console.dir("Row data is ");
 	console.dir(row);
-   	console.dir('req received');*/
+   	console.dir('req received');
    	res.json({"success": true});
 
    	/*
