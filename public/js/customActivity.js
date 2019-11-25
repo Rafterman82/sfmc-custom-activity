@@ -172,10 +172,19 @@ define([
             if ( onlinePromotionType == 'global' ) {
 
                 $("#show_unique_codes").hide();
+                // set voucher pots to no-code
+                $("#voucher_pot_1").val("no-code");
+                $("#voucher_pot_2").val("no-code");
+                $("#voucher_pot_3").val("no-code");
+
                 $("#show_global_codes").show();
 
             } else {
 
+                // set global codes to no-code
+                $("#global_code_1").val("no-code");
+                $("#global_code_2").val("no-code");
+                $("#global_code_3").val("no-code");
                 $("#show_unique_codes").show();
                 $("#show_global_codes").hide();
 
