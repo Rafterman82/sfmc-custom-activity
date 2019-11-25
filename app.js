@@ -44,10 +44,17 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
-getIncrements();
+var incrementsRequest = require('request');
+var incrementOptions = {
+    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments'
+};
+incrementsRequest.get(incrementOptions, function (error, response, body) {
+    //Handle error, and body
+});
 
 //Fetch increment values
-function getIncrements() {
+app.get("/dataextension/lookup/increments", (req, res, next) => {
+
 	axios({
 		method: 'post',
 		url: marketingCloud.authUrl,
@@ -68,9 +75,7 @@ function getIncrements() {
 	    axios.get(incrementsUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        
-	        var incrementResponse = json(response.data);
-	        console.dir("Response Data is :");
-	        console.dir(response.data);
+			res.json(response.data);
 
 	    }).catch((error) => {
 	        console.dir('error is ' + error);
