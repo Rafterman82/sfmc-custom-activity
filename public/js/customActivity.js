@@ -346,6 +346,29 @@ define([
         return selectedCode !== 'Please select a code' && selectedCode != '';
     }
 
+    function lookupGlobalCodes() {
+
+        // access offer types and build select input
+        $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
+
+            if ( debug ) {
+                console.log('lookup promotions executed');
+                console.log(result.items);               
+            }
+
+            var i;
+            for (i = 0; i < result.items.length; ++i) {
+                if ( debug ) {
+                    console.log(result.items[i].keys.couponcode);
+                }
+                // do something with `substr[i]
+                $("#global_code_1").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_2").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_2").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+            }
+        }});
+    }
+
     function lookupPromos() {
 
         // access offer types and build select input
