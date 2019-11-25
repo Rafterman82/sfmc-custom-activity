@@ -1009,7 +1009,7 @@ define([
         //var buildPayload = buildActivityPayload(); 
     }
 
-    function save(payloadToSave) {
+    function save(payload) {
 
         //payload.name = "test name";
 
@@ -1023,7 +1023,7 @@ define([
         //connection.trigger('updateActivity', payload);
 
         if ( debug ) {
-            console.log(payloadToSave); 
+            console.log(payload); 
         }
     }
 
