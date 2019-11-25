@@ -254,15 +254,23 @@ define([
 
         $("#reuse_voucher_pot_1").on('change', function(){
             $(this).val(this.checked ? true : false);
-        })
+        });
 
         $("#reuse_voucher_pot_2").on('change', function(){
             $(this).val(this.checked ? true : false);
-        })
+        });
 
         $("#reuse_voucher_pot_3").on('change', function(){
             $(this).val(this.checked ? true : false);
-        })
+        });
+
+        $("#promotion_id_online").on('change', function(){
+            $("#promotion_id_group_online").val($(this).val());
+        });
+
+        $("#promotion_id_instore").on('change', function(){
+            $("#promotion_id_group_instore").val($(this).val());
+        });
 
     }
 
