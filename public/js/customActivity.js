@@ -586,6 +586,10 @@ define([
 
     function toggleStepError(errorStep, errorStatus) {
 
+        if ( debug ) {
+            console.log("error step is " + errorStep + " and error status is " + errorStatus);
+        }
+
         if ( errorStatus == "show" ) {
             $("#step" + errorStep + "alert").show();
         } else {
@@ -642,6 +646,7 @@ define([
                         console.log("step 0 not validated");           
                     }  
 
+                    connection.trigger('ready');
                     toggleStepError(0, "show");
 
                 }
@@ -663,6 +668,7 @@ define([
                         console.log("step 0 not validated");           
                     }  
 
+                    connection.trigger('ready');
                     toggleStepError(1, "show");
 
                 }
@@ -700,6 +706,7 @@ define([
                         console.log("step 0 not validated");           
                     }  
 
+                    connection.trigger('ready');
                     toggleStepError(0, "show");
 
                 }
@@ -721,6 +728,7 @@ define([
                         console.log("step 0 not validated");           
                     }  
 
+                    connection.trigger('ready');
                     toggleStepError(2, "show");
 
                 }
@@ -758,6 +766,7 @@ define([
                         console.log("step 0 not validated");           
                     }  
 
+                    connection.trigger('ready');
                     toggleStepError(0, "show");
 
                 }
@@ -779,6 +788,7 @@ define([
                         console.log("step 0 not validated");           
                     }  
 
+                    connection.trigger('ready');
                     toggleStepError(2, "show");
 
                 }
@@ -808,6 +818,7 @@ define([
                         console.log("step 0 not validated");           
                     }  
 
+                    connection.trigger('ready');
                     toggleStepError(1, "show");
 
                 }
