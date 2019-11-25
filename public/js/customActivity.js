@@ -204,12 +204,12 @@ define([
             }
 
             if ( $(this).val() == "no-template") {
-                $($(this).id).parents().eq(1).addClass("slds-has-error");
-                $("#form-error__" + $(this).id).html("You must select a template.");
-                $("#form-error__" + $(this).id).show();
+                $($(this)[0].id).parents().eq(1).addClass("slds-has-error");
+                $("#form-error__" + $(this)[0].id).html("You must select a template.");
+                $("#form-error__" + $(this)[0].id).show();
             } else {
-                $($(this).id).parents().eq(1).removeClass("slds-has-error");
-                $("#form-error__" + $(this).id).hide();                
+                $($(this)[0].id).parents().eq(1).removeClass("slds-has-error");
+                $("#form-error__" + $(this)[0].id).hide();                
             }
 
         });
@@ -221,12 +221,12 @@ define([
             }
 
             if ( $(this).val() == "no-template") {
-                $($(this).id).parents().eq(1).addClass("slds-has-error");
-                $("#form-error__" + $(this).id).html("You must select a template.");
-                $("#form-error__" + $(this).id).show();
+                $($(this)[0].id).parents().eq(1).addClass("slds-has-error");
+                $("#form-error__" + $(this)[0].id).html("You must select a template.");
+                $("#form-error__" + $(this)[0].id).show();
             } else {
-                $($(this).id).parents().eq(1).removeClass("slds-has-error");
-                $("#form-error__" + $(this).id).hide();                
+                $($(this)[0].id).parents().eq(1).removeClass("slds-has-error");
+                $("#form-error__" + $(this)[0].id).hide();                
             }
 
         });
