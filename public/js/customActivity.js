@@ -828,11 +828,6 @@ define([
         }
     }
 
-    function updateSummaryPage() {
-        var buildPayload = buildPayload(); 
-        $("#summary_json").html(buildPayload);
-    }
-
     /*
      * Function add data to data extension
      */
@@ -912,7 +907,7 @@ define([
 
     }
 
-    function buildPayload() {
+    function buildActivityPayload() {
 
         var step0Selector = "#step0 .slds-form-element__control";
         var step1Selector = "#step1 .slds-form-element__control";
@@ -1005,6 +1000,11 @@ define([
 
         return payload;
 
+    }
+
+    function updateSummaryPage() {
+        var buildPayload = buildActivityPayload(); 
+        $("#summary_json").html(buildPayload);
     }
 
     function save(payload) {
