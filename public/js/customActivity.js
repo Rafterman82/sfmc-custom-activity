@@ -917,14 +917,14 @@ define([
         var promotionType               = $("#step0 .slds-radio input[name='promotionType']:checked").val();
 
         // control group
-        var controlGroup                = $(step0Selector +  " #control_group").val();
+        var controlGroup                = $("#control_group").val();
 
         // email template
-        var emailTemplate               = $(step0Selector +  " #email_template").val();
+        var emailTemplate               = $("#email_template").val();
             
         // comms history
         var cellCode                    = $(step0Selector +  " #cell_code").val();
-        var cellName                    = $(step0Selector +  "  #cell_name").val();
+        var cellName                    = $(step0Selector +  " #cell_name").val();
         var campaignName                = $(step0Selector +  " #campaign_name").val();
         var campaignId                  = $(step0Selector +  " #campaign_id").val();
         var campaignCode                = $(step0Selector +  " #campaign_code").val();
@@ -986,6 +986,10 @@ define([
             "promotion_id_online"               : promotionIdOnline,
             "promotion_group_id_online"         : promotionGroupIdOnline,
 
+            "instore_code_1"                    : instoreCode1,
+            "instore_code_2"                    : instoreCode1,
+            "instore_code_3"                    : instoreCode1,
+
             "print_at_till_instore"             : printAtTillInstore,
             "instant_win_instore"               : instantWinInstore,
             "offer_medium_instore"              : mediumInstore,
@@ -1004,7 +1008,7 @@ define([
 
     function updateSummaryPage() {
         var buildPayload = buildActivityPayload(); 
-        $("#summary_json").html(buildPayload);
+        $("#summary_json").html(buildPayload['arguments'].execute.inArguments);
     }
 
     function save(payload) {
