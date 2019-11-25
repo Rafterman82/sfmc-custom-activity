@@ -43,6 +43,8 @@ define([
 
         lookupPromos();
         lookupTemplates();
+        lookupVoucherPots();
+        lookupControlGroups();
 
         // render relevant steps based on input
         $('.promotion_type').click(function() {
