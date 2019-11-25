@@ -757,6 +757,11 @@ define([
                 });
                 break;
             case 'step1':
+
+                if ( debug ) {
+                    console.log("step 1 case clicked");
+                }
+
                 $('#step1').show();
                 connection.trigger('updateButton', {
                     button: 'back',
@@ -777,6 +782,10 @@ define([
                 }
                 break;
             case 'step2':
+
+                if ( debug ) {
+                    console.log("step 2 case clicked");
+                
                 $('#step2').show();
                 connection.trigger('updateButton', {
                      button: 'back',
@@ -797,7 +806,11 @@ define([
                 }
                 break;
             case 'step3':
-                updateSummaryPage();
+
+                if ( debug ) {
+                    console.log("step 3 case clicked");
+                }
+
                 $('#step3').show();
                 connection.trigger('updateButton', {
                     button: 'next',
