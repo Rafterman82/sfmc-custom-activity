@@ -253,15 +253,15 @@ define([
         $("#radio-1").click();
 
         $("#reuse_voucher_pot_1").on('change', function(){
-            $(this).val(this.checked ? "TRUE" : "FALSE");
+            $(this).val(this.checked ? true : false);
         })
 
         $("#reuse_voucher_pot_2").on('change', function(){
-            $(this).val(this.checked ? "TRUE" : "FALSE");
+            $(this).val(this.checked ? true : false);
         })
 
         $("#reuse_voucher_pot_3").on('change', function(){
-            $(this).val(this.checked ? "TRUE" : "FALSE");
+            $(this).val(this.checked ? true : false);
         })
 
     }
