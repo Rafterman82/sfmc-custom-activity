@@ -93,7 +93,7 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const controlGroupsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.controlGroupsDataExtension + "/rowset";
+	    var controlGroupsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.controlGroupsDataExtension + "/rowset";
 	    console.dir(controlGroupsUrl);
 	    axios.get(controlGroupsUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
@@ -127,7 +127,7 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const voucherPotsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.voucherPotsExtension + "/rowset";
+	    var voucherPotsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.voucherPotsDataExtension + "/rowset";
 	    console.dir(voucherPotsUrl);
 	    axios.get(voucherPotsUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
