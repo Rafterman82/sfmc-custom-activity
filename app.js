@@ -22,7 +22,8 @@ if ( !local ) {
 	  clientSecret: process.env.clientSecret,
 	  restUrl: process.env.restUrl,
 	  promotionsListDataExtension: process.env.promotionsListDataExtension,
-	  offerTypesListDataExtension: process.env.offerTypesListDataExtension,
+	  controlGroupDataExtension: process.env.controlGroupDataExtension,
+	  voucherPotsDataExtension: process.env.voucherPotsDataExtension,
 	  insertDataExtension: process.env.insertDataExtension
 	};	
 }
@@ -58,6 +59,74 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
 	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.promotionsListDataExtension + "/rowset?$filter=globalCampaignID%20eq%20'GC'";
+	    console.dir(getUrl);
+	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
+	        // If request is good...
+	        //console.dir(response.data);
+	        res.json(response.data);
+	    }).catch((error) => {
+	        console.dir('error is ' + error);
+	    });		
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
+});
+
+//Fetch rows from control group data extension
+app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
+	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.controlGroupDataExtension + "/rowset";
+	    console.dir(getUrl);
+	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
+	        // If request is good...
+	        //console.dir(response.data);
+	        res.json(response.data);
+	    }).catch((error) => {
+	        console.dir('error is ' + error);
+	    });		
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
+});
+
+//Fetch rows from voucher data extension
+app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
+	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.voucherPotsExtension + "/rowset";
 	    console.dir(getUrl);
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...

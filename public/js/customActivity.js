@@ -541,6 +541,48 @@ define([
         }});
     }
 
+    function lookupControlGroups() {
+
+        // access offer types and build select input
+        $.ajax({url: "/dataextension/lookup/controlgroups", success: function(result){
+
+            if ( debug ) {
+                console.log('lookup control groups executed');
+                console.log(result.items);               
+            }
+
+            var i;
+            for (i = 0; i < result.items.length; ++i) {
+                if ( debug ) {
+                    console.log(result.items[i]);
+                }
+                // do something with substr[i]
+                /*$("#control_group").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");*/
+            }
+        }});
+    }
+
+    function lookupVoucherPots() {
+
+        // access offer types and build select input
+        $.ajax({url: "/dataextension/lookup/voucherpots", success: function(result){
+
+            if ( debug ) {
+                console.log('lookup voucher pots executed');
+                console.log(result.items);               
+            }
+
+            var i;
+            for (i = 0; i < result.items.length; ++i) {
+                if ( debug ) {
+                    console.log(result.items[i]);
+                }
+                // do something with substr[i]
+                /*$("#control_group").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");*/
+            }
+        }});
+    }
+
     /*
      * Function add data to data extension
      */
