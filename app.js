@@ -305,6 +305,7 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 // insert data into data extension
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
 	
+	console.dir("Request Body is ");
 	console.dir(req.body);
 
 	var row = [
@@ -314,7 +315,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	        },
 	        "values": {
 
-	            "promotion_type"            : req.body.promotion_typ,
+	            "promotion_type"            : req.body.promotion_type,
 
 	            "control_group"             : req.body.control_group,
 
@@ -358,9 +359,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	        }
 	    }
 	];
+	console.dir("Row data is ");
 	console.dir(row);
    	console.dir('req received');
-   	res.redirect('/');
+   	//res.redirect('/');
 
    	/*
    	axios({

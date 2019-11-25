@@ -882,7 +882,7 @@ define([
                 data: payloadToSave, 
                 success: function(data){
                     if ( debug ) {
-                        console.log(data);    
+                        /*console.log(data);*/  
                     }
                 }
                 , error: function(jqXHR, textStatus, err){
