@@ -797,6 +797,7 @@ define([
                 }
                 break;
             case 'step3':
+                updateSummaryPage();
                 $('#step3').show();
                 connection.trigger('updateButton', {
                     button: 'next',
@@ -811,8 +812,9 @@ define([
         }
     }
 
-    function updateSummaryPage() {   
-       
+    function updateSummaryPage() {
+        var builtPayload = buildPayload(); 
+        $("#summary_json").html(builtPayload);
     }
 
     /*
@@ -894,7 +896,7 @@ define([
 
     }
 
-    function save() {
+    function buildPayload() {
 
         var step0Selector = "#step0 .slds-form-element__control";
         var step1Selector = "#step1 .slds-form-element__control";
@@ -981,9 +983,13 @@ define([
 
         }];
 
-        payload.name = "test name";
+        return payload;
 
-        $("#summary_json").html(payload);
+    }
+
+    function save(payload) {
+
+        payload.name = "test name";
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
