@@ -943,6 +943,11 @@ define([
         var voucherPot2                 = $(step1Selector +  " #voucher_pot_2").val();
         var voucherPot3                 = $(step1Selector +  " #voucher_pot_3").val();
 
+        // reuse old online unique codes
+        var reUseVoucherPot1            = $("#reuse_voucher_pot_1").val();
+        var reUseVoucherPot2            = $("#reuse_voucher_pot_2").val();
+        var reUseVoucherPot3            = $("#reuse_voucher_pot_3").val();
+
         // online global code setup
         var globalCode1                 = $(step1Selector +  " #global_code_1").val();
         var globalCode2                 = $(step1Selector +  " #global_code_2").val();
