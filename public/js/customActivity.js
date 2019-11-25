@@ -990,6 +990,10 @@ define([
             "voucher_pot_2"                     : voucherPot2,
             "voucher_pot_3"                     : voucherPot3,
 
+            "re_use_voucher_pot_1"              : reUseVoucherPot1,
+            "re_use_voucher_pot_2"              : reUseVoucherPot2,
+            "re_use_voucher_pot_3"              : reUseVoucherPot3,
+
             "global_code_1"                     : globalCode1,
             "global_code_2"                     : globalCode2,
             "global_code_3"                     : globalCode3,
