@@ -953,7 +953,7 @@ define([
         var promotionIdInstore          = $(step2Selector +  " #promotion_id_instore").val();
         var promotionGroupIdInstore     = $(step2Selector +  " #promotion_group_id_instore").val();
 
-        payload = [{
+        payload = {
 
             "promotion_type"                    : promotionType,
 
@@ -995,7 +995,7 @@ define([
             "promotion_id_instore"              : promotionIdInstore,
             "promotion_group_id_instore"        : promotionGroupIdInstore
 
-        }];
+        };
 
         if ( debug ) {
             console.log(payload);
