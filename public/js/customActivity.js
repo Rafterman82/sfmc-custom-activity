@@ -266,8 +266,15 @@ define([
 
     function validateStep(stepToValidate) {
 
+        if ( $("#step" + stepToValidate).find('.slds-has-error') > 0 ) {
 
-        return true;
+            return false;
+
+        } else {
+
+            return true;
+
+        }
         
     }
 
@@ -616,7 +623,7 @@ define([
 
             if ( currentStep.key === 'step0') {
 
-                if ( validateStep("step0") ) {
+                if ( validateStep(0) ) {
 
                     if ( debug ) {
                         console.log("step 0 validated");           
@@ -637,8 +644,23 @@ define([
 
             } else if ( currentStep.key === 'step1' ) {
 
-                if ( validateFields('step1') ) {
+                if ( validateStep(1) ) {
+
+                    if ( debug ) {
+                        console.log("step 0 validated");           
+                    }                    
+
+                    toggleStepError(1, "hide");
                     connection.trigger('nextStep');
+
+                } else {
+
+                    if ( debug ) {
+                        console.log("step 0 not validated");           
+                    }  
+
+                    toggleStepError(1, "show");
+
                 }
 
             } else if ( currentStep.key === 'step3' ) {
@@ -659,7 +681,7 @@ define([
 
             if ( currentStep.key === 'step0') {
 
-                if ( validateStep("step0") ) {
+                if ( validateStep(0) ) {
 
                     if ( debug ) {
                         console.log("step 0 validated");           
@@ -680,8 +702,23 @@ define([
 
             } else if ( currentStep.key === 'step2' ) {
 
-                if ( validateFields('step2') ) {
+                if ( validateStep(2) ) {
+
+                    if ( debug ) {
+                        console.log("step 0 validated");           
+                    }                    
+
+                    toggleStepError(2, "hide");
                     connection.trigger('nextStep');
+
+                } else {
+
+                    if ( debug ) {
+                        console.log("step 0 not validated");           
+                    }  
+
+                    toggleStepError(2, "show");
+
                 }
 
             } else if ( currentStep.key === 'step3' ) {
@@ -702,7 +739,7 @@ define([
             
             if ( currentStep.key === 'step0') {
 
-                if ( validateStep("step0") ) {
+                if ( validateStep(0) ) {
 
                     if ( debug ) {
                         console.log("step 0 validated");           
@@ -723,8 +760,23 @@ define([
 
             } else if ( currentStep.key === 'step2') {
 
-                if ( validateFields('step2') ) {
+                if ( validateStep(2) ) {
+
+                    if ( debug ) {
+                        console.log("step 0 validated");           
+                    }                    
+
+                    toggleStepError(2, "hide");
                     connection.trigger('nextStep');
+
+                } else {
+
+                    if ( debug ) {
+                        console.log("step 0 not validated");           
+                    }  
+
+                    toggleStepError(2, "show");
+
                 }
 
             } else if ( currentStep.key === 'step3' ) {
@@ -737,9 +789,22 @@ define([
 
             } else if ( currentStep.key === 'step1' ) {
 
-                if ( validateFields('step1') ) {
+                if ( validateStep(1) ) {
 
+                    if ( debug ) {
+                        console.log("step 0 validated");           
+                    }                    
+
+                    toggleStepError(1, "hide");
                     connection.trigger('nextStep');
+
+                } else {
+
+                    if ( debug ) {
+                        console.log("step 0 not validated");           
+                    }  
+
+                    toggleStepError(1, "show");
 
                 }
 
