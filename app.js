@@ -22,7 +22,7 @@ if ( !local ) {
 	  clientSecret: process.env.clientSecret,
 	  restUrl: process.env.restUrl,
 	  promotionsListDataExtension: process.env.promotionsListDataExtension,
-	  controlGroupDataExtension: process.env.controlGroupDataExtension,
+	  controlGroupsDataExtension: process.env.controlGroupsDataExtension,
 	  voucherPotsDataExtension: process.env.voucherPotsDataExtension,
 	  insertDataExtension: process.env.insertDataExtension
 	};	
@@ -92,9 +92,9 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.controlGroupDataExtension + "/rowset";
-	    console.dir(getUrl);
-	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
+	    const controlGroupsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.controlGroupsDataExtension + "/rowset";
+	    console.dir(controlGroupsUrl);
+	    axios.get(controlGroupsUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        //console.dir(response.data);
 	        res.json(response.data);
@@ -126,9 +126,9 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.voucherPotsExtension + "/rowset";
-	    console.dir(getUrl);
-	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
+	    const voucherPotsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.voucherPotsExtension + "/rowset";
+	    console.dir(voucherPotsUrl);
+	    axios.get(voucherPotsUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        //console.dir(response.data);
 	        res.json(response.data);
