@@ -306,7 +306,7 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
 	
 	console.dir("Request Body is ");
-	console.dir(req.body);
+	console.dir(req);
 
 	/*var row = [
 	    {

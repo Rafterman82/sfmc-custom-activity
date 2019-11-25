@@ -1023,7 +1023,7 @@ define([
         //connection.trigger('updateActivity', payload);
 
         if ( debug ) {
-            console.log(payload); 
+            console.log(payloadToSave); 
         }
     }
 
