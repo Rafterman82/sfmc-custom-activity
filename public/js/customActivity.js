@@ -19,6 +19,7 @@ define([
     ];
     var currentStep = steps[0].key;
     var stepValidation = false;
+    var payloadToSave;
 
     if ( debug ) {
         console.log("Current Step is: " + currentStep);
@@ -864,6 +865,10 @@ define([
 
     function saveToDataExtension(payloadToSave) {
 
+        if ( debug ) {
+            console.log(payloadToSave);
+        }
+
         try {
             $.ajax({ 
                 url: '/dataextension/add',
@@ -872,7 +877,7 @@ define([
                 data: payloadToSave, 
                 success: function(data){
                     if ( debug ) {
-                        //console.log(data);    
+                        console.log(data);    
                     }
                 }
                 , error: function(jqXHR, textStatus, err){
