@@ -195,42 +195,15 @@ define([
 
         });
 
-        // validate single field
-        $("#email_template").blur(function() {
-
-            if ( debug ) {
-                console.log($(this).val());
-                console.log($(this));
-                console.log($(this)[0]);
-                console.log($(this)[0].id);
-            }
-
-            if ( $(this).val() == "no-template") {
-                $($(this)[0].id).parents().eq(1).addClass("slds-has-error");
-                $("#form-error__" + $(this)[0].id).html("You must select a template.");
-                $("#form-error__" + $(this)[0].id).show();
-            } else {
-                $($(this)[0].id).parents().eq(1).removeClass("slds-has-error");
-                $("#form-error__" + $(this)[0].id).hide();                
-            }
-
-        });
         $("#email_template").change(function() {
 
-            if ( debug ) {
-                console.log($(this).val());
-                console.log($(this));
-                console.log($(this)[0]);
-                console.log($(this)[0].id);
-            }
-
             if ( $(this).val() == "no-template") {
-                $($(this)[0].id).parents().eq(1).addClass("slds-has-error");
-                $("#form-error__" + $(this)[0].id).html("You must select a template.");
-                $("#form-error__" + $(this)[0].id).show();
+                $("#email_template_select").addClass("slds-has-error");
+                $("#form-error__email_template").html("You must select a template.");
+                $("#form-error__email_template").show();
             } else {
-                $($(this)[0].id).parents().eq(1).removeClass("slds-has-error");
-                $("#form-error__" + $(this)[0].id).hide();                
+                $("#email_template_select").removeClass("slds-has-error");
+                $("#form-error__email_template".hide();                
             }
 
         });
