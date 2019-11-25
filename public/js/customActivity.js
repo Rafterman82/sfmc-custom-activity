@@ -964,7 +964,7 @@ define([
 
             "control_group"                     : controlGroup,
 
-            "email_template"                    : email_template,
+            "email_template"                    : emailTemplate,
 
             "cell_code"                         : cellCode,
             "cell_name"                         : cellName,
