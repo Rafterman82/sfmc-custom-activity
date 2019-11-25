@@ -920,7 +920,7 @@ define([
         var controlGroup                = $("#control_group").val();
 
         // email template
-        var emailTemplate               = $("#email_template").val();
+        var emailTemplate               = $("#email_template").find(":selected").text();
             
         // comms history
         var cellCode                    = $(step0Selector +  " #cell_code").val();
@@ -947,9 +947,9 @@ define([
         var promotionGroupIdOnline      = $(step1Selector +  " #promotion_group_id_online").val();
 
         // online global code setup
-        var instoreCode1                = $(step1Selector +  " #instore_code_1_instore").val();
-        var instoreCode2                = $(step1Selector +  " #instore_code_2_instore").val();
-        var instoreCode3                = $(step1Selector +  " #instore_code_3_instore").val();
+        var instoreCode1                = $(step2Selector +  " #instore_code_1_instore").val();
+        var instoreCode2                = $(step2Selector +  " #instore_code_2_instore").val();
+        var instoreCode3                = $(step2Selector +  " #instore_code_3_instore").val();
 
         // instore meta data
         var printAtTillInstore          = $(step2Selector +  " #print_at_till_instore").val();
