@@ -533,7 +533,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         for ( var i = 1; i <= 6; i++) {
 
         	if ( promotionDescriptionData.promotions["promotion_" + i].global_code == "no-code" 
-        		|| promotionDescriptionData.promotions["promotion_" + i].voucher_pot == "no-code" 
+        		&& promotionDescriptionData.promotions["promotion_" + i].voucher_pot == "no-code"
         			|| promotionDescriptionData.promotions["promotion_" + i].barcode == "no-code" ) {
 
         		// set as hyphen
@@ -542,6 +542,19 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		campaignPromotionAssociationData["mc_id_" + i] = "-";
 
         	} else {
+
+        		if ( promotionDescriptionData.promotions["promotion_" + i].global_code != "no-code" ) {
+
+        			// update barcode 
+        			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].global_code;
+        			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
+
+        		} else if ( promotionDescriptionData.promotions["promotion_" + i].voucher_pot != "no-code" ) {
+
+        			promotionDescriptionData.promotions["promotion_" + i].barcode = "-";
+        			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
+
+        		}
 
         		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = mcLoopIncrement;
         		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = communication_cell_code_id_increment;
