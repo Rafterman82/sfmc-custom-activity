@@ -565,7 +565,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = mcLoopIncrement;
         		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = communication_cell_code_id_increment;
-        		campaignPromotionAssociationData["mc_id_" + i] = int(mcLoopIncrement);
+        		campaignPromotionAssociationData["mc_id_" + i] = mcLoopIncrement;
         		mcLoopIncrement++;
 
         	}
