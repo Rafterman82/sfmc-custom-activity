@@ -602,6 +602,48 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir("CAMPAIGN ASSOCIATION");
         console.dir(campaignPromotionAssociationData);
 
+		var campaignAssociationUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
+		console.dir(campaignAssociationUrl);
+
+		var associationKey = campaignPromotionAssociationData.promotion_key;
+		delete campaignPromotionAssociationData.promotion_key;
+
+		var associationPayload = [{
+	        "keys": {
+	            "promotion_key": associationKey
+	        },
+	        "values": campaignPromotionAssociationData
+	    }];
+
+	    console.dir("ASSOCIATION PAYLOAD");
+	    console.dir(associationPayload);
+
+	   	axios({
+			method: 'post',
+			url: campaignAssociationUrl,
+			headers: {'Authorization': authToken},
+			data: associationPayload
+		})
+		.then(function (response) {
+			console.dir(response.data);
+			res.json({"success": true});
+		})
+		.catch(function (error) {
+			console.dir(error);
+			res.json({"success": false});
+		});	
+
+
+        // post communication cell
+
+
+        // post promotion description
+
+
+        // post campaign promotion association
+
+
+
         /*
 	   	axios({
 			method: 'post',
