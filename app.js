@@ -609,12 +609,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		var communicationCellUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.communicationCellDataExtension + "/rowset";
 		console.dir(campaignAssociationUrl);
 
-	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
-	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
-	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension
-
-
-
 		var associationKey = campaignPromotionAssociationData.promotion_key;
 		delete campaignPromotionAssociationData.promotion_key;
 
@@ -730,7 +724,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	    	// increments insert
 		   	axios({
 				method: 'post',
-				url: incrementUrl,
+				url: communicationCellUrl,
 				headers: {'Authorization': authToken},
 				data: communicationPayload
 			})
@@ -756,7 +750,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	    	// increments insert
 		   	axios({
 				method: 'post',
-				url: incrementUrl,
+				url: communicationCellUrl,
 				headers: {'Authorization': authToken},
 				data: communicationControlPayload
 			})
