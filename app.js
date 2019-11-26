@@ -26,7 +26,9 @@ if ( !local ) {
 	  voucherPotsDataExtension: 				process.env.voucherPotsDataExtension,
 	  insertDataExtension: 						process.env.insertDataExtension,
 	  productionVoucherPot: 					process.env.productionVoucherPot,
-	  promotionIncrementExtension:  			process.env.promotionIncrementExtension
+	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
+	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
+	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension
 	};
 	console.dir(marketingCloud);
 }
@@ -602,7 +604,16 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir(campaignPromotionAssociationData);
 
 		var campaignAssociationUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
+		var incrementUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionIncrementExtension + "/rowset";
+		var descriptionUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionDescriptionDataExtension + "/rowset";
+		var communicationCellUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.communicationCellDataExtension + "/rowset";
 		console.dir(campaignAssociationUrl);
+
+	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
+	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
+	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension
+
+
 
 		var associationKey = campaignPromotionAssociationData.promotion_key;
 		delete campaignPromotionAssociationData.promotion_key;
@@ -632,6 +643,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			//return response.data.access_token;
 			console.dir(oauth_access_token);
 			const authToken = 'Bearer '.concat(oauth_access_token);
+
+			// association insert
 		   	axios({
 				method: 'post',
 				url: campaignAssociationUrl,
@@ -646,62 +659,121 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				console.dir(error);
 				//res.json({"success": false});
 			});
+
+			incrementPayload = [{
+		        "keys": {
+		            "increment_key": 1
+		        },
+		        "values": incrementObject
+	    	}];
+
+	    	// increments insert
+		   	axios({
+				method: 'post',
+				url: incrementUrl,
+				headers: {'Authorization': authToken},
+				data: incrementPayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir(error);
+				//res.json({"success": false});
+			});
+
+			// promo descriptions insert
+	    	for ( var x = 1; x <=6; x++ ) {
+
+	    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode != "no-code" ) {
+
+					var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
+					delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
+
+					var descriptionPayload = [{
+				        "keys": {
+				            "communication_cell_id": descriptionKey
+				        },
+				        "values": promotionDescriptionData.promotions["promotion_" + x]
+			    	}];
+
+				   	axios({
+						method: 'post',
+						url: descriptionUrl,
+						headers: {'Authorization': authToken},
+						data: descriptionPayload
+					})
+					.then(function (response) {
+						console.dir(response.data);
+						//res.json({"success": true});
+					})
+					.catch(function (error) {
+						console.dir(error);
+						//res.json({"success": false});
+					});
+
+	    		}
+
+	    	}
+	    	
+        	var communicationCellKey = communicationCellData.communication_cell_id;
+        	delete communicationCellData.communication_cell_id;
+	    	// communication cell insert
+			communicationPayload = [{
+		        "keys": {
+		            "communication_cell_id": communicationCellKey
+		        },
+		        "values": communicationCellData
+	    	}];
+
+	    	// increments insert
+		   	axios({
+				method: 'post',
+				url: incrementUrl,
+				headers: {'Authorization': authToken},
+				data: communicationPayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir(error);
+				//res.json({"success": false});
+			});	
+
+        	var communicationCellControlKey = communicationCellControlData.communication_cell_id;
+        	delete communicationCellControlData.communication_cell_id;
+	    	// communication cell insert
+			communicationControlPayload = [{
+		        "keys": {
+		            "communication_cell_id": communicationCellControlKey
+		        },
+		        "values": communicationCellControlData
+	    	}];
+
+	    	// increments insert
+		   	axios({
+				method: 'post',
+				url: incrementUrl,
+				headers: {'Authorization': authToken},
+				data: communicationControlPayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir(error);
+				//res.json({"success": false});
+			});	    	
+
 		})	
 		.catch(function (error) {
 			console.dir(error);
 			return error;
 		});
-
-        // post communication cell
-
-
-        // post promotion description
-
-
-        // post campaign promotion association
-
-
-
-        /*
-	   	axios({
-			method: 'post',
-			url: marketingCloud.authUrl,
-			data:{
-			"grant_type": "client_credentials",
-			"client_id": marketingCloud.clientId,
-			"client_secret": marketingCloud.clientSecret
-		}
-		})
-		.then(function (response) {
-			//console.dir(response.data.access_token);
-			const oauth_access_token = response.data.access_token;
-			//return response.data.access_token;
-			console.dir(oauth_access_token);
-			const authToken = 'Bearer '.concat(oauth_access_token);
-		    const postUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
-		    console.dir(postUrl);
-		   	
-		   	axios({
-				method: 'post',
-				url: postUrl,
-				headers: {'Authorization': authToken},
-				data: row
-			})
-			.then(function (response) {
-				console.dir(response.data);
-				res.json({"success": true});
-			})
-			.catch(function (error) {
-				console.dir(error);
-				return error;
-			});	
-
-		})
-		.catch(function (error) {
-			console.dir(error);
-			return error;
-		});*/
-
 
 	}).catch((error) => {
         console.dir('error is ' + error);
