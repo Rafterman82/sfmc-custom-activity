@@ -84,9 +84,76 @@ define([
                 if ( debug ) {
                     console.log("The key for this row is: " + key + ". The value for this row is: " + val);
                 }
+                if ( key == 'promotion_type' && val ) {
+
+                    var prepopPromotionType = value;
+
+                }
 
             });
         });
+
+        var prePop;
+
+        if ( prepopPromotionType == 'online' ) {
+            prePop = 'online';
+            prePopulateFields(prePop, inArguments);
+            steps[1].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 100);
+        } else if ( prepopPromotionType == 'instore' ) {
+            prePop = 'instore';
+            prePopulateFields(prePop, inArguments);
+            steps[2].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 100);
+        } else  if ( prepopPromotionType == 'online_instore' ) {
+            prePop = 'online_instore';
+            prePopulateFields(prePop, inArguments);
+            steps[1].active = true;
+            steps[2].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 30);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 100);
+        } else{
+            prePop = 'not-set';
+            if ( debug ) {
+                console.log('nothing to pre-pop setting step 0 and first radio checked');
+            }
+            $("#radio-1").prop("checked", true).trigger("click");
+        }
+        if ( debug ) {
+            console.log(prePop);
+        }
         
     }
 
@@ -286,6 +353,13 @@ define([
 
         $.each(inArguments, function(index, inArgument) {
             $.each(inArgument, function(key, val) {
+                
+                if ( debug ) {
+                    console.log("key");
+                    console.log(key);
+                    console.log("value");
+                    console.log(value);                    
+                }
 
             });
         });
