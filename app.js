@@ -532,27 +532,32 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         for ( var i = 1; i <= 6; i++) {
 
-        	if ( promotionDescriptionData.promotions["promotion_" + i].global_code == "no-code" 
-        		&& promotionDescriptionData.promotions["promotion_" + i].voucher_pot == "no-code"
-        			|| promotionDescriptionData.promotions["promotion_" + i].barcode == "no-code" ) {
+        	if ( promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code" 
+        		&& promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code"
+        			|| promotionDescriptionData.promotions["promotion_" + i].barcode === "no-code" ) {
 
         		// set as hyphen
         		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = "-";
-        		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = communication_cell_code_id_increment;
+        		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = "-";
         		campaignPromotionAssociationData["mc_id_" + i] = "-";
 
         	} else {
 
-        		if ( promotionDescriptionData.promotions["promotion_" + i].global_code != "no-code" ) {
+        		if ( promotionDescriptionData.promotions["promotion_" + i].global_code != "no-code" && promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code") {
 
         			// update barcode 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].global_code;
         			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
 
-        		} else if ( promotionDescriptionData.promotions["promotion_" + i].voucher_pot != "no-code" ) {
+
+        		} else if ( promotionDescriptionData.promotions["promotion_" + i].voucher_pot != "no-code" && promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code") {
 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = "-";
         			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
+
+        		} else if ( promotionDescriptionData.promotions["promotion_" + i].barcode != "no-code" ) {
+
+        			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].barcode;
 
         		}
 
@@ -580,14 +585,20 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         var newCommunicationCellCodeIncrement = communication_cell_code_id_increment + 2;
 
+        console.dir("COMM CELL DATA");
         console.dir(communicationCellData);
 
+        console.dir("COMM CELL DATA CONTROL");
         console.dir(communicationCellControlData);
 
         // update increments object
         incrementObject.communication_cell_code_id_increment = newCommunicationCellCodeIncrement;
 
+        console.dir("INCREMENT OBJECT");
         console.dir(incrementObject);
+
+        console.dir("CAMPAIGN ASSOCIATION");
+        console.dir(campaignPromotionAssociationData);
 
         /*
 	   	axios({
