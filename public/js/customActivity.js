@@ -9,7 +9,7 @@ define([
     var stepToValidate;
     var connection                  = new Postmonger.Session();
     var payload                     = {};
-    var payloadToJB                 = {};
+    var payloadNode                 = {};
     var onlineSetupStepEnabled      = false;
     var instoreSetupStepEnabled     = false;
     var steps                       = [
@@ -55,25 +55,25 @@ define([
     function initialize (data) {
         
         if (data) {
-            payloadToJB = data;
+            payload = data;
         }
 
         if ( debug ) {
-            console.log("Payload is: " + payloadToJB);
+            console.log("Payload is: " + payload);
         }
 
         var hasInArguments = Boolean(
-            payloadToJB['arguments'] &&
-            payloadToJB['arguments'].execute &&
-            payloadToJB['arguments'].execute.inArguments &&
-            payloadToJB['arguments'].execute.inArguments.length > 0
+            payload['arguments'] &&
+            payload['arguments'].execute &&
+            payload['arguments'].execute.inArguments &&
+            payload['arguments'].execute.inArguments.length > 0
         );
 
         if ( debug ) {
             console.log(payload['arguments']);
         }
 
-        var inArguments = hasInArguments ? payloadpayloadToJB['arguments'].execute.inArguments : {};
+        var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
 
         $.each(inArguments, function(index, inArgument) {
             if ( debug ) {
@@ -964,7 +964,7 @@ define([
         var promotionIdInstore          = $(step2Selector +  " #promotion_id_instore").val();
         var promotionGroupIdInstore     = $(step2Selector +  " #promotion_group_id_instore").val();
 
-        payload = {
+        payloadNode = {
 
             "promotion_type"                    : promotionType,
 
@@ -1009,10 +1009,10 @@ define([
         };
 
         if ( debug ) {
-            console.log(payload);
+            console.log(payloadNode);
         }
 
-        return payload;
+        return payloadNode;
 
     }
 
@@ -1022,23 +1022,24 @@ define([
     }
 
     function save() {
+        var name = "test456";
+        var value = getMessage();
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
-        //var buildPayload = buildActivityPayload();
+        payload.name = name;
 
-        var payloadToJB;
+        payload['arguments'].execute.inArguments = [{ "message": value }];
 
-        //payloadToJB.name = "test123";
+        payload['metaData'].isConfigured = true;
 
-        payloadToJB['arguments'].execute.inArguments = [{ "message": "test123" }];
+        connection.trigger('updateActivity', payload);
+    }
 
-        payloadToJB['metaData'].isConfigured = true;
-
-        connection.trigger('updateActivity', payloadToJB);
-
+    function getMessage() {
+        return "test124";
     }
 
 });
