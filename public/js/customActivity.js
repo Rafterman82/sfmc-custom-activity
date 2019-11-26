@@ -86,7 +86,11 @@ define([
                 }
                 if ( key == 'promotion_type' && val ) {
 
-                    var prepopPromotionType = value;
+                    var prepopPromotionType = val;
+
+                    if ( debug ) {
+                        console.log(prepopPromotionType)
+                    }
 
                 }
 
