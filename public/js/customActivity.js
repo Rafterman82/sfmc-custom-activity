@@ -62,17 +62,17 @@ define([
         }
 
         var hasInArguments = Boolean(
-            payload['arguments'] &&
-            payload['arguments'].execute &&
-            payload['arguments'].execute.inArguments &&
-            payload['arguments'].execute.inArguments.length > 0
+            payloadToJB['arguments'] &&
+            payloadToJB['arguments'].execute &&
+            payloadToJB['arguments'].execute.inArguments &&
+            payloadToJB['arguments'].execute.inArguments.length > 0
         );
 
         if ( debug ) {
             console.log(payload['arguments']);
         }
 
-        var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
+        var inArguments = hasInArguments ? payloadpayloadToJB['arguments'].execute.inArguments : {};
 
         $.each(inArguments, function(index, inArgument) {
             if ( debug ) {
@@ -1030,7 +1030,7 @@ define([
 
         var payloadToJB;
 
-        payloadToJB.name = "test123";
+        //payloadToJB.name = "test123";
 
         payloadToJB['arguments'].execute.inArguments = [{ "message": "test123" }];
 
