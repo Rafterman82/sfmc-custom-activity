@@ -9,6 +9,7 @@ define([
     var stepToValidate;
     var connection                  = new Postmonger.Session();
     var payload                     = {};
+    var payloadToJB                 = {};
     var onlineSetupStepEnabled      = false;
     var instoreSetupStepEnabled     = false;
     var steps                       = [
