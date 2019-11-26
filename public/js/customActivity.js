@@ -1026,11 +1026,11 @@ define([
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
-        var buildPayload = buildActivityPayload();
+        //var buildPayload = buildActivityPayload();
 
-        payload.name = payload.campaign_name;
+        payload.name = "test123";
 
-        payload['arguments'].execute.inArguments = buildPayload;
+        payload['arguments'].execute.inArguments = [{ "message": "test123" }];
 
         payload['metaData'].isConfigured = true;
 
