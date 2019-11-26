@@ -1028,7 +1028,7 @@ define([
         // may be overridden as desired.
         //var buildPayload = buildActivityPayload();
 
-        payloadToJB.name = "test123";
+        var payloadToJB.name = "test123";
 
         payloadToJB['arguments'].execute.inArguments = [{ "message": "test123" }];
 
