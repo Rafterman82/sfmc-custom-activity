@@ -85,7 +85,7 @@ define([
                     console.log("key");
                     console.log(key);
                     console.log("value");
-                    console.log(value);
+                    console.log(val);
                 }
                 if ( key == 'promotion_type' && val ) {
 
