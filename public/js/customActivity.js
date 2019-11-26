@@ -54,11 +54,11 @@ define([
     function initialize (data) {
         
         if (data) {
-            payload = data;
+            payloadToJB = data;
         }
 
         if ( debug ) {
-            console.log("Payload is: " + payload);
+            console.log("Payload is: " + payloadToJB);
         }
 
         var hasInArguments = Boolean(
