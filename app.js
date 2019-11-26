@@ -389,11 +389,11 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				"ts_and_cs"						: "-",
 				"global_code"					: req.body.global_code_1,
 				"voucher_pot"					: req.body.voucher_pot_1,
-				"print_at_till_online"      	: req.body.print_at_till_online,
-        		"instant_win_online"        	: req.body.instant_win_online,
-        		"offer_medium_online"       	: req.body.offer_medium_online,
-        		"promotion_id_online"       	: req.body.promotion_id_online,
-        		"promotion_group_id_online" 	: req.body.promotion_group_id_online
+				"print_at_till"      			: req.body.print_at_till_online,
+        		"instant_win"        			: req.body.instant_win_online,
+        		"offer_medium"       			: req.body.offer_medium_online,
+        		"promotion_id"       			: req.body.promotion_id_online,
+        		"promotion_group_id" 			: req.body.promotion_group_id_online
 			},
 			"promotion_2": {
 				"offer_channel"					: "Online",
@@ -401,11 +401,11 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				"ts_and_cs"						: "-",
 				"global_code"					: req.body.global_code_2,
 				"voucher_pot"					: req.body.voucher_pot_2,
-				"print_at_till_online"      	: req.body.print_at_till_online,
-        		"instant_win_online"        	: req.body.instant_win_online,
-        		"offer_medium_online"       	: req.body.offer_medium_online,
-        		"promotion_id_online"       	: req.body.promotion_id_online,
-        		"promotion_group_id_online" 	: req.body.promotion_group_id_online
+				"print_at_till"      			: req.body.print_at_till_online,
+        		"instant_win"        			: req.body.instant_win_online,
+        		"offer_medium"       			: req.body.offer_medium_online,
+        		"promotion_id"       			: req.body.promotion_id_online,
+        		"promotion_group_id" 			: req.body.promotion_group_id_online
 			},
 			"promotion_3": {
 				"offer_channel"					: "Online",
@@ -413,11 +413,11 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				"ts_and_cs"						: "-",
 				"global_code"					: req.body.global_code_3,
 				"voucher_pot"					: req.body.voucher_pot_3,
-				"print_at_till_online"      	: req.body.print_at_till_online,
-        		"instant_win_online"        	: req.body.instant_win_online,
-        		"offer_medium_online"       	: req.body.offer_medium_online,
-        		"promotion_id_online"       	: req.body.promotion_id_online,
-        		"promotion_group_id_online" 	: req.body.promotion_group_id_online
+				"print_at_till"      			: req.body.print_at_till_online,
+        		"instant_win"        			: req.body.instant_win_online,
+        		"offer_medium"       			: req.body.offer_medium_online,
+        		"promotion_id"       			: req.body.promotion_id_online,
+        		"promotion_group_id" 			: req.body.promotion_group_id_online
 			},			
 			"promotion_4": {
 				"offer_channel"					: "Store",
@@ -537,6 +537,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		&& promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code"
         			|| promotionDescriptionData.promotions["promotion_" + i].barcode === "no-code" ) {
 
+        		// this row has no code
         		// set as hyphen
         		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = "-";
         		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = "-";
@@ -544,21 +545,86 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         	} else {
 
+        		// this row has a code
+
         		if ( promotionDescriptionData.promotions["promotion_" + i].global_code != "no-code" && promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code") {
+
+        			// global code selected
+
+        			// lookup global voucher pot and get date
+        			var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcode";
+        			axios.get(globalCodesUrl).then(response => {
+
+        				for ( var j = 0; j < response.data.items.length; j++ ) {
+
+        					if ( response.data.item[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
+
+        						var splitGlobalValidFrom = response.data.item[j].keys.validfrom.split(" ");
+        						var splitGlobalValidTo = response.data.item[j].keys.validfrom.split(" ");
+
+        						// set valid from and to
+        						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
+        						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
+        						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
+        						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTp.oplit("/").reverse().join("-");
+
+
+        					}
+
+        				}
+
+        			}).catch((error) => {
+        				console.dir('error is ' + error);
+        				res.json({"success": false});
+					});
 
         			// update barcode 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].global_code;
+        			promotionDescriptionData.promotions["promotion_" + i].number_of_redemptions_allowed = "999";
         			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
         			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
 
 
         		} else if ( promotionDescriptionData.promotions["promotion_" + i].voucher_pot != "no-code" && promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code") {
 
+        			// voucher pot selected
+
+        			// get one row voucher pot for date
+
         			promotionDescriptionData.promotions["promotion_" + i].barcode = "-";
+        			promotionDescriptionData.promotions["promotion_" + i].number_of_redemptions_allowed = "1";
         			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
         			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
 
         		} else if ( promotionDescriptionData.promotions["promotion_" + i].barcode != "no-code" ) {
+
+        			// instore code selected
+
+        			var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promtions";
+        			axios.get(globalCodesUrl).then(response => {
+
+        				for ( var n = 0; n < response.data.items.length; n++ ) {
+
+        					if ( response.data.item[n].keys.discountid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+
+        						var instoreValidFromDate = response.data.item[n].keys.datefrom.split("/").reverse().join("-");
+        						var instoreValidToDate = response.data.item[n].keys.dateto.split("/").reverse().join("-");
+
+        						// set valid from and to
+        						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + response.data.item[n].keys.timefrom;
+        						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + response.data.item[n].keys.timeto;
+        						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + response.data.item[n].keys.timefrom;
+        						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + response.data.item[n].keys.timeto;
+
+
+        					}
+
+        				}
+
+        			}).catch((error) => {
+        				console.dir('error is ' + error);
+        				res.json({"success": false});
+					});
 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].barcode;
 

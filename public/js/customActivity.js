@@ -269,6 +269,16 @@ define([
             $(this).val(this.checked ? true : false);
         });
 
+        $("#voucher_pot_1").on('change', function(){
+            $("#pot_1_count").html($(this).val());
+        });
+        $("#voucher_pot_2").on('change', function(){
+            $("#pot_2_count").html($(this).val());
+        });
+        $("#voucher_pot_3").on('change', function(){
+            $("#pot_3_count").html($(this).val());
+        });
+
     }
 
     function prePopulateFields(prePop, inArguments) {
@@ -486,9 +496,9 @@ define([
                     console.log(result.items[i]);
                 }
                 // do something with substr[i]
-                $("#voucher_pot_1").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_2").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_3").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_1").append("<option value=" + result.items[i].values.count + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_2").append("<option value=" + result.items[i].values.count + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_3").append("<option value=" + result.items[i].values.count + ">" + result.items[i].values.dataextensionname + "</option>");
             }
         }});
     }
@@ -1011,16 +1021,16 @@ define([
 
     function save(payload) {
 
-        //payload.name = "test name";
+        payload.name = payload.campaign_name;
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
 
-        //payload['metaData'].isConfigured = true;
+        payload['metaData'].isConfigured = true;
 
-        //connection.trigger('updateActivity', payload);
+        connection.trigger('updateActivity', payload);
 
         if ( debug ) {
             console.log(payload); 
