@@ -1035,6 +1035,10 @@ define([
 
         payload['metaData'].isConfigured = true;
 
+        if ( debug ) {
+            console.log(payload);
+        }
+
         connection.trigger('updateActivity', payload);
     }
 
