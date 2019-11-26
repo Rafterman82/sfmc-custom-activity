@@ -521,10 +521,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir(campaignPromotionAssociationData);
 
         // increment promotion key up 1 and save new increment in DE
-        var newPromotionKey = promotion_key + 1;
+        var newPromotionKey = parseInt(promotion_key) + 1;
 
         // store new promotion key in increments object
-        incrementObject.promotion_key = newPromotionKey;
+        incrementObject.promotion_key = parseInt(newPromotionKey);
 
         console.dir(incrementObject);
 
@@ -566,7 +566,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = mcLoopIncrement;
         		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = communication_cell_code_id_increment;
-        		campaignPromotionAssociationData["mc_id_" + i] = mcLoopIncrement;
+        		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcLoopIncrement);
         		mcLoopIncrement++;
 
         	}
@@ -575,18 +575,18 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         console.dir(promotionDescriptionData.promotions);
 
-        var new_mc_unique_promotion_id_increment = mcLoopIncrement + 1;
+        var new_mc_unique_promotion_id_increment = parseInt(mcLoopIncrement) + 1;
 
         // set mc increment in DE
-        incrementObject.mc_unique_promotion_id_increment = new_mc_unique_promotion_id_increment;
+        incrementObject.mc_unique_promotion_id_increment = parseInt(new_mc_unique_promotion_id_increment);
 
         // update communication cell json
         communicationCellData.communication_cell_id 		= communication_cell_code_id_increment;
         campaignPromotionAssociationData.communication_cell_id = communication_cell_code_id_increment;
-        communicationCellControlData.communication_cell_id 	= communication_cell_code_id_increment + 1;
+        communicationCellControlData.communication_cell_id 	= parseInt(communication_cell_code_id_increment) + 1;
         campaignPromotionAssociationData.communication_cell_id_control = communication_cell_code_id_increment + 1;
 
-        var newCommunicationCellCodeIncrement = communication_cell_code_id_increment + 2;
+        var newCommunicationCellCodeIncrement = parseInt(communication_cell_code_id_increment) + 2;
 
         console.dir("COMM CELL DATA");
         console.dir(communicationCellData);
@@ -595,7 +595,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir(communicationCellControlData);
 
         // update increments object
-        incrementObject.communication_cell_code_id_increment = newCommunicationCellCodeIncrement;
+        incrementObject.communication_cell_code_id_increment = parseInt(newCommunicationCellCodeIncrement);
 
         console.dir("INCREMENT OBJECT");
         console.dir(incrementObject);
@@ -614,7 +614,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 		var associationPayload = [{
 	        "keys": {
-	            "promotion_key": associationKey
+	            "promotion_key": parseInt(associationKey)
 	        },
 	        "values": campaignPromotionAssociationData
 	    }];
@@ -661,6 +661,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		        "values": incrementObject
 	    	}];
 
+	    	console.dir(incrementPayload);
+
 	    	// increments insert
 		   	axios({
 				method: 'post',
@@ -687,10 +689,12 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 					var descriptionPayload = [{
 				        "keys": {
-				            "communication_cell_id": descriptionKey
+				            "mc_unique_promotion_id": parseInt(descriptionKey)
 				        },
 				        "values": promotionDescriptionData.promotions["promotion_" + x]
 			    	}];
+
+			    	console.dir(descriptionPayload);
 
 				   	axios({
 						method: 'post',
@@ -716,10 +720,12 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	    	// communication cell insert
 			var communicationPayload = [{
 		        "keys": {
-		            "communication_cell_id": communicationCellKey
+		            "communication_cell_id": parseInt(communicationCellKey)
 		        },
 		        "values": communicationCellData
 	    	}];
+
+	    	console.dir(communicationPayload);
 
 	    	// increments insert
 		   	axios({
@@ -742,10 +748,12 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	    	// communication cell insert
 			var communicationControlPayload = [{
 		        "keys": {
-		            "communication_cell_id": communicationCellControlKey
+		            "communication_cell_id": parseInt(communicationCellControlKey)
 		        },
 		        "values": communicationCellControlData
 	    	}];
+
+	    	console.dir(communicationControlPayload);
 
 	    	// increments insert
 		   	axios({
