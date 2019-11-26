@@ -1092,7 +1092,8 @@ define([
 
     function updateSummaryPage() {
         var buildPayload = buildActivityPayload();
-        console.log(buildPayload) 
+        console.log(buildPayload);
+        $("#summary_json").html("<pre>" + buildPayload + "</pre>"):
     }
 
     function save() {
