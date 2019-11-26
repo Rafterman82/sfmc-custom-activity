@@ -654,7 +654,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				//res.json({"success": false});
 			});
 
-			incrementPayload = [{
+			var incrementPayload = [{
 		        "keys": {
 		            "increment_key": 1
 		        },
@@ -714,7 +714,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         	var communicationCellKey = communicationCellData.communication_cell_id;
         	delete communicationCellData.communication_cell_id;
 	    	// communication cell insert
-			communicationPayload = [{
+			var communicationPayload = [{
 		        "keys": {
 		            "communication_cell_id": communicationCellKey
 		        },
@@ -740,7 +740,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         	var communicationCellControlKey = communicationCellControlData.communication_cell_id;
         	delete communicationCellControlData.communication_cell_id;
 	    	// communication cell insert
-			communicationControlPayload = [{
+			var communicationControlPayload = [{
 		        "keys": {
 		            "communication_cell_id": communicationCellControlKey
 		        },
