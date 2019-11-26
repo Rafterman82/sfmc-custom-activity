@@ -1028,17 +1028,14 @@ define([
         // may be overridden as desired.
         //var buildPayload = buildActivityPayload();
 
-        payload.name = "test123";
+        payloadToJB.name = "test123";
 
-        payload['arguments'].execute.inArguments = [{ "message": "test123" }];
+        payloadToJB['arguments'].execute.inArguments = [{ "message": "test123" }];
 
-        payload['metaData'].isConfigured = true;
+        payloadToJB['metaData'].isConfigured = true;
 
-        connection.trigger('updateActivity', payload);
+        connection.trigger('updateActivity', payloadToJB);
 
-        if ( debug ) {
-            console.log(payload); 
-        }
     }
 
 });
