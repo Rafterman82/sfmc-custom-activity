@@ -75,14 +75,17 @@ define([
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
 
-        $.each(inArguments, function(index, inArgument) {
+        $.each(inArguments[0].buildPayload, function(index, inArgument) {
             if ( debug ) {
                 console.log(inArgument);
             }
             $.each(inArgument, function(key, val) {
 
                 if ( debug ) {
-                    console.log("The key for this row is: " + key + ". The value for this row is: " + val);
+                    console.log("key");
+                    console.log(key);
+                    console.log("value");
+                    console.log(value);
                 }
                 if ( key == 'promotion_type' && val ) {
 
