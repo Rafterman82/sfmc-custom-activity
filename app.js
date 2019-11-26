@@ -548,12 +548,14 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// update barcode 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].global_code;
         			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
+        			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
 
 
         		} else if ( promotionDescriptionData.promotions["promotion_" + i].voucher_pot != "no-code" && promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code") {
 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = "-";
         			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
+        			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
 
         		} else if ( promotionDescriptionData.promotions["promotion_" + i].barcode != "no-code" ) {
 
@@ -563,7 +565,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = mcLoopIncrement;
         		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = communication_cell_code_id_increment;
-        		campaignPromotionAssociationData["mc_id_" + i] = mcLoopIncrement;
+        		campaignPromotionAssociationData["mc_id_" + i] = int(mcLoopIncrement);
         		mcLoopIncrement++;
 
         	}
