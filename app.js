@@ -532,17 +532,19 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         for ( var i = 1; i <= 6; i++) {
 
-        	if ( promotionDescriptionData.promotions["promotion_" + i].global_code == "no-code" 
-        		|| promotionDescriptionData.promotions["promotion_" + i].voucher_pot == "no-code" 
-        			|| promotionDescriptionData.promotions["promotion_" + i].barcode == "no-code" ) {
+        	if ( promotionDescriptionData.promotions["promotion_" + i]global_code == "no-code" 
+        		|| promotionDescriptionData.promotions["promotion_" + i]voucher_pot == "no-code" 
+        			|| promotionDescriptionData.promotions["promotion_" + i]barcode == "no-code" ) {
 
         		// set as hyphen
-        		promotionDescriptionData.promotions.["promotion_" + i].mc_unique_promotion_id = "-";
+        		promotionDescriptionData.promotions["promotion_" + i]mc_unique_promotion_id = "-";
+        		promotionDescriptionData.promotions["promotion_" + i]communication_cell_id = communication_cell_code_id_increment;
         		campaignPromotionAssociationData["mc_id_" + i] = "-";
 
         	} else {
 
-        		promotionDescriptionData.promotions.["promotion_" + i].mc_unique_promotion_id = mcLoopIncrement;
+        		promotionDescriptionData.promotions["promotion_" + i]mc_unique_promotion_id = mcLoopIncrement;
+        		promotionDescriptionData.promotions["promotion_" + i]communication_cell_id = communication_cell_code_id_increment;
         		campaignPromotionAssociationData["mc_id_" + i] = mcLoopIncrement;
         		mcLoopIncrement++;
 
