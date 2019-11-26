@@ -69,7 +69,7 @@ define([
         );
 
         if ( debug ) {
-            console.log("Payload arguements are: " + payload['arguments']);
+            console.log(payload['arguments']);
         }
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
