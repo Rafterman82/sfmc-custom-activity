@@ -429,7 +429,7 @@ define([
             var i;
             for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i].keys.discountid);
+                    console.log(result.items[i].keys);
                 }
                 // do something with `substr[i]
                 $("#instore_code_1_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].keys.name + "</option>");
@@ -1022,24 +1022,20 @@ define([
     }
 
     function save() {
-        var name = "test456";
-        var value = getMessage();
+
+        var buildPayload = buildActivityPayload();
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
-        payload.name = name;
+        payload.name = buildPayload.campaign_name;
 
-        payload['arguments'].execute.inArguments = [{ "message": value }];
+        payload['arguments'].execute.inArguments = [{buildPayload}];
 
         payload['metaData'].isConfigured = true;
 
         connection.trigger('updateActivity', payload);
-    }
-
-    function getMessage() {
-        return "test124";
     }
 
 });
