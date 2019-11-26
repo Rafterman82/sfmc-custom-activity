@@ -270,13 +270,13 @@ define([
         });
 
         $("#voucher_pot_1").on('change', function(){
-            $("#pot_1_count").html($(this).val());
+            $("#pot_1_count").html("Vouhcers in pot :" + $(this).val());
         });
         $("#voucher_pot_2").on('change', function(){
-            $("#pot_2_count").html($(this).val());
+            $("#pot_2_count").html("Vouhcers in pot :" + $(this).val());
         });
         $("#voucher_pot_3").on('change', function(){
-            $("#pot_3_count").html($(this).val());
+            $("#pot_3_count").html("Vouhcers in pot :" + $(this).val());
         });
 
     }
