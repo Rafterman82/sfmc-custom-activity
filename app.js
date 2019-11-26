@@ -502,7 +502,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
    	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
         
-   		res.json({"success": false});
         // If request is good...
         console.dir(response.data.items);
         console.dir(response.data.items[0].values);
@@ -620,19 +619,38 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	   	axios({
 			method: 'post',
-			url: campaignAssociationUrl,
-			headers: {'Authorization': authToken},
-			data: associationPayload
+			url: marketingCloud.authUrl,
+			data:{
+				"grant_type": "client_credentials",
+				"client_id": marketingCloud.clientId,
+				"client_secret": marketingCloud.clientSecret
+			}
 		})
 		.then(function (response) {
-			console.dir(response.data);
-			res.json({"success": true});
-		})
+			//console.dir(response.data.access_token);
+			const oauth_access_token = response.data.access_token;
+			//return response.data.access_token;
+			console.dir(oauth_access_token);
+			const authToken = 'Bearer '.concat(oauth_access_token);
+		   	axios({
+				method: 'post',
+				url: campaignAssociationUrl,
+				headers: {'Authorization': authToken},
+				data: associationPayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir(error);
+				//res.json({"success": false});
+			});
+		})	
 		.catch(function (error) {
 			console.dir(error);
-			res.json({"success": false});
-		});	
-
+			return error;
+		});
 
         // post communication cell
 
