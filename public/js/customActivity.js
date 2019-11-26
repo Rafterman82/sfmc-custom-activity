@@ -431,9 +431,9 @@ define([
                     console.log(result.items[i].keys.discountid);
                 }
                 // do something with `substr[i]
-                $("#instore_code_1_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
-                $("#instore_code_2_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
-                $("#instore_code_3_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + "</option>");
+                $("#instore_code_1_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].keys.name + "</option>");
+                $("#instore_code_2_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].keys.name + "</option>");
+                $("#instore_code_3_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].keys.name + "</option>");
             }
         }});
     }
@@ -1016,17 +1016,21 @@ define([
     }
 
     function updateSummaryPage() {
-        //var buildPayload = buildActivityPayload(); 
+        var buildPayload = buildActivityPayload();
+        console.log(buildPayload) 
     }
 
-    function save(payload) {
-
-        payload.name = payload.campaign_name;
+    function save() {
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
+        var buildPayload = buildActivityPayload();
+
+        payload.name = payload.campaign_name;
+
+        payload['arguments'].execute.inArguments = buildPayload;
 
         payload['metaData'].isConfigured = true;
 
