@@ -83,7 +83,7 @@ define([
             console.log(argumentsSummaryPayload.promotion_key);
         }
 
-        if ( argumentsSummaryPayload.promotion_key ) {
+        if ( argumentsSummaryPayload.promotion_type ) {
 
             if ( debug ) {
                 console.log("inside if statement i.e. promotion key is present")
