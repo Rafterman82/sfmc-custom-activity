@@ -1096,8 +1096,10 @@ define([
         
         Object.keys(summaryPayload).forEach(function(key) {
             console.table('Key : ' + key + ', Value : ' + summaryPayload[key]);
+            $("<p>" + key + "</p>").appendto(#summary_json_key);
+            $("<p>" + summaryPayload[key] + "</p>").appendto(#summary_json_value);
         })
-        //$("#summary_json").html(summaryPayload);
+        
     }
 
     function save() {
