@@ -29,7 +29,7 @@ if ( !local ) {
 	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
 	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
 	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension,
-	  templateDataExtension:  					process.env.templateDataExtension
+	  templateDataExtension:  					process.env.templateDataExtension,
 	  baseUrl:  								process.env.baseUrl
 	};
 	console.dir(marketingCloud);
