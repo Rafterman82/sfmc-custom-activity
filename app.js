@@ -85,42 +85,6 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 
 });
 
-//Fetch used templates
-app.get("/dataextension/lookup/templates", (req, res, next) => {
-
-	axios({
-		method: 'post',
-		url: marketingCloud.authUrl,
-		data:{
-			"grant_type": "client_credentials",
-			"client_id": marketingCloud.clientId,
-			"client_secret": marketingCloud.clientSecret
-		}
-	})
-	.then(function (response) {
-		//console.dir(response.data.access_token);
-		const oauth_access_token = response.data.access_token;
-		//return response.data.access_token;
-		console.dir(oauth_access_token);
-		const authToken = 'Bearer '.concat(oauth_access_token);
-	    var templatesUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.templateIncrementExtension + "/rowset";
-	    console.dir(templatesUrl);
-	    axios.get(templatesUrl, { headers: { Authorization: authToken } }).then(response => {
-	        // If request is good...
-	        
-			res.json(response.data);
-
-	    }).catch((error) => {
-	        console.dir('error is ' + error);
-	    });		
-
-	})
-	.catch(function (error) {
-		console.dir(error);
-		return error;
-	});
-
-});
 
 //Fetch rows from promotions data extension
 app.get("/dataextension/lookup/promotions", (req, res, next) => {
@@ -414,7 +378,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         "is_putput_flag"			: "0"
 	};
 
-	if ( promotionType != "no_code" ) {
+
 
 		var promotionDescriptionData = {
 
@@ -496,7 +460,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 		};
 
-	}
 
 	var campaignPromotionAssociationData = {
 
@@ -893,33 +856,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				//res.json({"success": false});
 			});
 
-			// template insert
-			var templateData = {
-		    	"template_name": emailTemplate
-			};
-
-			var templatePayload = [{
-		        "keys": {
-		            "promotion_key": parseInt(promotion_key)
-		        },
-		        "values": templateData
-	    	}];
-
-	    	// increments insert
-		   	axios({
-				method: 'post',
-				url: template,
-				headers: {'Authorization': authToken},
-				data: templatePayload
-			})
-			.then(function (response) {
-				console.dir(response.data);
-				//res.json({"success": true});
-			})
-			.catch(function (error) {
-				console.dir(error);
-				//res.json({"success": false});
-			});	   	
+   	
 
 		})	
 		.catch(function (error) {
@@ -936,7 +873,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		console.log("Res with promo key for prepop");
 	}
 
-	res.json({"success": true, "promotion_key": promotion_key})
+	//res.json({"success": true, "promotion_key": promotion_key})
 
 });
 
