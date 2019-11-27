@@ -28,7 +28,8 @@ if ( !local ) {
 	  productionVoucherPot: 					process.env.productionVoucherPot,
 	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
 	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
-	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension
+	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension,
+	  baseUrl: 									process.env.baseUrl
 	};
 	console.dir(marketingCloud);
 }
@@ -48,10 +49,48 @@ if ('development' == app.get('env')) {
 
 var incrementsRequest = require('request');
 var incrementOptions = {
-    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments'
+    url : baseUrl
 };
 incrementsRequest.get(incrementOptions, function (error, response, body) {
     //Handle error, and body
+});
+
+
+//Fetch used templates
+app.get("/dataextension/lookup/templates", (req, res, next) => {
+
+	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    var templatesUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.templateIncrementExtension + "/rowset";
+	    console.dir(templatesUrl);
+	    axios.get(templatesUrl, { headers: { Authorization: authToken } }).then(response => {
+	        // If request is good...
+	        
+			res.json(response.data);
+
+	    }).catch((error) => {
+	        console.dir('error is ' + error);
+	    });		
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
+
 });
 
 //Fetch increment values
@@ -502,7 +541,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
-   	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
+   	axios.get(baseUrl + "/dataextension/lookup/increments").then(response => {
         
         // If request is good...
         console.dir(response.data.items);
@@ -552,7 +591,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
-        			var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcode";
+        			var globalCodesUrl = baseUrl + "/dataextension/lookup/globalcode";
         			axios.get(globalCodesUrl).then(response => {
 
         				for ( var j = 0; j < response.data.items.length; j++ ) {
@@ -600,7 +639,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promtions";
+        			var instoreCodesUrl = baseUrl + "/dataextension/lookup/promtions";
         			axios.get(globalCodesUrl).then(response => {
 
         				for ( var n = 0; n < response.data.items.length; n++ ) {
@@ -673,6 +712,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		var incrementUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionIncrementExtension + "/rowset";
 		var descriptionUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionDescriptionDataExtension + "/rowset";
 		var communicationCellUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.communicationCellDataExtension + "/rowset";
+		var templateUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.templateDataExtension + "/rowset";		
 		console.dir(campaignAssociationUrl);
 
 		var associationKey = campaignPromotionAssociationData.promotion_key;
@@ -835,7 +875,35 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			.catch(function (error) {
 				console.dir(error);
 				//res.json({"success": false});
-			});	    	
+			});	
+
+			// template insert
+			var templateData = {
+		    	"template_name": emailTemplate
+			};
+
+			var templatePayload = [{
+		        "keys": {
+		            "promotion_key": parseInt(promotion_key)
+		        },
+		        "values": templateData
+	    	}];
+
+	    	// increments insert
+		   	axios({
+				method: 'post',
+				url: template,
+				headers: {'Authorization': authToken},
+				data: templatePayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir(error);
+				//res.json({"success": false});
+			});	     	
 
 		})	
 		.catch(function (error) {
@@ -848,6 +916,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         res.json({"success": false});
 	});
 
+	res.json({"success": true, "promotion_key": promotion_key});
 });
 
 // Custom Hello World Activity Routes
