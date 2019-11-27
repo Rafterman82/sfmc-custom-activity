@@ -79,25 +79,7 @@ define([
             if ( debug ) {
                 console.log(buildPayload);
             }
-            $.each(buildPayload, function(key, val) {
 
-                if ( debug ) {
-                    console.log("key");
-                    console.log(key);
-                    console.log("value");
-                    console.log(val);
-                }
-                if ( key == 'promotion_type' && val ) {
-
-                    var prepopPromotionType = val;
-
-                    if ( debug ) {
-                        console.log(prepopPromotionType)
-                    }
-
-                }
-
-            });
         });
 
         var prePop;
