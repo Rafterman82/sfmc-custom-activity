@@ -64,7 +64,7 @@ define([
             console.log("Payload is:");
             console.log(payload.arguments.execute.inArguments[0]);
             console.log("summary payload is:");
-            console.log(argumentsSummaryPayload);
+            console.log(argumentsSummaryPayload.buildPayload);
         }
 
         var hasInArguments = Boolean(
@@ -80,10 +80,10 @@ define([
             console.log("In arguments object is:");
             console.log(inArguments);
             console.log("promotion type from arg is:");
-            console.log(argumentsSummaryPayload.promotion_type);
+            console.log(argumentsSummaryPayload.buildPayload.promotion_type);
         }
 
-        if ( argumentsSummaryPayload.promotion_type ) {
+        if ( argumentsSummaryPayload.buildPayload.promotion_type ) {
 
             if ( debug ) {
                 console.log("inside if statement i.e. promotion key is present")
