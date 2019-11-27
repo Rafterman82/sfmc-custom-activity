@@ -396,6 +396,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir(req.body);
 
 	var emailTemplate = req.body.email_template;
+	var promotionType = req.body.promotion_type;
 
 	var communicationCellData = {
 
@@ -421,85 +422,89 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         "is_putput_flag"			: "0"
 	};
 
-	var promotionDescriptionData = {
+	if ( promotionType != "no_code" ) {
 
-		"promotions": {
-			"promotion_1": {
-				"offer_channel"					: "Online",
-				"offer_description"				: req.body.campaign_name,
-				"ts_and_cs"						: "-",
-				"global_code"					: req.body.global_code_1,
-				"voucher_pot"					: req.body.voucher_pot_1,
-				"print_at_till"      			: req.body.print_at_till_online,
-        		"instant_win"        			: req.body.instant_win_online,
-        		"offer_medium"       			: req.body.offer_medium_online,
-        		"promotion_id"       			: req.body.promotion_id_online,
-        		"promotion_group_id" 			: req.body.promotion_group_id_online
-			},
-			"promotion_2": {
-				"offer_channel"					: "Online",
-				"offer_description"				: req.body.campaign_name,
-				"ts_and_cs"						: "-",
-				"global_code"					: req.body.global_code_2,
-				"voucher_pot"					: req.body.voucher_pot_2,
-				"print_at_till"      			: req.body.print_at_till_online,
-        		"instant_win"        			: req.body.instant_win_online,
-        		"offer_medium"       			: req.body.offer_medium_online,
-        		"promotion_id"       			: req.body.promotion_id_online,
-        		"promotion_group_id" 			: req.body.promotion_group_id_online
-			},
-			"promotion_3": {
-				"offer_channel"					: "Online",
-				"offer_description"				: req.body.campaign_name,
-				"ts_and_cs"						: "-",
-				"global_code"					: req.body.global_code_3,
-				"voucher_pot"					: req.body.voucher_pot_3,
-				"print_at_till"      			: req.body.print_at_till_online,
-        		"instant_win"        			: req.body.instant_win_online,
-        		"offer_medium"       			: req.body.offer_medium_online,
-        		"promotion_id"       			: req.body.promotion_id_online,
-        		"promotion_group_id" 			: req.body.promotion_group_id_online
-			},			
-			"promotion_4": {
-				"offer_channel"					: "Store",
-				"offer_description"				: req.body.campaign_name,
-				"ts_and_cs"						: "-",
-				"barcode"            			: req.body.instore_code_1,
-				"number_of_redemptions_allowed" : "999",
-		        "print_at_till"     			: req.body.print_at_till_instore,
-		        "instant_win"       			: req.body.instant_win_instore,
-		        "offer_medium" 			     	: req.body.offer_medium_instore,
-		        "promotion_id"      			: req.body.promotion_id_instore,
-		        "promotion_group_id"			: req.body.promotion_group_id_instore
-			},
-			"promotion_5": {
-				"offer_channel"					: "Store",
-				"offer_description"				: req.body.campaign_name,
-				"ts_and_cs"						: "-",
-				"barcode"            			: req.body.instore_code_2,
-				"number_of_redemptions_allowed" : "999",
-		        "print_at_till"			     	: req.body.print_at_till_instore,
-		        "instant_win"       			: req.body.instant_win_instore,
-		        "offer_medium"      			: req.body.offer_medium_instore,
-		        "promotion_id"      			: req.body.promotion_id_instore,
-		        "promotion_group_id"			: req.body.promotion_group_id_instore
-			},
-			"promotion_6": {
-				"offer_channel"					: "Store",
-				"offer_description"				: req.body.campaign_name,
-				"ts_and_cs"						: "-",
-				"barcode"            			: req.body.instore_code_3,
-				"number_of_redemptions_allowed" : "999",
-		        "print_at_till"     			: req.body.print_at_till_instore,
-		        "instant_win"       			: req.body.instant_win_instore,
-		        "offer_medium"      			: req.body.offer_medium_instore,
-		        "promotion_id"      			: req.body.promotion_id_instore,
-		        "promotion_group_id"			: req.body.promotion_group_id_instore
+		var promotionDescriptionData = {
 
-			}	
-		}
+			"promotions": {
+				"promotion_1": {
+					"offer_channel"					: "Online",
+					"offer_description"				: req.body.campaign_name,
+					"ts_and_cs"						: "-",
+					"global_code"					: req.body.global_code_1,
+					"voucher_pot"					: req.body.voucher_pot_1,
+					"print_at_till"      			: req.body.print_at_till_online,
+	        		"instant_win"        			: req.body.instant_win_online,
+	        		"offer_medium"       			: req.body.offer_medium_online,
+	        		"promotion_id"       			: req.body.promotion_id_online,
+	        		"promotion_group_id" 			: req.body.promotion_group_id_online
+				},
+				"promotion_2": {
+					"offer_channel"					: "Online",
+					"offer_description"				: req.body.campaign_name,
+					"ts_and_cs"						: "-",
+					"global_code"					: req.body.global_code_2,
+					"voucher_pot"					: req.body.voucher_pot_2,
+					"print_at_till"      			: req.body.print_at_till_online,
+	        		"instant_win"        			: req.body.instant_win_online,
+	        		"offer_medium"       			: req.body.offer_medium_online,
+	        		"promotion_id"       			: req.body.promotion_id_online,
+	        		"promotion_group_id" 			: req.body.promotion_group_id_online
+				},
+				"promotion_3": {
+					"offer_channel"					: "Online",
+					"offer_description"				: req.body.campaign_name,
+					"ts_and_cs"						: "-",
+					"global_code"					: req.body.global_code_3,
+					"voucher_pot"					: req.body.voucher_pot_3,
+					"print_at_till"      			: req.body.print_at_till_online,
+	        		"instant_win"        			: req.body.instant_win_online,
+	        		"offer_medium"       			: req.body.offer_medium_online,
+	        		"promotion_id"       			: req.body.promotion_id_online,
+	        		"promotion_group_id" 			: req.body.promotion_group_id_online
+				},			
+				"promotion_4": {
+					"offer_channel"					: "Store",
+					"offer_description"				: req.body.campaign_name,
+					"ts_and_cs"						: "-",
+					"barcode"            			: req.body.instore_code_1,
+					"number_of_redemptions_allowed" : "999",
+			        "print_at_till"     			: req.body.print_at_till_instore,
+			        "instant_win"       			: req.body.instant_win_instore,
+			        "offer_medium" 			     	: req.body.offer_medium_instore,
+			        "promotion_id"      			: req.body.promotion_id_instore,
+			        "promotion_group_id"			: req.body.promotion_group_id_instore
+				},
+				"promotion_5": {
+					"offer_channel"					: "Store",
+					"offer_description"				: req.body.campaign_name,
+					"ts_and_cs"						: "-",
+					"barcode"            			: req.body.instore_code_2,
+					"number_of_redemptions_allowed" : "999",
+			        "print_at_till"			     	: req.body.print_at_till_instore,
+			        "instant_win"       			: req.body.instant_win_instore,
+			        "offer_medium"      			: req.body.offer_medium_instore,
+			        "promotion_id"      			: req.body.promotion_id_instore,
+			        "promotion_group_id"			: req.body.promotion_group_id_instore
+				},
+				"promotion_6": {
+					"offer_channel"					: "Store",
+					"offer_description"				: req.body.campaign_name,
+					"ts_and_cs"						: "-",
+					"barcode"            			: req.body.instore_code_3,
+					"number_of_redemptions_allowed" : "999",
+			        "print_at_till"     			: req.body.print_at_till_instore,
+			        "instant_win"       			: req.body.instant_win_instore,
+			        "offer_medium"      			: req.body.offer_medium_instore,
+			        "promotion_id"      			: req.body.promotion_id_instore,
+			        "promotion_group_id"			: req.body.promotion_group_id_instore
 
-	};
+				}	
+			}
+
+		};
+
+	}
 
 	var campaignPromotionAssociationData = {
 
