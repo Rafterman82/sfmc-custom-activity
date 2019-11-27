@@ -1094,8 +1094,8 @@ define([
             console.log(summaryPayload);
         }
         
-        Object.keys(data).forEach(function(key) {
-            console.table('Key : ' + key + ', Value : ' + data[key]);
+        Object.keys(summaryPayload).forEach(function(key) {
+            console.table('Key : ' + key + ', Value : ' + summaryPayload[key]);
         })
         //$("#summary_json").html(summaryPayload);
     }
