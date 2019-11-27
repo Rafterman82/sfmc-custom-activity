@@ -79,6 +79,8 @@ define([
         if ( debug ) {
             console.log("In arguments object is:");
             console.log(inArguments);
+            console.log("promotion key from arg is:");
+            console.log(argumentsSummaryPayload.promotion_key);
         }
 
         if ( argumentsSummaryPayload.promotion_key ) {
