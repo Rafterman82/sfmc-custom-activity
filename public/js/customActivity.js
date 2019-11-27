@@ -60,7 +60,7 @@ define([
 
         if ( debug ) {
             console.log("Payload is:");
-            console.log(payload);
+            console.log(payload.arguements.execute.inArguments[0]);
         }
 
         var hasInArguments = Boolean(
