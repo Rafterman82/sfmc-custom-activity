@@ -89,7 +89,7 @@ define([
                 console.log("inside if statement i.e. promotion key is present")
             }
             // argument data present, pre pop and redirect to summary page
-            var prepopPromotionType = argumentsSummaryPayload.promotion_type;
+            var prepopPromotionType = argumentsSummaryPayload.buildPayload.promotion_type;
 
             if ( debug ) {
                 console.log("prepopPromotionType is");
