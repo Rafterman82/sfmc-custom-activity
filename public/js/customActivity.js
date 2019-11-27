@@ -1094,7 +1094,10 @@ define([
             console.log(summaryPayload);
         }
         
-        $("#summary_json").html(summaryPayload);
+        Object.keys(data).forEach(function(key) {
+            console.table('Key : ' + key + ', Value : ' + data[key]);
+        })
+        //$("#summary_json").html(summaryPayload);
     }
 
     function save() {
