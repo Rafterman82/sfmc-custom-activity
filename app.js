@@ -50,7 +50,7 @@ if ('development' == app.get('env')) {
 
 var incrementsRequest = require('request');
 var incrementOptions = {
-    url : baseUrl + '/dataextension/lookup/increments'
+    url : marketingCloud.baseUrl + '/dataextension/lookup/increments'
 };
 incrementsRequest.get(incrementOptions, function (error, response, body) {
     //Handle error, and body
@@ -543,7 +543,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
-   	axios.get(baseUrl + "/dataextension/lookup/increments").then(response => {
+   	axios.get(marketingCloud.baseUrl + "/dataextension/lookup/increments").then(response => {
         
         // If request is good...
         console.dir(response.data.items);
@@ -593,7 +593,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
-        			var globalCodesUrl = baseUrl + "/dataextension/lookup/globalcode";
+        			var globalCodesUrl = marketingCloud.baseUrl + "/dataextension/lookup/globalcode";
         			axios.get(globalCodesUrl).then(response => {
 
         				if ( debug ) {
@@ -645,7 +645,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			var instoreCodesUrl = baseUrl + "/dataextension/lookup/promtions";
+        			var instoreCodesUrl = marketingCloud.baseUrl + "/dataextension/lookup/promtions";
         			axios.get(globalCodesUrl).then(response => {
 
         				 if ( debug ) {
