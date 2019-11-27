@@ -28,9 +28,7 @@ if ( !local ) {
 	  productionVoucherPot: 					process.env.productionVoucherPot,
 	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
 	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
-	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension,
-	  templateDataExtension:  					process.env.templateDataExtension,
-	  baseUrl:  								process.env.baseUrl
+	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension
 	};
 	console.dir(marketingCloud);
 }
@@ -47,6 +45,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
+
+var incrementsRequest = require('request');
+var incrementOptions = {
+    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments'
+};
+incrementsRequest.get(incrementOptions, function (error, response, body) {
+    //Handle error, and body
+});
 
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
@@ -84,7 +90,6 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 	});
 
 });
-
 
 //Fetch rows from promotions data extension
 app.get("/dataextension/lookup/promotions", (req, res, next) => {
@@ -351,9 +356,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir("Request Body is ");
 	console.dir(req.body);
 
-	var emailTemplate = req.body.email_template;
-	var promotionType = req.body.promotion_type;
-
 	var communicationCellData = {
 
     	"cell_code"					: req.body.cell_code,
@@ -378,88 +380,85 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         "is_putput_flag"			: "0"
 	};
 
+	var promotionDescriptionData = {
 
+		"promotions": {
+			"promotion_1": {
+				"offer_channel"					: "Online",
+				"offer_description"				: req.body.campaign_name,
+				"ts_and_cs"						: "-",
+				"global_code"					: req.body.global_code_1,
+				"voucher_pot"					: req.body.voucher_pot_1,
+				"print_at_till"      			: req.body.print_at_till_online,
+        		"instant_win"        			: req.body.instant_win_online,
+        		"offer_medium"       			: req.body.offer_medium_online,
+        		"promotion_id"       			: req.body.promotion_id_online,
+        		"promotion_group_id" 			: req.body.promotion_group_id_online
+			},
+			"promotion_2": {
+				"offer_channel"					: "Online",
+				"offer_description"				: req.body.campaign_name,
+				"ts_and_cs"						: "-",
+				"global_code"					: req.body.global_code_2,
+				"voucher_pot"					: req.body.voucher_pot_2,
+				"print_at_till"      			: req.body.print_at_till_online,
+        		"instant_win"        			: req.body.instant_win_online,
+        		"offer_medium"       			: req.body.offer_medium_online,
+        		"promotion_id"       			: req.body.promotion_id_online,
+        		"promotion_group_id" 			: req.body.promotion_group_id_online
+			},
+			"promotion_3": {
+				"offer_channel"					: "Online",
+				"offer_description"				: req.body.campaign_name,
+				"ts_and_cs"						: "-",
+				"global_code"					: req.body.global_code_3,
+				"voucher_pot"					: req.body.voucher_pot_3,
+				"print_at_till"      			: req.body.print_at_till_online,
+        		"instant_win"        			: req.body.instant_win_online,
+        		"offer_medium"       			: req.body.offer_medium_online,
+        		"promotion_id"       			: req.body.promotion_id_online,
+        		"promotion_group_id" 			: req.body.promotion_group_id_online
+			},			
+			"promotion_4": {
+				"offer_channel"					: "Store",
+				"offer_description"				: req.body.campaign_name,
+				"ts_and_cs"						: "-",
+				"barcode"            			: req.body.instore_code_1,
+				"number_of_redemptions_allowed" : "999",
+		        "print_at_till"     			: req.body.print_at_till_instore,
+		        "instant_win"       			: req.body.instant_win_instore,
+		        "offer_medium" 			     	: req.body.offer_medium_instore,
+		        "promotion_id"      			: req.body.promotion_id_instore,
+		        "promotion_group_id"			: req.body.promotion_group_id_instore
+			},
+			"promotion_5": {
+				"offer_channel"					: "Store",
+				"offer_description"				: req.body.campaign_name,
+				"ts_and_cs"						: "-",
+				"barcode"            			: req.body.instore_code_2,
+				"number_of_redemptions_allowed" : "999",
+		        "print_at_till"			     	: req.body.print_at_till_instore,
+		        "instant_win"       			: req.body.instant_win_instore,
+		        "offer_medium"      			: req.body.offer_medium_instore,
+		        "promotion_id"      			: req.body.promotion_id_instore,
+		        "promotion_group_id"			: req.body.promotion_group_id_instore
+			},
+			"promotion_6": {
+				"offer_channel"					: "Store",
+				"offer_description"				: req.body.campaign_name,
+				"ts_and_cs"						: "-",
+				"barcode"            			: req.body.instore_code_3,
+				"number_of_redemptions_allowed" : "999",
+		        "print_at_till"     			: req.body.print_at_till_instore,
+		        "instant_win"       			: req.body.instant_win_instore,
+		        "offer_medium"      			: req.body.offer_medium_instore,
+		        "promotion_id"      			: req.body.promotion_id_instore,
+		        "promotion_group_id"			: req.body.promotion_group_id_instore
 
-		var promotionDescriptionData = {
+			}	
+		}
 
-			"promotions": {
-				"promotion_1": {
-					"offer_channel"					: "Online",
-					"offer_description"				: req.body.campaign_name,
-					"ts_and_cs"						: "-",
-					"global_code"					: req.body.global_code_1,
-					"voucher_pot"					: req.body.voucher_pot_1,
-					"print_at_till"      			: req.body.print_at_till_online,
-	        		"instant_win"        			: req.body.instant_win_online,
-	        		"offer_medium"       			: req.body.offer_medium_online,
-	        		"promotion_id"       			: req.body.promotion_id_online,
-	        		"promotion_group_id" 			: req.body.promotion_group_id_online
-				},
-				"promotion_2": {
-					"offer_channel"					: "Online",
-					"offer_description"				: req.body.campaign_name,
-					"ts_and_cs"						: "-",
-					"global_code"					: req.body.global_code_2,
-					"voucher_pot"					: req.body.voucher_pot_2,
-					"print_at_till"      			: req.body.print_at_till_online,
-	        		"instant_win"        			: req.body.instant_win_online,
-	        		"offer_medium"       			: req.body.offer_medium_online,
-	        		"promotion_id"       			: req.body.promotion_id_online,
-	        		"promotion_group_id" 			: req.body.promotion_group_id_online
-				},
-				"promotion_3": {
-					"offer_channel"					: "Online",
-					"offer_description"				: req.body.campaign_name,
-					"ts_and_cs"						: "-",
-					"global_code"					: req.body.global_code_3,
-					"voucher_pot"					: req.body.voucher_pot_3,
-					"print_at_till"      			: req.body.print_at_till_online,
-	        		"instant_win"        			: req.body.instant_win_online,
-	        		"offer_medium"       			: req.body.offer_medium_online,
-	        		"promotion_id"       			: req.body.promotion_id_online,
-	        		"promotion_group_id" 			: req.body.promotion_group_id_online
-				},			
-				"promotion_4": {
-					"offer_channel"					: "Store",
-					"offer_description"				: req.body.campaign_name,
-					"ts_and_cs"						: "-",
-					"barcode"            			: req.body.instore_code_1,
-					"number_of_redemptions_allowed" : "999",
-			        "print_at_till"     			: req.body.print_at_till_instore,
-			        "instant_win"       			: req.body.instant_win_instore,
-			        "offer_medium" 			     	: req.body.offer_medium_instore,
-			        "promotion_id"      			: req.body.promotion_id_instore,
-			        "promotion_group_id"			: req.body.promotion_group_id_instore
-				},
-				"promotion_5": {
-					"offer_channel"					: "Store",
-					"offer_description"				: req.body.campaign_name,
-					"ts_and_cs"						: "-",
-					"barcode"            			: req.body.instore_code_2,
-					"number_of_redemptions_allowed" : "999",
-			        "print_at_till"			     	: req.body.print_at_till_instore,
-			        "instant_win"       			: req.body.instant_win_instore,
-			        "offer_medium"      			: req.body.offer_medium_instore,
-			        "promotion_id"      			: req.body.promotion_id_instore,
-			        "promotion_group_id"			: req.body.promotion_group_id_instore
-				},
-				"promotion_6": {
-					"offer_channel"					: "Store",
-					"offer_description"				: req.body.campaign_name,
-					"ts_and_cs"						: "-",
-					"barcode"            			: req.body.instore_code_3,
-					"number_of_redemptions_allowed" : "999",
-			        "print_at_till"     			: req.body.print_at_till_instore,
-			        "instant_win"       			: req.body.instant_win_instore,
-			        "offer_medium"      			: req.body.offer_medium_instore,
-			        "promotion_id"      			: req.body.promotion_id_instore,
-			        "promotion_group_id"			: req.body.promotion_group_id_instore
-
-				}	
-			}
-
-		};
-
+	};
 
 	var campaignPromotionAssociationData = {
 
@@ -503,7 +502,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
-   	axios.get(marketingCloud.baseUrl + "/dataextension/lookup/increments").then(response => {
+   	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
         
         // If request is good...
         console.dir(response.data.items);
@@ -553,12 +552,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
-        			var globalCodesUrl = marketingCloud.baseUrl + "/dataextension/lookup/globalcode";
+        			var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcode";
         			axios.get(globalCodesUrl).then(response => {
-
-        				if ( debug ) {
-        					console.log(response.data);
-        				}
 
         				for ( var j = 0; j < response.data.items.length; j++ ) {
 
@@ -605,18 +600,12 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			var instoreCodesUrl = marketingCloud.baseUrl + "/dataextension/lookup/promtions";
+        			var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promtions";
         			axios.get(globalCodesUrl).then(response => {
-
-        				 if ( debug ) {
-        					console.log(response.data);
-        				}
 
         				for ( var n = 0; n < response.data.items.length; n++ ) {
 
-        					if ( response.data.item[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
-
-        						// found matching instore code, get dates
+        					if ( response.data.item[n].keys.discountid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
 
         						var instoreValidFromDate = response.data.item[n].keys.datefrom.split("/").reverse().join("-");
         						var instoreValidToDate = response.data.item[n].keys.dateto.split("/").reverse().join("-");
@@ -650,7 +639,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         }
 
-        console.dir("PROMOTION DESC OBJECT");
         console.dir(promotionDescriptionData.promotions);
 
         var new_mc_unique_promotion_id_increment = parseInt(mcLoopIncrement) + 1;
@@ -666,30 +654,25 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         var newCommunicationCellCodeIncrement = parseInt(communication_cell_code_id_increment) + 2;
 
-        if ( debug ) {
-	        console.dir("COMM CELL DATA");
-	        console.dir(communicationCellData);
+        console.dir("COMM CELL DATA");
+        console.dir(communicationCellData);
 
-	        console.dir("COMM CELL DATA CONTROL");
-	        console.dir(communicationCellControlData);
-	    }
+        console.dir("COMM CELL DATA CONTROL");
+        console.dir(communicationCellControlData);
 
         // update increments object
         incrementObject.communication_cell_code_id_increment = parseInt(newCommunicationCellCodeIncrement);
 
-        if ( debug ) {
-	        console.dir("INCREMENT OBJECT");
-	        console.dir(incrementObject);
+        console.dir("INCREMENT OBJECT");
+        console.dir(incrementObject);
 
-	        console.dir("CAMPAIGN ASSOCIATION");
-	        console.dir(campaignPromotionAssociationData);
-	    }
+        console.dir("CAMPAIGN ASSOCIATION");
+        console.dir(campaignPromotionAssociationData);
 
 		var campaignAssociationUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
 		var incrementUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionIncrementExtension + "/rowset";
 		var descriptionUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionDescriptionDataExtension + "/rowset";
 		var communicationCellUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.communicationCellDataExtension + "/rowset";
-		var templateUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.templateDataExtension + "/rowset";
 		console.dir(campaignAssociationUrl);
 
 		var associationKey = campaignPromotionAssociationData.promotion_key;
@@ -702,10 +685,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	        "values": campaignPromotionAssociationData
 	    }];
 
-	    if ( debug ) {
-	    	console.dir("ASSOCIATION PAYLOAD");
-	    	console.dir(associationPayload);
-	    }
+	    console.dir("ASSOCIATION PAYLOAD");
+	    console.dir(associationPayload);
 
 	   	axios({
 			method: 'post',
@@ -854,9 +835,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			.catch(function (error) {
 				console.dir(error);
 				//res.json({"success": false});
-			});
-
-   	
+			});	    	
 
 		})	
 		.catch(function (error) {
@@ -868,12 +847,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir('error is ' + error);
         res.json({"success": false});
 	});
-
-	if ( debug ) {
-		console.log("Res with promo key for prepop");
-	}
-
-	//res.json({"success": true, "promotion_key": promotion_key})
 
 });
 
