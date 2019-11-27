@@ -75,8 +75,16 @@ define([
 
         if ( argumentsSummaryPayload.promotion_key ) {
 
+            if ( debug ) {
+                console.log("inside if statement i.e. promotion key is present")
+            }
             // argument data present, pre pop and redirect to summary page
             var prepopPromotionType = argumentsSummaryPayload.promotion_type;
+
+            if ( debug ) {
+                console.log("prepopPromotionType is");
+                console.log(prepopPromotionType);
+            }
 
             var prePop;
 
@@ -338,6 +346,7 @@ define([
     function prePopulateFields(prePop, argumentsSummaryPayload) {
 
         if ( debug) {
+            console.log("payload sent to prepop function");
             console.log(argumentsSummaryPayload);
         }
     }
