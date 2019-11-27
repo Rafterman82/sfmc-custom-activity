@@ -28,7 +28,8 @@ if ( !local ) {
 	  productionVoucherPot: 					process.env.productionVoucherPot,
 	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
 	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
-	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension
+	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension,
+	  baseUrl:  								process.env.baseUrl
 	};
 	console.dir(marketingCloud);
 }
@@ -48,7 +49,7 @@ if ('development' == app.get('env')) {
 
 var incrementsRequest = require('request');
 var incrementOptions = {
-    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments'
+    url : baseUrl + '/dataextension/lookup/increments'
 };
 incrementsRequest.get(incrementOptions, function (error, response, body) {
     //Handle error, and body
@@ -502,7 +503,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
-   	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
+   	axios.get(baseUrl + "/dataextension/lookup/increments").then(response => {
         
         // If request is good...
         console.dir(response.data.items);
@@ -552,7 +553,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
-        			var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcode";
+        			var globalCodesUrl = baseUrl + "/dataextension/lookup/globalcode";
         			axios.get(globalCodesUrl).then(response => {
 
         				for ( var j = 0; j < response.data.items.length; j++ ) {
@@ -600,7 +601,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promtions";
+        			var instoreCodesUrl = baseUrl + "/dataextension/lookup/promtions";
         			axios.get(globalCodesUrl).then(response => {
 
         				for ( var n = 0; n < response.data.items.length; n++ ) {
@@ -654,20 +655,24 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         var newCommunicationCellCodeIncrement = parseInt(communication_cell_code_id_increment) + 2;
 
-        console.dir("COMM CELL DATA");
-        console.dir(communicationCellData);
+        if ( debug ) {
+	        console.dir("COMM CELL DATA");
+	        console.dir(communicationCellData);
 
-        console.dir("COMM CELL DATA CONTROL");
-        console.dir(communicationCellControlData);
+	        console.dir("COMM CELL DATA CONTROL");
+	        console.dir(communicationCellControlData);
+	    }
 
         // update increments object
         incrementObject.communication_cell_code_id_increment = parseInt(newCommunicationCellCodeIncrement);
 
-        console.dir("INCREMENT OBJECT");
-        console.dir(incrementObject);
+        if ( debug ) {
+	        console.dir("INCREMENT OBJECT");
+	        console.dir(incrementObject);
 
-        console.dir("CAMPAIGN ASSOCIATION");
-        console.dir(campaignPromotionAssociationData);
+	        console.dir("CAMPAIGN ASSOCIATION");
+	        console.dir(campaignPromotionAssociationData);
+	    }
 
 		var campaignAssociationUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
 		var incrementUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionIncrementExtension + "/rowset";
@@ -685,8 +690,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	        "values": campaignPromotionAssociationData
 	    }];
 
-	    console.dir("ASSOCIATION PAYLOAD");
-	    console.dir(associationPayload);
+	    if ( debug ) {
+	    	console.dir("ASSOCIATION PAYLOAD");
+	    	console.dir(associationPayload);
+	    }
 
 	   	axios({
 			method: 'post',
