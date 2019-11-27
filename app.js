@@ -48,14 +48,6 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
-var incrementsRequest = require('request');
-var incrementOptions = {
-    url : marketingCloud.baseUrl + '/dataextension/lookup/increments'
-};
-incrementsRequest.get(incrementOptions, function (error, response, body) {
-    //Handle error, and body
-});
-
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
 
