@@ -59,7 +59,8 @@ define([
         }
 
         if ( debug ) {
-            console.log("Payload is: " + payload);
+            console.log("Payload is:");
+            console.log(payload);
         }
 
         var hasInArguments = Boolean(
@@ -69,19 +70,17 @@ define([
             payload['arguments'].execute.inArguments.length > 0
         );
 
-        if ( debug ) {
-            console.log(payload['arguments']);
-        }
-
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
 
-        $.each(inArguments[0], function(index, buildPayload) {
-            if ( debug ) {
-                console.log(buildPayload);
-            }
-
+        $.each(inArguments, function(index, inArgument) {
+            $.each(inArgument, function(key, val) {
+                if ( debug ) {
+                    console.log(val);
+                }
+            });
         });
 
+/*
         var prePop;
 
         if ( prepopPromotionType == 'online' ) {
@@ -142,7 +141,7 @@ define([
         }
         if ( debug ) {
             console.log(prePop);
-        }
+        }*/
         
     }
 
