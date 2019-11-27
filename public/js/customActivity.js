@@ -56,6 +56,7 @@ define([
         
         if (data) {
             payload = data;
+            var argumentsSummaryPayload = payload.arguments.execute.inArguments[0];
         }
 
         if ( debug ) {
@@ -72,77 +73,74 @@ define([
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
 
-        $.each(inArguments, function(index, inArgument) {
-            $.each(inArgument, function(key, val) {
+        if ( argumentsSummaryPayload.promotion_key ) {
+
+            // argument data present, pre pop and redirect to summary page
+            var prepopPromotionType = argumentsSummaryPayload.promotion_type;
+
+            var prePop;
+
+            if ( prepopPromotionType == 'online' ) {
+                prePop = 'online';
+                prePopulateFields(prePop, argumentsSummaryPayload);
+                steps[1].active = true;
+                steps[3].active = true;
+                connection.trigger('updateSteps', steps);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 10);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 20);
+                setTimeout(function() {
+                    showStep(null, 3);
+                }, 100);
+            } else if ( prepopPromotionType == 'instore' ) {
+                prePop = 'instore';
+                prePopulateFields(prePop, argumentsSummaryPayload);
+                steps[2].active = true;
+                steps[3].active = true;
+                connection.trigger('updateSteps', steps);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 10);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 20);
+                setTimeout(function() {
+                    showStep(null, 3);
+                }, 100);
+            } else  if ( prepopPromotionType == 'online_instore' ) {
+                prePop = 'online_instore';
+                prePopulateFields(prePop, argumentsSummaryPayload);
+                steps[1].active = true;
+                steps[2].active = true;
+                steps[3].active = true;
+                connection.trigger('updateSteps', steps);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 10);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 20);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 30);
+                setTimeout(function() {
+                    showStep(null, 3);
+                }, 100);
+            } else{
+                prePop = 'not-set';
                 if ( debug ) {
-                    console.log(val);
+                    console.log('nothing to pre-pop setting step 0 and first radio checked');
                 }
-            });
-        });
-
-/*
-        var prePop;
-
-        if ( prepopPromotionType == 'online' ) {
-            prePop = 'online';
-            prePopulateFields(prePop, inArguments);
-            steps[1].active = true;
-            steps[3].active = true;
-            connection.trigger('updateSteps', steps);
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 10);
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 20);
-            setTimeout(function() {
-                showStep(null, 3);
-            }, 100);
-        } else if ( prepopPromotionType == 'instore' ) {
-            prePop = 'instore';
-            prePopulateFields(prePop, inArguments);
-            steps[2].active = true;
-            steps[3].active = true;
-            connection.trigger('updateSteps', steps);
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 10);
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 20);
-            setTimeout(function() {
-                showStep(null, 3);
-            }, 100);
-        } else  if ( prepopPromotionType == 'online_instore' ) {
-            prePop = 'online_instore';
-            prePopulateFields(prePop, inArguments);
-            steps[1].active = true;
-            steps[2].active = true;
-            steps[3].active = true;
-            connection.trigger('updateSteps', steps);
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 10);
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 20);
-            setTimeout(function() {
-                connection.trigger('nextStep');
-            }, 30);
-            setTimeout(function() {
-                showStep(null, 3);
-            }, 100);
-        } else{
-            prePop = 'not-set';
-            if ( debug ) {
-                console.log('nothing to pre-pop setting step 0 and first radio checked');
+                $("#radio-1").prop("checked", true).trigger("click");
             }
-            $("#radio-1").prop("checked", true).trigger("click");
-        }
-        if ( debug ) {
-            console.log(prePop);
-        }*/
-        
+            if ( debug ) {
+                console.log(prePop);
+            }
+
+        }      
     }
 
     function loadEvents() {
@@ -337,20 +335,11 @@ define([
 
     }
 
-    function prePopulateFields(prePop, inArguments) {
+    function prePopulateFields(prePop, argumentsSummaryPayload) {
 
-        $.each(inArguments, function(index, inArgument) {
-            $.each(inArgument, function(key, val) {
-                
-                if ( debug ) {
-                    console.log("key");
-                    console.log(key);
-                    console.log("value");
-                    console.log(value);                    
-                }
-
-            });
-        });
+        if ( debug) {
+            console.log(argumentsSummaryPayload);
+        }
     }
 
     function validateStep(stepToValidate) {
