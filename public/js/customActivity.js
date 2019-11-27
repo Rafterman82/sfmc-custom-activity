@@ -101,6 +101,7 @@ define([
             if ( prepopPromotionType == 'online' ) {
                 prePop = 'online';
                 prePopulateFields(prePop, argumentsSummaryPayload);
+                updateSummaryPage(argumentsSummaryPayload.buildPayload);
                 steps[1].active = true;
                 steps[3].active = true;
                 connection.trigger('updateSteps', steps);
@@ -116,6 +117,7 @@ define([
             } else if ( prepopPromotionType == 'instore' ) {
                 prePop = 'instore';
                 prePopulateFields(prePop, argumentsSummaryPayload);
+                updateSummaryPage(argumentsSummaryPayload.buildPayload);
                 steps[2].active = true;
                 steps[3].active = true;
                 connection.trigger('updateSteps', steps);
@@ -131,6 +133,7 @@ define([
             } else  if ( prepopPromotionType == 'online_instore' ) {
                 prePop = 'online_instore';
                 prePopulateFields(prePop, argumentsSummaryPayload);
+                updateSummaryPage(argumentsSummaryPayload.buildPayload);
                 steps[1].active = true;
                 steps[2].active = true;
                 steps[3].active = true;
