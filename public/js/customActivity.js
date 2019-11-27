@@ -505,9 +505,9 @@ define([
                     console.log(result.items[i].keys);
                 }
                 // do something with `substr[i]
-                $("#instore_code_1_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_2_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_3_instore").append("<option value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                $("#instore_code_1_instore").append("<option value=" + encodeURI(result.items[i].keys.discountmediaid) + ">" + result.items[i].keys.discountmediaid + " - " + result.items[i].values.name + " - " + result.items[i].values.discountid +"</option>");
+                $("#instore_code_2_instore").append("<option value=" + encodeURI(result.items[i].keys.discountmediaid) + ">" + result.items[i].keys.discountmediaid + " - " + result.items[i].values.name + " - " + result.items[i].values.discountid +"</option>");
+                $("#instore_code_3_instore").append("<option value=" + encodeURI(result.items[i].keys.discountmediaid) + ">" + result.items[i].keys.discountmediaid + " - " + result.items[i].values.name + " - " + result.items[i].values.discountid +"</option>");
             }
         }});
     }

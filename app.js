@@ -29,6 +29,7 @@ if ( !local ) {
 	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
 	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
 	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension,
+	  templateDataExtension:  					process.env.templateDataExtension
 	  baseUrl:  								process.env.baseUrl
 	};
 	console.dir(marketingCloud);
@@ -76,6 +77,43 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 	    var incrementsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.promotionIncrementExtension + "/rowset";
 	    console.dir(incrementsUrl);
 	    axios.get(incrementsUrl, { headers: { Authorization: authToken } }).then(response => {
+	        // If request is good...
+	        
+			res.json(response.data);
+
+	    }).catch((error) => {
+	        console.dir('error is ' + error);
+	    });		
+
+	})
+	.catch(function (error) {
+		console.dir(error);
+		return error;
+	});
+
+});
+
+//Fetch used templates
+app.get("/dataextension/lookup/templates", (req, res, next) => {
+
+	axios({
+		method: 'post',
+		url: marketingCloud.authUrl,
+		data:{
+			"grant_type": "client_credentials",
+			"client_id": marketingCloud.clientId,
+			"client_secret": marketingCloud.clientSecret
+		}
+	})
+	.then(function (response) {
+		//console.dir(response.data.access_token);
+		const oauth_access_token = response.data.access_token;
+		//return response.data.access_token;
+		console.dir(oauth_access_token);
+		const authToken = 'Bearer '.concat(oauth_access_token);
+	    var templatesUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.templateIncrementExtension + "/rowset";
+	    console.dir(templatesUrl);
+	    axios.get(templatesUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        
 			res.json(response.data);
@@ -357,6 +395,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir("Request Body is ");
 	console.dir(req.body);
 
+	var emailTemplate = req.body.email_template;
+
 	var communicationCellData = {
 
     	"cell_code"					: req.body.cell_code,
@@ -556,6 +596,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			var globalCodesUrl = baseUrl + "/dataextension/lookup/globalcode";
         			axios.get(globalCodesUrl).then(response => {
 
+        				if ( debug ) {
+        					console.log(response.data);
+        				}
+
         				for ( var j = 0; j < response.data.items.length; j++ ) {
 
         					if ( response.data.item[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
@@ -604,9 +648,15 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			var instoreCodesUrl = baseUrl + "/dataextension/lookup/promtions";
         			axios.get(globalCodesUrl).then(response => {
 
+        				 if ( debug ) {
+        					console.log(response.data);
+        				}
+
         				for ( var n = 0; n < response.data.items.length; n++ ) {
 
-        					if ( response.data.item[n].keys.discountid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+        					if ( response.data.item[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+
+        						// found matching instore code, get dates
 
         						var instoreValidFromDate = response.data.item[n].keys.datefrom.split("/").reverse().join("-");
         						var instoreValidToDate = response.data.item[n].keys.dateto.split("/").reverse().join("-");
@@ -640,6 +690,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         }
 
+        console.dir("PROMOTION DESC OBJECT");
         console.dir(promotionDescriptionData.promotions);
 
         var new_mc_unique_promotion_id_increment = parseInt(mcLoopIncrement) + 1;
@@ -678,6 +729,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		var incrementUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionIncrementExtension + "/rowset";
 		var descriptionUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionDescriptionDataExtension + "/rowset";
 		var communicationCellUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.communicationCellDataExtension + "/rowset";
+		var templateUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.templateDataExtension + "/rowset";
 		console.dir(campaignAssociationUrl);
 
 		var associationKey = campaignPromotionAssociationData.promotion_key;
@@ -842,7 +894,35 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			.catch(function (error) {
 				console.dir(error);
 				//res.json({"success": false});
-			});	    	
+			});
+
+			// template insert
+			var templateData = {
+		    	"template_name": emailTemplate
+			};
+
+			var templatePayload = [{
+		        "keys": {
+		            "promotion_key": parseInt(promotion_key)
+		        },
+		        "values": templateData
+	    	}];
+
+	    	// increments insert
+		   	axios({
+				method: 'post',
+				url: template,
+				headers: {'Authorization': authToken},
+				data: templatePayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir(error);
+				//res.json({"success": false});
+			});	   	
 
 		})	
 		.catch(function (error) {
@@ -854,6 +934,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir('error is ' + error);
         res.json({"success": false});
 	});
+
+	if ( debug ) {
+		console.log("Res with promo key for prepop");
+	}
 
 	res.json({"success": true, "promotion_key": promotion_key})
 
