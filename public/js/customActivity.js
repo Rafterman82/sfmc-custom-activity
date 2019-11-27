@@ -21,6 +21,7 @@ define([
     var currentStep = steps[0].key;
     var stepValidation = false;
     var payloadToSave;
+    var summaryPayload;
 
     if ( debug ) {
         console.log("Current Step is: " + currentStep);
@@ -62,6 +63,8 @@ define([
         if ( debug ) {
             console.log("Payload is:");
             console.log(payload.arguments.execute.inArguments[0]);
+            console.log("summary payload is:");
+            console.log(argumentsSummaryPayload);
         }
 
         var hasInArguments = Boolean(
@@ -72,6 +75,11 @@ define([
         );
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
+
+        if ( debug ) {
+            console.log("In arguments object is:");
+            console.log(inArguments);
+        }
 
         if ( argumentsSummaryPayload.promotion_key ) {
 
@@ -918,8 +926,6 @@ define([
                     console.log("step 3 case clicked");
                 }
 
-                updateSummaryPage();
-
                 $('#step3').show();
                 connection.trigger('updateButton', {
                     button: 'next',
@@ -1076,10 +1082,14 @@ define([
 
     }
 
-    function updateSummaryPage() {
-        var buildPayload = buildActivityPayload();
-        console.log(buildPayload);
-        $("#summary_json").html("<pre>" + buildPayload + "</pre>");
+    function updateSummaryPage(summaryPayload) {
+
+        if ( debug ) {
+            console.log("Build Payload for summary update it")
+            console.log(summaryPayload);
+        }
+        
+        $("#summary_json").html(summaryPayload);
     }
 
     function save() {
