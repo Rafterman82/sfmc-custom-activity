@@ -410,26 +410,47 @@ define([
 
         if ( argumentsSummaryPayload.buildPayload.voucher_pot_1 ) {
             $("#voucher_pot_1").val(argumentsSummaryPayload.buildPayload.voucher_pot_1);
+            $("#voucher_pot_1 option[value='" + argumentsSummaryPayload.buildPayload.voucher_pot_1 + "']").attr('selected','selected');
         }
 
         if ( argumentsSummaryPayload.buildPayload.voucher_pot_2 ) {
             $("#voucher_pot_2").val(argumentsSummaryPayload.buildPayload.voucher_pot_2);
+            $("#voucher_pot_2 option[value='" + argumentsSummaryPayload.buildPayload.voucher_pot_2 + "']").attr('selected','selected');
         }
 
         if ( argumentsSummaryPayload.buildPayload.voucher_pot_3 ) {
             $("#voucher_pot_3").val(argumentsSummaryPayload.buildPayload.voucher_pot_3);
+            $("#voucher_pot_3 option[value='" + argumentsSummaryPayload.buildPayload.voucher_pot_3 + "']").attr('selected','selected');
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_1 ) {
+            $("#instore_code_1").val(argumentsSummaryPayload.buildPayload.instore_code_1);
+            $("#instore_code_1 option[value='" + argumentsSummaryPayload.buildPayload.instore_code_1 + "']").attr('selected','selected');
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_2 ) {
+            $("#instore_code_2").val(argumentsSummaryPayload.buildPayload.instore_code_1);
+            $("#instore_code_2 option[value='" + argumentsSummaryPayload.buildPayload.instore_code_2 + "']").attr('selected','selected');
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_3 ) {
+            $("#instore_code_3").val(argumentsSummaryPayload.buildPayload.instore_code_3);
+            $("#instore_code_3 option[value='" + argumentsSummaryPayload.buildPayload.instore_code_3 + "']").attr('selected','selected');
         }
 
         if ( argumentsSummaryPayload.buildPayload.global_code_1 ) {
             $("#global_code_1").val(argumentsSummaryPayload.buildPayload.global_code_1);
+            $("#global_code_1 option[value='" + argumentsSummaryPayload.buildPayload.global_code_1 + "']").attr('selected','selected');
         }
 
         if ( argumentsSummaryPayload.buildPayload.global_code_2 ) {
             $("#global_code_2").val(argumentsSummaryPayload.buildPayload.global_code_2);
+            $("#global_code_2 option[value='" + argumentsSummaryPayload.buildPayload.global_code_2 + "']").attr('selected','selected');
         }
 
         if ( argumentsSummaryPayload.buildPayload.global_code_3 ) {
             $("#global_code_3").val(argumentsSummaryPayload.buildPayload.global_code_3);
+            $("#global_code_3 option[value='" + argumentsSummaryPayload.buildPayload.global_code_3 + "']").attr('selected','selected');
         }
 
         if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1 ) {
