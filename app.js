@@ -50,7 +50,7 @@ if ('development' == app.get('env')) {
 
 var incrementsRequest = require('request');
 var incrementOptions = {
-    url : marketingCloud.baseUrl
+    url : marketingCloud.baseUrl + '/dataextension/lookup/increments'
 };
 incrementsRequest.get(incrementOptions, function (error, response, body) {
     //Handle error, and body
@@ -58,7 +58,7 @@ incrementsRequest.get(incrementOptions, function (error, response, body) {
 
 
 //Fetch used templates
-app.get("/dataextension/lookup/templates", (req, res, next) => {
+app.get("/dataextension/lookup/usedtemplates", (req, res, next) => {
 
 	axios({
 		method: 'post',
