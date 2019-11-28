@@ -387,7 +387,7 @@ define([
             if ( argumentsSummaryPayload.buildPayload.email_template ) {
                 $("#email_template").val(encodeURIComponent(argumentsSummaryPayload.buildPayload.email_template));
             }
-        }, 8000);
+        }, 4000);
 
         if ( argumentsSummaryPayload.buildPayload.control_group ) {
             $("#control_group").val(argumentsSummaryPayload.buildPayload.control_group);
