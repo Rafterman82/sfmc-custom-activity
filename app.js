@@ -917,7 +917,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         res.json({"success": false});
 	});
 
-	res.json({"success": true, "promotion_key": promotion_key});
+	res.json({"success": true, "promotion_key": campaignPromotionAssociationData.promotion_key});
 });
 
 // Custom Hello World Activity Routes
