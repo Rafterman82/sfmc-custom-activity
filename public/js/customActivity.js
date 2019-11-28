@@ -83,8 +83,7 @@ define([
             console.log(argumentsSummaryPayload.buildPayload);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.promotion_type != "undefined" ||
-            argumentsSummaryPayload.buildPayload.promotion_type != "") {
+        if ( argumentsSummaryPayload.buildPayload ) {
 
             if ( debug ) {
                 console.log("inside if statement i.e. promotion key is present")
