@@ -615,7 +615,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			}).catch((error) => {
         				console.dir('error is ' + error);
-        				res.json({"success": false});
+        				//res.json({"success": false});
 					});
 
         			// update barcode 
@@ -663,7 +663,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			}).catch((error) => {
         				console.dir('error is ' + error);
-        				res.json({"success": false});
+        				//res.json({"success": false});
 					});
 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].barcode;
@@ -914,10 +914,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	}).catch((error) => {
         console.dir('error is ' + error);
-        res.json({"success": false});
+        //res.json({"success": false});
 	});
 
-	res.json({"success": true, "promotion_key": campaignPromotionAssociationData.promotion_key});
+	res.json({"success": true, "finalResSend": true, "promotion_key": campaignPromotionAssociationData.promotion_key});
 });
 
 // Custom Hello World Activity Routes
