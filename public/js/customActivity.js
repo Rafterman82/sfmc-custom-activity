@@ -1019,6 +1019,7 @@ define([
                     if ( debug ) {
                         /*console.log(data);*/  
                     }
+                    var saveResponseData = data;
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {
@@ -1031,10 +1032,10 @@ define([
         }
 
         if ( debug ) {
-            console.log(data);
+            console.log(saveResponseData);
         }
 
-        addPromotionKeyToArgs(data);
+        addPromotionKeyToArgs(saveResponseData);
 
     }
 
