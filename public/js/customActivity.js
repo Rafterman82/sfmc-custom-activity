@@ -366,7 +366,124 @@ define([
             console.log(prePop);
         }
 
-        if ( argumentsSummaryPayload )
+        if ( argumentsSummaryPayload.buildPayload.promotion_type ) {
+            if ( argumentsSummaryPayload.buildPayload.promotion_type == "online" ) {
+                $("#radio-1").prop("checked", true);
+            } else if ( argumentsSummaryPayload.buildPayload.promotion_type == "instore" ) {
+                $("#radio-2").prop("checked", true);
+            } else if ( argumentsSummaryPayload.buildPayload.promotion_type == "online_instore" ) {
+                $("#radio-3").prop("checked", true);
+            }
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.email_template ) {
+            $("#email_template").val(argumentsSummaryPayload.buildPayload.email_template);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.control_group ) {
+            $("#control_group").val(argumentsSummaryPayload.buildPayload.control_group);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.cell_code ) {
+            $("#cell_code").val(argumentsSummaryPayload.buildPayload.cell_code);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.cell_name ) {
+            $("#cell_code").val(argumentsSummaryPayload.buildPayload.cell_name);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.cell_code ) {
+            $("#cell_code").val(argumentsSummaryPayload.buildPayload.cell_code);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.campaign_name ) {
+            $("#campaign_name").val(argumentsSummaryPayload.buildPayload.campaign_name);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.campaign_id ) {
+            $("#campaign_id").val(argumentsSummaryPayload.buildPayload.campaign_id);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.campaign_code ) {
+            $("#campaign_code").val(argumentsSummaryPayload.buildPayload.campaign_code);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.voucher_pot_1 ) {
+            $("#voucher_pot_1").val(argumentsSummaryPayload.buildPayload.voucher_pot_1);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.voucher_pot_2 ) {
+            $("#voucher_pot_2").val(argumentsSummaryPayload.buildPayload.voucher_pot_2);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.voucher_pot_3 ) {
+            $("#voucher_pot_3").val(argumentsSummaryPayload.buildPayload.voucher_pot_3);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.global_code_1 ) {
+            $("#global_code_1").val(argumentsSummaryPayload.buildPayload.global_code_1);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.global_code_2 ) {
+            $("#global_code_2").val(argumentsSummaryPayload.buildPayload.global_code_2);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.global_code_3 ) {
+            $("#global_code_3").val(argumentsSummaryPayload.buildPayload.global_code_3);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1 ) {
+            $("#reuse_voucher_pot_1").val(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2 ) {
+            $("#reuse_voucher_pot_2").val(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3 ) {
+            $("#reuse_voucher_pot_3").val(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.print_at_till_online ) {
+            $("#print_at_till_online").val(argumentsSummaryPayload.buildPayload.print_at_till_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.print_at_till_instore ) {
+            $("#print_at_till_instore").val(argumentsSummaryPayload.buildPayload.print_at_till_instore);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instant_win_online ) {
+            $("#instant_win_online").val(argumentsSummaryPayload.buildPayload.instant_win_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instant_win_instore) {
+            $("#instant_win_instore").val(argumentsSummaryPayload.buildPayload.instant_win_instore);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.offer_medium_instore) {
+            $("#offer_medium_instore").val(argumentsSummaryPayload.buildPayload.offer_medium_instore);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.offer_medium_online) {
+            $("#offer_medium_online").val(argumentsSummaryPayload.buildPayload.offer_medium_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_id_online) {
+            $("#promotion_id_online").val(argumentsSummaryPayload.buildPayload.promotion_id_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_id_instore) {
+            $("#promotion_id_instore").val(argumentsSummaryPayload.buildPayload.promotion_id_instore);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_group_id_online) {
+            $("#promotion_group_id_online").val(argumentsSummaryPayload.buildPayload.promotion_group_id_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_group_id_instore) {
+            $("#promotion_group_id_instore").val(argumentsSummaryPayload.buildPayload.promotion_group_id_instore);
+        }
+
     }
 
     function validateStep(stepToValidate) {
