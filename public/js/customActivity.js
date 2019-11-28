@@ -80,7 +80,7 @@ define([
             console.log("In arguments object is:");
             console.log(inArguments);
             console.log("promotion type from arg is:");
-            console.log(argumentsSummaryPayload.buildPayload.promotion_type);
+            console.log(argumentsSummaryPayload.buildPayload);
         }
 
         if ( argumentsSummaryPayload.buildPayload.promotion_type ) {
