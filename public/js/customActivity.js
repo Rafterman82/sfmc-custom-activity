@@ -361,6 +361,7 @@ define([
         if ( debug) {
             console.log("payload sent to prepop function");
             console.log(argumentsSummaryPayload);
+            console.log(prePop);
         }
     }
 
