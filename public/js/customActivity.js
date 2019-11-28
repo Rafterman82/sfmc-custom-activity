@@ -83,7 +83,8 @@ define([
             console.log(argumentsSummaryPayload.buildPayload);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.promotion_type ) {
+        if ( argumentsSummaryPayload.buildPayload.promotion_type != "undefined" ||
+            argumentsSummaryPayload.buildPayload.promotion_type != "") {
 
             if ( debug ) {
                 console.log("inside if statement i.e. promotion key is present")
@@ -368,6 +369,7 @@ define([
 
         if (debug) {
             console.log("Step that will be validated");
+            consolr.log(stepToValidate);
         }
 
         if ( $("#step" + stepToValidate).find('.slds-has-error').length > 0 ) {
@@ -410,8 +412,8 @@ define([
         } else if ( stepToValidate == 2 ) {
 
             if ( 
-                !$("#instore_code_1").val() || 
-                $("#instore_code_1").val() == 'no-code' || 
+                !$("#instore_code_1_instore").val() || 
+                $("#instore_code_1_instore").val() == 'no-code' || 
                 !$("#promotion_id_instore").val() || 
                 !$("#promotion_group_id_instore").val() ) {
 
