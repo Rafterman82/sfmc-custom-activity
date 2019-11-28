@@ -348,20 +348,24 @@ define([
             if ( debug ) {
                 console.log($(this));
             }
-            $("#pot_1_count").html("Vouchers in pot 1:" + $(this).attr("data-attribute-count"));
+
+            var vp1count = $($(this)).find(':selected').attr("data-attribute-count");
+            $("#pot_1_count").html("Vouchers in pot 1:" + vp1count);
 
         });
         $("#voucher_pot_2").on('change', function(){
             if ( debug ) {
                 console.log($(this));
             }
-            $("#pot_2_count").html("Vouchers in pot 2:" + $(this).attr("data-attribute-count"));
+            var vp2count = $($(this)).find(':selected').attr("data-attribute-count");
+            $("#pot_2_count").html("Vouchers in pot 2:" + vp2count);
         });
         $("#voucher_pot_3").on('change', function(){
             if ( debug ) {
                 console.log($(this));
             }
-            $("#pot_3_count").html("Vouchers in pot 3:" + $(this).attr("data-attribute-count"));
+            var vp3count = $($(this)).find(':selected').attr("data-attribute-count");
+            $("#pot_3_count").html("Vouchers in pot 3:" + vp3count);
         });
 
     }
@@ -784,9 +788,9 @@ define([
                     console.log(result.items[i]);
                 }
                 // do something with substr[i]
-                $("#voucher_pot_1").append("<option data-attribute-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_2").append("<option data-attribute-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_3").append("<option data-attribute-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
             }
         }});
     }
