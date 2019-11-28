@@ -58,6 +58,7 @@ incrementsRequest.get(incrementOptions, function (error, response, body) {
 
 
 //Fetch used templates
+/*
 app.get("/dataextension/lookup/usedtemplates", (req, res, next) => {
 
 	axios({
@@ -92,7 +93,7 @@ app.get("/dataextension/lookup/usedtemplates", (req, res, next) => {
 		return error;
 	});
 
-});
+});*/
 
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
@@ -592,7 +593,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
-        			var globalCodesUrl = marketingCloud.baseUrl + "/dataextension/lookup/globalcode";
+        			var globalCodesUrl = marketingCloud.baseUrl + "/dataextension/lookup/globalcodes";
         			axios.get(globalCodesUrl).then(response => {
 
         				for ( var j = 0; j < response.data.items.length; j++ ) {
@@ -640,7 +641,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			var instoreCodesUrl = marketingCloud.baseUrl + "/dataextension/lookup/promtions";
+        			var instoreCodesUrl = marketingCloud.baseUrl + "/dataextension/lookup/promotions";
         			axios.get(globalCodesUrl).then(response => {
 
         				for ( var n = 0; n < response.data.items.length; n++ ) {
@@ -927,7 +928,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         //res.json({"success": false});
 	});
 
-	//res.json({"success": true, "finalResSend": true, "promotion_key": campaignPromotionAssociationData.promotion_key});
+	res.json({"success": true, "finalResSend": true, "promotion_key": campaignPromotionAssociationData.promotion_key});
 });
 
 // Custom Hello World Activity Routes
