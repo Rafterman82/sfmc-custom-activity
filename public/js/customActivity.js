@@ -1030,6 +1030,14 @@ define([
             console.log(e);
         }
 
+        addPromotionKeyToArgs(data);
+
+    }
+
+    function addPromotionKeyToArgs(saveResponse) {
+        if ( debug ){
+            console.log(saveResponse);
+        }
     }
 
     function buildActivityPayload() {
