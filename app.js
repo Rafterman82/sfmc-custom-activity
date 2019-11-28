@@ -330,7 +330,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 			data: templatePayload
 		})
 		.then(function (response) {
-			console.dir(response.data);
+			//console.dir(response.data);
 			res.json(response.data);
 		})
 		.catch(function (error) {
@@ -713,8 +713,17 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		var incrementUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionIncrementExtension + "/rowset";
 		var descriptionUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionDescriptionDataExtension + "/rowset";
 		var communicationCellUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.communicationCellDataExtension + "/rowset";
-		var templateUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.templateDataExtension + "/rowset";		
+		//var templateUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.templateDataExtension + "/rowset";		
+		console.dir("camp assoc url");
 		console.dir(campaignAssociationUrl);
+		console.dir("increment url");
+		console.dir(incrementUrl);
+		console.dir("description url");
+		console.dir(descriptionUrl);
+		console.dir("communication url");
+		console.dir(communicationCellUrl);
+
+
 
 		var associationKey = campaignPromotionAssociationData.promotion_key;
 		delete campaignPromotionAssociationData.promotion_key;
