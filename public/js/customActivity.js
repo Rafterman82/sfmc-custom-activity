@@ -345,13 +345,13 @@ define([
         });
 
         $("#voucher_pot_1").on('change', function(){
-            $("#pot_1_count").html("Vouhcers in pot 1:" + $(this).val());
+            $("#pot_1_count").html("Vouchers in pot 1:" + $(this).val());
         });
         $("#voucher_pot_2").on('change', function(){
-            $("#pot_2_count").html("Vouhcers in pot 2:" + $(this).val());
+            $("#pot_2_count").html("Vouchers in pot 2:" + $(this).val());
         });
         $("#voucher_pot_3").on('change', function(){
-            $("#pot_3_count").html("Vouhcers in pot 3:" + $(this).val());
+            $("#pot_3_count").html("Vouchers in pot 3:" + $(this).val());
         });
 
     }
@@ -774,9 +774,9 @@ define([
                     console.log(result.items[i]);
                 }
                 // do something with substr[i]
-                $("#voucher_pot_1").append("<option value=" + result.items[i].values.count + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_2").append("<option value=" + result.items[i].values.count + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_3").append("<option value=" + result.items[i].values.count + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_1").append("<option value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_2").append("<option value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_3").append("<option value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
             }
         }});
     }
