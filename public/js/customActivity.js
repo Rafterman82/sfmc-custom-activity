@@ -385,7 +385,7 @@ define([
 
         setTimeout(function(){ 
             if ( argumentsSummaryPayload.buildPayload.email_template ) {
-                $("#email_template").val(argumentsSummaryPayload.buildPayload.email_template);
+                $("#email_template").val(encodeURIComponent(argumentsSummaryPayload.buildPayload.email_template));
             }
         }, 8000);
 
