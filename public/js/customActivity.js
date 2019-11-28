@@ -1030,12 +1030,17 @@ define([
             console.log(e);
         }
 
+        if ( debug ) {
+            console.log(data);
+        }
+
         addPromotionKeyToArgs(data);
 
     }
 
     function addPromotionKeyToArgs(saveResponse) {
         if ( debug ){
+            console.log("add promokey to args executed");
             console.log(saveResponse);
         }
     }
