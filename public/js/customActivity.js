@@ -361,8 +361,12 @@ define([
         if ( debug) {
             console.log("payload sent to prepop function");
             console.log(argumentsSummaryPayload);
+            console.log("promotion type is ");
+            console.log(argumentsSummaryPayload.promotion_type);
             console.log(prePop);
         }
+
+        if ( argumentsSummaryPayload )
     }
 
     function validateStep(stepToValidate) {
