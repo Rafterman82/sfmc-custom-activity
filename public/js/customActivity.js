@@ -364,6 +364,13 @@ define([
             console.log("promotion type is ");
             console.log(argumentsSummaryPayload.promotion_type);
             console.log(prePop);
+            console.log("voucher pot 1");
+            console.log(argumentsSummaryPayload.buildPayload.voucher_pot_1);
+            console.log("voucher pot 2");
+            console.log(argumentsSummaryPayload.buildPayload.global_code_1);
+            console.log("voucher pot 3");
+            console.log(argumentsSummaryPayload.buildPayload.instore_code_1);
+
         }
 
         if ( argumentsSummaryPayload.buildPayload.promotion_type ) {
@@ -389,11 +396,7 @@ define([
         }
 
         if ( argumentsSummaryPayload.buildPayload.cell_name ) {
-            $("#cell_code").val(argumentsSummaryPayload.buildPayload.cell_name);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.cell_code ) {
-            $("#cell_code").val(argumentsSummaryPayload.buildPayload.cell_code);
+            $("#cell_name").val(argumentsSummaryPayload.buildPayload.cell_name);
         }
 
         if ( argumentsSummaryPayload.buildPayload.campaign_name ) {
@@ -410,47 +413,45 @@ define([
 
         if ( argumentsSummaryPayload.buildPayload.voucher_pot_1 ) {
             $("#voucher_pot_1").val(argumentsSummaryPayload.buildPayload.voucher_pot_1);
-            $("#voucher_pot_1 option[value='" + argumentsSummaryPayload.buildPayload.voucher_pot_1 + "']").attr('selected','selected');
         }
 
         if ( argumentsSummaryPayload.buildPayload.voucher_pot_2 ) {
             $("#voucher_pot_2").val(argumentsSummaryPayload.buildPayload.voucher_pot_2);
-            $("#voucher_pot_2 option[value='" + argumentsSummaryPayload.buildPayload.voucher_pot_2 + "']").attr('selected','selected');
+
         }
 
         if ( argumentsSummaryPayload.buildPayload.voucher_pot_3 ) {
             $("#voucher_pot_3").val(argumentsSummaryPayload.buildPayload.voucher_pot_3);
-            $("#voucher_pot_3 option[value='" + argumentsSummaryPayload.buildPayload.voucher_pot_3 + "']").attr('selected','selected');
+
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_1 ) {
             $("#instore_code_1").val(argumentsSummaryPayload.buildPayload.instore_code_1);
-            $("#instore_code_1 option[value='" + argumentsSummaryPayload.buildPayload.instore_code_1 + "']").attr('selected','selected');
+
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_2 ) {
             $("#instore_code_2").val(argumentsSummaryPayload.buildPayload.instore_code_1);
-            $("#instore_code_2 option[value='" + argumentsSummaryPayload.buildPayload.instore_code_2 + "']").attr('selected','selected');
+
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_3 ) {
             $("#instore_code_3").val(argumentsSummaryPayload.buildPayload.instore_code_3);
-            $("#instore_code_3 option[value='" + argumentsSummaryPayload.buildPayload.instore_code_3 + "']").attr('selected','selected');
+
         }
 
         if ( argumentsSummaryPayload.buildPayload.global_code_1 ) {
             $("#global_code_1").val(argumentsSummaryPayload.buildPayload.global_code_1);
-            $("#global_code_1 option[value='" + argumentsSummaryPayload.buildPayload.global_code_1 + "']").attr('selected','selected');
+
         }
 
         if ( argumentsSummaryPayload.buildPayload.global_code_2 ) {
             $("#global_code_2").val(argumentsSummaryPayload.buildPayload.global_code_2);
-            $("#global_code_2 option[value='" + argumentsSummaryPayload.buildPayload.global_code_2 + "']").attr('selected','selected');
         }
 
         if ( argumentsSummaryPayload.buildPayload.global_code_3 ) {
             $("#global_code_3").val(argumentsSummaryPayload.buildPayload.global_code_3);
-            $("#global_code_3 option[value='" + argumentsSummaryPayload.buildPayload.global_code_3 + "']").attr('selected','selected');
+
         }
 
         if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1 ) {
