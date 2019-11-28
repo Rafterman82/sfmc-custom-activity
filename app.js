@@ -83,7 +83,7 @@ app.get("/dataextension/lookup/usedtemplates", (req, res, next) => {
 			res.json(response.data);
 
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error 1 is ' + error);
 	    });		
 
 	})
@@ -120,7 +120,7 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 			res.json(response.data);
 
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error 1 is ' + error);
 	    });		
 
 	})
@@ -155,7 +155,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	        //console.dir(response.data);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error 3 is ' + error);
 	    });		
 
 	})
@@ -189,7 +189,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 	        //console.dir(response.data);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error 4 is ' + error);
 	    });		
 
 	})
@@ -223,7 +223,7 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 	        //console.dir(response.data);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error 5 is ' + error);
 	    });		
 
 	})
@@ -257,7 +257,7 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 	        //console.dir(response.data);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error 6 is ' + error);
 	    });		
 
 	})
@@ -380,7 +380,7 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 	        console.dir(response.data.length);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error 7 is ' + error);
 	    });		
 
 	})
@@ -614,7 +614,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         				}
 
         			}).catch((error) => {
-        				console.dir('error is ' + error);
+        				console.dir('error 8 is ' + error);
         				//res.json({"success": false});
 					});
 
@@ -662,7 +662,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         				}
 
         			}).catch((error) => {
-        				console.dir('error is ' + error);
+        				console.dir('error 9 is ' + error);
         				//res.json({"success": false});
 					});
 
@@ -913,7 +913,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		});
 
 	}).catch((error) => {
-        console.dir('error is ' + error);
+        console.dir('error 10 is ' + error);
         //res.json({"success": false});
 	});
 
