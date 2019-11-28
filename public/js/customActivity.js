@@ -369,7 +369,7 @@ define([
 
         if (debug) {
             console.log("Step that will be validated");
-            consolr.log(stepToValidate);
+            console.log(stepToValidate);
         }
 
         if ( $("#step" + stepToValidate).find('.slds-has-error').length > 0 ) {
