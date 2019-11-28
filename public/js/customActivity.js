@@ -352,7 +352,7 @@ define([
             $("#pot_2_count").html("Vouchers in pot 2:" + $(this).attr("data-attribute-count"));
         });
         $("#voucher_pot_3").on('change', function(){
-            $("#pot_3_count").html("Vouchers in pot 3:" + $(this).vattr("data-attribute-count"));
+            $("#pot_3_count").html("Vouchers in pot 3:" + $(this).attr("data-attribute-count"));
         });
 
     }
@@ -775,9 +775,9 @@ define([
                     console.log(result.items[i]);
                 }
                 // do something with substr[i]
-                $("#voucher_pot_1").append("<option data-attribue-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_2").append("<option data-attribue-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_3").append("<option data-attribue-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_1").append("<option data-attribute-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_2").append("<option data-attribute-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_3").append("<option data-attribute-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
             }
         }});
     }
