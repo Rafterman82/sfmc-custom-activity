@@ -387,6 +387,11 @@ define([
 
                 return false;
 
+            } else {
+
+                return true;
+            }
+
         } else if ( stepToValidate == 1 ) {
 
             if ( 
