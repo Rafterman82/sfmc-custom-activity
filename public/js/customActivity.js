@@ -374,6 +374,49 @@ define([
 
             return false;
 
+        } else if ( stepToValidate == 0 ) {
+
+            if ( 
+                !$("#email_template").val() || 
+                !$("#cell_code").val() || 
+                !$("#cell_name").val() || 
+                !$("#campaign_id").val() || 
+                !$("#campaign_name").val() || 
+                !$("#campaign_code").val() 
+                ) {
+
+                return false;
+
+        } else if ( stepToValidate == 1 ) {
+
+            if ( 
+                !$("#global_code_1").val() && !$("#voucher_pot_1").val() || 
+                $("#global_code_1").val() == 'no-code' && $("#voucher_pot_1").val() == 'no-code' || 
+                !$("#promotion_id_online").val() || 
+                !$("#promotion_group_id_online").val() ) {
+
+                return false;
+
+            } else {
+
+                return true;
+            }
+
+        } else if ( stepToValidate == 2 ) {
+
+            if ( 
+                !$("#instore_code_1").val() || 
+                $("#instore_code_1").val() == 'no-code' || 
+                !$("#promotion_id_instore").val() || 
+                !$("#promotion_group_id_instore").val() ) {
+
+                return false;
+            
+            } else {
+
+                return true;
+            }
+
         } else {
 
             return true;
@@ -653,6 +696,7 @@ define([
                     }                    
 
                     toggleStepError(1, "hide");
+                    updateSummaryPage(buildActivityPayload());
                     connection.trigger('nextStep');
 
                 } else {
@@ -713,6 +757,7 @@ define([
                     }                    
 
                     toggleStepError(2, "hide");
+                    updateSummaryPage(buildActivityPayload());
                     connection.trigger('nextStep');
 
                 } else {
@@ -772,6 +817,7 @@ define([
                         console.log("step 0 validated");           
                     }                    
 
+                    updateSummaryPage(buildActivityPayload());
                     toggleStepError(2, "hide");
                     connection.trigger('nextStep');
 
