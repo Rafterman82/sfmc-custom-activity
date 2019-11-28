@@ -879,6 +879,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			});	
 
 			// template insert
+			/*
 			var templateData = {
 		    	"template_name": emailTemplate
 			};
@@ -904,7 +905,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			.catch(function (error) {
 				console.dir(error);
 				//res.json({"success": false});
-			});	     	
+			});*/    	
 
 		})	
 		.catch(function (error) {
@@ -917,7 +918,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         //res.json({"success": false});
 	});
 
-	res.json({"success": true, "finalResSend": true, "promotion_key": campaignPromotionAssociationData.promotion_key});
+	//res.json({"success": true, "finalResSend": true, "promotion_key": campaignPromotionAssociationData.promotion_key});
 });
 
 // Custom Hello World Activity Routes
