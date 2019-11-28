@@ -366,9 +366,9 @@ define([
             console.log(prePop);
             console.log("voucher pot 1");
             console.log(argumentsSummaryPayload.buildPayload.voucher_pot_1);
-            console.log("voucher pot 2");
+            console.log("global code 1");
             console.log(argumentsSummaryPayload.buildPayload.global_code_1);
-            console.log("voucher pot 3");
+            console.log("instore code 1");
             console.log(argumentsSummaryPayload.buildPayload.instore_code_1);
 
         }
@@ -412,6 +412,7 @@ define([
         }
 
         if ( argumentsSummaryPayload.buildPayload.voucher_pot_1 ) {
+            $("#show_unique_codes").show();
             $("#voucher_pot_1").val(argumentsSummaryPayload.buildPayload.voucher_pot_1);
         }
 
@@ -426,17 +427,18 @@ define([
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_1 ) {
-            $("#instore_code_1").val(argumentsSummaryPayload.buildPayload.instore_code_1);
+            $("#show_global_codes").show();
+            $("#instore_code_1_instore").val(argumentsSummaryPayload.buildPayload.instore_code_1);
 
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_2 ) {
-            $("#instore_code_2").val(argumentsSummaryPayload.buildPayload.instore_code_1);
+            $("#instore_code_2_instore").val(argumentsSummaryPayload.buildPayload.instore_code_1);
 
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_3 ) {
-            $("#instore_code_3").val(argumentsSummaryPayload.buildPayload.instore_code_3);
+            $("#instore_code_3_instore").val(argumentsSummaryPayload.buildPayload.instore_code_3);
 
         }
 
