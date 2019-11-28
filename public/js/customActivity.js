@@ -774,9 +774,9 @@ define([
                     console.log(result.items[i]);
                 }
                 // do something with substr[i]
-                $("#voucher_pot_1").append("<option value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_2").append("<option value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_3").append("<option value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_1").append("<option data-attribue-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_2").append("<option data-attribue-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                $("#voucher_pot_3").append("<option data-attribue-count="+ result.items[i].values.dataextensionname +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
             }
         }});
     }
