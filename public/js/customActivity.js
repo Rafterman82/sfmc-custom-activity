@@ -345,13 +345,14 @@ define([
         });
 
         $("#voucher_pot_1").on('change', function(){
-            $("#pot_1_count").html("Vouchers in pot 1:" + $(this).val());
+            $("#pot_1_count").html("Vouchers in pot 1:" + $(this).attr("data-attribute-count"));
+
         });
         $("#voucher_pot_2").on('change', function(){
-            $("#pot_2_count").html("Vouchers in pot 2:" + $(this).val());
+            $("#pot_2_count").html("Vouchers in pot 2:" + $(this).attr("data-attribute-count"));
         });
         $("#voucher_pot_3").on('change', function(){
-            $("#pot_3_count").html("Vouchers in pot 3:" + $(this).val());
+            $("#pot_3_count").html("Vouchers in pot 3:" + $(this).vattr("data-attribute-count"));
         });
 
     }
