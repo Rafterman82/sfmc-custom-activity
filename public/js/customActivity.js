@@ -1020,6 +1020,11 @@ define([
                         /*console.log(data);*/  
                     }
                     var saveResponseData = data;
+                    if ( debug ) {
+                        console.log(saveResponseData);
+                    }
+
+                    addPromotionKeyToArgs(saveResponseData);
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {
@@ -1030,12 +1035,6 @@ define([
         } catch(e) {
             console.log(e);
         }
-
-        if ( debug ) {
-            console.log(saveResponseData);
-        }
-
-        addPromotionKeyToArgs(saveResponseData);
 
     }
 
