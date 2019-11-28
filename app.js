@@ -17,19 +17,20 @@ var local       		= false;
 // access Heroku variables
 if ( !local ) {
 	var marketingCloud = {
-	  authUrl: 									process.env.authUrl,
-	  clientId: 								process.env.clientId,
-	  clientSecret: 							process.env.clientSecret,
-	  restUrl: 									process.env.restUrl,
-	  promotionsListDataExtension: 				process.env.promotionsListDataExtension,
-	  controlGroupsDataExtension: 				process.env.controlGroupsDataExtension,
-	  voucherPotsDataExtension: 				process.env.voucherPotsDataExtension,
-	  insertDataExtension: 						process.env.insertDataExtension,
-	  productionVoucherPot: 					process.env.productionVoucherPot,
-	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
-	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
-	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension,
-	  baseUrl: 									process.env.baseUrl
+		authUrl: 								process.env.authUrl,
+		clientId: 								process.env.clientId,
+		clientSecret: 							process.env.clientSecret,
+		restUrl: 								process.env.restUrl,
+		promotionsListDataExtension: 			process.env.promotionsListDataExtension,
+		controlGroupsDataExtension: 			process.env.controlGroupsDataExtension,
+		voucherPotsDataExtension: 				process.env.voucherPotsDataExtension,
+		insertDataExtension: 					process.env.insertDataExtension,
+		productionVoucherPot: 					process.env.productionVoucherPot,
+		promotionIncrementExtension:  			process.env.promotionIncrementExtension,
+		communicationCellDataExtension: 		process.env.communicationCellDataExtension,
+		promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension,
+		baseUrl: 								process.env.baseUrl,
+		templateDataExtension: 					process.env.templateDataExtension
 	};
 	console.dir(marketingCloud);
 }
@@ -74,7 +75,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 		//return response.data.access_token;
 		console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    var templatesUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.templateIncrementExtension + "/rowset";
+	    var templatesUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.templateDataExtension + "/rowset";
 	    console.dir(templatesUrl);
 	    axios.get(templatesUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
