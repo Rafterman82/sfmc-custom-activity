@@ -490,6 +490,59 @@ define([
 
         }, 4000);
 
+        // date override checkboxes
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1 ) {
+            $("#online_code_date_override_1").val(argumentsSummaryPayload.buildPayload.online_code_date_override_1);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 ) {
+            $("#online_code_date_override_1").val(argumentsSummaryPayload.buildPayload.online_code_date_override_2);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 ) {
+            $("#online_code_date_override_3").val(argumentsSummaryPayload.buildPayload.online_code_date_override_3);
+        }
+
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1 ) {
+            $("#instore_code_date_override_1").val(argumentsSummaryPayload.buildPayload.instore_code_date_override_1);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 ) {
+            $("#instore_code_date_override_1").val(argumentsSummaryPayload.buildPayload.instore_code_date_override_2);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 ) {
+            $("#instore_code_date_override_3").val(argumentsSummaryPayload.buildPayload.instore_code_date_override_3);
+        }
+
+        // data override days to add
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days ) {
+            $("#instore_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days ) {
+            $("#instore_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days ) {
+            $("#instore_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days);
+        }
+
+        // data override days to add
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days ) {
+            $("#online_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days ) {
+            $("#online_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days ) {
+            $("#online_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days);
+        }
+
 
         if ( argumentsSummaryPayload.buildPayload.print_at_till_online ) {
             $("#print_at_till_online").val(argumentsSummaryPayload.buildPayload.print_at_till_online);
@@ -1250,6 +1303,17 @@ define([
         var globalCode2                 = $(step1Selector +  " #global_code_2").val();
         var globalCode3                 = $(step1Selector +  " #global_code_3").val();
 
+        // online override dates
+        var overrideOnlineDatesCode1          = $(step1Selector +  " #online_code_date_override_1").val();
+        var overrideOnlineDatesCode2          = $(step1Selector +  " #online_code_date_override_2").val();
+        var overrideOnlineDatesCode3          = $(step1Selector +  " #online_code_date_override_3").val();
+
+        // online override days to add
+        var overrideOnlineDatesCode1days      = $(step1Selector +  " #online_voucher_date_override_1_days").val();
+        var overrideOnlineDatesCode2days      = $(step1Selector +  " #online_voucher_date_override_2_days").val();
+        var overrideOnlineDatesCode3days      = $(step1Selector +  " #online_voucher_date_override_3_days").val();
+
+
         // online meta data
         var printAtTillOnline           = $(step1Selector +  " #print_at_till_online").val();
         var instantWinOnline            = $(step1Selector +  " #instant_win_online").val();
@@ -1261,6 +1325,16 @@ define([
         var instoreCode1                = $(step2Selector +  " #instore_code_1_instore").val();
         var instoreCode2                = $(step2Selector +  " #instore_code_2_instore").val();
         var instoreCode3                = $(step2Selector +  " #instore_code_3_instore").val();
+
+        // online override dates
+        var overrideInstoreDatesCode1          = $(step1Selector +  " #instore_code_date_override_1").val();
+        var overrideInstoreDatesCode2          = $(step1Selector +  " #instore_code_date_override_2").val();
+        var overrideInstoreDatesCode3          = $(step1Selector +  " #instore_code_date_override_3").val();
+
+        // online override days to add
+        var overrideInstoreDatesCode1days      = $(step1Selector +  " #instore_voucher_date_override_1_days").val();
+        var overrideInstoreDatesCode2days      = $(step1Selector +  " #instore_voucher_date_override_2_days").val();
+        var overrideInstoreDatesCode3days      = $(step1Selector +  " #instore_voucher_date_override_3_days").val();
 
         // instore meta data
         var printAtTillInstore          = $(step2Selector +  " #print_at_till_instore").val();
@@ -1295,6 +1369,14 @@ define([
             "global_code_2"                     : globalCode2,
             "global_code_3"                     : globalCode3,
 
+            "online_code_date_override_1"       : overrideOnlineDatesCode1,
+            "online_code_date_override_2"       : overrideOnlineDatesCode2,
+            "online_code_date_override_3"       : overrideOnlineDatesCode3,
+
+            "online_voucher_date_override_1_days" : overrideOnlineDatesCode1days,
+            "online_voucher_date_override_2_days" : overrideOnlineDatesCode2days,
+            "online_voucher_date_override_3_days" : overrideOnlineDatesCode3days,
+
             "print_at_till_online"              : printAtTillOnline,
             "instant_win_online"                : instantWinOnline,
             "offer_medium_online"               : mediumOnline,
@@ -1304,6 +1386,14 @@ define([
             "instore_code_1"                    : instoreCode1,
             "instore_code_2"                    : instoreCode2,
             "instore_code_3"                    : instoreCode3,
+
+            "instore_code_date_override_1"       : overrideInstoreDatesCode1,
+            "instore_code_date_override_2"       : overrideInstoreDatesCode2,
+            "instore_code_date_override_3"       : overrideInstoreDatesCode3,
+
+            "instore_voucher_date_override_1_days" : overrideInstoreDatesCode1days,
+            "instore_voucher_date_override_2_days" : overrideInstoreDatesCode2days,
+            "instore_voucher_date_override_3_days" : overrideInstoreDatesCode3days,
 
             "print_at_till_instore"             : printAtTillInstore,
             "instant_win_instore"               : instantWinInstore,

@@ -484,9 +484,26 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		"re_use_voucher_pot_2" 		: req.body.re_use_voucher_pot_2,
     	"re_use_voucher_pot_3" 		: req.body.re_use_voucher_pot_3,
 
+        "online_code_date_override_1"       : req.body.online_code_date_override_1,
+        "online_code_date_override_2"       : req.body.online_code_date_override_2,
+        "online_code_date_override_3"       : req.body.online_code_date_override_3,
+
+        "online_voucher_date_override_1_days" : req.body.online_voucher_date_override_1_days,
+        "online_voucher_date_override_2_days" : req.body.online_voucher_date_override_2_days,
+        "online_voucher_date_override_3_days" : req.body.online_voucher_date_override_3_days,
+
+
     	"instore_code_1"            : req.body.instore_code_1,
     	"instore_code_2"            : req.body.instore_code_2,
     	"instore_code_3"            : req.body.instore_code_3,
+
+        "instore_code_date_override_1"       : req.body.instore_code_date_override_1,
+        "instore_code_date_override_2"       : req.body.instore_code_date_override_2,
+        "instore_code_date_override_3"       : req.body.instore_code_date_override_3,
+
+        "instore_voucher_date_override_1_days" : req.body.instore_voucher_date_override_1_days,
+        "instore_voucher_date_override_2_days" : req.body.instore_voucher_date_override_2_days,
+        "instore_voucher_date_override_3_days" : req.body.instore_voucher_date_override_3_days,
 
         "print_at_till_online"      : req.body.print_at_till_online,
         "instant_win_online"        : req.body.instant_win_online,
