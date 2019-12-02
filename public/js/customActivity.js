@@ -344,6 +344,74 @@ define([
             $(this).val(this.checked ? true : false);
         });
 
+        $("#online_code_date_override_1").val(false);
+        $("#online_code_date_override_2").val(false);
+        $("#online_code_date_override_3").val(false);
+
+        $("#online_code_date_override_1").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#online_code_date_override_2").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#online_code_date_override_3").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#online_voucher_date_override_1_days").val(false);
+        $("#online_voucher_date_override_2_days").val(false);
+        $("#online_voucher_date_override_3_days").val(false);
+
+        $("#online_voucher_date_override_1_days").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#online_voucher_date_override_2_days").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#online_voucher_date_override_3_days").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+
+
+        $("#instore_code_date_override_1").val(false);
+        $("#instore_code_date_override_2").val(false);
+        $("#instore_code_date_override_3").val(false);
+
+        $("#instore_code_date_override_1").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#instore_code_date_override_2").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#instore_code_date_override_3").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#instore_voucher_date_override_1_days").val(false);
+        $("#instore_voucher_date_override_2_days").val(false);
+        $("#instore_voucher_date_override_3_days").val(false);
+
+        $("#instore_voucher_date_override_1_days").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#instore_voucher_date_override_2_days").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#instore_voucher_date_override_3_days").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+
+
         $("#voucher_pot_1").on('change', function(){
             if ( debug ) {
                 console.log($(this));
@@ -492,16 +560,29 @@ define([
 
         // date override checkboxes
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1 ) {
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1 ) {
             $("#online_code_date_override_1").val(argumentsSummaryPayload.buildPayload.online_code_date_override_1);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 ) {
-            $("#online_code_date_override_1").val(argumentsSummaryPayload.buildPayload.online_code_date_override_2);
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2 ) {
+            $("#online_code_date_override_2").val(argumentsSummaryPayload.buildPayload.online_code_date_override_2);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 ) {
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3 ) {
             $("#online_code_date_override_3").val(argumentsSummaryPayload.buildPayload.online_code_date_override_3);
+        }
+
+        // data override days to add
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days ) {
+            $("#online_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days ) {
+            $("#online_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days ) {
+            $("#online_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days);
         }
 
 
@@ -510,7 +591,7 @@ define([
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 ) {
-            $("#instore_code_date_override_1").val(argumentsSummaryPayload.buildPayload.instore_code_date_override_2);
+            $("#instore_code_date_override_2").val(argumentsSummaryPayload.buildPayload.instore_code_date_override_2);
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 ) {
@@ -530,18 +611,7 @@ define([
             $("#instore_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days);
         }
 
-        // data override days to add
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days ) {
-            $("#online_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days);
-        }
 
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days ) {
-            $("#online_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days ) {
-            $("#online_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days);
-        }
 
 
         if ( argumentsSummaryPayload.buildPayload.print_at_till_online ) {
@@ -1326,15 +1396,15 @@ define([
         var instoreCode2                = $(step2Selector +  " #instore_code_2_instore").val();
         var instoreCode3                = $(step2Selector +  " #instore_code_3_instore").val();
 
-        // online override dates
-        var overrideInstoreDatesCode1          = $(step1Selector +  " #instore_code_date_override_1").val();
-        var overrideInstoreDatesCode2          = $(step1Selector +  " #instore_code_date_override_2").val();
-        var overrideInstoreDatesCode3          = $(step1Selector +  " #instore_code_date_override_3").val();
+        // instore override dates
+        var overrideInstoreDatesCode1          = $(step2Selector +  " #instore_code_date_override_1").val();
+        var overrideInstoreDatesCode2          = $(step2Selector +  " #instore_code_date_override_2").val();
+        var overrideInstoreDatesCode3          = $(step2Selector +  " #instore_code_date_override_3").val();
 
-        // online override days to add
-        var overrideInstoreDatesCode1days      = $(step1Selector +  " #instore_voucher_date_override_1_days").val();
-        var overrideInstoreDatesCode2days      = $(step1Selector +  " #instore_voucher_date_override_2_days").val();
-        var overrideInstoreDatesCode3days      = $(step1Selector +  " #instore_voucher_date_override_3_days").val();
+        // instore override days to add
+        var overrideInstoreDatesCode1days      = $(step2Selector +  " #instore_voucher_date_override_1_days").val();
+        var overrideInstoreDatesCode2days      = $(step2Selector +  " #instore_voucher_date_override_2_days").val();
+        var overrideInstoreDatesCode3days      = $(step2Selector +  " #instore_voucher_date_override_3_days").val();
 
         // instore meta data
         var printAtTillInstore          = $(step2Selector +  " #print_at_till_instore").val();
