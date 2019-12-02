@@ -564,6 +564,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         		// this row has a code
 
+        		console.dir("THE CURRENT PROMOTION OBJECT BEFORE DATE ALTERATION IS");
+        		console.dir(promotionDescriptionData.promotions["promotion_" + i]);
+
         		if ( promotionDescriptionData.promotions["promotion_" + i].global_code != "no-code" && promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code") {
 
         			// global code selected
@@ -881,8 +884,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir('error is ' + error);
         //res.json({"success": false});
 	});
-
-	res.json({"promotion_key": associationKey});
+	setTimeout(function () {
+		res.json({"promotion_key": associationKey});
+	}, 5000)
+	
 
 });
 
