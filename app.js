@@ -575,7 +575,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         				console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
         				console.dir(gcresponse.data.items);
 
-        				/*for ( var j = 0; j < response.data.items.length; j++ ) {
+        				for ( var j = 0; j < response.data.items.length; j++ ) {
 
         					if ( response.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
 
@@ -594,7 +594,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         					}
 
-        				}*/
+        				}
 
         			}).catch((error) => {
         				console.dir('error getting global codes in add statement ' + error);
@@ -629,7 +629,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         				console.dir("RESPONSE FROM LOOKUP PROMO CODES");
         				console.dir(pcresponse.data.items);
-        				/*for ( var n = 0; n < response.data.items.length; n++ ) {
+        				for ( var n = 0; n < response.data.items.length; n++ ) {
 
         					if ( response.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
 
@@ -648,7 +648,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         					}
 
-        				}*/
+        				}
 
         			}).catch((error) => {
         				console.dir('error looking up promotion codes in add statement ' + error);
