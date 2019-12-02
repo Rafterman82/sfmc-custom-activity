@@ -115,7 +115,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	        //console.dir(response.data);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error getting promotions' + error);
 	    });		
 
 	})
@@ -149,7 +149,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 	        //console.dir(response.data);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error getting global codes ' + error);
 	    });		
 
 	})
@@ -183,7 +183,7 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 	        //console.dir(response.data);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error getting control groups ' + error);
 	    });		
 
 	})
@@ -217,7 +217,7 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 	        //console.dir(response.data);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error getting voucher pots ' + error);
 	    });		
 
 	})
@@ -315,7 +315,7 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 
 	console.dir(row);
    	console.dir('req received');
-   	res.redirect('/');
+   	//res.redirect('/');
 
    	axios({
 		method: 'post',
@@ -340,7 +340,7 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 	        console.dir(response.data.length);
 	        res.json(response.data);
 	    }).catch((error) => {
-	        console.dir('error is ' + error);
+	        console.dir('error getting voucher pot data ' + error);
 	    });		
 
 	})
@@ -488,9 +488,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         "online_code_date_override_2"       : req.body.online_code_date_override_2,
         "online_code_date_override_3"       : req.body.online_code_date_override_3,
 
-        "online_voucher_date_override_1_days" : req.body.online_voucher_date_override_1_days,
-        "online_voucher_date_override_2_days" : req.body.online_voucher_date_override_2_days,
-        "online_voucher_date_override_3_days" : req.body.online_voucher_date_override_3_days,
+        "online_voucher_date_override_1_days" : parseInt(req.body.online_voucher_date_override_1_days),
+        "online_voucher_date_override_2_days" : parseInt(req.body.online_voucher_date_override_2_days),
+        "online_voucher_date_override_3_days" : parseInt(req.body.online_voucher_date_override_3_days),
 
 
     	"instore_code_1"            : req.body.instore_code_1,
@@ -501,9 +501,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         "instore_code_date_override_2"       : req.body.instore_code_date_override_2,
         "instore_code_date_override_3"       : req.body.instore_code_date_override_3,
 
-        "instore_voucher_date_override_1_days" : req.body.instore_voucher_date_override_1_days,
-        "instore_voucher_date_override_2_days" : req.body.instore_voucher_date_override_2_days,
-        "instore_voucher_date_override_3_days" : req.body.instore_voucher_date_override_3_days,
+        "instore_voucher_date_override_1_days" : parseInt(req.body.instore_voucher_date_override_1_days),
+        "instore_voucher_date_override_2_days" : parseInt(req.body.instore_voucher_date_override_2_days),
+        "instore_voucher_date_override_3_days" : parseInt(req.body.instore_voucher_date_override_3_days),
 
         "print_at_till_online"      : req.body.print_at_till_online,
         "instant_win_online"        : req.body.instant_win_online,
@@ -591,8 +591,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         				}
 
         			}).catch((error) => {
-        				console.dir('error is ' + error);
-        				res.json({"success": false});
+        				console.dir('error getting global codes in add statement ' + error);
+        				//res.json({"success": false});
 					});
 
         			// update barcode 
@@ -639,16 +639,16 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         				}
 
         			}).catch((error) => {
-        				console.dir('error is ' + error);
-        				res.json({"success": false});
+        				console.dir('error looking up promotion codes in add statement ' + error);
+        				//res.json({"success": false});
 					});
 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].barcode;
 
         		}
 
-        		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = mcLoopIncrement;
-        		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = communication_cell_code_id_increment;
+        		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = parseInt(mcLoopIncrement);
+        		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = parseInt(communication_cell_code_id_increment);
         		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcLoopIncrement);
         		mcLoopIncrement++;
 
@@ -664,10 +664,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         incrementObject.mc_unique_promotion_id_increment = parseInt(new_mc_unique_promotion_id_increment);
 
         // update communication cell json
-        communicationCellData.communication_cell_id 		= communication_cell_code_id_increment;
-        campaignPromotionAssociationData.communication_cell_id = communication_cell_code_id_increment;
+        communicationCellData.communication_cell_id 		= parseInt(communication_cell_code_id_increment);
+        campaignPromotionAssociationData.communication_cell_id = parseInt(communication_cell_code_id_increment);
         communicationCellControlData.communication_cell_id 	= parseInt(communication_cell_code_id_increment) + 1;
-        campaignPromotionAssociationData.communication_cell_id_control = communication_cell_code_id_increment + 1;
+        campaignPromotionAssociationData.communication_cell_id_control = parseInt(communication_cell_code_id_increment) + 1;
 
         var newCommunicationCellCodeIncrement = parseInt(communication_cell_code_id_increment) + 2;
 
@@ -733,6 +733,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				//res.json({"success": true});
 			})
 			.catch(function (error) {
+				console.dir("error posting campaign association data");
 				console.dir(error);
 				//res.json({"success": false});
 			});
@@ -758,6 +759,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				//res.json({"success": true});
 			})
 			.catch(function (error) {
+				console.dir("error posting increment data");
 				console.dir(error);
 				//res.json({"success": false});
 			});
@@ -790,6 +792,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 						//res.json({"success": true});
 					})
 					.catch(function (error) {
+						console.dir("error posting description data");
 						console.dir(error);
 						//res.json({"success": false});
 					});
@@ -822,6 +825,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				//res.json({"success": true});
 			})
 			.catch(function (error) {
+				console.dir("error posting comm cell data");
 				console.dir(error);
 				//res.json({"success": false});
 			});	
@@ -850,6 +854,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				//res.json({"success": true});
 			})
 			.catch(function (error) {
+				console.dir("error posting comm cell data");
 				console.dir(error);
 				//res.json({"success": false});
 			});	    	
@@ -862,7 +867,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	}).catch((error) => {
         console.dir('error is ' + error);
-        res.json({"success": false});
+        //res.json({"success": false});
 	});
 
 });
