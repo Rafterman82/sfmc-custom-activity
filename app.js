@@ -532,6 +532,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         var communication_cell_code_id_increment = incrementObject.communication_cell_code_id_increment;
         var promotion_key = incrementObject.promotion_key;
 
+        res.json({"promotion_key": promotion_key});
+
         // set promotion_key in json object
         campaignPromotionAssociationData.promotion_key = promotion_key;
 
@@ -884,11 +886,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         console.dir('error is ' + error);
         //res.json({"success": false});
 	});
-	setTimeout(function () {
-		res.json({"promotion_key": associationKey});
-	}, 5000)
 	
-
 });
 
 // Custom Hello World Activity Routes
