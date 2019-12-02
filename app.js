@@ -575,12 +575,12 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         				console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
         				console.dir(gcresponse.data.items);
 
-        				for ( var j = 0; j < response.data.items.length; j++ ) {
+        				for ( var j = 0; j < gcresponse.data.items.length; j++ ) {
 
-        					if ( response.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
+        					if ( gcresponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
 
-        						var splitGlobalValidFrom = response.data.items[j].values.validfrom.split(" ");
-        						var splitGlobalValidTo = response.data.items[j].values.validfrom.split(" ");
+        						var splitGlobalValidFrom = gcresponse.data.items[j].values.validfrom.split(" ");
+        						var splitGlobalValidTo = gcresponse.data.items[j].values.validfrom.split(" ");
 
         						// set valid from and to
         						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
@@ -629,18 +629,18 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         				console.dir("RESPONSE FROM LOOKUP PROMO CODES");
         				console.dir(pcresponse.data.items);
-        				for ( var n = 0; n < response.data.items.length; n++ ) {
+        				for ( var n = 0; n < pcresponse.data.items.length; n++ ) {
 
-        					if ( response.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+        					if ( pcresponse.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
 
-        						var instoreValidFromDate = response.data.items[n].values.datefrom.split("/").reverse().join("-");
-        						var instoreValidToDate = response.data.items[n].values.dateto.split("/").reverse().join("-");
+        						var instoreValidFromDate = pcresponse.data.items[n].values.datefrom.split("/").reverse().join("-");
+        						var instoreValidToDate = pcresponse.data.items[n].values.dateto.split("/").reverse().join("-");
 
         						// set valid from and to
-        						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + response.data.items[n].values.timefrom;
-        						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + response.data.items[n].values.timeto;
-        						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + response.data.items[n].values.timefrom;
-        						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + response.data.items[n].values.timeto;
+        						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + pcresponse.data.items[n].values.timefrom;
+        						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + pcresponse.data.items[n].values.timeto;
+        						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + pcresponse.data.items[n].values.timefrom;
+        						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + pcresponse.data.items[n].values.timeto;
 
         						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
         						console.dir(promotionDescriptionData);
@@ -882,7 +882,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         //res.json({"success": false});
 	});
 
-	//res.send(associationKey);
+	res.json({"promotion_key": associationKey});
 
 });
 
