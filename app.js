@@ -573,7 +573,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
 
         				console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
-        				console.dir(gcresponse);
+        				console.dir(gcresponse.data);
 
         				/*for ( var j = 0; j < response.data.items.length; j++ ) {
 
@@ -628,7 +628,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 
         				console.dir("RESPONSE FROM LOOKUP PROMO CODES");
-        				console.dir(pcresponse);
+        				console.dir(pcresponse.data);
         				/*for ( var n = 0; n < response.data.items.length; n++ ) {
 
         					if ( response.data.item[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
