@@ -360,22 +360,6 @@ define([
             $(this).val(this.checked ? true : false);
         });
 
-        $("#online_voucher_date_override_1_days").val(false);
-        $("#online_voucher_date_override_2_days").val(false);
-        $("#online_voucher_date_override_3_days").val(false);
-
-        $("#online_voucher_date_override_1_days").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#online_voucher_date_override_2_days").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#online_voucher_date_override_3_days").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
 
 
         $("#instore_code_date_override_1").val(false);
@@ -391,22 +375,6 @@ define([
         });
 
         $("#instore_code_date_override_3").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#instore_voucher_date_override_1_days").val(false);
-        $("#instore_voucher_date_override_2_days").val(false);
-        $("#instore_voucher_date_override_3_days").val(false);
-
-        $("#instore_voucher_date_override_1_days").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#instore_voucher_date_override_2_days").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#instore_voucher_date_override_3_days").on('change', function(){
             $(this).val(this.checked ? true : false);
         });
 
