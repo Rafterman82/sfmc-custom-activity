@@ -570,9 +570,12 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// lookup global voucher pot and get date
         			var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes";
-        			axios.get(globalCodesUrl).then(response => {
+        			axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
 
-        				for ( var j = 0; j < response.data.items.length; j++ ) {
+        				console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
+        				console.dir(gcresponse);
+
+        				/*for ( var j = 0; j < response.data.items.length; j++ ) {
 
         					if ( response.data.item[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
 
@@ -591,7 +594,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         					}
 
-        				}
+        				}*/
 
         			}).catch((error) => {
         				console.dir('error getting global codes in add statement ' + error);
@@ -621,9 +624,12 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// instore code selected
 
         			var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions";
-        			axios.get(instoreCodesUrl).then(response => {
+        			axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
 
-        				for ( var n = 0; n < response.data.items.length; n++ ) {
+
+        				console.dir("RESPONSE FROM LOOKUP PROMO CODES");
+        				console.dir(pcresponse);
+        				/*for ( var n = 0; n < response.data.items.length; n++ ) {
 
         					if ( response.data.item[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
 
@@ -642,7 +648,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         					}
 
-        				}
+        				}*/
 
         			}).catch((error) => {
         				console.dir('error looking up promotion codes in add statement ' + error);
