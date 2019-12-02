@@ -837,6 +837,7 @@ define([
                     console.log(result.items[i]);
                 }
                 // do something with substr[i]
+                $("#email_template[value='loading']").remove();
                 $("#email_template").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");
             }
         }});

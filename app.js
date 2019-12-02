@@ -576,14 +576,17 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         					if ( response.data.item[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
 
-        						var splitGlobalValidFrom = response.data.item[j].keys.validfrom.split(" ");
-        						var splitGlobalValidTo = response.data.item[j].keys.validfrom.split(" ");
+        						var splitGlobalValidFrom = response.data.item[j].values.validfrom.split(" ");
+        						var splitGlobalValidTo = response.data.item[j].values.validfrom.split(" ");
 
         						// set valid from and to
         						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
         						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
         						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
         						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTp.oplit("/").reverse().join("-");
+
+        						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
+        						console.dir(promotionDescriptionData);
 
 
         					}
@@ -618,20 +621,23 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// instore code selected
 
         			var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions";
-        			axios.get(globalCodesUrl).then(response => {
+        			axios.get(instoreCodesUrl).then(response => {
 
         				for ( var n = 0; n < response.data.items.length; n++ ) {
 
-        					if ( response.data.item[n].keys.discountid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+        					if ( response.data.item[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
 
-        						var instoreValidFromDate = response.data.item[n].keys.datefrom.split("/").reverse().join("-");
-        						var instoreValidToDate = response.data.item[n].keys.dateto.split("/").reverse().join("-");
+        						var instoreValidFromDate = response.data.item[n].values.datefrom.split("/").reverse().join("-");
+        						var instoreValidToDate = response.data.item[n].values.dateto.split("/").reverse().join("-");
 
         						// set valid from and to
-        						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + response.data.item[n].keys.timefrom;
-        						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + response.data.item[n].keys.timeto;
-        						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + response.data.item[n].keys.timefrom;
-        						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + response.data.item[n].keys.timeto;
+        						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + response.data.item[n].values.timefrom;
+        						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + response.data.item[n].values.timeto;
+        						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + response.data.item[n].values.timefrom;
+        						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + response.data.item[n].values.timeto;
+
+        						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
+        						console.dir(promotionDescriptionData);
 
 
         					}
@@ -870,7 +876,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         //res.json({"success": false});
 	});
 
-	res.send(associationKey);
+	//res.send(associationKey);
 
 });
 
