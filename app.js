@@ -552,7 +552,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
-        			var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcode";
+        			var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes";
         			axios.get(globalCodesUrl).then(response => {
 
         				for ( var j = 0; j < response.data.items.length; j++ ) {
@@ -600,7 +600,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promtions";
+        			var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions";
         			axios.get(globalCodesUrl).then(response => {
 
         				for ( var n = 0; n < response.data.items.length; n++ ) {
