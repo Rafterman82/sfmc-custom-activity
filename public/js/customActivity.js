@@ -488,7 +488,7 @@ define([
             }
 
             if ( argumentsSummaryPayload.buildPayload.instore_code_2 ) {
-                $("#instore_code_2_instore").val(argumentsSummaryPayload.buildPayload.instore_code_1);
+                $("#instore_code_2_instore").val(argumentsSummaryPayload.buildPayload.instore_code_2);
 
             }
 
