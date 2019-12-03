@@ -529,15 +529,15 @@ define([
         // date override checkboxes
 
         if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1 ) {
-            $("#online_code_date_override_1").val(argumentsSummaryPayload.buildPayload.online_code_date_override_1);
+            $("#online_code_date_override_1").val(true);
         }
 
         if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2 ) {
-            $("#online_code_date_override_2").val(argumentsSummaryPayload.buildPayload.online_code_date_override_2);
+            $("#online_code_date_override_2").val(true);
         }
 
         if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3 ) {
-            $("#online_code_date_override_3").val(argumentsSummaryPayload.buildPayload.online_code_date_override_3);
+            $("#online_code_date_override_3").val(true);
         }
 
         // data override days to add
@@ -555,15 +555,15 @@ define([
 
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1 ) {
-            $("#instore_code_date_override_1").val(argumentsSummaryPayload.buildPayload.instore_code_date_override_1);
+            $("#instore_code_date_override_1").val(true);
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 ) {
-            $("#instore_code_date_override_2").val(argumentsSummaryPayload.buildPayload.instore_code_date_override_2);
+            $("#instore_code_date_override_2").val(true);
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 ) {
-            $("#instore_code_date_override_3").val(argumentsSummaryPayload.buildPayload.instore_code_date_override_3);
+            $("#instore_code_date_override_3").val(true);
         }
 
         // data override days to add
