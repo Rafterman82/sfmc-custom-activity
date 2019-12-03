@@ -528,60 +528,60 @@ define([
 
         // date override checkboxes
 
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1 ) {
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1 == "True" || argumentsSummaryPayload.buildPayload.online_code_date_override_1 == true ) {
             $("#online_code_date_override_1").val(true);
             $("#online_code_date_override_1").prop('checked', true);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2 ) {
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2 == "True" || argumentsSummaryPayload.buildPayload.online_code_date_override_2 == true ) {
             $("#online_code_date_override_2").val(true);
             $("#online_code_date_override_2").prop('checked', true);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3 ) {
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3 == "True" || argumentsSummaryPayload.buildPayload.online_code_date_override_3 == true ) {
             $("#online_code_date_override_3").val(true);
             $("#online_code_date_override_3").prop('checked', true);
         }
 
         // data override days to add
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days ) {
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days != '0' ) {
             $("#online_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days ) {
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days != '0' ) {
             $("#online_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days ) {
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days != '0') {
             $("#online_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days);
         }
 
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1 ) {
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1 == "True" || argumentsSummaryPayload.buildPayload.instore_code_date_override_1 == true ) {
             $("#instore_code_date_override_1").val(true);
             $("#instore_code_date_override_1").prop('checked', true);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 ) {
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 == "True" || argumentsSummaryPayload.buildPayload.instore_code_date_override_2 == true ) {
             $("#instore_code_date_override_2").val(true);
             $("#instore_code_date_override_2").prop('checked', true);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 ) {
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 == "True" || argumentsSummaryPayload.buildPayload.instore_code_date_override_3 == true ) {
             $("#instore_code_date_override_3").val(true);
             $("#instore_code_date_override_3").prop('checked', true);
         }
 
         // data override days to add
-        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days ) {
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days != 0 ) {
             $("#instore_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days ) {
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days != 0 ) {
             $("#instore_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days ) {
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days  && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days != 0 ) {
             $("#instore_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days);
         }
 
