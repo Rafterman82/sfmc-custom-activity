@@ -530,14 +530,17 @@ define([
 
         if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1 ) {
             $("#online_code_date_override_1").val(true);
+            $("#online_code_date_override_1").prop('checked', true);
         }
 
         if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2 ) {
             $("#online_code_date_override_2").val(true);
+            $("#online_code_date_override_2").prop('checked', true);
         }
 
         if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3 ) {
             $("#online_code_date_override_3").val(true);
+            $("#online_code_date_override_3").prop('checked', true);
         }
 
         // data override days to add
@@ -556,14 +559,17 @@ define([
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1 ) {
             $("#instore_code_date_override_1").val(true);
+            $("#instore_code_date_override_1").prop('checked', true);
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 ) {
             $("#instore_code_date_override_2").val(true);
+            $("#instore_code_date_override_2").prop('checked', true);
         }
 
         if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 ) {
             $("#instore_code_date_override_3").val(true);
+            $("#instore_code_date_override_3").prop('checked', true);
         }
 
         // data override days to add
