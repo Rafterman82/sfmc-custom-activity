@@ -619,9 +619,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     var newPromotionKey = parseInt(promotion_key) + 1;
 
     // store new promotion key in increments object
-    incrementObject.promotion_key = parseInt(newPromotionKey);
+    incrementResponse.promotion_key = parseInt(newPromotionKey);
 
-    console.dir(incrementObject);
+    console.dir(incrementResponse);
 
     // loop through codes and count required mc ids
     var mcLoopIncrement = mc_unique_promotion_id_increment;
@@ -739,7 +739,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     var new_mc_unique_promotion_id_increment = parseInt(mcLoopIncrement) + 1;
 
     // set mc increment in DE
-    incrementObject.mc_unique_promotion_id_increment = parseInt(new_mc_unique_promotion_id_increment);
+    incrementResponse.mc_unique_promotion_id_increment = parseInt(new_mc_unique_promotion_id_increment);
 
     // update communication cell json
     communicationCellData.communication_cell_id 		= parseInt(communication_cell_code_id_increment);
@@ -756,10 +756,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     console.dir(communicationCellControlData);
 
     // update increments object
-    incrementObject.communication_cell_code_id_increment = parseInt(newCommunicationCellCodeIncrement);
+    incrementResponse.communication_cell_code_id_increment = parseInt(newCommunicationCellCodeIncrement);
 
     console.dir("INCREMENT OBJECT");
-    console.dir(incrementObject);
+    console.dir(incrementResponse);
 
     console.dir("CAMPAIGN ASSOCIATION");
     console.dir(campaignPromotionAssociationData);
@@ -823,7 +823,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	        "keys": {
 	            "increment_key": 1
 	        },
-	        "values": incrementObject
+	        "values": incrementResponse
     	}];
 
     	console.dir(incrementPayload);
