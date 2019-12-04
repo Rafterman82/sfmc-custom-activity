@@ -633,7 +633,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     //res.json("test");
 
     // set promotion_key in json object
-    campaignPromotionAssociationData.promotion_key = promotion_key;
+    campaignPromotionAssociationData.promotion_key = incrementResponse.promotion_key;
 
     console.dir(campaignPromotionAssociationData);
 
