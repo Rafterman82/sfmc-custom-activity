@@ -52,8 +52,6 @@ var globalResponse;
 function getInstoreCodes() {
 	console.dir("populate instore array");
 
-	
-
 	var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions";
 	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
 
@@ -61,9 +59,9 @@ function getInstoreCodes() {
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
 		console.dir(pcresponse.data.items);
 
-		var instoreResponseObject = pcresponse;
+		var instoreResponse = pcresponse;
 
-		return instoreResponseObject;
+		return instoreResponse;
 
 
 	}).catch((error) => {
@@ -98,6 +96,16 @@ var incrementOptions = {
 };
 incrementsRequest.get(incrementOptions, function (error, response, body) {
     //Handle error, and body
+
+});
+
+var instoreCodesRequest = require('request');
+var instoreCodesOptions = {
+    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions'
+};
+instoreCodesRequest.get(instoreCodesOptions, function (error, isresponse, body) {
+    //Handle error, and body
+    instoreResponse = isresponse;
 });
 
 //Fetch increment values
@@ -628,6 +636,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
+        			console.dir("CURRENT INSTORE RESPONSE");
+        			console.dir(globalResponse);
 
 
     				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
@@ -672,6 +682,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		} else if ( promotionDescriptionData.promotions["promotion_" + i].barcode != "no-code" ) {
 
         			// instore code selected
+
+        			console.dir("CURRENT INSTORE RESPONSE");
+        			console.dir(instoreResponse);
 
     				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
 
