@@ -49,6 +49,9 @@ if ('development' == app.get('env')) {
 var instoreResponse;
 var globalResponse;
 
+getGlobalCodes();
+getInstoreCodes();
+
 function getInstoreCodes() {
 	console.dir("populate instore array");
 
@@ -59,7 +62,7 @@ function getInstoreCodes() {
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
 		console.dir(pcresponse.data.items);
 
-		var instoreResponse = pcresponse;
+		instoreResponse = pcresponse;
 
 		return instoreResponse;
 
@@ -80,8 +83,8 @@ function getGlobalCodes() {
 		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
 		console.dir(gcresponse.data.items);
 
-		var globalResponseObject = gcresponse;
-		return globalResponseObject;
+		globalResponse = gcresponse;
+		return globalResponse;
 
 
 	}).catch((error) => {
@@ -105,6 +108,8 @@ var instoreCodesOptions = {
 };
 instoreCodesRequest.get(instoreCodesOptions, function (error, isresponse, body) {
     //Handle error, and body
+    console.dir("is codes request fired");
+    console.dir(isresponse);
     instoreResponse = isresponse;
 });
 
