@@ -50,9 +50,11 @@ var instoreResponse;
 var globalResponse;
 var incrementResponse;
 
+
+getIncrements();
 getGlobalCodes();
 getInstoreCodes();
-getIncrements();
+
 
 function getInstoreCodes() {
 	console.dir("populate instore array");
@@ -101,7 +103,7 @@ function getGlobalCodes() {
 
 function getIncrements() {
    	
-   	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
+   	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(incresponse => {
         
         // If request is good...
         //console.dir(response.data.items);
@@ -109,7 +111,7 @@ function getIncrements() {
         //res.json(response.data.items.values);
         console.dir("RESPONSE FROM INCREMENTS");
 
-        incrementResponse = response.data.items[0].values;
+        incrementResponse = incresponse.data.items[0].values;
     	console.dir(incrementResponse);
 		return incrementResponse;
 
@@ -603,6 +605,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         "promotion_group_id_instore": req.body.promotion_group_id_instore
 
 	};
+
+	console.dir("INCREMENT OBJECT CURRENTLY IS");
+	console.dir(incrementResponse);
 
     var mc_unique_promotion_id_increment = incrementResponse.mc_unique_promotion_id_increment;
     var communication_cell_code_id_increment = incrementResponse.communication_cell_code_id_increment;
