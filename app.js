@@ -603,7 +603,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         var communication_cell_code_id_increment = incrementObject.communication_cell_code_id_increment;
         var promotion_key = incrementObject.promotion_key;
 
-        res.json({"promotion_key": promotion_key});
+        res.json("test");
 
         // set promotion_key in json object
         campaignPromotionAssociationData.promotion_key = promotion_key;
