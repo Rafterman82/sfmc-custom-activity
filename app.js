@@ -82,7 +82,7 @@ function getGlobalCodes() {
 		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
 		console.dir(gcresponse.data.items);
 
-		globalResponseObject = gcresponse;
+		var globalResponseObject = gcresponse;
 		return globalResponseObject;
 
 
