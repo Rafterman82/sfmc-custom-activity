@@ -109,7 +109,7 @@ var instoreCodesOptions = {
 instoreCodesRequest.get(instoreCodesOptions, function (error, isresponse, body) {
     //Handle error, and body
     console.dir("is codes request fired");
-    console.dir(isresponse);
+    console.dir(isresponse.data);
     instoreResponse = isresponse;
 });
 
