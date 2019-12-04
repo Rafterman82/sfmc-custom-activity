@@ -192,7 +192,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        console.dir(response.data);
-	        //instoreResponse = response.data;
+	        instoreResponse = response;
 	        res.json(response.data);
 	    }).catch((error) => {
 	        console.dir('error getting promotions' + error);
