@@ -106,16 +106,6 @@ incrementsRequest.get(incrementOptions, function (error, response, body) {
 
 });
 
-var instoreCodesRequest = require('request');
-var instoreCodesOptions = {
-    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions'
-};
-instoreCodesRequest.get(instoreCodesOptions, function (error, response, body) {
-    //Handle error, and body
-    console.dir("is codes request fired");
-    console.dir(response);
-
-});
 
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
