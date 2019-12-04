@@ -191,7 +191,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	    console.dir(getUrl);
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
-	        //console.dir(response.data);
+	        console.dir(response.data);
 	        instoreResponse = response.data;
 	        res.json(response.data);
 	    }).catch((error) => {
@@ -226,7 +226,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 	    console.dir(productionVoucherPotUrl);
 	    axios.get(productionVoucherPotUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
-	        //console.dir(response.data);
+	        console.dir(response.data);
 	        globalResponse = response.data;
 	        res.json(response.data);
 
