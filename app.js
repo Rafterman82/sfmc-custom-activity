@@ -356,7 +356,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 			data: templatePayload
 		})
 		.then(function (response) {
-			console.dir(response.data);
+			//console.dir(response.data);
 			res.json(response.data);
 		})
 		.catch(function (error) {
