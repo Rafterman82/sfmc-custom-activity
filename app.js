@@ -605,6 +605,11 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
+	var mc_unique_promotion_id_increment;
+	var communication_cell_code_id_increment;
+	var promotion_key;
+
+
 	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(incresponse => {
         
         // If request is good...
@@ -615,9 +620,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         incrementResponse = incresponse.data.items[0].values;
     	console.dir(incrementResponse);
-    	var mc_unique_promotion_id_increment = incrementResponse.mc_unique_promotion_id_increment;
-    	var communication_cell_code_id_increment = incrementResponse.communication_cell_code_id_increment;
-    	var promotion_key = incrementResponse.promotion_key;
+    	mc_unique_promotion_id_increment = incrementResponse.mc_unique_promotion_id_increment;
+    	communication_cell_code_id_increment = incrementResponse.communication_cell_code_id_increment;
+    	promotion_key = incrementResponse.promotion_key;
 
 	}).catch((error) => {
         console.dir('error is ' + error);
@@ -638,7 +643,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     console.dir(campaignPromotionAssociationData);
 
     // increment promotion key up 1 and save new increment in DE
-    var newPromotionKey = parseInt(promotion_key) + 1;
+    var newPromotionKey = parseInt(incrementResponse.promotion_key) + 1;
 
     // store new promotion key in increments object
     incrementResponse.promotion_key = parseInt(newPromotionKey);
@@ -646,7 +651,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     console.dir(incrementResponse);
 
     // loop through codes and count required mc ids
-    var mcLoopIncrement = mc_unique_promotion_id_increment;
+    var mcLoopIncrement = incrementResponse.mc_unique_promotion_id_increment;
 
     for ( var i = 1; i <= 6; i++) {
 
