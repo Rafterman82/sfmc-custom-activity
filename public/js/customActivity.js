@@ -412,7 +412,7 @@ define([
             console.log("payload sent to prepop function");
             console.log(argumentsSummaryPayload);
             console.log("promotion type is ");
-            console.log(argumentsSummaryPayload.promotion_type);
+            console.log(argumentsSummaryPayload.buildPayload.promotion_type);
             console.log(prePop);
             console.log("voucher pot 1");
             console.log(argumentsSummaryPayload.buildPayload.voucher_pot_1);
@@ -420,6 +420,12 @@ define([
             console.log(argumentsSummaryPayload.buildPayload.global_code_1);
             console.log("instore code 1");
             console.log(argumentsSummaryPayload.buildPayload.instore_code_1);
+            console.log("reuse vp 1 value");
+            console.log(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1);
+            console.log("online date override");
+            console.log(argumentsSummaryPayload.buildPayload.online_code_date_override_1);
+            console.log("instore date override");
+            console.log(argumentsSummaryPayload.buildPayload.instore_code_date_override_1);
 
         }
 

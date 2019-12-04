@@ -365,7 +365,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         "campaign_code"				: req.body.campaign_code,
         "cell_type"					: "1",
         "channel"					: "2",
-        "is_putput_flag"			: "0"
+        "is_putput_flag"			: "1"
 	};
 
 	var communicationCellControlData = {
