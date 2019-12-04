@@ -159,6 +159,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        //console.dir(response.data);
+	        instoreResponse = response;
 	        res.json(response.data);
 	    }).catch((error) => {
 	        console.dir('error getting promotions' + error);
@@ -193,7 +194,9 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 	    axios.get(productionVoucherPotUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        //console.dir(response.data);
+	        globalResponse = response;
 	        res.json(response.data);
+
 	    }).catch((error) => {
 	        console.dir('error getting global codes ' + error);
 	    });		
