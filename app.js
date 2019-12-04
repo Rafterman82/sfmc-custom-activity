@@ -46,11 +46,13 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
+var instoreResponse;
+var globalResponse;
 
 function getInstoreCodes() {
 	console.dir("populate instore array");
 
-	var instoreResponse;
+	
 
 	var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions";
 	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
@@ -59,7 +61,9 @@ function getInstoreCodes() {
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
 		console.dir(pcresponse.data.items);
 
-		instoreResponse = pcresponse;
+		var instoreResponseObject = pcresponse;
+
+		return instoreResponseObject;
 
 
 	}).catch((error) => {
@@ -70,7 +74,7 @@ function getInstoreCodes() {
 
 function getGlobalCodes() {
 
-	var globalResponse;
+	
 	// lookup global voucher pot and get date
 	var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes";
 	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
@@ -78,7 +82,8 @@ function getGlobalCodes() {
 		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
 		console.dir(gcresponse.data.items);
 
-		globalResponse = gcresponse;
+		globalResponseObject = gcresponse;
+		return globalResponseObject;
 
 
 	}).catch((error) => {
@@ -398,8 +403,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir(req.body);
 
 	console.dir("executing lookups");
-	getInstoreCodes();
-	getGlobalCodes();
+	
+	instoreResponse = getInstoreCodes();
+	globalResponse = getGlobalCodes();
 
 	var communicationCellData = {
 
