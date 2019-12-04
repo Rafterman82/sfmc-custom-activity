@@ -468,6 +468,7 @@ define([
                 $("#show_global_codes").hide();
                 $("#show_unique_codes").show();
                 $("#voucher_pot_1").val(argumentsSummaryPayload.buildPayload.voucher_pot_1);
+                console.log("voucher pot 1 had a value");
 
 
             }
@@ -515,17 +516,17 @@ define([
 
             }
 
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1 == "true") {
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1) {
                 $("#reuse_voucher_pot_1").val(true);
                 $("#reuse_voucher_pot_1").prop('checked', true);
             }
 
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2 == "true") {
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2) {
                 $("#reuse_voucher_pot_2").val(true);
                 $("#reuse_voucher_pot_2").prop('checked', true);
             }
 
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3 == "true") {
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3) {
                 $("#reuse_voucher_pot_3").val(true);
                 $("#reuse_voucher_pot_3").prop('checked', true);
             }
@@ -535,17 +536,17 @@ define([
 
         // date override checkboxes
 
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1 == "true") {
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1) {
             $("#online_code_date_override_1").val(true);
             $("#online_code_date_override_1").prop('checked', true);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2 == "true") {
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2) {
             $("#online_code_date_override_2").val(true);
             $("#online_code_date_override_2").prop('checked', true);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3 == "true") {
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3) {
             $("#online_code_date_override_3").val(true);
             $("#online_code_date_override_3").prop('checked', true);
         }
@@ -564,17 +565,17 @@ define([
         }
 
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1 == "true") {
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1) {
             $("#instore_code_date_override_1").val(true);
             $("#instore_code_date_override_1").prop('checked', true);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2 == "true") {
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2) {
             $("#instore_code_date_override_2").val(true);
             $("#instore_code_date_override_2").prop('checked', true);
         }
 
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3 == "true") {
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3) {
             $("#instore_code_date_override_3").val(true);
             $("#instore_code_date_override_3").prop('checked', true);
         }
