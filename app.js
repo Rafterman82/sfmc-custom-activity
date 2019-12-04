@@ -439,7 +439,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir(req.body);
 
 	console.dir("executing lookups");
-	incrementResponse = getIncrements();
 	instoreResponse = getInstoreCodes();
 	globalResponse = getGlobalCodes();
 
@@ -616,7 +615,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         incrementResponse = incresponse.data.items[0].values;
     	console.dir(incrementResponse);
-		return incrementResponse;
+    	var mc_unique_promotion_id_increment = incrementResponse.mc_unique_promotion_id_increment;
+    	var communication_cell_code_id_increment = incrementResponse.communication_cell_code_id_increment;
+    	var promotion_key = incrementResponse.promotion_key;
 
 	}).catch((error) => {
         console.dir('error is ' + error);
@@ -627,9 +628,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir("INCREMENT OBJECT CURRENTLY IS");
 	console.dir(incrementResponse);
 
-    var mc_unique_promotion_id_increment = incrementResponse.mc_unique_promotion_id_increment;
-    var communication_cell_code_id_increment = incrementResponse.communication_cell_code_id_increment;
-    var promotion_key = incrementResponse.promotion_key;
+
 
     //res.json("test");
 
