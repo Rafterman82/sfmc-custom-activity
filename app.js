@@ -68,7 +68,7 @@ function getInstoreCodes() {
 	});
 }
 
-function getGlobalCodes {
+function getGlobalCodes() {
 
 	var globalResponse;
 	// lookup global voucher pot and get date
