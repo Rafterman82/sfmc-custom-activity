@@ -60,9 +60,11 @@ function getInstoreCodes() {
 
 
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
-		console.dir(pcresponse.data.items);
+		//console.dir(pcresponse.data.items);
 
-		instoreResponse = pcresponse;
+		instoreResponse = pcresponse.data.items;
+
+		console.dir(instoreResponse);
 
 		return instoreResponse;
 
@@ -81,9 +83,11 @@ function getGlobalCodes() {
 	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
 
 		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
-		console.dir(gcresponse.data.items);
+		//console.dir(gcresponse.data.items);
 
-		globalResponse = gcresponse;
+		globalResponse = gcresponse.data.items;
+
+		console.dir(globalResponse);
 		return globalResponse;
 
 
@@ -106,11 +110,11 @@ var instoreCodesRequest = require('request');
 var instoreCodesOptions = {
     url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions'
 };
-instoreCodesRequest.get(instoreCodesOptions, function (error, isresponse, body) {
+instoreCodesRequest.get(instoreCodesOptions, function (error, response, body) {
     //Handle error, and body
     console.dir("is codes request fired");
-    console.dir(isresponse.data);
-    instoreResponse = isresponse;
+    console.dir(response);
+
 });
 
 //Fetch increment values
