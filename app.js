@@ -606,6 +606,24 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
+	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(incresponse => {
+        
+        // If request is good...
+        //console.dir(response.data.items);
+        //console.dir(response.data.items[0].values);
+        //res.json(response.data.items.values);
+        console.dir("RESPONSE FROM INCREMENTS");
+
+        incrementResponse = incresponse.data.items[0].values;
+    	console.dir(incrementResponse);
+		return incrementResponse;
+
+	}).catch((error) => {
+        console.dir('error is ' + error);
+        //res.json({"success": false});
+        //res.status(200).json({ success: true })
+	});
+
 	console.dir("INCREMENT OBJECT CURRENTLY IS");
 	console.dir(incrementResponse);
 
