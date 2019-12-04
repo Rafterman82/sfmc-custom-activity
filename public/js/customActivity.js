@@ -464,25 +464,27 @@ define([
         }
         setTimeout(function(){ 
 
-            if ( argumentsSummaryPayload.buildPayload.voucher_pot_1 ) {
+            if ( argumentsSummaryPayload.buildPayload.voucher_pot_1 == "true" || argumentsSummaryPayload.buildPayload.voucher_pot_1 == true) {
                 $("#show_global_codes").hide();
                 $("#show_unique_codes").show();
-                $("#voucher_pot_1").val(argumentsSummaryPayload.buildPayload.voucher_pot_1);
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.voucher_pot_2 ) {
-                $("#voucher_pot_2").val(argumentsSummaryPayload.buildPayload.voucher_pot_2);
+                $("#voucher_pot_1").val(true);
+                $("#voucher_pot_1").prop('checked', true);
 
             }
 
-            if ( argumentsSummaryPayload.buildPayload.voucher_pot_3 ) {
-                $("#voucher_pot_3").val(argumentsSummaryPayload.buildPayload.voucher_pot_3);
+            if ( argumentsSummaryPayload.buildPayload.voucher_pot_2 == "true" || argumentsSummaryPayload.buildPayload.voucher_pot_2 == true ) {
+                $("#voucher_pot_2").prop('checked', true);
+                $("#voucher_pot_2").val(true);
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.voucher_pot_3 == "true" || argumentsSummaryPayload.buildPayload.voucher_pot_3 == true) {
+                $("#voucher_pot_3").prop('checked', true);
+                $("#voucher_pot_3").val(true);
 
             }
 
             if ( argumentsSummaryPayload.buildPayload.instore_code_1 ) {
-                $("#show_unique_codes").hide();
-                $("#show_global_codes").show();
                 $("#instore_code_1_instore").val(argumentsSummaryPayload.buildPayload.instore_code_1);
 
             }
@@ -499,6 +501,8 @@ define([
 
             if ( argumentsSummaryPayload.buildPayload.global_code_1 ) {
                 $("#global_code_1").val(argumentsSummaryPayload.buildPayload.global_code_1);
+                $("#show_global_codes").show();
+                $("#show_unique_codes").hide();
 
             }
 
@@ -511,16 +515,19 @@ define([
 
             }
 
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1 ) {
-                $("#reuse_voucher_pot_1").val(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1);
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1 == "true" || argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1 == true) {
+                $("#reuse_voucher_pot_1").val(true);
+                $("#reuse_voucher_pot_1").prop('checked', true);
             }
 
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2 ) {
-                $("#reuse_voucher_pot_2").val(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2);
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2 == "true" || argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2 == true) {
+                $("#reuse_voucher_pot_2").val(true);
+                $("#reuse_voucher_pot_2").prop('checked', true);
             }
 
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3 ) {
-                $("#reuse_voucher_pot_3").val(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3);
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3 == "true" || argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3 == true) {
+                $("#reuse_voucher_pot_3").val(true);
+                $("#reuse_voucher_pot_3").prop('checked', true);
             }
 
 
