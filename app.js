@@ -66,9 +66,9 @@ function getInstoreCodes() {
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
 		//console.dir(pcresponse.data.items);
 
-		instoreResponse = pcresponse;
+		instoreResponse = pcresponse.data;
 
-		console.dir(instoreResponse.data.items);
+		//console.dir(instoreResponse.data.items);
 
 		return instoreResponse;
 
@@ -89,9 +89,9 @@ function getGlobalCodes() {
 		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
 		//console.dir(gcresponse.data.items);
 
-		globalResponse = gcresponse;
+		globalResponse = gcresponse.data;
 
-		console.dir(globalResponse.data.items);
+		//console.dir(globalResponse.data.items);
 		return globalResponse;
 
 
@@ -192,7 +192,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        console.dir(response.data);
-	        instoreResponse = response;
+	        instoreResponse = response.data;
 	        res.json(response.data);
 	    }).catch((error) => {
 	        console.dir('error getting promotions' + error);
@@ -227,7 +227,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 	    axios.get(productionVoucherPotUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        console.dir(response.data);
-	        //globalResponse = response.data;
+	        globalResponse = response.data;
 	        res.json(response.data);
 
 	    }).catch((error) => {
@@ -727,18 +727,18 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     			console.dir("CURRENT INSTORE RESPONSE");
     			console.dir(instoreResponse);
 
-				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
+				for ( var n = 0; n < instoreResponse.items.length; n++ ) {
 
-					if ( instoreResponse.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+					if ( instoreResponse.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
 
-						var instoreValidFromDate = instoreResponse.data.items[n].values.datefrom.split("/").reverse().join("-");
-						var instoreValidToDate = instoreResponse.data.items[n].values.dateto.split("/").reverse().join("-");
+						var instoreValidFromDate = instoreResponse.items[n].values.datefrom.split("/").reverse().join("-");
+						var instoreValidToDate = instoreResponse.items[n].values.dateto.split("/").reverse().join("-");
 
 						// set valid from and to
-						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
-						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
-						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
-						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
+						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + instoreResponse.items[n].values.timefrom;
+						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + instoreResponse.items[n].values.timeto;
+						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + instoreResponse.items[n].values.timefrom;
+						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + instoreResponse.items[n].values.timeto;
 
 						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
 						console.dir(promotionDescriptionData);
