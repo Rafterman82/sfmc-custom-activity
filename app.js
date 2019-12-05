@@ -64,7 +64,7 @@ function getInstoreCodes() {
 
 		instoreResponse = pcresponse;
 
-		console.dir(instoreResponse);
+		console.dir(instoreResponse.data);
 
 		return instoreResponse;
 
@@ -87,7 +87,7 @@ function getGlobalCodes() {
 
 		globalResponse = gcresponse;
 
-		console.dir(globalResponse);
+		console.dir(globalResponse.data);
 		return globalResponse;
 
 
