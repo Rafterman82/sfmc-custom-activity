@@ -106,16 +106,6 @@ incrementsRequest.get(incrementOptions, function (error, response, body) {
 
 });
 
-var instoreCodesRequest = require('request');
-var instoreCodesOptions = {
-    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions'
-};
-instoreCodesRequest.get(instoreCodesOptions, function (error, response, body) {
-    //Handle error, and body
-    console.dir("is codes request fired");
-    console.dir(response);
-
-});
 
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
@@ -603,7 +593,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         var communication_cell_code_id_increment = incrementObject.communication_cell_code_id_increment;
         var promotion_key = incrementObject.promotion_key;
 
-        res.json("test");
+        //res.json("test");
 
         // set promotion_key in json object
         campaignPromotionAssociationData.promotion_key = promotion_key;
@@ -941,6 +931,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	}).catch((error) => {
         console.dir('error is ' + error);
         //res.json({"success": false});
+        res.status(200).json({ success: true })
 	});
 	
 });
