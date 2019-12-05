@@ -33,7 +33,7 @@ if ( !local ) {
 	console.dir(marketingCloud);
 }
 
-// Configure Express
+// Configure Express master
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.raw({type: 'application/jwt'}));
 //app.use(bodyParser.urlencoded({ extended: true }));
