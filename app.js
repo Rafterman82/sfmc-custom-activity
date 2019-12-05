@@ -48,13 +48,9 @@ if ('development' == app.get('env')) {
 
 var instoreResponse;
 var globalResponse;
-var incrementResponse;
 
-
-getIncrements();
 getGlobalCodes();
 getInstoreCodes();
-
 
 function getInstoreCodes() {
 	console.dir("populate instore array");
@@ -64,11 +60,11 @@ function getInstoreCodes() {
 
 
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
-		console.dir(pcresponse.data.items);
+		//console.dir(pcresponse.data.items);
 
-		instoreResponse = pcresponse.data;
+		instoreResponse = pcresponse.data.items;
 
-		console.dir(instoreResponse.items);
+		console.dir(instoreResponse);
 
 		return instoreResponse;
 
@@ -89,9 +85,9 @@ function getGlobalCodes() {
 		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
 		//console.dir(gcresponse.data.items);
 
-		globalResponse = gcresponse.data;
+		globalResponse = gcresponse.data.items;
 
-		console.dir(globalResponse.items);
+		console.dir(globalResponse);
 		return globalResponse;
 
 
@@ -99,28 +95,6 @@ function getGlobalCodes() {
 		console.dir('error getting global codes in add statement ' + error);
 		//res.json({"success": false});
 	});
-}
-
-function getIncrements() {
-   	
-   	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(incresponse => {
-        
-        // If request is good...
-        //console.dir(response.data.items);
-        //console.dir(response.data.items[0].values);
-        //res.json(response.data.items.values);
-        console.dir("RESPONSE FROM INCREMENTS");
-
-        incrementResponse = incresponse.data.items[0].values;
-    	console.dir(incrementResponse);
-		return incrementResponse;
-
-	}).catch((error) => {
-        console.dir('error is ' + error);
-        //res.json({"success": false});
-        //res.status(200).json({ success: true })
-	});
-
 }
 
 var incrementsRequest = require('request');
@@ -132,6 +106,16 @@ incrementsRequest.get(incrementOptions, function (error, response, body) {
 
 });
 
+var instoreCodesRequest = require('request');
+var instoreCodesOptions = {
+    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions'
+};
+instoreCodesRequest.get(instoreCodesOptions, function (error, response, body) {
+    //Handle error, and body
+    console.dir("is codes request fired");
+    console.dir(response);
+
+});
 
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
@@ -191,8 +175,8 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	    console.dir(getUrl);
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
-	        console.dir(response.data);
-	        instoreResponse = response.data;
+	        //console.dir(response.data);
+	        instoreResponse = response;
 	        res.json(response.data);
 	    }).catch((error) => {
 	        console.dir('error getting promotions' + error);
@@ -226,8 +210,8 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 	    console.dir(productionVoucherPotUrl);
 	    axios.get(productionVoucherPotUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
-	        console.dir(response.data);
-	        globalResponse = response.data;
+	        //console.dir(response.data);
+	        globalResponse = response;
 	        res.json(response.data);
 
 	    }).catch((error) => {
@@ -439,6 +423,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir(req.body);
 
 	console.dir("executing lookups");
+	
 	instoreResponse = getInstoreCodes();
 	globalResponse = getGlobalCodes();
 
@@ -605,372 +590,357 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
-	var mc_unique_promotion_id_increment;
-	var communication_cell_code_id_increment;
-	var promotion_key;
-
-
-	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(incresponse => {
+   	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
         
         // If request is good...
-        //console.dir(response.data.items);
-        //console.dir(response.data.items[0].values);
+        console.dir(response.data.items);
+        console.dir(response.data.items[0].values);
         //res.json(response.data.items.values);
-        console.dir("RESPONSE FROM INCREMENTS");
 
-        incrementResponse = incresponse.data.items[0].values;
-    	console.dir(incrementResponse);
-    	mc_unique_promotion_id_increment = incrementResponse.mc_unique_promotion_id_increment;
-    	communication_cell_code_id_increment = incrementResponse.communication_cell_code_id_increment;
-    	promotion_key = incrementResponse.promotion_key;
+        var incrementObject = response.data.items[0].values;
+
+        var mc_unique_promotion_id_increment = incrementObject.mc_unique_promotion_id_increment;
+        var communication_cell_code_id_increment = incrementObject.communication_cell_code_id_increment;
+        var promotion_key = incrementObject.promotion_key;
+
+        res.json("test");
+
+        // set promotion_key in json object
+        campaignPromotionAssociationData.promotion_key = promotion_key;
+
+        console.dir(campaignPromotionAssociationData);
+
+        // increment promotion key up 1 and save new increment in DE
+        var newPromotionKey = parseInt(promotion_key) + 1;
+
+        // store new promotion key in increments object
+        incrementObject.promotion_key = parseInt(newPromotionKey);
+
+        console.dir(incrementObject);
+
+        // loop through codes and count required mc ids
+        var mcLoopIncrement = mc_unique_promotion_id_increment;
+
+        for ( var i = 1; i <= 6; i++) {
+
+        	if ( promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code" 
+        		&& promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code"
+        			|| promotionDescriptionData.promotions["promotion_" + i].barcode === "no-code" ) {
+
+        		// this row has no code
+        		// set as hyphen
+        		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = "-";
+        		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = "-";
+        		campaignPromotionAssociationData["mc_id_" + i] = "-";
+
+        	} else {
+
+        		// this row has a code
+
+        		console.dir("THE CURRENT PROMOTION OBJECT BEFORE DATE ALTERATION IS");
+        		console.dir(promotionDescriptionData.promotions["promotion_" + i]);
+
+        		if ( promotionDescriptionData.promotions["promotion_" + i].global_code != "no-code" && promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code") {
+
+        			// global code selected
+
+        			// lookup global voucher pot and get date
+        			console.dir("CURRENT INSTORE RESPONSE");
+        			console.dir(globalResponse);
+
+
+    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
+
+    					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
+
+    						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
+    						var splitGlobalValidTo = globalResponse.data.items[j].values.validfrom.split(" ");
+
+    						// set valid from and to
+    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
+    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
+    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
+    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTp.oplit("/").reverse().join("-");
+
+    						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
+    						console.dir(promotionDescriptionData);
+
+
+    					}
+
+    				}
+
+        			// update barcode 
+        			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].global_code;
+        			promotionDescriptionData.promotions["promotion_" + i].number_of_redemptions_allowed = "999";
+        			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
+        			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
+
+
+        		} else if ( promotionDescriptionData.promotions["promotion_" + i].voucher_pot != "no-code" && promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code") {
+
+        			// voucher pot selected
+
+        			// get one row voucher pot for date
+
+        			promotionDescriptionData.promotions["promotion_" + i].barcode = "-";
+        			promotionDescriptionData.promotions["promotion_" + i].number_of_redemptions_allowed = "1";
+        			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
+        			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
+
+        		} else if ( promotionDescriptionData.promotions["promotion_" + i].barcode != "no-code" ) {
+
+        			// instore code selected
+
+        			console.dir("CURRENT INSTORE RESPONSE");
+        			console.dir(instoreResponse);
+
+    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
+
+    					if ( instoreResponse.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+
+    						var instoreValidFromDate = instoreResponse.data.items[n].values.datefrom.split("/").reverse().join("-");
+    						var instoreValidToDate = instoreResponse.data.items[n].values.dateto.split("/").reverse().join("-");
+
+    						// set valid from and to
+    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
+    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
+    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
+    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
+
+    						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
+    						console.dir(promotionDescriptionData);
+
+
+    					}
+
+    				}
+
+        			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].barcode;
+
+        		}
+
+        		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = parseInt(mcLoopIncrement);
+        		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = parseInt(communication_cell_code_id_increment);
+        		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcLoopIncrement);
+        		mcLoopIncrement++;
+
+        	}
+
+        }
+
+        console.dir(promotionDescriptionData.promotions);
+
+        var new_mc_unique_promotion_id_increment = parseInt(mcLoopIncrement) + 1;
+
+        // set mc increment in DE
+        incrementObject.mc_unique_promotion_id_increment = parseInt(new_mc_unique_promotion_id_increment);
+
+        // update communication cell json
+        communicationCellData.communication_cell_id 		= parseInt(communication_cell_code_id_increment);
+        campaignPromotionAssociationData.communication_cell_id = parseInt(communication_cell_code_id_increment);
+        communicationCellControlData.communication_cell_id 	= parseInt(communication_cell_code_id_increment) + 1;
+        campaignPromotionAssociationData.communication_cell_id_control = parseInt(communication_cell_code_id_increment) + 1;
+
+        var newCommunicationCellCodeIncrement = parseInt(communication_cell_code_id_increment) + 2;
+
+        console.dir("COMM CELL DATA");
+        console.dir(communicationCellData);
+
+        console.dir("COMM CELL DATA CONTROL");
+        console.dir(communicationCellControlData);
+
+        // update increments object
+        incrementObject.communication_cell_code_id_increment = parseInt(newCommunicationCellCodeIncrement);
+
+        console.dir("INCREMENT OBJECT");
+        console.dir(incrementObject);
+
+        console.dir("CAMPAIGN ASSOCIATION");
+        console.dir(campaignPromotionAssociationData);
+
+		var campaignAssociationUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
+		var incrementUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionIncrementExtension + "/rowset";
+		var descriptionUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionDescriptionDataExtension + "/rowset";
+		var communicationCellUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.communicationCellDataExtension + "/rowset";
+		console.dir(campaignAssociationUrl);
+
+		var associationKey = campaignPromotionAssociationData.promotion_key;
+		delete campaignPromotionAssociationData.promotion_key;
+
+		var associationPayload = [{
+	        "keys": {
+	            "promotion_key": parseInt(associationKey)
+	        },
+	        "values": campaignPromotionAssociationData
+	    }];
+
+	    console.dir("ASSOCIATION PAYLOAD");
+	    console.dir(associationPayload);
+
+	   	axios({
+			method: 'post',
+			url: marketingCloud.authUrl,
+			data:{
+				"grant_type": "client_credentials",
+				"client_id": marketingCloud.clientId,
+				"client_secret": marketingCloud.clientSecret
+			}
+		})
+		.then(function (response) {
+			//console.dir(response.data.access_token);
+			const oauth_access_token = response.data.access_token;
+			//return response.data.access_token;
+			console.dir(oauth_access_token);
+			const authToken = 'Bearer '.concat(oauth_access_token);
+
+			// association insert
+		   	axios({
+				method: 'post',
+				url: campaignAssociationUrl,
+				headers: {'Authorization': authToken},
+				data: associationPayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir("error posting campaign association data");
+				console.dir(error);
+				//res.json({"success": false});
+			});
+
+			var incrementPayload = [{
+		        "keys": {
+		            "increment_key": 1
+		        },
+		        "values": incrementObject
+	    	}];
+
+	    	console.dir(incrementPayload);
+
+	    	// increments insert
+		   	axios({
+				method: 'post',
+				url: incrementUrl,
+				headers: {'Authorization': authToken},
+				data: incrementPayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir("error posting increment data");
+				console.dir(error);
+				//res.json({"success": false});
+			});
+
+			// promo descriptions insert
+	    	for ( var x = 1; x <=6; x++ ) {
+
+	    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode != "no-code" ) {
+
+					var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
+					delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
+
+					var descriptionPayload = [{
+				        "keys": {
+				            "mc_unique_promotion_id": parseInt(descriptionKey)
+				        },
+				        "values": promotionDescriptionData.promotions["promotion_" + x]
+			    	}];
+
+			    	console.dir(descriptionPayload);
+
+				   	axios({
+						method: 'post',
+						url: descriptionUrl,
+						headers: {'Authorization': authToken},
+						data: descriptionPayload
+					})
+					.then(function (response) {
+						console.dir(response.data);
+						//res.json({"success": true});
+					})
+					.catch(function (error) {
+						console.dir("error posting description data");
+						console.dir(error);
+						//res.json({"success": false});
+					});
+
+	    		}
+
+	    	}
+	    	
+        	var communicationCellKey = communicationCellData.communication_cell_id;
+        	delete communicationCellData.communication_cell_id;
+	    	// communication cell insert
+			var communicationPayload = [{
+		        "keys": {
+		            "communication_cell_id": parseInt(communicationCellKey)
+		        },
+		        "values": communicationCellData
+	    	}];
+
+	    	console.dir(communicationPayload);
+
+	    	// increments insert
+		   	axios({
+				method: 'post',
+				url: communicationCellUrl,
+				headers: {'Authorization': authToken},
+				data: communicationPayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir("error posting comm cell data");
+				console.dir(error);
+				//res.json({"success": false});
+			});	
+
+        	var communicationCellControlKey = communicationCellControlData.communication_cell_id;
+        	delete communicationCellControlData.communication_cell_id;
+	    	// communication cell insert
+			var communicationControlPayload = [{
+		        "keys": {
+		            "communication_cell_id": parseInt(communicationCellControlKey)
+		        },
+		        "values": communicationCellControlData
+	    	}];
+
+	    	console.dir(communicationControlPayload);
+
+	    	// increments insert
+		   	axios({
+				method: 'post',
+				url: communicationCellUrl,
+				headers: {'Authorization': authToken},
+				data: communicationControlPayload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				//res.json({"success": true});
+			})
+			.catch(function (error) {
+				console.dir("error posting comm cell data");
+				console.dir(error);
+				//res.json({"success": false});
+			});	    	
+
+		})	
+		.catch(function (error) {
+			console.dir(error);
+			return error;
+		});
 
 	}).catch((error) => {
         console.dir('error is ' + error);
         //res.json({"success": false});
-        //res.status(200).json({ success: true })
-	});
-
-	console.dir("INCREMENT OBJECT CURRENTLY IS");
-	console.dir(incrementResponse);
-
-
-
-    //res.json("test");
-
-    // set promotion_key in json object
-    campaignPromotionAssociationData.promotion_key = incrementResponse.promotion_key;
-
-    console.dir(campaignPromotionAssociationData);
-
-    // increment promotion key up 1 and save new increment in DE
-    var newPromotionKey = parseInt(incrementResponse.promotion_key) + 1;
-
-    // store new promotion key in increments object
-    incrementResponse.promotion_key = parseInt(newPromotionKey);
-
-    console.dir(incrementResponse);
-
-    // loop through codes and count required mc ids
-    var mcLoopIncrement = incrementResponse.mc_unique_promotion_id_increment;
-
-    for ( var i = 1; i <= 6; i++) {
-
-    	if ( promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code" 
-    		&& promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code"
-    			|| promotionDescriptionData.promotions["promotion_" + i].barcode === "no-code" ) {
-
-    		// this row has no code
-    		// set as hyphen
-    		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = "-";
-    		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = "-";
-    		campaignPromotionAssociationData["mc_id_" + i] = "-";
-
-    	} else {
-
-    		// this row has a code
-
-    		console.dir("THE CURRENT PROMOTION OBJECT BEFORE DATE ALTERATION IS");
-    		console.dir(promotionDescriptionData.promotions["promotion_" + i]);
-
-    		if ( promotionDescriptionData.promotions["promotion_" + i].global_code != "no-code" && promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code") {
-
-    			// global code selected
-
-    			// lookup global voucher pot and get date
-    			console.dir("CURRENT INSTORE RESPONSE");
-    			console.dir(globalResponse);
-
-
-				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
-
-					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
-
-						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
-						var splitGlobalValidTo = globalResponse.data.items[j].values.validfrom.split(" ");
-
-						// set valid from and to
-						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
-						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
-						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
-						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTp.oplit("/").reverse().join("-");
-
-						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
-						console.dir(promotionDescriptionData);
-
-
-					}
-
-				}
-
-    			// update barcode 
-    			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].global_code;
-    			promotionDescriptionData.promotions["promotion_" + i].number_of_redemptions_allowed = "999";
-    			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
-    			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
-
-
-    		} else if ( promotionDescriptionData.promotions["promotion_" + i].voucher_pot != "no-code" && promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code") {
-
-    			// voucher pot selected
-
-    			// get one row voucher pot for date
-
-    			promotionDescriptionData.promotions["promotion_" + i].barcode = "-";
-    			promotionDescriptionData.promotions["promotion_" + i].number_of_redemptions_allowed = "1";
-    			delete promotionDescriptionData.promotions["promotion_" + i].voucher_pot;
-    			delete promotionDescriptionData.promotions["promotion_" + i].global_code;
-
-    		} else if ( promotionDescriptionData.promotions["promotion_" + i].barcode != "no-code" ) {
-
-    			// instore code selected
-
-    			console.dir("CURRENT INSTORE RESPONSE");
-    			console.dir(instoreResponse);
-
-				for ( var n = 0; n < instoreResponse.items.length; n++ ) {
-
-					if ( instoreResponse.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
-
-						var instoreValidFromDate = instoreResponse.items[n].values.datefrom.split("/").reverse().join("-");
-						var instoreValidToDate = instoreResponse.items[n].values.dateto.split("/").reverse().join("-");
-
-						// set valid from and to
-						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + instoreResponse.items[n].values.timefrom;
-						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + instoreResponse.items[n].values.timeto;
-						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + instoreResponse.items[n].values.timefrom;
-						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + instoreResponse.items[n].values.timeto;
-
-						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
-						console.dir(promotionDescriptionData);
-
-
-					}
-
-				}
-
-    			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].barcode;
-
-    		}
-
-    		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = parseInt(mcLoopIncrement);
-    		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = parseInt(communication_cell_code_id_increment);
-    		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcLoopIncrement);
-    		mcLoopIncrement++;
-
-    	}
-
-    }
-
-    console.dir(promotionDescriptionData.promotions);
-
-    var new_mc_unique_promotion_id_increment = parseInt(mcLoopIncrement) + 1;
-
-    // set mc increment in DE
-    incrementResponse.mc_unique_promotion_id_increment = parseInt(new_mc_unique_promotion_id_increment);
-
-    // update communication cell json
-    communicationCellData.communication_cell_id 		= parseInt(communication_cell_code_id_increment);
-    campaignPromotionAssociationData.communication_cell_id = parseInt(communication_cell_code_id_increment);
-    communicationCellControlData.communication_cell_id 	= parseInt(communication_cell_code_id_increment) + 1;
-    campaignPromotionAssociationData.communication_cell_id_control = parseInt(communication_cell_code_id_increment) + 1;
-
-    var newCommunicationCellCodeIncrement = parseInt(communication_cell_code_id_increment) + 2;
-
-    console.dir("COMM CELL DATA");
-    console.dir(communicationCellData);
-
-    console.dir("COMM CELL DATA CONTROL");
-    console.dir(communicationCellControlData);
-
-    // update increments object
-    incrementResponse.communication_cell_code_id_increment = parseInt(newCommunicationCellCodeIncrement);
-
-    console.dir("INCREMENT OBJECT");
-    console.dir(incrementResponse);
-
-    console.dir("CAMPAIGN ASSOCIATION");
-    console.dir(campaignPromotionAssociationData);
-
-	var campaignAssociationUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
-	var incrementUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionIncrementExtension + "/rowset";
-	var descriptionUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.promotionDescriptionDataExtension + "/rowset";
-	var communicationCellUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.communicationCellDataExtension + "/rowset";
-	console.dir(campaignAssociationUrl);
-
-	var associationKey = campaignPromotionAssociationData.promotion_key;
-	delete campaignPromotionAssociationData.promotion_key;
-
-	var associationPayload = [{
-        "keys": {
-            "promotion_key": parseInt(associationKey)
-        },
-        "values": campaignPromotionAssociationData
-    }];
-
-    console.dir("ASSOCIATION PAYLOAD");
-    console.dir(associationPayload);
-
-
-
-   	axios({
-		method: 'post',
-		url: marketingCloud.authUrl,
-		data:{
-			"grant_type": "client_credentials",
-			"client_id": marketingCloud.clientId,
-			"client_secret": marketingCloud.clientSecret
-		}
-	})
-	.then(function (response) {
-		//console.dir(response.data.access_token);
-		const oauth_access_token = response.data.access_token;
-		//return response.data.access_token;
-		console.dir(oauth_access_token);
-		const authToken = 'Bearer '.concat(oauth_access_token);
-
-		// association insert
-	   	axios({
-			method: 'post',
-			url: campaignAssociationUrl,
-			headers: {'Authorization': authToken},
-			data: associationPayload
-		})
-		.then(function (response) {
-			console.dir(response.data);
-			//res.json({"success": true});
-			res.status(200).json({"success": true, "promotion_key": promotion_key});
-		})
-		.catch(function (error) {
-			console.dir("error posting campaign association data");
-			console.dir(error);
-			//res.json({"success": false});
-		});
-
-		var incrementPayload = [{
-	        "keys": {
-	            "increment_key": 1
-	        },
-	        "values": incrementResponse
-    	}];
-
-    	console.dir(incrementPayload);
-
-    	// increments insert
-	   	axios({
-			method: 'post',
-			url: incrementUrl,
-			headers: {'Authorization': authToken},
-			data: incrementPayload
-		})
-		.then(function (response) {
-			console.dir(response.data);
-			//res.json({"success": true});
-		})
-		.catch(function (error) {
-			console.dir("error posting increment data");
-			console.dir(error);
-			//res.json({"success": false});
-		});
-
-		// promo descriptions insert
-    	for ( var x = 1; x <=6; x++ ) {
-
-    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode != "no-code" ) {
-
-				var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
-				delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
-
-				var descriptionPayload = [{
-			        "keys": {
-			            "mc_unique_promotion_id": parseInt(descriptionKey)
-			        },
-			        "values": promotionDescriptionData.promotions["promotion_" + x]
-		    	}];
-
-		    	console.dir(descriptionPayload);
-
-			   	axios({
-					method: 'post',
-					url: descriptionUrl,
-					headers: {'Authorization': authToken},
-					data: descriptionPayload
-				})
-				.then(function (response) {
-					console.dir(response.data);
-					//res.json({"success": true});
-				})
-				.catch(function (error) {
-					console.dir("error posting description data");
-					console.dir(error);
-					//res.json({"success": false});
-				});
-
-    		}
-
-    	}
-    	
-    	var communicationCellKey = communicationCellData.communication_cell_id;
-    	delete communicationCellData.communication_cell_id;
-    	// communication cell insert
-		var communicationPayload = [{
-	        "keys": {
-	            "communication_cell_id": parseInt(communicationCellKey)
-	        },
-	        "values": communicationCellData
-    	}];
-
-    	console.dir(communicationPayload);
-
-    	// increments insert
-	   	axios({
-			method: 'post',
-			url: communicationCellUrl,
-			headers: {'Authorization': authToken},
-			data: communicationPayload
-		})
-		.then(function (response) {
-			console.dir(response.data);
-			//res.json({"success": true});
-		})
-		.catch(function (error) {
-			console.dir("error posting comm cell data");
-			console.dir(error);
-			//res.json({"success": false});
-		});	
-
-    	var communicationCellControlKey = communicationCellControlData.communication_cell_id;
-    	delete communicationCellControlData.communication_cell_id;
-    	// communication cell insert
-		var communicationControlPayload = [{
-	        "keys": {
-	            "communication_cell_id": parseInt(communicationCellControlKey)
-	        },
-	        "values": communicationCellControlData
-    	}];
-
-    	console.dir(communicationControlPayload);
-
-    	// increments insert
-	   	axios({
-			method: 'post',
-			url: communicationCellUrl,
-			headers: {'Authorization': authToken},
-			data: communicationControlPayload
-		})
-		.then(function (response) {
-			console.dir(response.data);
-			//res.json({"success": true});
-		})
-		.catch(function (error) {
-			console.dir("error posting comm cell data");
-			console.dir(error);
-			//res.json({"success": false});
-		});	    	
-
-	})	
-	.catch(function (error) {
-		console.dir(error);
-		return error;
 	});
 	
 });
