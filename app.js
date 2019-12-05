@@ -64,11 +64,11 @@ function getInstoreCodes() {
 
 
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
-		//console.dir(pcresponse.data.items);
+		console.dir(pcresponse.data.items);
 
 		instoreResponse = pcresponse.data;
 
-		//console.dir(instoreResponse.data.items);
+		console.dir(instoreResponse.items);
 
 		return instoreResponse;
 
@@ -91,7 +91,7 @@ function getGlobalCodes() {
 
 		globalResponse = gcresponse.data;
 
-		//console.dir(globalResponse.data.items);
+		console.dir(globalResponse.items);
 		return globalResponse;
 
 
