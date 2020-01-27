@@ -55,8 +55,8 @@ getInstoreCodes();
 function getInstoreCodes() {
 	console.dir("populate instore array");
 
-	var instoreCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions";
-	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
+	var instoreCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/promotions";
+	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
 
 
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
@@ -79,8 +79,8 @@ function getGlobalCodes() {
 
 	
 	// lookup global voucher pot and get date
-	var globalCodesUrl = "https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes";
-	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
+	var globalCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes";
+	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
 
 		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
 		//console.dir(gcresponse.data.items);
@@ -99,7 +99,7 @@ function getGlobalCodes() {
 
 var incrementsRequest = require('request');
 var incrementOptions = {
-    url : 'https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments'
+    url : 'https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/increments'
 };
 incrementsRequest.get(incrementOptions, function (error, response, body) {
     //Handle error, and body
@@ -580,7 +580,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
-   	axios.get("https://mc-jb-custom-activity-ca.herokuapp.com/dataextension/lookup/increments").then(response => {
+   	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/increments").then(response => {
         
         // If request is good...
         console.dir(response.data.items);
