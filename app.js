@@ -412,11 +412,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	console.dir("Request Body is ");
 	console.dir(req.body);
 
-	console.dir("executing lookups");
-	
-	instoreResponse = getInstoreCodes();
-	globalResponse = getGlobalCodes();
-
 	var communicationCellData = {
 
     	"cell_code"					: req.body.cell_code,
