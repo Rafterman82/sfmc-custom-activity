@@ -638,31 +638,32 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			console.dir("CURRENT GLOBAL RESPONSE");
         			console.dir(globalResponse);
 
+        			if ( globalResponse.data ) {
+	    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
 
-    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
+	    					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
 
-    					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
+	    						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
+	    						var splitGlobalValidTo = globalResponse.data.items[j].values.validto.split(" ");
 
-    						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
-    						var splitGlobalValidTo = globalResponse.data.items[j].values.validto.split(" ");
+	    						console.dir("GLOBAL VALID FROM AND VALID TO");
+	    						console.dir(splitGlobalValidFrom);
+	    						console.dir(splitGlobalValidTo);
 
-    						console.dir("GLOBAL VALID FROM AND VALID TO");
-    						console.dir(splitGlobalValidFrom);
-    						console.dir(splitGlobalValidTo);
+	    						// set valid from and to
+	    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
+	    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
+	    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
+	    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
 
-    						// set valid from and to
-    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
-    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
-    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
-    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
-
-    						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
-    						console.dir(promotionDescriptionData);
+	    						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
+	    						console.dir(promotionDescriptionData);
 
 
-    					}
+	    					}
 
-    				}
+	    				}
+	    			}
 
         			// update barcode 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].global_code;
