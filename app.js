@@ -25,7 +25,7 @@ if ( !local ) {
 	  controlGroupsDataExtension: 				process.env.controlGroupsDataExtension,
 	  voucherPotsDataExtension: 				process.env.voucherPotsDataExtension,
 	  insertDataExtension: 						process.env.insertDataExtension,
-	  productionVoucherPot: 					process.env.productionVoucherPot,
+	  sitVoucherPot: 							process.env.sitVoucherPot,
 	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
 	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
 	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension
