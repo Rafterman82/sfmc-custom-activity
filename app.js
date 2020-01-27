@@ -651,10 +651,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     						console.dir(splitGlobalValidTo);
 
     						// set valid from and to
-    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
-    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
-    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
-    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
+    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
+    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
+    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
+    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
 
     						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
     						console.dir(promotionDescriptionData);
