@@ -688,9 +688,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// instore code selected
 
         			console.dir("CURRENT INSTORE RESPONSE");
-        			setTimeout(function(){ 
-        				console.dir(instoreResponse);
-        			}, 3000);
+        			console.dir(instoreResponse);
         			
         			if ( instoreResponse.data ) {
 	    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
