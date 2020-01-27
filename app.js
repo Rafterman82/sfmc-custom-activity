@@ -644,13 +644,13 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
 
     						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
-    						var splitGlobalValidTo = globalResponse.data.items[j].values.validfrom.split(" ");
+    						var splitGlobalValidTo = globalResponse.data.items[j].values.validto.split(" ");
 
     						// set valid from and to
     						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
     						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
     						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
-    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTp.oplit("/").reverse().join("-");
+    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
 
     						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
     						console.dir(promotionDescriptionData);
