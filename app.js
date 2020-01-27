@@ -123,7 +123,7 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 		//console.dir(response.data.access_token);
 		const oauth_access_token = response.data.access_token;
 		//return response.data.access_token;
-		console.dir(oauth_access_token);
+		//console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
 	    var incrementsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.promotionIncrementExtension + "/rowset";
 	    console.dir(incrementsUrl);
@@ -133,11 +133,13 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 			res.json(response.data);
 
 	    }).catch((error) => {
+	    	console.dir("Error during increment loopup");
 	        console.dir('error is ' + error);
 	    });		
 
 	})
 	.catch(function (error) {
+		console.dir("Error during oauth");
 		console.dir(error);
 		return error;
 	});
@@ -159,7 +161,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 		//console.dir(response.data.access_token);
 		const oauth_access_token = response.data.access_token;
 		//return response.data.access_token;
-		console.dir(oauth_access_token);
+		//console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
 	    const getUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.promotionsListDataExtension + "/rowset?$filter=ExecutedBy%20eq%20'TpAdmin'";
 	    console.dir(getUrl);
@@ -174,6 +176,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 
 	})
 	.catch(function (error) {
+		console.dir("Error during oauth gen");
 		console.dir(error);
 		return error;
 	});
@@ -194,7 +197,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 		//console.dir(response.data.access_token);
 		const oauth_access_token = response.data.access_token;
 		//return response.data.access_token;
-		console.dir(oauth_access_token);
+		//console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
 	    var sitVoucherPotUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.sitVoucherPot + "/rowset";
 	    console.dir(sitVoucherPotUrl);
@@ -210,6 +213,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 
 	})
 	.catch(function (error) {
+		console.dir("Error during oauth gen");
 		console.dir(error);
 		return error;
 	});
@@ -230,7 +234,7 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 		//console.dir(response.data.access_token);
 		const oauth_access_token = response.data.access_token;
 		//return response.data.access_token;
-		console.dir(oauth_access_token);
+		//console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
 	    var controlGroupsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.controlGroupsDataExtension + "/rowset";
 	    console.dir(controlGroupsUrl);
@@ -244,6 +248,7 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 
 	})
 	.catch(function (error) {
+		console.dir("Error during oauth gen");
 		console.dir(error);
 		return error;
 	});
@@ -264,7 +269,7 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 		//console.dir(response.data.access_token);
 		const oauth_access_token = response.data.access_token;
 		//return response.data.access_token;
-		console.dir(oauth_access_token);
+		//console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
 	    var voucherPotsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.voucherPotsDataExtension + "/rowset";
 	    console.dir(voucherPotsUrl);
@@ -278,6 +283,7 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 
 	})
 	.catch(function (error) {
+		console.dir("Error during oauth gen");
 		console.dir(error);
 		return error;
 	});
@@ -334,7 +340,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 		//console.dir(response.data.access_token);
 		const oauth_access_token = response.data.access_token;
 		//return response.data.access_token;
-		console.dir(oauth_access_token);
+		//console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
 	    const postTemplateUrl = marketingCloud.restUrl + "asset/v1/content/assets/query";
 	    console.dir(postTemplateUrl);
@@ -365,11 +371,11 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 //lookup voucher pot DE
 app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, res){ 
 	
-	console.dir(req.body);
+	//console.dir(req.body);
 
 	var externalKey = req.body.voucher_pot;
 
-	console.dir(row);
+	//console.dir(row);
    	console.dir('req received');
    	//res.redirect('/');
 
@@ -386,14 +392,14 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 		//console.dir(response.data.access_token);
 		const oauth_access_token = response.data.access_token;
 		//return response.data.access_token;
-		console.dir(oauth_access_token);
+		//console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
 	    const voucherUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + externalKey + "/rowset?$filter=IsClaimer%20eq%20'False'";
 	    console.dir(voucherUrl);
 	    axios.get(voucherUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
-	        console.dir(response.data);
-	        console.dir(response.data.length);
+	        //console.dir(response.data);
+	        //console.dir(response.data.length);
 	        res.json(response.data);
 	    }).catch((error) => {
 	        console.dir('error getting voucher pot data ' + error);
@@ -409,8 +415,8 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 // insert data into data extension
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
 	
-	console.dir("Request Body is ");
-	console.dir(req.body);
+	c//onsole.dir("Request Body is ");
+	//console.dir(req.body);
 
 	var communicationCellData = {
 
@@ -593,7 +599,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         // set promotion_key in json object
         campaignPromotionAssociationData.promotion_key = promotion_key;
 
-        console.dir(campaignPromotionAssociationData);
+        //console.dir(campaignPromotionAssociationData);
 
         // increment promotion key up 1 and save new increment in DE
         var newPromotionKey = parseInt(promotion_key) + 1;
@@ -601,7 +607,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         // store new promotion key in increments object
         incrementObject.promotion_key = parseInt(newPromotionKey);
 
-        console.dir(incrementObject);
+        //console.dir(incrementObject);
 
         // loop through codes and count required mc ids
         var mcLoopIncrement = mc_unique_promotion_id_increment;
@@ -630,8 +636,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
-        			console.dir("CURRENT GLOBAL RESPONSE");
-        			console.dir(globalResponse);
+        			//console.dir("CURRENT GLOBAL RESPONSE");
+        			//console.dir(globalResponse);
 
         			if ( globalResponse.data ) {
 	    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
@@ -682,8 +688,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			console.dir("CURRENT INSTORE RESPONSE");
-        			console.dir(instoreResponse);
+        			//console.dir("CURRENT INSTORE RESPONSE");
+        			//console.dir(instoreResponse);
         			
         			if ( instoreResponse.data ) {
 	    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
@@ -783,7 +789,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			//console.dir(response.data.access_token);
 			const oauth_access_token = response.data.access_token;
 			//return response.data.access_token;
-			console.dir(oauth_access_token);
+			//console.dir(oauth_access_token);
 			const authToken = 'Bearer '.concat(oauth_access_token);
 
 			// association insert
