@@ -646,6 +646,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
     						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
     						var splitGlobalValidTo = globalResponse.data.items[j].values.validto.split(" ");
 
+    						console.dir("GLOBAL VALID FROM AND VALID TO");
+    						console.dir(splitGlobalValidFrom);
+    						console.dir(splitGlobalValidTo);
+
     						// set valid from and to
     						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom.split("/").reverse().join("-");
     						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo.split("/").reverse().join("-");
