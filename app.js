@@ -59,12 +59,12 @@ function getInstoreCodes() {
 	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
 
 
-		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
+		//console.dir("RESPONSE FROM LOOKUP PROMO CODES");
 		//console.dir(pcresponse.data.items);
 
 		instoreResponse = pcresponse;
 
-		console.dir(instoreResponse.data);
+		//console.dir(instoreResponse.data);
 
 		return instoreResponse;
 
@@ -82,12 +82,12 @@ function getGlobalCodes() {
 	var globalCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes";
 	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
 
-		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
+		//console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
 		//console.dir(gcresponse.data.items);
 
 		globalResponse = gcresponse;
 
-		console.dir(globalResponse.data);
+		//console.dir(globalResponse.data);
 		return globalResponse;
 
 
@@ -799,11 +799,12 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				data: associationPayload
 			})
 			.then(function (response) {
+				console.dir("SUCCESS POSTING CPA DATA");
 				console.dir(response.data);
 				//res.json({"success": true});
 			})
 			.catch(function (error) {
-				console.dir("error posting campaign association data");
+				console.dir("ERROR POSTING CPA DATA");
 				console.dir(error);
 				//res.json({"success": false});
 			});
