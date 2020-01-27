@@ -299,7 +299,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 		        {
 		            "property":"name",
 		            "simpleOperator":"contains",
-		            "value":"BAU"
+		            "value":"SIT"
 		        },
 		        "logicalOperator":"AND",
 		        "rightOperand":
@@ -312,7 +312,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 
 		    "sort":
 		    [
-		        { "property":"id", "direction":"ASC" }
+		        { "property":"name", "direction":"DESC" }
 		    ],
 
 		    "fields":
