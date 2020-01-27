@@ -692,27 +692,28 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         				console.dir(instoreResponse);
         			}, 3000);
         			
+        			if ( instoreResponse.data ) {
+	    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
 
-    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
+	    					if ( instoreResponse.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
 
-    					if ( instoreResponse.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+	    						var instoreValidFromDate = instoreResponse.data.items[n].values.datefrom.split("/").reverse().join("-");
+	    						var instoreValidToDate = instoreResponse.data.items[n].values.dateto.split("/").reverse().join("-");
 
-    						var instoreValidFromDate = instoreResponse.data.items[n].values.datefrom.split("/").reverse().join("-");
-    						var instoreValidToDate = instoreResponse.data.items[n].values.dateto.split("/").reverse().join("-");
+	    						// set valid from and to
+	    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
+	    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
+	    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
+	    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
 
-    						// set valid from and to
-    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
-    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
-    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
-    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
-
-    						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
-    						console.dir(promotionDescriptionData);
+	    						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
+	    						console.dir(promotionDescriptionData);
 
 
-    					}
+	    					}
 
-    				}
+	    				}
+	    			}
 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].barcode;
 
