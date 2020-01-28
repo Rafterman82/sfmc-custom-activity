@@ -844,8 +844,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 					var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
 					delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
 
-				} else {
-
 					var descriptionPayload = [{
 				        "keys": {
 				            "mc_unique_promotion_id": parseInt(descriptionKey)
@@ -868,7 +866,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 					})
 					.catch(function (error) {
 						console.dir("error posting description data");
-						console.dir(error.data);
+						console.dir(error);
 						//res.json({"success": false});
 					});
 
