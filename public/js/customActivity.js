@@ -811,9 +811,9 @@ define([
                     console.log(result.items[i].keys.couponcode);
                 }
                 // do something with `substr[i]
-                $("#global_code_1").append("<option data-attribute-validfrom=" + result.items[i].keys.validfrom + " data-attribute-validto=" + result.items[i].keys.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_2").append("<option data-attribute-validfrom=" + result.items[i].keys.validfrom + " data-attribute-validto=" + result.items[i].keys.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_3").append("<option data-attribute-validfrom=" + result.items[i].keys.validfrom + " data-attribute-validto=" + result.items[i].keys.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_1").append("<option data-attribute-validfrom=" + result.items[i].values.validfrom + " data-attribute-validto=" + result.items[i].values.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_2").append("<option data-attribute-validfrom=" + result.items[i].values.validfrom + " data-attribute-validto=" + result.items[i].values.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_3").append("<option data-attribute-validfrom=" + result.items[i].values.validfrom + " data-attribute-validto=" + result.items[i].values.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
             }
         }});
     }
@@ -834,9 +834,9 @@ define([
                     console.log(result.items[i].keys);
                 }
                 // do something with `substr[i]
-                $("#instore_code_1_instore").append("<option data-attribute-validfrom=" + result.items[i].keys.datefrom + " " + result.items[i].keys.timefrom + " data-attribute-validto=" + result.items[i].keys.dateto + " " + result.items[i].keys.timeto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_2_instore").append("<option data-attribute-validfrom=" + result.items[i].keys.datefrom + " " + result.items[i].keys.timefrom + " data-attribute-validto=" + result.items[i].keys.dateto + " " + result.items[i].keys.timeto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_3_instore").append("<option data-attribute-validfrom=" + result.items[i].keys.datefrom + " " + result.items[i].keys.timefrom + " data-attribute-validto=" + result.items[i].keys.dateto + " " + result.items[i].keys.timeto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                $("#instore_code_1_instore").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " " + result.items[i].values.timefrom + " data-attribute-validto=" + result.items[i].values.dateto + " " + result.items[i].values.timeto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                $("#instore_code_2_instore").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " " + result.items[i].values.timefrom + " data-attribute-validto=" + result.items[i].values.dateto + " " + result.items[i].values.timeto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                $("#instore_code_3_instore").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " " + result.items[i].values.timefrom + " data-attribute-validto=" + result.items[i].values.dateto + " " + result.items[i].values.timeto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
             }
         }});
     }
