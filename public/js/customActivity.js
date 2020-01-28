@@ -811,9 +811,9 @@ define([
                     console.log(result.items[i].keys.couponcode);
                 }
                 // do something with `substr[i]
-                $("#global_code_1").append("<option data-attribute-validfrom=" + result.items[i].values.validfrom + " data-attribute-validto=" + result.items[i].values.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_2").append("<option data-attribute-validfrom=" + result.items[i].values.validfrom + " data-attribute-validto=" + result.items[i].values.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_3").append("<option data-attribute-validfrom=" + result.items[i].values.validfrom + " data-attribute-validto=" + result.items[i].values.validto + " value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_1").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_2").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                $("#global_code_3").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
             }
         }});
     }
