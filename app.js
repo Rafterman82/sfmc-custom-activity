@@ -558,8 +558,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         // loop through codes and count required mc ids
         var mcLoopIncrement = mc_unique_promotion_id_increment;
 
-        var ceilingloop = 6;
-
         for ( var i = 1; i <= 6; i++) {
 
         	if ( promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code" 
@@ -568,8 +566,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         		// this row has no code
         		// set as hyphen
-        		delete promotionDescriptionData.promotions["promotion_" + i]
-        		ceilingloop--;
+        		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = "-";
+        		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = "-";
+        		campaignPromotionAssociationData["mc_id_" + i] = "-";
 
         	} else {
 
@@ -806,7 +805,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			});
 
 			// promo descriptions insert
-	    	for ( var x = 1; x <= ceilingloop; x++ ) {
+	    	for ( var x = 1; x <= 6; x++ ) {
 
 	    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode ) {
 
