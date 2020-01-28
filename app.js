@@ -46,22 +46,6 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
-function getInstoreCodes() {
-	console.dir("populate instore array");
-
-	var instoreCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/promotions";
-	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
-
-
-		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
-		console.dir(pcresponse.data.items);
-
-		var instoreResponse = pcresponse;
-
-	}).catch((error) => {
-
-	});
-}
 
 function getGlobalCodes() {
 
@@ -81,7 +65,6 @@ function getGlobalCodes() {
 }
 
 getGlobalCodes();
-getInstoreCodes();
 
 var incrementsRequest = require('request');
 var incrementOptions = {
@@ -671,31 +654,42 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			console.dir("CURRENT INSTORE RESPONSE");
-        			console.dir(instoreResponse.data);
-        			
-        			if ( instoreResponse.data ) {
-	    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
-
-	    					if ( instoreResponse.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
-
-	    						var instoreValidFromDate = instoreResponse.data.items[n].values.datefrom.split("/").reverse().join("-");
-	    						var instoreValidToDate = instoreResponse.data.items[n].values.dateto.split("/").reverse().join("-");
-
-	    						// set valid from and to
-	    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
-	    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
-	    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
-	    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
-
-	    						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
-	    						console.dir(promotionDescriptionData);
+        			var instoreCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/promotions";
+					axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
 
 
-	    					}
+						console.dir("RESPONSE FROM LOOKUP PROMO CODES");
+						console.dir(pcresponse.data.items);
 
-	    				}
-	    			}
+						var instoreResponse = pcresponse;
+
+	        			if ( instoreResponse.data ) {
+		    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
+
+		    					if ( instoreResponse.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+
+		    						var instoreValidFromDate = instoreResponse.data.items[n].values.datefrom.split("/").reverse().join("-");
+		    						var instoreValidToDate = instoreResponse.data.items[n].values.dateto.split("/").reverse().join("-");
+
+		    						// set valid from and to
+		    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
+		    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
+		    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = instoreValidFromDate + " " + instoreResponse.data.items[n].values.timefrom;
+		    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = instoreValidToDate + " " + instoreResponse.data.items[n].values.timeto;
+
+		    						console.dir("PROMOTION DATA AFTER INSTORE CODE PASS");
+		    						console.dir(promotionDescriptionData);
+
+
+		    					}
+
+		    				}
+		    			}
+
+
+					}).catch((error) => {
+
+					});
 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].barcode;
 
