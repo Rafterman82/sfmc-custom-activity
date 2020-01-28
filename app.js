@@ -56,7 +56,7 @@ function getInstoreCodes() {
 		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
 		console.dir(pcresponse.data.items);
 
-		const instoreResponse = pcresponse;
+		var instoreResponse = pcresponse;
 
 	}).catch((error) => {
 
@@ -73,7 +73,7 @@ function getGlobalCodes() {
 		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
 		console.dir(gcresponse.data.items);
 
-		const globalResponse = gcresponse;
+		var globalResponse = gcresponse;
 
 	}).catch((error) => {
 
