@@ -636,8 +636,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         			// global code selected
 
         			// lookup global voucher pot and get date
-        			//console.dir("CURRENT GLOBAL RESPONSE");
-        			//console.dir(globalResponse);
+        			console.dir("CURRENT GLOBAL RESPONSE");
+        			console.dir(globalResponse.data);
 
         			if ( globalResponse.data ) {
 	    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
@@ -806,7 +806,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			})
 			.catch(function (error) {
 				console.dir("ERROR POSTING CPA DATA");
-				console.dir(error);
+				console.dir(error.data);
 				//res.json({"success": false});
 			});
 
@@ -832,7 +832,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			})
 			.catch(function (error) {
 				console.dir("error posting increment data");
-				console.dir(error);
+				console.dir(error.data);
 				//res.json({"success": false});
 			});
 
@@ -844,6 +844,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 					var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
 					delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
 
+				} else {
+
 					var descriptionPayload = [{
 				        "keys": {
 				            "mc_unique_promotion_id": parseInt(descriptionKey)
@@ -851,6 +853,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				        "values": promotionDescriptionData.promotions["promotion_" + x]
 			    	}];
 
+			    	console.dir("DESCRIPTION JSON BEFORE POST");
 			    	console.dir(descriptionPayload);
 
 				   	axios({
@@ -865,7 +868,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 					})
 					.catch(function (error) {
 						console.dir("error posting description data");
-						console.dir(error);
+						console.dir(error.data);
 						//res.json({"success": false});
 					});
 
