@@ -581,45 +581,45 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// global code selected
 
-						// lookup global voucher pot and get date
-						var globalCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes";
-						axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
+					// lookup global voucher pot and get date
+					var globalCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes";
+					axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
 
-							console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
-							console.dir(gcresponse.data.items);
+						console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
+						console.dir(gcresponse.data.items);
 
-							var globalResponse = gcresponse;
+						var globalResponse = gcresponse;
 
-		        			if ( globalResponse.data ) {
-			    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
+	        			if ( globalResponse.data ) {
+		    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
 
-			    					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
+		    					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
 
-			    						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
-			    						var splitGlobalValidTo = globalResponse.data.items[j].values.validto.split(" ");
+		    						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
+		    						var splitGlobalValidTo = globalResponse.data.items[j].values.validto.split(" ");
 
-			    						console.dir("GLOBAL VALID FROM AND VALID TO");
-			    						console.dir(splitGlobalValidFrom);
-			    						console.dir(splitGlobalValidTo);
+		    						console.dir("GLOBAL VALID FROM AND VALID TO");
+		    						console.dir(splitGlobalValidFrom);
+		    						console.dir(splitGlobalValidTo);
 
-			    						// set valid from and to
-			    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
-			    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
-			    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
-			    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
+		    						// set valid from and to
+		    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
+		    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
+		    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
+		    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
 
-			    						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
-			    						console.dir(promotionDescriptionData);
+		    						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
+		    						console.dir(promotionDescriptionData);
 
 
-			    					}
+		    					}
 
-			    				}
-			    			}
+		    				}
+		    			}
 
-						}).catch((error) => {
+					}).catch((error) => {
 
-						});
+					});
 
 
 
@@ -655,6 +655,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 						var instoreResponse = pcresponse;
 
 	        			if ( instoreResponse.data ) {
+
+	        				console.dir("instore response present, making date changes")
 		    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
 
 		    					if ( instoreResponse.data.items[n].keys.discountid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
@@ -803,46 +805,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				console.dir(error.data);
 				//res.json({"success": false});
 			});
-
-			// promo descriptions insert
-	    	for ( var x = 1; x <= 6; x++ ) {
-
-	    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode ) {
-
-					var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
-					delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
-
-					var descriptionPayload = [{
-				        "keys": {
-				            "mc_unique_promotion_id": parseInt(descriptionKey)
-				        },
-				        "values": promotionDescriptionData.promotions["promotion_" + x]
-			    	}];
-
-			    	console.dir("DESCRIPTION JSON BEFORE POST");
-			    	console.dir(descriptionPayload);
-
-				   	axios({
-						method: 'post',
-						url: descriptionUrl,
-						headers: {'Authorization': authToken},
-						data: descriptionPayload
-					})
-					.then(function (response) {
-
-						//console.dir(response.data);
-						console.dir("PROMO DESC WAS POSTED")
-						//res.json({"success": true});
-					})
-					.catch(function (error) {
-						console.dir("error posting description data");
-						console.dir(error.data.message);
-						//res.json({"success": false});
-					});
-
-	    		}
-
-	    	}
 	    	
         	var communicationCellKey = communicationCellData.communication_cell_id;
         	delete communicationCellData.communication_cell_id;
@@ -900,7 +862,50 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				console.dir("error posting comm cell data");
 				console.dir(error);
 				//res.json({"success": false});
-			});	    	
+			});
+
+
+			setTimeout(function(){
+				// promo descriptions insert
+		    	for ( var x = 1; x <= 6; x++ ) {
+
+		    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode ) {
+
+						var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
+						delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
+
+						var descriptionPayload = [{
+					        "keys": {
+					            "mc_unique_promotion_id": parseInt(descriptionKey)
+					        },
+					        "values": promotionDescriptionData.promotions["promotion_" + x]
+				    	}];
+
+				    	console.dir("DESCRIPTION JSON BEFORE POST");
+				    	console.dir(descriptionPayload);
+
+					   	axios({
+							method: 'post',
+							url: descriptionUrl,
+							headers: {'Authorization': authToken},
+							data: descriptionPayload
+						})
+						.then(function (response) {
+
+							//console.dir(response.data);
+							console.dir("PROMO DESC WAS POSTED")
+							//res.json({"success": true});
+						})
+						.catch(function (error) {
+							console.dir("error posting description data");
+							console.dir(error.data.message);
+							//res.json({"success": false});
+						});
+
+		    		}
+
+		    	}				
+			}, 3000);	
 
 		})	
 		.catch(function (error) {
