@@ -13,7 +13,6 @@ var activity    		= require('./routes/activity');
 var urlencodedparser 	= bodyParser.urlencoded({extended:false});
 var app 				= express();
 var local       		= false;
-const
 
 // access Heroku variables
 if ( !local ) {
