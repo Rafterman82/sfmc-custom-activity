@@ -839,7 +839,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			// promo descriptions insert
 	    	for ( var x = 1; x <=6; x++ ) {
 
-	    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode != "no-code" ) {
+	    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode ) {
 
 					var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
 					delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
@@ -871,8 +871,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 						console.dir(error.data.message);
 						//res.json({"success": false});
 					});
-
-	    		} else {
 
 	    		}
 
