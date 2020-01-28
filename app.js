@@ -46,26 +46,6 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
-
-function getGlobalCodes() {
-
-	
-	// lookup global voucher pot and get date
-	var globalCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes";
-	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
-
-		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
-		console.dir(gcresponse.data.items);
-
-		var globalResponse = gcresponse;
-
-	}).catch((error) => {
-
-	});
-}
-
-getGlobalCodes();
-
 var incrementsRequest = require('request');
 var incrementOptions = {
     url : 'https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/increments'
@@ -578,6 +558,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         // loop through codes and count required mc ids
         var mcLoopIncrement = mc_unique_promotion_id_increment;
 
+        var ceilingloop = 6;
+
         for ( var i = 1; i <= 6; i++) {
 
         	if ( promotionDescriptionData.promotions["promotion_" + i].global_code === "no-code" 
@@ -586,9 +568,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         		// this row has no code
         		// set as hyphen
-        		promotionDescriptionData.promotions["promotion_" + i].mc_unique_promotion_id = "-";
-        		promotionDescriptionData.promotions["promotion_" + i].communication_cell_id = "-";
-        		campaignPromotionAssociationData["mc_id_" + i] = "-";
+        		delete promotionDescriptionData.promotions["promotion_" + i]
+        		ceilingloop--;
 
         	} else {
 
@@ -601,36 +582,47 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// global code selected
 
-        			// lookup global voucher pot and get date
-        			console.dir("CURRENT GLOBAL RESPONSE");
-        			console.dir(globalResponse.data);
+						// lookup global voucher pot and get date
+						var globalCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes";
+						axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
 
-        			if ( globalResponse.data ) {
-	    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
+							console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
+							console.dir(gcresponse.data.items);
 
-	    					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
+							var globalResponse = gcresponse;
 
-	    						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
-	    						var splitGlobalValidTo = globalResponse.data.items[j].values.validto.split(" ");
+		        			if ( globalResponse.data ) {
+			    				for ( var j = 0; j < globalResponse.data.items.length; j++ ) {
 
-	    						console.dir("GLOBAL VALID FROM AND VALID TO");
-	    						console.dir(splitGlobalValidFrom);
-	    						console.dir(splitGlobalValidTo);
+			    					if ( globalResponse.data.items[j].keys.couponcode == promotionDescriptionData.promotions["promotion_" + i].global_code ) {
 
-	    						// set valid from and to
-	    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
-	    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
-	    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
-	    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
+			    						var splitGlobalValidFrom = globalResponse.data.items[j].values.validfrom.split(" ");
+			    						var splitGlobalValidTo = globalResponse.data.items[j].values.validto.split(" ");
 
-	    						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
-	    						console.dir(promotionDescriptionData);
+			    						console.dir("GLOBAL VALID FROM AND VALID TO");
+			    						console.dir(splitGlobalValidFrom);
+			    						console.dir(splitGlobalValidTo);
+
+			    						// set valid from and to
+			    						promotionDescriptionData.promotions["promotion_" + i].valid_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
+			    						promotionDescriptionData.promotions["promotion_" + i].valid_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
+			    						promotionDescriptionData.promotions["promotion_" + i].visible_from_datetime = splitGlobalValidFrom[0].split("/").reverse().join("-");
+			    						promotionDescriptionData.promotions["promotion_" + i].visible_to_datetime = splitGlobalValidTo[0].split("/").reverse().join("-");
+
+			    						console.dir("PROMOTION DATA AFTER GLOBAL CODE PASS");
+			    						console.dir(promotionDescriptionData);
 
 
-	    					}
+			    					}
 
-	    				}
-	    			}
+			    				}
+			    			}
+
+						}).catch((error) => {
+
+						});
+
+
 
         			// update barcode 
         			promotionDescriptionData.promotions["promotion_" + i].barcode = promotionDescriptionData.promotions["promotion_" + i].global_code;
@@ -814,7 +806,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			});
 
 			// promo descriptions insert
-	    	for ( var x = 1; x <=6; x++ ) {
+	    	for ( var x = 1; x <= ceilingloop; x++ ) {
 
 	    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode ) {
 
