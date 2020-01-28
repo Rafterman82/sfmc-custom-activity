@@ -13,6 +13,7 @@ var activity    		= require('./routes/activity');
 var urlencodedparser 	= bodyParser.urlencoded({extended:false});
 var app 				= express();
 var local       		= false;
+const
 
 // access Heroku variables
 if ( !local ) {
@@ -46,12 +47,6 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
-var instoreResponse;
-var globalResponse;
-
-getGlobalCodes();
-getInstoreCodes();
-
 function getInstoreCodes() {
 	console.dir("populate instore array");
 
@@ -59,19 +54,13 @@ function getInstoreCodes() {
 	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/promotions").then(pcresponse => {
 
 
-		//console.dir("RESPONSE FROM LOOKUP PROMO CODES");
-		//console.dir(pcresponse.data.items);
+		console.dir("RESPONSE FROM LOOKUP PROMO CODES");
+		console.dir(pcresponse.data.items);
 
-		instoreResponse = pcresponse;
-
-		//console.dir(instoreResponse.data);
-
-		return instoreResponse;
-
+		const instoreResponse = pcresponse;
 
 	}).catch((error) => {
-		console.dir('error looking up promotion codes in add statement ' + error);
-		//res.json({"success": false});
+
 	});
 }
 
@@ -82,20 +71,18 @@ function getGlobalCodes() {
 	var globalCodesUrl = "https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes";
 	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/globalcodes").then(gcresponse => {
 
-		//console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
-		//console.dir(gcresponse.data.items);
+		console.dir("RESPONSE FROM LOOKUP GLOBAL CODES");
+		console.dir(gcresponse.data.items);
 
-		globalResponse = gcresponse;
-
-		//console.dir(globalResponse.data);
-		return globalResponse;
-
+		const globalResponse = gcresponse;
 
 	}).catch((error) => {
-		console.dir('error getting global codes in add statement ' + error);
-		//res.json({"success": false});
+
 	});
 }
+
+getGlobalCodes();
+getInstoreCodes();
 
 var incrementsRequest = require('request');
 var incrementOptions = {
@@ -105,7 +92,6 @@ incrementsRequest.get(incrementOptions, function (error, response, body) {
     //Handle error, and body
 
 });
-
 
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
@@ -168,7 +154,6 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	    axios.get(getUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        //console.dir(response.data);
-	        instoreResponse = response;
 	        res.json(response.data);
 	    }).catch((error) => {
 	        console.dir('error getting promotions' + error);
@@ -204,7 +189,6 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 	    axios.get(sitVoucherPotUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        //console.dir(response.data);
-	        globalResponse = response;
 	        res.json(response.data);
 
 	    }).catch((error) => {
