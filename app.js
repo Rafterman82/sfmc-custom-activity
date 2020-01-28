@@ -688,8 +688,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
         			// instore code selected
 
-        			//console.dir("CURRENT INSTORE RESPONSE");
-        			//console.dir(instoreResponse);
+        			console.dir("CURRENT INSTORE RESPONSE");
+        			console.dir(instoreResponse.data);
         			
         			if ( instoreResponse.data ) {
 	    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
@@ -861,14 +861,18 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 						data: descriptionPayload
 					})
 					.then(function (response) {
-						console.dir(response.data);
+
+						//console.dir(response.data);
+						console.dir("PROMO DESC WAS POSTED")
 						//res.json({"success": true});
 					})
 					.catch(function (error) {
 						console.dir("error posting description data");
-						console.dir(error);
+						console.dir(error.data.message);
 						//res.json({"success": false});
 					});
+
+	    		} else {
 
 	    		}
 
