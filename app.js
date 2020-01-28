@@ -666,7 +666,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	        			if ( instoreResponse.data ) {
 		    				for ( var n = 0; n < instoreResponse.data.items.length; n++ ) {
 
-		    					if ( instoreResponse.data.items[n].keys.discountmediaid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
+		    					if ( instoreResponse.data.items[n].keys.discountid == promotionDescriptionData.promotions["promotion_" + i].barcode ) {
 
 		    						var instoreValidFromDate = instoreResponse.data.items[n].values.datefrom.split("/").reverse().join("-");
 		    						var instoreValidToDate = instoreResponse.data.items[n].values.dateto.split("/").reverse().join("-");
