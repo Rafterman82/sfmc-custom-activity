@@ -869,7 +869,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 				// promo descriptions insert
 		    	for ( var x = 1; x <= 6; x++ ) {
 
-		    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode ) {
+		    		if ( promotionDescriptionData.promotions["promotion_" + x].barcode && promotionDescriptionData.promotions["promotion_" + x].barcode != "no-code") {
 
 						var descriptionKey = promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
 						delete promotionDescriptionData.promotions["promotion_" + x].mc_unique_promotion_id;
@@ -893,7 +893,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 						.then(function (response) {
 
 							//console.dir(response.data);
-							console.dir("PROMO DESC WAS POSTED")
+							console.dir("PROMO DESC WAS POSTED");
+							console.dir(descriptionUrl);
 							//res.json({"success": true});
 						})
 						.catch(function (error) {
