@@ -415,7 +415,7 @@ app.post("/dataextension/lookup/voucherpots", urlencodedparser, function (req, r
 // insert data into data extension
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
 	
-	c//onsole.dir("Request Body is ");
+	//onsole.dir("Request Body is ");
 	//console.dir(req.body);
 
 	var communicationCellData = {
