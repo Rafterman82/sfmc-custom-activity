@@ -515,7 +515,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime 	= newValidTo;
 
 			delete promotionDescriptionData.promotions["promotion_" + d].visiblefrom;
-			promotionDescriptionData.promotions["promotion_" + d].visblefrom = newValidFrom;
+			promotionDescriptionData.promotions["promotion_" + d].visiblefrom = newValidFrom;
 
 			delete promotionDescriptionData.promotions["promotion_" + d].visibleto;
 			promotionDescriptionData.promotions["promotion_" + d].visibleto	= newValidTo;
