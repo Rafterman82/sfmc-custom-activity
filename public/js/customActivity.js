@@ -1359,8 +1359,14 @@ define([
 
         // online global code setup
         var globalCode1                 = $(step1Selector +  " #global_code_1").val();
+        var globalCode1ValidFrom        = $(step2Selector +  " #global_code_1 option:selected").attr("data-attribute-validfrom");
+        var globalCode1ValidTo          = $(step2Selector +  " #global_code_1 option:selected").attr("data-attribute-validto");
         var globalCode2                 = $(step1Selector +  " #global_code_2").val();
+        var globalCode2ValidFrom        = $(step2Selector +  " #global_code_2 option:selected").attr("data-attribute-validfrom");
+        var globalCode2ValidTo          = $(step2Selector +  " #global_code_2 option:selected").attr("data-attribute-validto");
         var globalCode3                 = $(step1Selector +  " #global_code_3").val();
+        var globalCode3ValidFrom        = $(step2Selector +  " #global_code_3 option:selected").attr("data-attribute-validfrom");
+        var globalCode3ValidTo          = $(step2Selector +  " #global_code_3 option:selected").attr("data-attribute-validto");
 
         // online override dates
         var overrideOnlineDatesCode1          = $(step1Selector +  " #online_code_date_override_1").val();
@@ -1382,8 +1388,14 @@ define([
 
         // online global code setup
         var instoreCode1                = $(step2Selector +  " #instore_code_1_instore").val();
+        var instoreCode1ValidFrom       = $(step2Selector +  " #instore_code_1_instore option:selected").attr("data-attribute-validfrom");
+        var instoreCode1ValidTo         = $(step2Selector +  " #instore_code_1_instore option:selected").attr("data-attribute-validto");
         var instoreCode2                = $(step2Selector +  " #instore_code_2_instore").val();
+        var instoreCode2ValidFrom       = $(step2Selector +  " #instore_code_2_instore option:selected").attr("data-attribute-validfrom");
+        var instoreCode2ValidTo         = $(step2Selector +  " #instore_code_2_instore option:selected").attr("data-attribute-validto");
         var instoreCode3                = $(step2Selector +  " #instore_code_3_instore").val();
+        var instoreCode3ValidFrom       = $(step2Selector +  " #instore_code_3_instore option:selected").attr("data-attribute-validfrom");
+        var instoreCode3ValidTo         = $(step2Selector +  " #instore_code_3_instore option:selected").attr("data-attribute-validto");
 
         // instore override dates
         var overrideInstoreDatesCode1          = $(step2Selector +  " #instore_code_date_override_1").val();
@@ -1428,6 +1440,13 @@ define([
             "global_code_2"                     : globalCode2,
             "global_code_3"                     : globalCode3,
 
+            "global_code_1_validfrom"           : global_code_1_validfrom,
+            "global_code_1_validto"             : global_code_1_validto,
+            "global_code_2_validfrom"           : global_code_2_validfrom,
+            "global_code_2_validto"             : global_code_2_validto,
+            "global_code_3_validfrom"           : global_code_3_validfrom,
+            "global_code_3_validto"             : global_code_3_validto,
+
             "online_code_date_override_1"       : overrideOnlineDatesCode1,
             "online_code_date_override_2"       : overrideOnlineDatesCode2,
             "online_code_date_override_3"       : overrideOnlineDatesCode3,
@@ -1445,6 +1464,16 @@ define([
             "instore_code_1"                    : instoreCode1,
             "instore_code_2"                    : instoreCode2,
             "instore_code_3"                    : instoreCode3,
+
+            "instore_code_1_validfrom"          : instore_code_1_validfrom,
+            "instore_code_1_validto"            : instore_code_1_validto,
+
+            "instore_code_2_validfrom"          : instore_code_2_validfrom,
+            "instore_code_2_validto"            : instore_code_2_validto,
+
+            "instore_code_3_validfrom"          : instore_code_3_validfrom,
+            "instore_code_3_validto"            : instore_code_3_validto,
+
 
             "instore_code_date_override_1"       : overrideInstoreDatesCode1,
             "instore_code_date_override_2"       : overrideInstoreDatesCode2,
