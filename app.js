@@ -504,13 +504,24 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		// check each date if present flip
 		if ( promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime ) {
 
+			var newValidFrom 	= promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime.split("/").reverse().join("-");
+			var newValidTo 		= promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime.split("/").reverse().join("-");
+
 			// flip all dates in this child object
-			promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime 	= promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime.split("/").reverse().join("-");
-			promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime 	= promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime.split("/").reverse().join("-");
-			promotionDescriptionData.promotions["promotion_" + d].visbile_from_datetime = promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime.split("/").reverse().join("-");
-			promotionDescriptionData.promotions["promotion_" + d].visible_to_datetime 	= promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime.split("/").reverse().join("-");
+			delete promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime;
+			promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime 	= newValidFrom;
+
+			delete promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime;
+			promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime 	= newValidTo;
+
+			delete promotionDescriptionData.promotions["promotion_" + d].visible_from_datetime;
+			promotionDescriptionData.promotions["promotion_" + d].visbile_from_datetime = newValidFrom;
+
+			delete promotionDescriptionData.promotions["promotion_" + d].visible_to_datetime;
+			promotionDescriptionData.promotions["promotion_" + d].visible_to_datetime 	= newValidTo;
 
 		}
+
 		console.dir("Promo objects after date tweak:");
 		console.dir(promotionDescriptionData.promotions["promotion_" + d]);
 
