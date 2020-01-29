@@ -21,14 +21,16 @@ if ( !local ) {
 	  clientId: 								process.env.clientId,
 	  clientSecret: 							process.env.clientSecret,
 	  restUrl: 									process.env.restUrl,
+	  appUrl: 									process.env.baseUrl,
 	  promotionsListDataExtension: 				process.env.promotionsListDataExtension,
 	  controlGroupsDataExtension: 				process.env.controlGroupsDataExtension,
 	  voucherPotsDataExtension: 				process.env.voucherPotsDataExtension,
 	  insertDataExtension: 						process.env.insertDataExtension,
-	  sitVoucherPot: 							process.env.sitVoucherPot,
+	  globalVoucherPot: 						process.env.globalVoucherPot,
 	  promotionIncrementExtension:  			process.env.promotionIncrementExtension,
 	  communicationCellDataExtension: 			process.env.communicationCellDataExtension,
-	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension
+	  promotionDescriptionDataExtension: 		process.env.promotionDescriptionDataExtension,
+	  templateFilter: 							process.env.templateFilter 
 	};
 	console.dir(marketingCloud);
 }
@@ -48,7 +50,7 @@ if ('development' == app.get('env')) {
 
 var incrementsRequest = require('request');
 var incrementOptions = {
-    url : 'https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/increments'
+    url : marketingCloud.appUrl + 'dataextension/lookup/increments'
 };
 incrementsRequest.get(incrementOptions, function (error, response, body) {
     //Handle error, and body
@@ -146,9 +148,9 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 		//return response.data.access_token;
 		//console.dir(oauth_access_token);
 		const authToken = 'Bearer '.concat(oauth_access_token);
-	    var sitVoucherPotUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.sitVoucherPot + "/rowset";
-	    console.dir(sitVoucherPotUrl);
-	    axios.get(sitVoucherPotUrl, { headers: { Authorization: authToken } }).then(response => {
+	    var globalVoucherPotUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.globalVoucherPot + "/rowset";
+	    console.dir(globalVoucherPotUrl);
+	    axios.get(globalVoucherPotUrl, { headers: { Authorization: authToken } }).then(response => {
 	        // If request is good...
 	        //console.dir(response.data);
 	        res.json(response.data);
@@ -251,7 +253,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 		        {
 		            "property":"name",
 		            "simpleOperator":"contains",
-		            "value":"SIT"
+		            "value": marketingCloud.templateFilter
 		        },
 		        "logicalOperator":"AND",
 		        "rightOperand":
@@ -496,6 +498,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	for ( var d = 1; d <= 6; d++) {
 
+		console.dir("Promo objects are:");
+		console.dir(promotionDescriptionData.promotions["promotion_" + d]);
+
 		// check each date if present flip
 		if ( promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime ) {
 
@@ -506,7 +511,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			promotionDescriptionData.promotions["promotion_" + d].visible_to_datetime 	= promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime.split("/").reverse().join("-");
 
 		}
-
+		console.dir("Promo objects after date tweak:");
+		console.dir(promotionDescriptionData.promotions["promotion_" + d]);
 
 	}
 
@@ -569,7 +575,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 
 	};
 
-   	axios.get("https://mc-jb-custom-activity-ca-sit.herokuapp.com/dataextension/lookup/increments").then(response => {
+   	axios.get(marketingCloud.appUrl + "dataextension/lookup/increments").then(response => {
         
         // If request is good...
         console.dir(response.data.items);
@@ -615,9 +621,6 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         	} else {
 
         		// this row has a code
-
-        		console.dir("THE CURRENT PROMOTION OBJECT BEFORE DATE ALTERATION IS");
-        		console.dir(promotionDescriptionData.promotions["promotion_" + i]);
 
         		if ( promotionDescriptionData.promotions["promotion_" + i].global_code != "no-code" && promotionDescriptionData.promotions["promotion_" + i].voucher_pot === "no-code") {
 
