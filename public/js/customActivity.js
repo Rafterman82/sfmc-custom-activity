@@ -1440,12 +1440,12 @@ define([
             "global_code_2"                     : globalCode2,
             "global_code_3"                     : globalCode3,
 
-            "global_code_1_validfrom"           : global_code_1_validfrom,
-            "global_code_1_validto"             : global_code_1_validto,
-            "global_code_2_validfrom"           : global_code_2_validfrom,
-            "global_code_2_validto"             : global_code_2_validto,
-            "global_code_3_validfrom"           : global_code_3_validfrom,
-            "global_code_3_validto"             : global_code_3_validto,
+            "global_code_1_validfrom"           : globalCode1ValidFrom,
+            "global_code_1_validto"             : globalCode1ValidTo,
+            "global_code_2_validfrom"           : globalCode2ValidFrom,
+            "global_code_2_validto"             : globalCode2ValidTo,
+            "global_code_3_validfrom"           : globalCode3ValidFrom,
+            "global_code_3_validto"             : globalCode3ValidTo,
 
             "online_code_date_override_1"       : overrideOnlineDatesCode1,
             "online_code_date_override_2"       : overrideOnlineDatesCode2,
@@ -1465,14 +1465,12 @@ define([
             "instore_code_2"                    : instoreCode2,
             "instore_code_3"                    : instoreCode3,
 
-            "instore_code_1_validfrom"          : instore_code_1_validfrom,
-            "instore_code_1_validto"            : instore_code_1_validto,
-
-            "instore_code_2_validfrom"          : instore_code_2_validfrom,
-            "instore_code_2_validto"            : instore_code_2_validto,
-
-            "instore_code_3_validfrom"          : instore_code_3_validfrom,
-            "instore_code_3_validto"            : instore_code_3_validto,
+            "instore_code_1_validfrom"          : instoreCode1ValidFrom,
+            "instore_code_1_validto"            : instoreCode1ValidTo,
+            "instore_code_2_validfrom"          : instoreCode2ValidFrom,
+            "instore_code_2_validto"            : instoreCode2ValidTo,
+            "instore_code_3_validfrom"          : instoreCode3ValidFrom,
+            "instore_code_3_validto"            : instoreCode3ValidTo,
 
 
             "instore_code_date_override_1"       : overrideInstoreDatesCode1,
