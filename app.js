@@ -403,9 +403,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		"promotion_id"       			: req.body.promotion_id_online,
         		"promotion_group_id" 			: req.body.promotion_group_id_online,
         		"valid_from_datetime"			: req.body.global_code_1_validfrom,
-        		"valid_to__datetime"			: req.body.global_code_1_validto,
+        		"valid_to_datetime"				: req.body.global_code_1_validto,
         		"visible_from_datetime"			: req.body.global_code_1_validfrom,
-        		"visible_to__datetime"			: req.body.global_code_1_validto
+        		"visible_to_datetime"			: req.body.global_code_1_validto
 
 			},
 			"promotion_2": {
@@ -420,9 +420,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		"promotion_id"       			: req.body.promotion_id_online,
         		"promotion_group_id" 			: req.body.promotion_group_id_online,
         		"valid_from_datetime"			: req.body.global_code_2_validfrom,
-        		"valid_to__datetime"			: req.body.global_code_2_validto,
+        		"valid_to_datetime"				: req.body.global_code_2_validto,
         		"visible_from_datetime"			: req.body.global_code_2_validfrom,
-        		"visible_to__datetime"			: req.body.global_code_2_validto
+        		"visible_to_datetime"			: req.body.global_code_2_validto
 			},
 			"promotion_3": {
 				"offer_channel"					: "Online",
@@ -436,9 +436,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		"promotion_id"       			: req.body.promotion_id_online,
         		"promotion_group_id" 			: req.body.promotion_group_id_online,
         		"valid_from_datetime"			: req.body.global_code_3_validfrom,
-        		"valid_to__datetime"			: req.body.global_code_3_validto,
+        		"valid_to_datetime"				: req.body.global_code_3_validto,
         		"visible_from_datetime"			: req.body.global_code_3_validfrom,
-        		"visible_to__datetime"			: req.body.global_code_3_validto
+        		"visible_to_datetime"			: req.body.global_code_3_validto
 			},			
 			"promotion_4": {
 				"offer_channel"					: "Store",
@@ -452,9 +452,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		        "promotion_id"      			: req.body.promotion_id_instore,
 		        "promotion_group_id"			: req.body.promotion_group_id_instore,
         		"valid_from_datetime"			: req.body.instore_code_1_validfrom,
-        		"valid_to__datetime"			: req.body.instore_code_1_validto,
+        		"valid_to_datetime"				: req.body.instore_code_1_validto,
         		"visible_from_datetime"			: req.body.instore_code_1_validfrom,
-        		"visible_to__datetime"			: req.body.instore_code_1_validto
+        		"visible_to_datetime"			: req.body.instore_code_1_validto
 			},
 			"promotion_5": {
 				"offer_channel"					: "Store",
@@ -468,9 +468,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		        "promotion_id"      			: req.body.promotion_id_instore,
 		        "promotion_group_id"			: req.body.promotion_group_id_instore,
         		"valid_from_datetime"			: req.body.instore_code_2_validfrom,
-        		"valid_to__datetime"			: req.body.instore_code_2_validto,
+        		"valid_to_datetime"				: req.body.instore_code_2_validto,
         		"visible_from_datetime"			: req.body.instore_code_2_validfrom,
-        		"visible_to__datetime"			: req.body.instore_code_2_validto
+        		"visible_to_datetime"			: req.body.instore_code_2_validto
 			},
 			"promotion_6": {
 				"offer_channel"					: "Store",
@@ -484,9 +484,9 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		        "promotion_id"      			: req.body.promotion_id_instore,
 		        "promotion_group_id"			: req.body.promotion_group_id_instore,
         		"valid_from_datetime"			: req.body.instore_code_3_validfrom,
-        		"valid_to__datetime"			: req.body.instore_code_3_validto,
+        		"valid_to_datetime"				: req.body.instore_code_3_validto,
         		"visible_from_datetime"			: req.body.instore_code_3_validfrom,
-        		"visible_to__datetime"			: req.body.instore_code_3_validto
+        		"visible_to_datetime"			: req.body.instore_code_3_validto
 			}	
 		}
 
