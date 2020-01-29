@@ -388,6 +388,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         "is_putput_flag"			: "0"
 	};
 
+
+
 	var promotionDescriptionData = {
 
 		"promotions": {
@@ -402,10 +404,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		"offer_medium"       			: req.body.offer_medium_online,
         		"promotion_id"       			: req.body.promotion_id_online,
         		"promotion_group_id" 			: req.body.promotion_group_id_online,
-        		"valid_from_datetime"			: req.body.global_code_1_validfrom,
-        		"valid_to_datetime"				: req.body.global_code_1_validto,
-        		"visible_from_datetime"			: req.body.global_code_1_validfrom,
-        		"visible_to_datetime"			: req.body.global_code_1_validto
+        		"valid_from_datetime"			: req.body.global_code_1_validfrom.split("/").reverse().join("-"),
+        		"valid_to_datetime"				: req.body.global_code_1_validto.split("/").reverse().join("-"),
+        		"visible_from_datetime"			: req.body.global_code_1_validfrom.split("/").reverse().join("-"),
+        		"visible_to_datetime"			: req.body.global_code_1_validto.split("/").reverse().join("-")
 
 			},
 			"promotion_2": {
@@ -419,10 +421,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		"offer_medium"       			: req.body.offer_medium_online,
         		"promotion_id"       			: req.body.promotion_id_online,
         		"promotion_group_id" 			: req.body.promotion_group_id_online,
-        		"valid_from_datetime"			: req.body.global_code_2_validfrom,
-        		"valid_to_datetime"				: req.body.global_code_2_validto,
-        		"visible_from_datetime"			: req.body.global_code_2_validfrom,
-        		"visible_to_datetime"			: req.body.global_code_2_validto
+        		"valid_from_datetime"			: req.body.global_code_2_validfrom.split("/").reverse().join("-"),
+        		"valid_to_datetime"				: req.body.global_code_2_validto.split("/").reverse().join("-"),
+        		"visible_from_datetime"			: req.body.global_code_2_validfrom.split("/").reverse().join("-"),
+        		"visible_to_datetime"			: req.body.global_code_2_validto.split("/").reverse().join("-")
 			},
 			"promotion_3": {
 				"offer_channel"					: "Online",
@@ -435,10 +437,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
         		"offer_medium"       			: req.body.offer_medium_online,
         		"promotion_id"       			: req.body.promotion_id_online,
         		"promotion_group_id" 			: req.body.promotion_group_id_online,
-        		"valid_from_datetime"			: req.body.global_code_3_validfrom,
-        		"valid_to_datetime"				: req.body.global_code_3_validto,
-        		"visible_from_datetime"			: req.body.global_code_3_validfrom,
-        		"visible_to_datetime"			: req.body.global_code_3_validto
+        		"valid_from_datetime"			: req.body.global_code_3_validfrom.split("/").reverse().join("-"),
+        		"valid_to_datetime"				: req.body.global_code_3_validto.split("/").reverse().join("-"),
+        		"visible_from_datetime"			: req.body.global_code_3_validfrom.split("/").reverse().join("-"),
+        		"visible_to_datetime"			: req.body.global_code_3_validto.split("/").reverse().join("-")
 			},			
 			"promotion_4": {
 				"offer_channel"					: "Store",
@@ -451,10 +453,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		        "offer_medium" 			     	: req.body.offer_medium_instore,
 		        "promotion_id"      			: req.body.promotion_id_instore,
 		        "promotion_group_id"			: req.body.promotion_group_id_instore,
-        		"valid_from_datetime"			: req.body.instore_code_1_validfrom,
-        		"valid_to_datetime"				: req.body.instore_code_1_validto,
-        		"visible_from_datetime"			: req.body.instore_code_1_validfrom,
-        		"visible_to_datetime"			: req.body.instore_code_1_validto
+        		"valid_from_datetime"			: req.body.instore_code_1_validfrom.split("/").reverse().join("-"),
+        		"valid_to_datetime"				: req.body.instore_code_1_validto.split("/").reverse().join("-"),
+        		"visible_from_datetime"			: req.body.instore_code_1_validfrom.split("/").reverse().join("-"),
+        		"visible_to_datetime"			: req.body.instore_code_1_validto.split("/").reverse().join("-")
 			},
 			"promotion_5": {
 				"offer_channel"					: "Store",
@@ -467,10 +469,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		        "offer_medium"      			: req.body.offer_medium_instore,
 		        "promotion_id"      			: req.body.promotion_id_instore,
 		        "promotion_group_id"			: req.body.promotion_group_id_instore,
-        		"valid_from_datetime"			: req.body.instore_code_2_validfrom,
-        		"valid_to_datetime"				: req.body.instore_code_2_validto,
-        		"visible_from_datetime"			: req.body.instore_code_2_validfrom,
-        		"visible_to_datetime"			: req.body.instore_code_2_validto
+        		"valid_from_datetime"			: req.body.instore_code_2_validfrom.split("/").reverse().join("-"),
+        		"valid_to_datetime"				: req.body.instore_code_2_validto.split("/").reverse().join("-"),
+        		"visible_from_datetime"			: req.body.instore_code_2_validfrom.split("/").reverse().join("-"),
+        		"visible_to_datetime"			: req.body.instore_code_2_validto.split("/").reverse().join("-")
 			},
 			"promotion_6": {
 				"offer_channel"					: "Store",
@@ -483,10 +485,10 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 		        "offer_medium"      			: req.body.offer_medium_instore,
 		        "promotion_id"      			: req.body.promotion_id_instore,
 		        "promotion_group_id"			: req.body.promotion_group_id_instore,
-        		"valid_from_datetime"			: req.body.instore_code_3_validfrom,
-        		"valid_to_datetime"				: req.body.instore_code_3_validto,
-        		"visible_from_datetime"			: req.body.instore_code_3_validfrom,
-        		"visible_to_datetime"			: req.body.instore_code_3_validto
+        		"valid_from_datetime"			: req.body.instore_code_3_validfrom.split("/").reverse().join("-"),
+        		"valid_to_datetime"				: req.body.instore_code_3_validto.split("/").reverse().join("-"),
+        		"visible_from_datetime"			: req.body.instore_code_3_validfrom.split("/").reverse().join("-"),
+        		"visible_to_datetime"			: req.body.instore_code_3_validto.split("/").reverse().join("-")
 			}	
 		}
 
