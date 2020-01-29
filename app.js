@@ -502,8 +502,8 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			// flip all dates in this child object
 			promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime 	= promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime.split("/").reverse().join("-");
 			promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime 	= promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime.split("/").reverse().join("-");
-			promotionDescriptionData.promotions["promotion_" + d].visbile_from_datetime = promotionDescriptionData.promotions["promotion_" + d].visible_from_datetime.split("/").reverse().join("-");
-			promotionDescriptionData.promotions["promotion_" + d].visible_to_datetime 	= promotionDescriptionData.promotions["promotion_" + d].visible_to_datetime.split("/").reverse().join("-");
+			promotionDescriptionData.promotions["promotion_" + d].visbile_from_datetime = promotionDescriptionData.promotions["promotion_" + d].valid_from_datetime.split("/").reverse().join("-");
+			promotionDescriptionData.promotions["promotion_" + d].visible_to_datetime 	= promotionDescriptionData.promotions["promotion_" + d].valid_to_datetime.split("/").reverse().join("-");
 
 		}
 
