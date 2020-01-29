@@ -51,6 +51,7 @@ define([
         lookupVoucherPots();
         lookupControlGroups();
         loadEvents();
+        setGlobalCodeBlock();
     }
 
     function initialize (data) {
@@ -793,6 +794,10 @@ define([
 
     function isValidInstoreCode(selectedCode) {
         return selectedCode !== 'Please select a code' && selectedCode != '';
+    }
+
+    function setGlobalCodeBlock() {
+        $("#show_global_codes").show();
     }
 
     function lookupGlobalCodes() {
