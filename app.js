@@ -753,7 +753,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 			})
 			.catch(function (error) {
 				console.dir("ERROR POSTING CPA DATA");
-				console.dir(error.data);
+				console.dir(error);
 				//res.json({"success": false});
 			});
 
