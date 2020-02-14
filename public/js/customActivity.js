@@ -285,7 +285,7 @@ define([
             if ( 
                 !$("#global_code_1").val() && !$("#voucher_pot_1").val() || 
                 $("#global_code_1").val() == 'no-code' && $("#voucher_pot_1").val() == 'no-code' || 
-                !$("#promotion_id_online").val() || 
+                !$("#promotion_id_1").val() || 
                 !$("#promotion_group_id_online").val() ) {
 
                 return false;
@@ -298,9 +298,9 @@ define([
         } else if ( stepToValidate == 2 ) {
 
             if ( 
-                !$("#instore_code_1_instore").val() || 
-                $("#instore_code_1_instore").val() == 'no-code' || 
-                !$("#promotion_id_instore").val() || 
+                !$("#instore_code_1").val() || 
+                $("#instore_code_1").val() == 'no-code' || 
+                !$("#promotion_id_5").val() || 
                 !$("#promotion_group_id_instore").val() ) {
 
                 return false;
@@ -330,11 +330,11 @@ define([
         var elementLength = $(element).attr("data-attribute-length");
         var elementType = $(element).attr("data-attribute-type");
 
-        if ( elementId == "promotion_id_online" ) {
+        if ( elementId == "promotion_id_1" ) {
 
             $("#promotion_group_id_online").val(elementValue);
 
-        } else if ( elementId == "promotion_id_instore" ) {
+        } else if ( elementId == "promotion_id_6" ) {
 
             $("#promotion_group_id_instore").val(elementValue);
 
