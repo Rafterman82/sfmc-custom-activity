@@ -35,3 +35,6 @@ body {
 .slds-scoped-notification {
 	width:100%;
 }
+.sfmc-input {
+	margin-bottom:5px;
+}
