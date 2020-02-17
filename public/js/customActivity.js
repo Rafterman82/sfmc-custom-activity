@@ -90,6 +90,77 @@ define([
                 console.log("inside if statement i.e. promotion key is present")
             }
             // argument data present, pre pop and redirect to summary page
+            var prepopPromotionType = argumentsSummaryPayload.buildPayload.promotion_type;
+
+            if ( debug ) {
+                console.log("prepopPromotionType is");
+                console.log(prepopPromotionType);
+            }
+
+            var prePop;
+
+            if ( prepopPromotionType == 'online' ) {
+                prePop = 'online';
+                prePopulateFields(prePop, argumentsSummaryPayload);
+                updateSummaryPage(argumentsSummaryPayload.buildPayload);
+                steps[1].active = true;
+                steps[3].active = true;
+                connection.trigger('updateSteps', steps);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 10);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 20);
+                setTimeout(function() {
+                    showStep(null, 3);
+                }, 100);
+            } else if ( prepopPromotionType == 'instore' ) {
+                prePop = 'instore';
+                prePopulateFields(prePop, argumentsSummaryPayload);
+                updateSummaryPage(argumentsSummaryPayload.buildPayload);
+                steps[2].active = true;
+                steps[3].active = true;
+                connection.trigger('updateSteps', steps);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 10);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 20);
+                setTimeout(function() {
+                    showStep(null, 3);
+                }, 100);
+            } else  if ( prepopPromotionType == 'online_instore' ) {
+                prePop = 'online_instore';
+                prePopulateFields(prePop, argumentsSummaryPayload);
+                updateSummaryPage(argumentsSummaryPayload.buildPayload);
+                steps[1].active = true;
+                steps[2].active = true;
+                steps[3].active = true;
+                connection.trigger('updateSteps', steps);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 10);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 20);
+                setTimeout(function() {
+                    connection.trigger('nextStep');
+                }, 30);
+                setTimeout(function() {
+                    showStep(null, 3);
+                }, 100);
+            } else{
+                prePop = 'not-set';
+                if ( debug ) {
+                    console.log('nothing to pre-pop setting step 0 and first radio checked');
+                }
+                $("#radio-1").prop("checked", true).trigger("click");
+            }
+            if ( debug ) {
+                console.log(prePop);
+            }
 
         }      
     }
@@ -178,17 +249,38 @@ define([
             if ( onlinePromotionType == 'global' ) {
 
                 $("#show_unique_codes").hide();
+                // set voucher pots to no-code
+                $("#voucher_pot_1").val("no-code");
+                $("#voucher_pot_2").val("no-code");
+                $("#voucher_pot_3").val("no-code");
+
                 $("#show_global_codes").show();
 
             } else {
 
+                // set global codes to no-code
+                $("#global_code_1").val("no-code");
+                $("#global_code_2").val("no-code");
+                $("#global_code_3").val("no-code");
                 $("#show_unique_codes").show();
                 $("#show_global_codes").hide();
+
 
             }
 
         });
 
+        // validate single field
+        $("input").blur(function() {
+
+            validateSingleField($(this));
+
+        });
+        $("input").change(function() {
+
+            validateSingleField($(this));
+
+        });
 
         $("#email_template").change(function() {
 
@@ -237,7 +329,83 @@ define([
 
         $("#radio-1").click();
 
+        $("#reuse_voucher_pot_1").val(false);
+        $("#reuse_voucher_pot_2").val(false);
+        $("#reuse_voucher_pot_3").val(false);
 
+        $("#reuse_voucher_pot_1").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#reuse_voucher_pot_2").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#reuse_voucher_pot_3").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#online_code_date_override_1").val(false);
+        $("#online_code_date_override_2").val(false);
+        $("#online_code_date_override_3").val(false);
+
+        $("#online_code_date_override_1").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#online_code_date_override_2").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#online_code_date_override_3").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+
+
+        $("#instore_code_date_override_1").val(false);
+        $("#instore_code_date_override_2").val(false);
+        $("#instore_code_date_override_3").val(false);
+
+        $("#instore_code_date_override_1").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#instore_code_date_override_2").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+        $("#instore_code_date_override_3").on('change', function(){
+            $(this).val(this.checked ? true : false);
+        });
+
+
+
+        $("#voucher_pot_1").on('change', function(){
+            if ( debug ) {
+                console.log($(this));
+            }
+
+            var vp1count = $($(this)).find(':selected').attr("data-attribute-count");
+            $("#pot_1_count").html("Vouchers in pot 1:" + vp1count);
+
+        });
+        $("#voucher_pot_2").on('change', function(){
+            if ( debug ) {
+                console.log($(this));
+            }
+            var vp2count = $($(this)).find(':selected').attr("data-attribute-count");
+            $("#pot_2_count").html("Vouchers in pot 2:" + vp2count);
+        });
+        $("#voucher_pot_3").on('change', function(){
+            if ( debug ) {
+                console.log($(this));
+            }
+            var vp3count = $($(this)).find(':selected').attr("data-attribute-count");
+            $("#pot_3_count").html("Vouchers in pot 3:" + vp3count);
+        });
+
+    }
 
     function prePopulateFields(prePop, argumentsSummaryPayload) {
 
@@ -245,6 +413,234 @@ define([
             console.log("payload sent to prepop function");
             console.log(argumentsSummaryPayload);
             console.log("promotion type is ");
+            console.log(argumentsSummaryPayload.buildPayload.promotion_type);
+            console.log(prePop);
+            console.log("voucher pot 1");
+            console.log(argumentsSummaryPayload.buildPayload.voucher_pot_1);
+            console.log("global code 1");
+            console.log(argumentsSummaryPayload.buildPayload.global_code_1);
+            console.log("instore code 1");
+            console.log(argumentsSummaryPayload.buildPayload.instore_code_1);
+            console.log("reuse vp 1 value");
+            console.log(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1);
+            console.log("online date override");
+            console.log(argumentsSummaryPayload.buildPayload.online_code_date_override_1);
+            console.log("instore date override");
+            console.log(argumentsSummaryPayload.buildPayload.instore_code_date_override_1);
+
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_type ) {
+            if ( argumentsSummaryPayload.buildPayload.promotion_type == "online" ) {
+                $("#radio-1").prop("checked", true);
+            } else if ( argumentsSummaryPayload.buildPayload.promotion_type == "instore" ) {
+                $("#radio-2").prop("checked", true);
+            } else if ( argumentsSummaryPayload.buildPayload.promotion_type == "online_instore" ) {
+                $("#radio-3").prop("checked", true);
+            }
+        }
+
+        setTimeout(function(){ 
+            if ( argumentsSummaryPayload.buildPayload.email_template ) {
+                $("#email_template").val(encodeURIComponent(argumentsSummaryPayload.buildPayload.email_template));
+            }
+        }, 4000);
+
+        if ( argumentsSummaryPayload.buildPayload.control_group ) {
+            $("#control_group").val(argumentsSummaryPayload.buildPayload.control_group);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.cell_code ) {
+            $("#cell_code").val(argumentsSummaryPayload.buildPayload.cell_code);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.cell_name ) {
+            $("#cell_name").val(argumentsSummaryPayload.buildPayload.cell_name);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.campaign_name ) {
+            $("#campaign_name").val(argumentsSummaryPayload.buildPayload.campaign_name);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.campaign_id ) {
+            $("#campaign_id").val(argumentsSummaryPayload.buildPayload.campaign_id);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.campaign_code ) {
+            $("#campaign_code").val(argumentsSummaryPayload.buildPayload.campaign_code);
+        }
+        setTimeout(function(){ 
+
+            if ( argumentsSummaryPayload.buildPayload.voucher_pot_1) {
+                $("#show_global_codes").hide();
+                $("#show_unique_codes").show();
+                $("#voucher_pot_1").val(argumentsSummaryPayload.buildPayload.voucher_pot_1);
+                console.log("voucher pot 1 had a value");
+
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.voucher_pot_2) {
+                $("#voucher_pot_2").val(argumentsSummaryPayload.buildPayload.voucher_pot_2);
+
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.voucher_pot_3) {
+                $("#voucher_pot_3").val(argumentsSummaryPayload.buildPayload.voucher_pot_3);
+
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.instore_code_1 ) {
+                $("#instore_code_1_instore").val(argumentsSummaryPayload.buildPayload.instore_code_1);
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.instore_code_2 ) {
+                $("#instore_code_2_instore").val(argumentsSummaryPayload.buildPayload.instore_code_2);
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.instore_code_3 ) {
+                $("#instore_code_3_instore").val(argumentsSummaryPayload.buildPayload.instore_code_3);
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.global_code_1 ) {
+                $("#global_code_1").val(argumentsSummaryPayload.buildPayload.global_code_1);
+                $("#show_global_codes").show();
+                $("#show_unique_codes").hide();
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.global_code_2 ) {
+                $("#global_code_2").val(argumentsSummaryPayload.buildPayload.global_code_2);
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.global_code_3 ) {
+                $("#global_code_3").val(argumentsSummaryPayload.buildPayload.global_code_3);
+
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1) {
+                $("#reuse_voucher_pot_1").val(true);
+                $("#reuse_voucher_pot_1").prop('checked', true);
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2) {
+                $("#reuse_voucher_pot_2").val(true);
+                $("#reuse_voucher_pot_2").prop('checked', true);
+            }
+
+            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3) {
+                $("#reuse_voucher_pot_3").val(true);
+                $("#reuse_voucher_pot_3").prop('checked', true);
+            }
+
+
+        }, 4000);
+
+        // date override checkboxes
+
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1) {
+            $("#online_code_date_override_1").val(true);
+            $("#online_code_date_override_1").prop('checked', true);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2) {
+            $("#online_code_date_override_2").val(true);
+            $("#online_code_date_override_2").prop('checked', true);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3) {
+            $("#online_code_date_override_3").val(true);
+            $("#online_code_date_override_3").prop('checked', true);
+        }
+
+        // data override days to add
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days != '0' ) {
+            $("#online_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days != '0' ) {
+            $("#online_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days != '0') {
+            $("#online_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days);
+        }
+
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1) {
+            $("#instore_code_date_override_1").val(true);
+            $("#instore_code_date_override_1").prop('checked', true);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2) {
+            $("#instore_code_date_override_2").val(true);
+            $("#instore_code_date_override_2").prop('checked', true);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3) {
+            $("#instore_code_date_override_3").val(true);
+            $("#instore_code_date_override_3").prop('checked', true);
+        }
+
+        // data override days to add
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days != 0 ) {
+            $("#instore_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days != 0 ) {
+            $("#instore_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days  && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days != 0 ) {
+            $("#instore_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days);
+        }
+
+
+
+
+        if ( argumentsSummaryPayload.buildPayload.print_at_till_online ) {
+            $("#print_at_till_online").val(argumentsSummaryPayload.buildPayload.print_at_till_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.print_at_till_instore ) {
+            $("#print_at_till_instore").val(argumentsSummaryPayload.buildPayload.print_at_till_instore);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instant_win_online ) {
+            $("#instant_win_online").val(argumentsSummaryPayload.buildPayload.instant_win_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.instant_win_instore) {
+            $("#instant_win_instore").val(argumentsSummaryPayload.buildPayload.instant_win_instore);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.offer_medium_instore) {
+            $("#offer_medium_instore").val(argumentsSummaryPayload.buildPayload.offer_medium_instore);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.offer_medium_online) {
+            $("#offer_medium_online").val(argumentsSummaryPayload.buildPayload.offer_medium_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_id_online) {
+            $("#promotion_id_online").val(argumentsSummaryPayload.buildPayload.promotion_id_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_id_instore) {
+            $("#promotion_id_instore").val(argumentsSummaryPayload.buildPayload.promotion_id_instore);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_group_id_online) {
+            $("#promotion_group_id_online").val(argumentsSummaryPayload.buildPayload.promotion_group_id_online);
+        }
+
+        if ( argumentsSummaryPayload.buildPayload.promotion_group_id_instore) {
+            $("#promotion_group_id_instore").val(argumentsSummaryPayload.buildPayload.promotion_group_id_instore);
         }
 
     }
@@ -423,8 +819,6 @@ define([
                 $("#global_code_1").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
                 $("#global_code_2").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
                 $("#global_code_3").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_4").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_5").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
             }
         }});
     }
@@ -445,11 +839,9 @@ define([
                     console.log(result.items[i].keys);
                 }
                 // do something with `substr[i]
-                $("#instore_code_1").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_2").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_3").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_4").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_5").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                $("#instore_code_1_instore").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                $("#instore_code_2_instore").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                $("#instore_code_3_instore").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
             }
         }});
     }
@@ -516,8 +908,6 @@ define([
                 $("#voucher_pot_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
                 $("#voucher_pot_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
                 $("#voucher_pot_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_4").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_5").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
             }
         }});
     }
