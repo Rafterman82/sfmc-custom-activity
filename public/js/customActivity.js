@@ -237,8 +237,6 @@ define([
 
         $("#radio-1").click();
 
-    }
-
 
 
     function prePopulateFields(prePop, argumentsSummaryPayload) {
