@@ -44,7 +44,7 @@
             <div class="slds-col slds-size_1-of-3">
                 <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
                     <h2>Widget Status</h2>
-                    <div class="demo-only" style="height:4rem">
+                    <div id="email-api" style="height:4rem">
                         <div class="slds-notify_container slds-is-relative">
                             <div class="slds-notify slds-notify_toast slds-theme_info" role="status">
                                 <span class="slds-assistive-text">info</span>
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="demo-only" style="height:4rem">
+                    <div id="controlgroup-api" style="height:4rem">
                         <div class="slds-notify_container slds-is-relative">
                             <div class="slds-notify slds-notify_toast slds-theme_info" role="status">
                                 <span class="slds-assistive-text">info</span>
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="demo-only" style="height:4rem">
+                    <div id="instorecodes-api" style="height:4rem">
                         <div class="slds-notify_container slds-is-relative">
                             <div class="slds-notify slds-notify_toast slds-theme_info" role="status">
                                 <span class="slds-assistive-text">info</span>
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="demo-only" style="height:4rem">
+                    <div id="onlinecodes-api" style="height:4rem">
                         <div class="slds-notify_container slds-is-relative">
                             <div class="slds-notify slds-notify_toast slds-theme_info" role="status">
                                 <span class="slds-assistive-text">info</span>
@@ -124,6 +124,29 @@
                                 </span>
                                 <div class="slds-notify__content">
                                     <h2 class="slds-text-heading_small">Loading Online Codes</h2>
+                                </div>
+                                <div class="slds-notify__close">
+                                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+                                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                                        </svg>
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="voucherpot-api" style="height:4rem">
+                        <div class="slds-notify_container slds-is-relative">
+                            <div class="slds-notify slds-notify_toast slds-theme_info" role="status">
+                                <span class="slds-assistive-text">info</span>
+                                <span class="slds-icon_container slds-icon-utility-info slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#info"></use>
+                                    </svg>
+                                </span>
+                                <div class="slds-notify__content">
+                                    <h2 class="slds-text-heading_small">Loading Voucher Pots</h2>
                                 </div>
                                 <div class="slds-notify__close">
                                     <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
@@ -1381,6 +1404,17 @@
                                 <label class="slds-form-element__label">Promotion ID</label>
                                 <div class="slds-form-element__control">
                                     <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_6" placeholder="Automatically populated" class="slds-input" readonly />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="slds-col">
+
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">No. of redemptions? (999 = unlimited)</label>
+                                <div class="slds-form-element__control">
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_voucher_date_override_1_days" placeholder="0" class="slds-input" />
                                 </div>
                             </div>
 

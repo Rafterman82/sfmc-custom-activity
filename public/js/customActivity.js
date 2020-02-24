@@ -240,14 +240,34 @@ define([
 
     }
 
+    function updateApiStatus(endpointSelector, endpointStatus) {
 
+        if ( endointStatus ) {
+            setTimeout(function() {
+                $("#" + endpointSelector + " > div > div").removeClass("slds-theme_info");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2)").removeClass("slds-icon-utility-info");
+                $("#" + endpointSelector + " > div > div").addClass("slds-theme_success");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2)").addClass("slds-icon-utility-success");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2) svg use").attr("xlink:href","/assets/icons/utility-sprite/svg/symbols.svg#success");
+            }, 1500);
+        
+        } else {
+            setTimeout(function() {
+                $("#" + endpointSelector + " > div > div").removeClass("slds-theme_info");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2)").removeClass("slds-icon-utility-info");
+                $("#" + endpointSelector + " > div > div").addClass("slds-theme_error");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2)").addClass("slds-icon-utility-error");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2) svg use").attr("xlink:href","/assets/icons/utility-sprite/svg/symbols.svg#error");
+            }, 1500);
+        }
+
+    }
 
     function prePopulateFields(prePop, argumentsSummaryPayload) {
 
         if ( debug) {
             console.log("payload sent to prepop function");
             console.log(argumentsSummaryPayload);
-            console.log("promotion type is ");
         }
 
     }
@@ -410,119 +430,157 @@ define([
     function lookupGlobalCodes() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/globalcodes", success: function(result){
+        $.ajax({
+            url: "/dataextension/lookup/globalcodes", 
+            error: function() {
+                updateApiStatus("onlinecodes-api", false);
+            },
+            success: function(result){
 
-            if ( debug ) {
-                console.log('lookup global codes executed');
-                console.log(result.items);               
-            }
-
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i].keys.couponcode);
+                    console.log('lookup global codes executed');
+                    console.log(result.items);               
                 }
-                // do something with `substr[i]
-                $("#global_code_1").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_2").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_3").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_4").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_5").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i].keys.couponcode);
+                    }
+                    // do something with `substr[i]
+                    $("#global_code_1").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                    $("#global_code_2").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                    $("#global_code_3").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                    $("#global_code_4").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                    $("#global_code_5").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
+                }
+                updateApiStatus("onlinecodes-api", true);
             }
-        }});
+        });
     }
 
     function lookupPromos() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
+        $.ajax({
 
-            if ( debug ) {
-                console.log('lookup promotions executed');
-                console.log(result.items);               
-            }
+            url: "/dataextension/lookup/promotions",
+            error: function() {
+                updateApiStatus("instorecodes-api", false);
+            }, 
+            success: function(result){
 
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i].keys);
+                    console.log('lookup promotions executed');
+                    console.log(result.items);               
                 }
-                // do something with `substr[i]
-                $("#instore_code_1").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_2").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_3").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_4").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
-                $("#instore_code_5").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i].keys);
+                    }
+                    // do something with `substr[i]
+                    $("#instore_code_1").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                    $("#instore_code_2").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                    $("#instore_code_3").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                    $("#instore_code_4").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                    $("#instore_code_5").append("<option data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                }
+                updateApiStatus("instorecodes-api", true);
             }
-        }});
+
+        });
     }
 
     function lookupTemplates() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/templates", success: function(result){
+        $.ajax({
 
-            if ( debug ) {
-                console.log('lookup templates executed');
-                console.log(result.items);               
-            }
+            url: "/dataextension/lookup/templates", 
+            error: function() {
+                updateApiStatus("email-api", false);
+            }, 
+            success: function(result){
 
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i]);
+                    console.log('lookup templates executed');
+                    console.log(result.items);               
                 }
-                // do something with substr[i]
-                $('#email_template option[value="loading"]').remove();
-                $("#email_template").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i]);
+                    }
+                    // do something with substr[i]
+                    $('#email_template option[value="loading"]').remove();
+                    $("#email_template").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");
+                }
+                updateApiStatus("email-api", true);
             }
-        }});
+        });
     }
 
     function lookupControlGroups() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/controlgroups", success: function(result){
+        $.ajax({
+            url: "/dataextension/lookup/controlgroups",
+            error: function() {
+                updateApiStatus("controlgroup-api", false);
+            },  
+            success: function(result){
 
-            if ( debug ) {
-                console.log('lookup control groups executed');
-                console.log(result.items);               
-            }
-
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i]);
+                    console.log('lookup control groups executed');
+                    console.log(result.items);               
                 }
-                // do something with substr[i]
-                $("#control_group").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i]);
+                    }
+                    // do something with substr[i]
+                    $("#control_group").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+                }
+                updateApiStatus("controlgroup-api", true);
             }
-        }});
+        });
     }
 
     function lookupVoucherPots() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/voucherpots", success: function(result){
+        $.ajax({
+            url: "/dataextension/lookup/voucherpots",
+            error: function() {
+                updateApiStatus("voucherpot-api", false);
+            },  
+            success: function(result){
 
-            if ( debug ) {
-                console.log('lookup voucher pots executed');
-                console.log(result.items);               
-            }
-
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i]);
+                    console.log('lookup voucher pots executed');
+                    console.log(result.items);               
                 }
-                // do something with substr[i]
-                $("#voucher_pot_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_4").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_5").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i]);
+                    }
+                    // do something with substr[i]
+                    $("#voucher_pot_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                    $("#voucher_pot_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                    $("#voucher_pot_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                    $("#voucher_pot_4").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                    $("#voucher_pot_5").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+                }
+                updateApiStatus("voucherpot-api", true);
             }
-        }});
+        });
     }
 
     function toggleStepError(errorStep, errorStatus) {
