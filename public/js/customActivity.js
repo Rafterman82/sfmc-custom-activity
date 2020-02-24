@@ -6,6 +6,7 @@ define([
     'use strict';
 
     var debug                       = true;
+    var apiWaitTime                 = 0;
     var stepToValidate;
     var connection                  = new Postmonger.Session();
     var payload                     = {};
@@ -258,8 +259,10 @@ define([
                 $("#" + endpointSelector + " > div > div").addClass("slds-theme_error");
                 $("#" + endpointSelector + " > div > div > span:nth-child(2)").addClass("slds-icon-utility-error");
                 $("#" + endpointSelector + " > div > div > span:nth-child(2) svg use").attr("xlink:href","/assets/icons/utility-sprite/svg/symbols.svg#error");
-            }, 1500);
+            }, apiWaitTime);
         }
+
+        apiWaitTime = apiWaitTime + 500;
 
     }
 
