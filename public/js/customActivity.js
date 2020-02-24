@@ -250,6 +250,7 @@ define([
                 $("#" + endpointSelector + " > div > div").addClass("slds-theme_success");
                 $("#" + endpointSelector + " > div > div > span:nth-child(2)").addClass("slds-icon-utility-success");
                 $("#" + endpointSelector + " > div > div > span:nth-child(2) svg use").attr("xlink:href","/assets/icons/utility-sprite/svg/symbols.svg#success");
+                $("#" + endpointSelector + " > div > div > div:nth-child(2) h2").text($("#" + endpointSelector + " > div > div > div:nth-child(2) h2").text().replace("Loading", "Successfully Loaded"));
             }, apiWaitTime);
         
         } else {
@@ -259,6 +260,7 @@ define([
                 $("#" + endpointSelector + " > div > div").addClass("slds-theme_error");
                 $("#" + endpointSelector + " > div > div > span:nth-child(2)").addClass("slds-icon-utility-error");
                 $("#" + endpointSelector + " > div > div > span:nth-child(2) svg use").attr("xlink:href","/assets/icons/utility-sprite/svg/symbols.svg#error");
+                $("#" + endpointSelector + " > div > div > div:nth-child(2) h2").text($("#" + endpointSelector + " > div > div > div:nth-child(2) h2").text().replace("Loading", "Error Loading"));
             }, apiWaitTime);
         }
 
