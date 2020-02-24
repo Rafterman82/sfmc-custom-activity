@@ -242,7 +242,7 @@ define([
 
     function updateApiStatus(endpointSelector, endpointStatus) {
 
-        if ( endointStatus ) {
+        if ( endpointStatus ) {
             setTimeout(function() {
                 $("#" + endpointSelector + " > div > div").removeClass("slds-theme_info");
                 $("#" + endpointSelector + " > div > div > span:nth-child(2)").removeClass("slds-icon-utility-info");
