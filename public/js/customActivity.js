@@ -170,6 +170,9 @@ define([
                 }
                 connection.trigger('updateSteps', steps);
 
+            } else if ( promotionType === 'no_code' ) {
+
+                // do we add another step for just association
             }
 
         });
@@ -187,20 +190,6 @@ define([
                 $("#show_unique_codes").show();
                 $("#show_global_codes").hide();
 
-            }
-
-        });
-
-
-        $("#email_template").change(function() {
-
-            if ( $(this).val() == "no-template") {
-                $("#email_template_select").addClass("slds-has-error");
-                $("#form-error__email_template").html("You must select a template.");
-                $("#form-error__email_template").show();
-            } else {
-                $("#email_template_select").removeClass("slds-has-error");
-                $("#form-error__email_template").hide();                
             }
 
         });
@@ -237,6 +226,23 @@ define([
 
         });
 
+        $("#print_at_till_online").change(function() {
+            // set instant win to opposite
+            if ( $("#print_at_till_online").val() == "true" ) {
+                // set instant win to false
+                $('#instant_win_online option[value="false"]').prop("selected", "selected");
+            }
+        });
+
+        $("#instant_win_online").change(function() {
+            // set instant win to opposite
+            if ( $("#instant_win_online").val() == "true" ) {
+                // set instant win to false
+                $('#print_at_till_online option[value="false"]').prop("selected", "selected");
+            }
+        });
+
+        // select first input
         $("#radio-1").click();
 
     }
