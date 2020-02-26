@@ -322,8 +322,6 @@
     -->
 
     <div id="step1" class="step">
-
-
         <div id="step1alert" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
             <span class="slds-assistive-text">error</span>
             <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Description of icon when needed">
@@ -335,17 +333,10 @@
                 There are errors on this page, please resolve them before moving to the next step.
             </h2>
         </div>
-
-
         <div class="slds-grid slds-gutters">
-
             <div class="slds-col slds-size_1-of-2">
-
                 <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
-
                     <h2>Online Codes</h2>
-
                     <legend class="slds-form-element__legend slds-form-element__label">Do you wish to use a global code or a voucher pot?</legend>
                     <fieldset class="slds-form-element slds-form-element_stacked">
                         <div class="slds-form-element__control">
@@ -365,12 +356,9 @@
                             </span>
                         </div>
                     </fieldset>                
-
                     <h2>Online Meta Data</h2>
-
                     <div class="slds-form-element sfmc-input">
                         <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Print at Till</label>
-
                         <div class="slds-form-element__control">
                             <div class="slds-select_container">
                                 <select class="slds-select" id="print_at_till_online">
@@ -380,10 +368,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="slds-form-element sfmc-input">
                         <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Instant Win</label>
-
                         <div class="slds-form-element__control">
                             <div class="slds-select_container">
                                 <select class="slds-select" id="instant_win_online">
@@ -393,10 +379,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="slds-form-element sfmc-input">
                         <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Medium</label>
-
                         <div class="slds-form-element__control">
                             <div class="slds-select_container">
                                 <select class="slds-select" id="offer_medium_online">
@@ -408,10 +392,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="slds-form-element sfmc-input">
                         <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion Group ID</label>
-
                         <div class="slds-form-element__control">
                             <input data-attribute-type="varchar" data-attribute-length="20" type="text" id="promotion_group_id_online" placeholder="Promotion Group ID (e.g V12345)" class="slds-input" />
                         </div>
@@ -419,18 +401,11 @@
                     </div>
                 </div>
             </div>
-
-
             <div id="online_data" class="slds-col slds-size_1-of-2">
-
                 <div class="slds-grid slds-gutters" id="show_global_codes">
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
-                        <div class="slds-grid">
-                            
+                        <div class="slds-grid">        
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Global Online Code 1</b></label>
                                     <div class="slds-form-element__control">
@@ -441,24 +416,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_1" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="global_code_1_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -466,8 +434,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_1" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_1">
+                                                    <input type="checkbox" name="options" id="global_code_1_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="global_code_1_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -475,30 +443,20 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_1_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="global_code_1_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Global Online Code 2</b></label>
                                     <div class="slds-form-element__control">
@@ -509,24 +467,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_2" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="global_code_2_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -534,8 +485,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_2" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_2">
+                                                    <input type="checkbox" name="options" id="global_code_2_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="global_code_2_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -543,30 +494,20 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_2_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="global_code_2_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Global Online Code 3</b></label>
                                     <div class="slds-form-element__control">
@@ -577,24 +518,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_3" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="global_code_3_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -602,8 +536,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_3" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_3">
+                                                    <input type="checkbox" name="options" id="global_code_3_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="global_code_3_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -611,30 +545,20 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_3_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="global_code_3_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Global Online Code 4</b></label>
                                     <div class="slds-form-element__control">
@@ -645,24 +569,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_4" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="global_code_4_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -670,8 +587,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_4" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_4">
+                                                    <input type="checkbox" name="options" id="global_code_4_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="global_code_4_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -679,30 +596,20 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_4_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="global_code_4_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Global Online Code 5</b></label>
                                     <div class="slds-form-element__control">
@@ -713,19 +620,14 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_5" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="global_code_5_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
 
@@ -738,8 +640,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_5" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_5">
+                                                    <input type="checkbox" name="options" id="global_code_5_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="global_code_5_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -747,38 +649,22 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_5_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="global_code_5_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
-
-
-
-
                 <div class="slds-grid slds-gutters" id="show_unique_codes">
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
-                        <div class="slds-grid">
-                            
+                        <div class="slds-grid">   
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Unique Voucher Pot 1</b></label>
                                     <div class="slds-form-element__control">
@@ -789,24 +675,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_1" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="voucher_pot_1_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -814,8 +693,8 @@
                                             <label class="slds-form-element__label">Re-use old codes?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="reuse_voucher_pot_1" value=""/>
-                                                    <label class="slds-checkbox__label" for="reuse_voucher_pot_1">
+                                                    <input type="checkbox" name="options" id="voucher_pot_1_reuse_codes" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_1_reuse_codes">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -824,7 +703,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -832,8 +710,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_1" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_1">
+                                                    <input type="checkbox" name="options" id="voucher_pot_1_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_1_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -842,28 +720,19 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_1_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="voucher_pot_1_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Unique Voucher Pot 2</b></label>
                                     <div class="slds-form-element__control">
@@ -874,24 +743,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_2" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="voucher_pot_2_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -899,8 +761,8 @@
                                             <label class="slds-form-element__label">Re-use old codes?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="reuse_voucher_pot_2" value=""/>
-                                                    <label class="slds-checkbox__label" for="reuse_voucher_pot_2">
+                                                    <input type="checkbox" name="options" id="voucher_pot_2_reuse_codes" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_2_reuse_codes">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -909,7 +771,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -917,8 +778,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_2" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_2">
+                                                    <input type="checkbox" name="options" id="voucher_pot_2_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_2_date_overrode">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -927,29 +788,19 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_2_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="voucher_pot_2_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
-                        <div class="slds-grid">
-                            
+                        <div class="slds-grid">   
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Unique Voucher Pot 3</b></label>
                                     <div class="slds-form-element__control">
@@ -960,24 +811,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_3" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="voucher_pot_3_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -985,8 +829,8 @@
                                             <label class="slds-form-element__label">Re-use old codes?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="reuse_voucher_pot_3" value=""/>
-                                                    <label class="slds-checkbox__label" for="reuse_voucher_pot_3">
+                                                    <input type="checkbox" name="options" id="voucher_pot_3_reuse_codes" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_3_reuse_codes">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -1003,8 +847,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_3" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_3">
+                                                    <input type="checkbox" name="options" id="voucher_pot_3_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_3_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -1013,28 +857,19 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_3_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="voucher_pot_3_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Unique Voucher Pot 4</b></label>
                                     <div class="slds-form-element__control">
@@ -1045,24 +880,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_4" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="voucher_pot_4_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -1070,8 +898,8 @@
                                             <label class="slds-form-element__label">Re-use old codes?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="reuse_voucher_pot_4" value=""/>
-                                                    <label class="slds-checkbox__label" for="reuse_voucher_pot_4">
+                                                    <input type="checkbox" name="options" id="voucher_pot_4_reuse_codes" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_4_reuse_codes">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -1080,7 +908,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -1088,8 +915,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_4" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_4">
+                                                    <input type="checkbox" name="options" id="voucher_pot_4_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_4_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -1098,29 +925,19 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_4_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="voucher_pot_4_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>          
-
-
                      <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label"><b>Unique Voucher Pot 5</b></label>
                                     <div class="slds-form-element__control">
@@ -1131,24 +948,17 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="slds-grid">
-                            
                             <div class="slds-col">
-
                                 <div class="slds-form-element sfmc-input">
                                     <label class="slds-form-element__label">Promotion ID</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_5" placeholder="Promotion ID" class="slds-input" />
+                                        <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="voucher_pot_5_promo_id" placeholder="Promotion ID" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -1156,8 +966,8 @@
                                             <label class="slds-form-element__label">Re-use old codes?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="reuse_voucher_pot_5" value=""/>
-                                                    <label class="slds-checkbox__label" for="reuse_voucher_pot_5">
+                                                    <input type="checkbox" name="options" id="voucher_pot_5_reuse_codes" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_5_reuse_codes">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -1166,7 +976,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
                                 <div class="slds-clearfix">
                                     <div class="slds-float_right">
@@ -1174,8 +983,8 @@
                                             <label class="slds-form-element__label">Add days to expiry?</label>
                                             <div class="slds-form-element__control">
                                                 <div class="slds-checkbox">
-                                                    <input type="checkbox" name="options" id="online_code_date_override_5" value=""/>
-                                                    <label class="slds-checkbox__label" for="online_code_date_override_5">
+                                                    <input type="checkbox" name="options" id="voucher_pot_5_date_override" value=""/>
+                                                    <label class="slds-checkbox__label" for="voucher_pot_5_date_override">
                                                         <span class="slds-checkbox_faux"></span>
                                                     </label>
                                                 </div>
@@ -1184,28 +993,19 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="slds-col">
-
                                 <div class="slds-form-element">
                                     <label class="slds-form-element__label">Days to add</label>
                                     <div class="slds-form-element__control">
-                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="online_voucher_date_override_5_days" placeholder="0" class="slds-input" />
+                                        <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="voucher_pot_5_add_days" placeholder="0" class="slds-input" />
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>  
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <!--
@@ -1218,8 +1018,6 @@
     -->
 
     <div id="step2" class="step">
-
-
         <div id="step2alert" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
             <span class="slds-assistive-text">error</span>
             <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Description of icon when needed">
@@ -1231,15 +1029,10 @@
                 There are errors on this page, please resolve them before moving to the next step.
             </h2>
         </div>
-
         <div class="slds-grid slds-gutters">
-
             <div id="instore_data" class="slds-col slds-size_1-of-2">
-
                 <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                     <h2>In-store Meta Data</h2>
-
                     <div class="slds-form-element sfmc-input">
                         <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Print at Till</label>
                         <div class="slds-form-element__icon">
@@ -1262,7 +1055,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="slds-form-element sfmc-input">
                         <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Instant Win</label>
                         <div class="slds-form-element__icon">
@@ -1285,7 +1077,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="slds-form-element sfmc-input">
                         <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Medium</label>
                         <div class="slds-form-element__icon">
@@ -1310,7 +1101,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="slds-form-element sfmc-input">
                         <label class="slds-form-element__label" for="tooltip-showing-form-element-help-01">Promotion Group ID</label>
                         <div class="slds-form-element__icon">
@@ -1325,22 +1115,15 @@
                             </div>
                         </div>
                         <div class="slds-form-element__control">
-                            <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_group_id_instore" placeholder="Promotion Group ID" class="slds-input" />
+                            <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="instore_promotion_group_id" placeholder="Promotion Group ID" class="slds-input" />
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
             <div id="instore_data" class="slds-col slds-size_1-of-2">
-
                 <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                     <div class="slds-grid">
-                        
                         <div class="slds-col">
-
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label"><b>Instore Code 1</b></label>
                                 <div class="slds-form-element__control">
@@ -1351,44 +1134,34 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-grid">
-                        
                         <div class="slds-col slds-size_2-of-5">
-
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label">Promotion ID</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_6" placeholder="Automatically populated" class="slds-input" readonly />
+                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="instore_code_1_promo_id" placeholder="Automatically populated" class="slds-input" readonly />
                                 </div>
                             </div>
-
                         </div>
-
                         <div class="slds-col slds-size_1-of-5">
-
                             <div class="slds-form-element">
-                                <label class="slds-form-element__label">No. of redemptions? (999 = unlimited)</label>
+                                <label class="slds-form-element__label">Redemptions</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_voucher_date_override_1_days" placeholder="0" class="slds-input" />
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="999" id="instore_code_1_redemptions" placeholder="0" class="slds-input" />
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="slds-col">
+                        <div class="slds-col slds-size_1-of-5">
                             <div class="slds-clearfix">
                                 <div class="slds-float_right">
                                     <div class="slds-form-element sfmc-input">
                                         <label class="slds-form-element__label">Add days to expiry?</label>
                                         <div class="slds-form-element__control">
                                             <div class="slds-checkbox">
-                                                <input type="checkbox" name="options" id="instore_code_date_override_1" value=""/>
-                                                <label class="slds-checkbox__label" for="instore_code_date_override_1">
+                                                <input type="checkbox" name="options" id="instore_code_1_date_override_1" value=""/>
+                                                <label class="slds-checkbox__label" for="instore_code_1_date_override_1">
                                                     <span class="slds-checkbox_faux"></span>
                                                 </label>
                                             </div>
@@ -1396,30 +1169,20 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                         <div class="slds-col slds-size_1-of-5">
-
                             <div class="slds-form-element">
                                 <label class="slds-form-element__label">Days to add</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_voucher_date_override_1_days" placeholder="0" class="slds-input" />
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_code_1_add_days" placeholder="0" class="slds-input" />
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                     <div class="slds-grid">
-                        
                         <div class="slds-col">
-
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label"><b>Instore Code 2</b></label>
                                 <div class="slds-form-element__control">
@@ -1430,33 +1193,34 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-grid">
-                        
-                        <div class="slds-col">
-
+                        <div class="slds-col slds-size_2-of-5">
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label">Promotion ID</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_7" placeholder="Automatically populated" class="slds-input" readonly />
+                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="instore_code_2_promo_id" placeholder="Automatically populated" class="slds-input" readonly />
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="slds-col">
+                        <div class="slds-col slds-size_1-of-5">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Redemptions</label>
+                                <div class="slds-form-element__control">
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="999" id="instore_code_2_redemptions" placeholder="1" class="slds-input" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-5">
                             <div class="slds-clearfix">
                                 <div class="slds-float_right">
                                     <div class="slds-form-element sfmc-input">
                                         <label class="slds-form-element__label">Add days to expiry?</label>
                                         <div class="slds-form-element__control">
                                             <div class="slds-checkbox">
-                                                <input type="checkbox" name="options" id="instore_code_date_override_2" value=""/>
-                                                <label class="slds-checkbox__label" for="instore_code_date_override_2">
+                                                <input type="checkbox" name="options" id="instore_code_2_date_override" value=""/>
+                                                <label class="slds-checkbox__label" for="instore_code_2_date_override">
                                                     <span class="slds-checkbox_faux"></span>
                                                 </label>
                                             </div>
@@ -1464,30 +1228,20 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="slds-col">
-
+                        <div class="slds-col slds-size_1-of-5">
                             <div class="slds-form-element">
                                 <label class="slds-form-element__label">Days to add</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_voucher_date_override_2_days" placeholder="0" class="slds-input" />
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_code_2_add_days" placeholder="0" class="slds-input" />
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                     <div class="slds-grid">
-                        
-                        <div class="slds-col">
-
+                        <div class="slds-col ">
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label"><b>Instore Code 3</b></label>
                                 <div class="slds-form-element__control">
@@ -1498,33 +1252,34 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-grid">
-                        
-                        <div class="slds-col">
-
+                        <div class="slds-col slds-size_2-of-5">
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label">Promotion ID</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_8" placeholder="Automatically populated" class="slds-input" readonly />
+                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="instore_code_3_promo_id" placeholder="Automatically populated" class="slds-input" readonly />
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="slds-col">
+                        <div class="slds-col slds-size_1-of-5">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Redemptions</label>
+                                <div class="slds-form-element__control">
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="999" id="instore_code_3_redemptions" placeholder="0" class="slds-input" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-5">
                             <div class="slds-clearfix">
                                 <div class="slds-float_right">
                                     <div class="slds-form-element sfmc-input">
                                         <label class="slds-form-element__label">Add days to expiry?</label>
                                         <div class="slds-form-element__control">
                                             <div class="slds-checkbox">
-                                                <input type="checkbox" name="options" id="instore_code_date_override_3" value=""/>
-                                                <label class="slds-checkbox__label" for="instore_code_date_override_3">
+                                                <input type="checkbox" name="options" id="instore_code_3_date_override" value=""/>
+                                                <label class="slds-checkbox__label" for="instore_code_3_date_override">
                                                     <span class="slds-checkbox_faux"></span>
                                                 </label>
                                             </div>
@@ -1532,30 +1287,20 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="slds-col">
-
+                        <div class="slds-col slds-size_1-of-5">
                             <div class="slds-form-element">
                                 <label class="slds-form-element__label">Days to add</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_voucher_date_override_3_days" placeholder="0" class="slds-input" />
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_code_3_add_days" placeholder="0" class="slds-input" />
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
-                    <div class="slds-grid">
-                        
+                    <div class="slds-grid"> 
                         <div class="slds-col">
-
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label"><b>Instore Code 4</b></label>
                                 <div class="slds-form-element__control">
@@ -1566,33 +1311,34 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="slds-grid">
-                        
-                        <div class="slds-col">
-
+                        <div class="slds-col slds-size_2-of-5">
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label">Promotion ID</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_9" placeholder="Automatically populated" class="slds-input" readonly />
+                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="instore_code_4_promo_id" placeholder="Automatically populated" class="slds-input" readonly />
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="slds-col">
+                        <div class="slds-col slds-size_1-of-5">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Redemptions</label>
+                                <div class="slds-form-element__control">
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="999" id="instore_code_4_redemptions" placeholder="0" class="slds-input" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-5">
                             <div class="slds-clearfix">
                                 <div class="slds-float_right">
                                     <div class="slds-form-element sfmc-input">
                                         <label class="slds-form-element__label">Add days to expiry?</label>
                                         <div class="slds-form-element__control">
                                             <div class="slds-checkbox">
-                                                <input type="checkbox" name="options" id="instore_code_date_override_4" value=""/>
-                                                <label class="slds-checkbox__label" for="instore_code_date_override_4">
+                                                <input type="checkbox" name="options" id="instore_code_4_date_override" value=""/>
+                                                <label class="slds-checkbox__label" for="instore_code_4_date_override">
                                                     <span class="slds-checkbox_faux"></span>
                                                 </label>
                                             </div>
@@ -1600,30 +1346,20 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="slds-col">
-
+                        <div class="slds-col slds-size_1-of-5">
                             <div class="slds-form-element">
                                 <label class="slds-form-element__label">Days to add</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_voucher_date_override_4_days" placeholder="0" class="slds-input" />
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_code_4_add_days" placeholder="0" class="slds-input" />
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
-
                     <div class="slds-grid">
-                        
                         <div class="slds-col">
-
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label"><b>Instore Code 5</b></label>
                                 <div class="slds-form-element__control">
@@ -1634,24 +1370,25 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
-                    <div class="slds-grid">
-                        
+                    <div class="slds-grid slds-size_2-of-5"> 
                         <div class="slds-col">
-
                             <div class="slds-form-element sfmc-input">
                                 <label class="slds-form-element__label">Promotion ID</label>
                                 <div class="slds-form-element__control">
-                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="promotion_id_10" placeholder="Automatically populated" class="slds-input" readonly />
+                                    <input data-attriubute-type="varchar" data-attribute-length="20" type="text" id="instore_code_5_promo_id" placeholder="Automatically populated" class="slds-input" readonly />
                                 </div>
                             </div>
-
                         </div>
-
+                        <div class="slds-col slds-size_1-of-5">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Redemptions</label>
+                                <div class="slds-form-element__control">
+                                    <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="999" id="instore_code_5_redemptions" placeholder="0" class="slds-input" />
+                                </div>
+                            </div>
+                        </div>
                         <div class="slds-col">
                             <div class="slds-clearfix">
                                 <div class="slds-float_right">
@@ -1668,30 +1405,19 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                         <div class="slds-col">
-
                             <div class="slds-form-element">
                                 <label class="slds-form-element__label">Days to add</label>
                                 <div class="slds-form-element__control">
                                     <input data-attribute-type="int" data-attribute-length="3" type="number" min="0" max="365" id="instore_voucher_date_override_5_days" placeholder="0" class="slds-input" />
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
-
-
             </div>
-
         </div>
-
     </div>
 
     <!--
@@ -1704,10 +1430,8 @@
     -->
 
     <div id="step3" class="step">
-
         <div class="slds-grid slds-gutters">
             <div class="slds-col slds-size_1-of-1">
-
                 <article class="slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -1733,7 +1457,6 @@
                         <button class="slds-button slds-button_destructive">Remove this promotion?</button>
                     </div>
                 </article>
-
             </div>
         </div>
         <div class="slds-grid slds-gutters">
