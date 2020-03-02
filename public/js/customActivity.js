@@ -312,7 +312,7 @@ define([
 
         } else if ( stepToValidate == 0 ) {
 
-            var step0Selectors = ["#email_template", "#cellcode", "#cell_name", "#campaign_id", "#campaign_name", "#campaign_code"];
+            var step0Selectors = ["#email_template", "#cell_code", "#cell_name", "#campaign_id", "#campaign_name", "#campaign_code"];
             var step0ErrorCount = 0;
 
             for ( var n = 0; n < step0Selectors.length; n++ ) {
