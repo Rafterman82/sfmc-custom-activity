@@ -330,18 +330,25 @@ define([
 
         } else if ( stepToValidate == 1 ) {
 
-            if ( 
-                !$("#global_code_1").val() && !$("#voucher_pot_1").val() || 
-                $("#global_code_1").val() == 'no-code' && $("#voucher_pot_1").val() == 'no-code' || 
-                !$("#global_code_1_promo_id").val() || 
-                !$("#voucher_pot_1_promo_id").val() || 
-                !$("#promotion_group_id_online").val() ) {
+            var step1Selectors = ["#global_code_1", "#global_code_1_promo_id", "#promotion_group_id_online"];
+            var step1ErrorCount = 0;
 
-                return false;
+            for ( var l = 0; l < step1Selectors.length; l++ ) {
+
+                if ( !$(step1Selectors[l]).val() ) {
+
+                    step1ErrorCount++;
+                }
+            }
+
+            if ( step1ErrorCount == 0 ) {
+
+                return true;
 
             } else {
 
-                return true;
+                return false;
+
             }
 
         } else if ( stepToValidate == 2 ) {
@@ -683,7 +690,7 @@ define([
                 if ( validateStep(1) ) {
 
                     if ( debug ) {
-                        console.log("step 0 validated");           
+                        console.log("step 1 validated");           
                     }                    
 
                     toggleStepError(1, "hide");
@@ -693,7 +700,7 @@ define([
                 } else {
 
                     if ( debug ) {
-                        console.log("step 0 not validated");           
+                        console.log("step 1 not validated");           
                     }  
 
                     connection.trigger('ready');
@@ -744,7 +751,7 @@ define([
                 if ( validateStep(2) ) {
 
                     if ( debug ) {
-                        console.log("step 0 validated");           
+                        console.log("step 2 validated");           
                     }                    
 
                     toggleStepError(2, "hide");
@@ -754,7 +761,7 @@ define([
                 } else {
 
                     if ( debug ) {
-                        console.log("step 0 not validated");           
+                        console.log("step 2 not validated");           
                     }  
 
                     connection.trigger('ready');
@@ -805,7 +812,7 @@ define([
                 if ( validateStep(2) ) {
 
                     if ( debug ) {
-                        console.log("step 0 validated");           
+                        console.log("step 2 validated");           
                     }                    
 
                     updateSummaryPage(buildActivityPayload());
@@ -815,7 +822,7 @@ define([
                 } else {
 
                     if ( debug ) {
-                        console.log("step 0 not validated");           
+                        console.log("step 2 not validated");           
                     }  
 
                     connection.trigger('ready');
@@ -836,7 +843,7 @@ define([
                 if ( validateStep(1) ) {
 
                     if ( debug ) {
-                        console.log("step 0 validated");           
+                        console.log("step 1 validated");           
                     }                    
 
                     toggleStepError(1, "hide");
@@ -845,7 +852,7 @@ define([
                 } else {
 
                     if ( debug ) {
-                        console.log("step 0 not validated");           
+                        console.log("step 1 not validated");           
                     }  
 
                     connection.trigger('ready');
