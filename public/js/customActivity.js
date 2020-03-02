@@ -242,6 +242,22 @@ define([
             }
         });
 
+        $("#print_at_till_instore").change(function() {
+            // set instant win to opposite
+            if ( $("#print_at_till_instore").val() == "true" ) {
+                // set instant win to false
+                $('#instant_win_instore option[value="false"]').prop("selected", "selected");
+            }
+        });
+
+        $("#instant_win_instore").change(function() {
+            // set instant win to opposite
+            if ( $("#instant_win_instore").val() == "true" ) {
+                // set instant win to false
+                $('#print_at_till_instore option[value="false"]').prop("selected", "selected");
+            }
+        });
+
         // select first input
         $("#radio-1").click();
 
@@ -317,7 +333,8 @@ define([
             if ( 
                 !$("#global_code_1").val() && !$("#voucher_pot_1").val() || 
                 $("#global_code_1").val() == 'no-code' && $("#voucher_pot_1").val() == 'no-code' || 
-                !$("#promotion_id_1").val() || 
+                !$("#global_code_1_promo_id").val() || 
+                !$("#voucher_pot_1_promo_id").val() || 
                 !$("#promotion_group_id_online").val() ) {
 
                 return false;
