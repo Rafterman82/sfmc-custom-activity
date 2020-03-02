@@ -317,9 +317,9 @@ define([
 
             for ( var n = 0; n < step0Selectors.length; n++ ) {
 
-                console.log("The selector is " + step0Selectors[l]);
+                console.log("The selector is " + step0Selectors[n]);
 
-                if ( !$(step0Selectors[l]).val() ) {
+                if ( !$(step0Selectors[n]).val() ) {
 
                     step0ErrorCount++;
                 }
