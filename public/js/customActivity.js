@@ -312,25 +312,32 @@ define([
 
         } else if ( stepToValidate == 0 ) {
 
-            if ( 
-                !$("#email_template").val() || 
-                !$("#cell_code").val() || 
-                !$("#cell_name").val() || 
-                !$("#campaign_id").val() || 
-                !$("#campaign_name").val() || 
-                !$("#campaign_code").val() 
-                ) {
+            var step0Selectors = ["#email_template", "#cellcode", "#cell_name", "#campaign_id", "#campaign_name", "#campaign_code"];
+            var step0ErrorCount = 0;
 
-                return false;
+            for ( var n = 0; n < step0Selectors.length; n++ ) {
+
+                if ( !$(step0Selectors[l]).val() ) {
+
+                    step0ErrorCount++;
+                }
+            }
+
+            if ( step0ErrorCount == 0 ) {
+
+                return true;
 
             } else {
 
-                return true;
+                return false;
+
             }
 
         } else if ( stepToValidate == 1 ) {
 
-            var step1Selectors = ["#global_code_1", "#global_code_1_promo_id", "#promotion_group_id_online"];
+            var onelineCodeType = $(".online_promotion_type:checked").val();
+
+            var step1Selectors = ["#"+onelineCodeType+"_code_1", "#"+onelineCodeType+"_code_1_promo_id", "#promotion_group_id_online"];
             var step1ErrorCount = 0;
 
             for ( var l = 0; l < step1Selectors.length; l++ ) {
@@ -353,18 +360,26 @@ define([
 
         } else if ( stepToValidate == 2 ) {
 
-            if ( 
-                !$("#instore_code_1").val() || 
-                $("#instore_code_1").val() == 'no-code' || 
-                !$("#promotion_id_5").val() || 
-                !$("#promotion_group_id_instore").val() ) {
+            var step2Selectors = ["#instore_code_1", "#instore_code_1_promo_id", "#promotion_group_id_instore"];
+            var step2ErrorCount = 0;
 
-                return false;
-            
-            } else {
+            for ( var m = 0; m < step2Selectors.length; m++ ) {
+
+                if ( !$(step2Selectors[l]).val() ) {
+
+                    step2ErrorCount++;
+                }
+            }
+
+            if ( step2ErrorCount == 0 ) {
 
                 return true;
-            }
+
+            } else {
+
+                return false;
+
+            }            
 
         } else {
 
