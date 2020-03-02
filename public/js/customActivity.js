@@ -1059,167 +1059,60 @@ define([
 
     function buildActivityPayload() {
 
-        var step0Selector = "#step0 .slds-form-element__control";
-        var step1Selector = "#step1 .slds-form-element__control";
-        var step2Selector = "#step2 .slds-form-element__control";
+        var step1FormInputs = $("#step0").find(":input");
+        var step2FormInputs = $("#step1").find(":input");
+        var step3FormInputs = $("#step2").find(":input");
 
-        // main promo data
-        var promotionType               = $("#step0 .slds-radio input[name='promotionType']:checked").val();
+        var i;
+        var payloadNode = [];
 
-        // control group
-        var controlGroup                = $("#control_group").val();
+        for ( i = 0; i < step1FormInputs.length; i++ ) {
+            if ( step1FormInputs[i].id) {
+                if ( step1FormInputs[i].type == "checkbox") {
+                    payloadNode.push({
+                        key: step1FormInputs[i].id, 
+                        value:  step1FormInputs[i].checked
+                    });
+                } else {
+                    payloadNode.push({
+                        key: step1FormInputs[i].id, 
+                        value:  step1FormInputs[i].value
+                    });
+                }
+            }
+        }
 
-        // email template
-        var emailTemplate               = $("#email_template").find(":selected").text();
-            
-        // comms history
-        var cellCode                    = $(step0Selector +  " #cell_code").val();
-        var cellName                    = $(step0Selector +  " #cell_name").val();
-        var campaignName                = $(step0Selector +  " #campaign_name").val();
-        var campaignId                  = $(step0Selector +  " #campaign_id").val();
-        var campaignCode                = $(step0Selector +  " #campaign_code").val();
+        for ( i = 0; i < step2FormInputs.length; i++ ) {
+            if ( step2FormInputs[i].id) {
+                if ( step2FormInputs[i].type == "checkbox") {
+                    payloadNode.push({
+                        key: step2FormInputs[i].id, 
+                        value:  step2FormInputs[i].checked
+                    });
+                } else {
+                    payloadNode.push({
+                        key: step3FormInputs[i].id, 
+                        value:  step3FormInputs[i].value
+                    });
+                }
+            }
+        }
 
-        // online unique code setup
-        var voucherPot1                 = $(step1Selector +  " #voucher_pot_1").val();
-        var voucherPot2                 = $(step1Selector +  " #voucher_pot_2").val();
-        var voucherPot3                 = $(step1Selector +  " #voucher_pot_3").val();
-
-        // reuse old online unique codes
-        var reUseVoucherPot1            = $("#reuse_voucher_pot_1").val();
-        var reUseVoucherPot2            = $("#reuse_voucher_pot_2").val();
-        var reUseVoucherPot3            = $("#reuse_voucher_pot_3").val();
-
-        // online global code setup
-        var globalCode1                 = $(step1Selector +  " #global_code_1").val();
-        var globalCode1ValidFrom        = $(step2Selector +  " #global_code_1 option:selected").attr("data-attribute-validfrom");
-        var globalCode1ValidTo          = $(step2Selector +  " #global_code_1 option:selected").attr("data-attribute-validto");
-        var globalCode2                 = $(step1Selector +  " #global_code_2").val();
-        var globalCode2ValidFrom        = $(step2Selector +  " #global_code_2 option:selected").attr("data-attribute-validfrom");
-        var globalCode2ValidTo          = $(step2Selector +  " #global_code_2 option:selected").attr("data-attribute-validto");
-        var globalCode3                 = $(step1Selector +  " #global_code_3").val();
-        var globalCode3ValidFrom        = $(step2Selector +  " #global_code_3 option:selected").attr("data-attribute-validfrom");
-        var globalCode3ValidTo          = $(step2Selector +  " #global_code_3 option:selected").attr("data-attribute-validto");
-
-        // online override dates
-        var overrideOnlineDatesCode1          = $(step1Selector +  " #online_code_date_override_1").val();
-        var overrideOnlineDatesCode2          = $(step1Selector +  " #online_code_date_override_2").val();
-        var overrideOnlineDatesCode3          = $(step1Selector +  " #online_code_date_override_3").val();
-
-        // online override days to add
-        var overrideOnlineDatesCode1days      = $(step1Selector +  " #online_voucher_date_override_1_days").val();
-        var overrideOnlineDatesCode2days      = $(step1Selector +  " #online_voucher_date_override_2_days").val();
-        var overrideOnlineDatesCode3days      = $(step1Selector +  " #online_voucher_date_override_3_days").val();
-
-
-        // online meta data
-        var printAtTillOnline           = $(step1Selector +  " #print_at_till_online").val();
-        var instantWinOnline            = $(step1Selector +  " #instant_win_online").val();
-        var mediumOnline                = $(step1Selector +  " #offer_medium_online").val();
-        var promotionIdOnline           = $(step1Selector +  " #promotion_id_online").val();
-        var promotionGroupIdOnline      = $(step1Selector +  " #promotion_group_id_online").val();
-
-        // online global code setup
-        var instoreCode1                = $(step2Selector +  " #instore_code_1_instore").val();
-        var instoreCode1ValidFrom       = $(step2Selector +  " #instore_code_1_instore option:selected").attr("data-attribute-validfrom");
-        var instoreCode1ValidTo         = $(step2Selector +  " #instore_code_1_instore option:selected").attr("data-attribute-validto");
-        var instoreCode2                = $(step2Selector +  " #instore_code_2_instore").val();
-        var instoreCode2ValidFrom       = $(step2Selector +  " #instore_code_2_instore option:selected").attr("data-attribute-validfrom");
-        var instoreCode2ValidTo         = $(step2Selector +  " #instore_code_2_instore option:selected").attr("data-attribute-validto");
-        var instoreCode3                = $(step2Selector +  " #instore_code_3_instore").val();
-        var instoreCode3ValidFrom       = $(step2Selector +  " #instore_code_3_instore option:selected").attr("data-attribute-validfrom");
-        var instoreCode3ValidTo         = $(step2Selector +  " #instore_code_3_instore option:selected").attr("data-attribute-validto");
-
-        // instore override dates
-        var overrideInstoreDatesCode1          = $(step2Selector +  " #instore_code_date_override_1").val();
-        var overrideInstoreDatesCode2          = $(step2Selector +  " #instore_code_date_override_2").val();
-        var overrideInstoreDatesCode3          = $(step2Selector +  " #instore_code_date_override_3").val();
-
-        // instore override days to add
-        var overrideInstoreDatesCode1days      = $(step2Selector +  " #instore_voucher_date_override_1_days").val();
-        var overrideInstoreDatesCode2days      = $(step2Selector +  " #instore_voucher_date_override_2_days").val();
-        var overrideInstoreDatesCode3days      = $(step2Selector +  " #instore_voucher_date_override_3_days").val();
-
-        // instore meta data
-        var printAtTillInstore          = $(step2Selector +  " #print_at_till_instore").val();
-        var instantWinInstore           = $(step2Selector +  " #instant_win_instore").val();
-        var mediumInstore               = $(step2Selector +  " #offer_medium_instore").val();
-        var promotionIdInstore          = $(step2Selector +  " #promotion_id_instore").val();
-        var promotionGroupIdInstore     = $(step2Selector +  " #promotion_group_id_instore").val();
-
-        payloadNode = {
-
-            "promotion_type"                    : promotionType,
-
-            "control_group"                     : controlGroup,
-
-            "email_template"                    : emailTemplate,
-
-            "cell_code"                         : cellCode,
-            "cell_name"                         : cellName,
-            "campaign_name"                     : campaignName,
-            "campaign_id"                       : campaignId,
-            "campaign_code"                     : campaignCode,
-
-            "voucher_pot_1"                     : voucherPot1,
-            "voucher_pot_2"                     : voucherPot2,
-            "voucher_pot_3"                     : voucherPot3,
-
-            "re_use_voucher_pot_1"              : reUseVoucherPot1,
-            "re_use_voucher_pot_2"              : reUseVoucherPot2,
-            "re_use_voucher_pot_3"              : reUseVoucherPot3,
-
-            "global_code_1"                     : globalCode1,
-            "global_code_2"                     : globalCode2,
-            "global_code_3"                     : globalCode3,
-
-            "global_code_1_validfrom"           : globalCode1ValidFrom,
-            "global_code_1_validto"             : globalCode1ValidTo,
-            "global_code_2_validfrom"           : globalCode2ValidFrom,
-            "global_code_2_validto"             : globalCode2ValidTo,
-            "global_code_3_validfrom"           : globalCode3ValidFrom,
-            "global_code_3_validto"             : globalCode3ValidTo,
-
-            "online_code_date_override_1"       : overrideOnlineDatesCode1,
-            "online_code_date_override_2"       : overrideOnlineDatesCode2,
-            "online_code_date_override_3"       : overrideOnlineDatesCode3,
-
-            "online_voucher_date_override_1_days" : overrideOnlineDatesCode1days,
-            "online_voucher_date_override_2_days" : overrideOnlineDatesCode2days,
-            "online_voucher_date_override_3_days" : overrideOnlineDatesCode3days,
-
-            "print_at_till_online"              : printAtTillOnline,
-            "instant_win_online"                : instantWinOnline,
-            "offer_medium_online"               : mediumOnline,
-            "promotion_id_online"               : promotionIdOnline,
-            "promotion_group_id_online"         : promotionGroupIdOnline,
-
-            "instore_code_1"                    : instoreCode1,
-            "instore_code_2"                    : instoreCode2,
-            "instore_code_3"                    : instoreCode3,
-
-            "instore_code_1_validfrom"          : instoreCode1ValidFrom,
-            "instore_code_1_validto"            : instoreCode1ValidTo,
-            "instore_code_2_validfrom"          : instoreCode2ValidFrom,
-            "instore_code_2_validto"            : instoreCode2ValidTo,
-            "instore_code_3_validfrom"          : instoreCode3ValidFrom,
-            "instore_code_3_validto"            : instoreCode3ValidTo,
-
-
-            "instore_code_date_override_1"       : overrideInstoreDatesCode1,
-            "instore_code_date_override_2"       : overrideInstoreDatesCode2,
-            "instore_code_date_override_3"       : overrideInstoreDatesCode3,
-
-            "instore_voucher_date_override_1_days" : overrideInstoreDatesCode1days,
-            "instore_voucher_date_override_2_days" : overrideInstoreDatesCode2days,
-            "instore_voucher_date_override_3_days" : overrideInstoreDatesCode3days,
-
-            "print_at_till_instore"             : printAtTillInstore,
-            "instant_win_instore"               : instantWinInstore,
-            "offer_medium_instore"              : mediumInstore,
-            "promotion_id_instore"              : promotionIdInstore,
-            "promotion_group_id_instore"        : promotionGroupIdInstore
-
-        };
+        for ( i = 0; i < step3FormInputs.length; i++ ) {
+            if ( step3FormInputs[i].id) {
+                if ( step3FormInputs[i].type == "checkbox") {
+                    payloadNode.push({
+                        key: step3FormInputs[i].id, 
+                        value:  step3FormInputs[i].checked
+                    });
+                } else {
+                    payloadNode.push({
+                        key: step3FormInputs[i].id, 
+                        value:  step3FormInputs[i].value
+                    });
+                }
+            }
+        }
 
         if ( debug ) {
             console.log(payloadNode);
