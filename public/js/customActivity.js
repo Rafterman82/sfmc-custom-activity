@@ -1091,8 +1091,8 @@ define([
                     });
                 } else {
                     payloadNode.push({
-                        key: step3FormInputs[i].id, 
-                        value:  step3FormInputs[i].value
+                        key: step2FormInputs[i].id, 
+                        value:  step2FormInputs[i].value
                     });
                 }
             }
