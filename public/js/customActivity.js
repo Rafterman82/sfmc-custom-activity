@@ -263,7 +263,7 @@ define([
         // ensure instore promo id is automatically set and is read-only
         $("#instore_code_1, #instore_code_2, #instore_code_3, #instore_code_4, #instore_code_5").change(function(){
             var instoreCodeIndex = this.id.slice(-1);
-            var instoreCodeLoyaltyPromotion = $(this).attr("data-attribute-loyalty");
+            var instoreCodeLoyaltyPromotion = $("option:selected", this).attr("data-attribute-loyalty");
 
             // set promo id
             $("#instore_code_"+instoreCodeIndex+"_promo_id").val(this.value);
