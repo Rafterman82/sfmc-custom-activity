@@ -1247,7 +1247,7 @@ define([
     }
 
     function cleanUpKeyText(keyString) {
-        return keyString.replace("_", " ");
+        return keyString.split("_").join(" ");
     }
 
     function save() {
