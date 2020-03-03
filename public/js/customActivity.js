@@ -1208,7 +1208,7 @@ define([
 
             } else if ( summaryPayload[z].step == 2 ) {
 
-                if ( summaryPayload[z].key == "promotionType" && summaryPayload[z].value == "online" || summaryPayload.[z].value == "online_instore" ) {
+                if ( summaryPayload[z].key == "promotionType" && summaryPayload[z].value == "online" || summaryPayload[z].value == "online_instore" ) {
 
                     $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+'</dt>');
                     $("#summary-online-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
@@ -1221,7 +1221,7 @@ define([
 
             } else if ( summaryPayload[z].step == 3 ) {
 
-                if ( summaryPayload[z].key == "promotionType" && summaryPayload[z].value == "instore" || summaryPayload.[z].value == "online_instore" ) {
+                if ( summaryPayload[z].key == "promotionType" && summaryPayload[z].value == "instore" || summaryPayload[z].value == "online_instore" ) {
 
                     $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
                     $("#summary-instore-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
