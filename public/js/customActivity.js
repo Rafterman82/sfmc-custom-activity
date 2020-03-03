@@ -1168,7 +1168,7 @@ define([
                 $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
                 $("#summary-main-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
 
-            } else ( summaryPayload[z].step == 2 ) {
+            } else if ( summaryPayload[z].step == 2 ) {
 
                 $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+'</dt>');
                 $("#summary-online-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');                
