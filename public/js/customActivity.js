@@ -1203,38 +1203,37 @@ define([
 
             if ( summaryPayload[z].step == 1 ) {
 
+                if ( summaryPayload[z].key == "promotionType" ) {
+                    var summaryPromotionType = summaryPayload[z].value;
+                    if ( summaryPromotionType == "online") {
+                        $("#summary-instore-setup").append('<p>No codes setup.</p>');
+                    } else if ( summaryPromotionType == "instore") {
+                        $("#summary-online-setup").append('<p>No codes setup.</p>');
+                    }
+                }
+
                 $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
                 $("#summary-main-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
 
             } else if ( summaryPayload[z].step == 2 ) {
 
-                if ( summaryPayload[z].key == "promotionType" && summaryPayload[z].value == "online" || summaryPayload[z].value == "online_instore" ) {
+                if ( summaryPromotionType == "online" || summaryPromotionType == "online_instore" ) {
 
                     $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+'</dt>');
                     $("#summary-online-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
 
-                } else {
-                    
-                    $("#summary-online-setup").append('<p>No online codes setup</p>');
-
-                }                
+                }              
 
             } else if ( summaryPayload[z].step == 3 ) {
 
-                if ( summaryPayload[z].key == "promotionType" && summaryPayload[z].value == "instore" || summaryPayload[z].value == "online_instore" ) {
+                if ( summaryPromotionType == "instore" || summaryPromotionType == "online_instore" ) {
 
                     $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
                     $("#summary-instore-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
                 
-                } else {
-                    
-                    $("#summary-instore-setup").append('<p>No instore codes setup</p>');
-
-                }       
+                }     
             }
-
-        }
-        
+        }  
     }
 
     function save() {
