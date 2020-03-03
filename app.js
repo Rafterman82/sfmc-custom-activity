@@ -301,6 +301,9 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 		})
 		.then(function (response) {
 			//console.dir(response.data);
+
+			// lookup the cpa table and remove any iterations of used templates
+			
 			res.json(response.data);
 		})
 		.catch(function (error) {

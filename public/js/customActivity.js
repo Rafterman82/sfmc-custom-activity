@@ -1086,6 +1086,8 @@ define([
 
         for ( i = 0; i < step1FormInputs.length; i++ ) {
             if ( step1FormInputs[i].id) {
+                console.log("Form inputs for step 1");
+                console.log(step1FormInputs[i]);
                 if ( step1FormInputs[i].type == "checkbox") {
                     payloadNode.push({
                         key: step1FormInputs[i].id, 
@@ -1102,6 +1104,8 @@ define([
 
         for ( i = 0; i < step2FormInputs.length; i++ ) {
             if ( step2FormInputs[i].id) {
+                console.log("Form inputs for step 2");
+                console.log(step1FormInputs[i]);
                 if ( step2FormInputs[i].type == "checkbox") {
                     payloadNode.push({
                         key: step2FormInputs[i].id, 
@@ -1118,6 +1122,8 @@ define([
 
         for ( i = 0; i < step3FormInputs.length; i++ ) {
             if ( step3FormInputs[i].id) {
+                console.log("Form inputs for step 3");
+                console.log(step1FormInputs[i]);
                 if ( step3FormInputs[i].type == "checkbox") {
                     payloadNode.push({
                         key: step3FormInputs[i].id, 
@@ -1147,6 +1153,8 @@ define([
             console.log(summaryPayload);
         }
         
+
+
         Object.keys(summaryPayload).forEach(function(key) {
             console.table('Key : ' + key + ', Value : ' + summaryPayload[key]);
         })
