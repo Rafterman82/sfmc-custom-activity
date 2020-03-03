@@ -226,6 +226,8 @@ define([
 
         });
 
+        // ensure print at till and instant win can never be the same value
+
         $("#print_at_till_online").change(function() {
             // set instant win to opposite
             if ( $("#print_at_till_online").val() == "true" ) {
@@ -256,6 +258,18 @@ define([
                 // set instant win to false
                 $('#print_at_till_instore option[value="false"]').prop("selected", "selected");
             }
+        });
+
+        // ensure instore promo id is automatically set and is read-only
+        $("#instore_code_1, #instore_code_2, #instore_code_3, #instore_code_4, #instore_code_5").change(function(){
+            var instoreCodeIndex = this.id.slice(-1);
+            var instoreCodeLoyaltyPromotion = $(this).attr("data-attribute-loyalty");
+
+            // set promo id
+            $("#instore_code_"+instoreCodeIndex+"_promo_id").val(this.value);
+
+            // set loyalty promotion
+            $("#instore_code_"+instoreCodeIndex+"_loyalty_promotion").val(instoreCodeLoyaltyPromotion);
         });
 
         // select first input
