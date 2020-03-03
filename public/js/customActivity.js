@@ -1090,11 +1090,13 @@ define([
                 console.log(step1FormInputs[i]);
                 if ( step1FormInputs[i].type == "checkbox") {
                     payloadNode.push({
+                        step: 1,
                         key: step1FormInputs[i].id, 
                         value:  step1FormInputs[i].checked
                     });
                 } else {
                     payloadNode.push({
+                        step: 1,
                         key: step1FormInputs[i].id, 
                         value:  step1FormInputs[i].value
                     });
@@ -1108,11 +1110,13 @@ define([
                 console.log(step1FormInputs[i]);
                 if ( step2FormInputs[i].type == "checkbox") {
                     payloadNode.push({
+                        step: 2,
                         key: step2FormInputs[i].id, 
                         value:  step2FormInputs[i].checked
                     });
                 } else {
                     payloadNode.push({
+                        step: 2,
                         key: step2FormInputs[i].id, 
                         value:  step2FormInputs[i].value
                     });
@@ -1126,11 +1130,13 @@ define([
                 console.log(step1FormInputs[i]);
                 if ( step3FormInputs[i].type == "checkbox") {
                     payloadNode.push({
+                        step: 3,
                         key: step3FormInputs[i].id, 
                         value:  step3FormInputs[i].checked
                     });
                 } else {
                     payloadNode.push({
+                        step: 3,
                         key: step3FormInputs[i].id, 
                         value:  step3FormInputs[i].value
                     });
@@ -1152,12 +1158,29 @@ define([
             console.log("Build Payload for summary update it")
             console.log(summaryPayload);
         }
-        
+ 
+        var z = 0;
 
+        for ( z = 0; z < summaryPayload.length; z++ ) {
 
-        Object.keys(summaryPayload).forEach(function(key) {
-            console.table('Key : ' + key + ', Value : ' + summaryPayload[key]);
-        })
+            if ( summaryPayload[z].step == 1 ) {
+
+                $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
+                $("#summary-main-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
+
+            } else ( summaryPayload[z].step == 2 ) {
+
+                $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+'</dt>');
+                $("#summary-online-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');                
+
+            } else if ( summaryPayload[z].step == 3 ) {
+
+                $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
+                $("#summary-instore-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
+
+            }
+
+        }
         
     }
 
