@@ -1086,60 +1086,98 @@ define([
 
         for ( i = 0; i < step1FormInputs.length; i++ ) {
             if ( step1FormInputs[i].id) {
-                console.log("Form inputs for step 1");
-                console.log(step1FormInputs[i]);
                 if ( step1FormInputs[i].type == "checkbox") {
-                    payloadNode.push({
-                        step: 1,
-                        key: step1FormInputs[i].id, 
-                        value:  step1FormInputs[i].checked
-                    });
+                    if ( step1FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 1,
+                            key: step1FormInputs[i].id, 
+                            value:  step1FormInputs[i].checked
+                        });
+                    }
+                } else if ( step1FormInputs[i].type == "radio" ) {
+                    if ( step1FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 1,
+                            key: step1FormInputs[i].name, 
+                            value:  step1FormInputs[i].value
+                        });
+                    }
                 } else {
-                    payloadNode.push({
-                        step: 1,
-                        key: step1FormInputs[i].id, 
-                        value:  step1FormInputs[i].value
-                    });
+                    if ( step1FormInputs[i].value ) {
+                        if ( step1FormInputs[i].id == "#email_template") {
+                            payloadNode.push({
+                                step: 1,
+                                key: step1FormInputs[i].id, 
+                                value:  decodeURI(step1FormInputs[i].value)
+                            }); 
+                        } else {
+                            payloadNode.push({
+                                step: 1,
+                                key: step1FormInputs[i].id, 
+                                value:  step1FormInputs[i].value
+                            });                             
+                        }
+                    }
                 }
             }
         }
 
         for ( i = 0; i < step2FormInputs.length; i++ ) {
             if ( step2FormInputs[i].id) {
-                console.log("Form inputs for step 2");
-                console.log(step1FormInputs[i]);
                 if ( step2FormInputs[i].type == "checkbox") {
-                    payloadNode.push({
-                        step: 2,
-                        key: step2FormInputs[i].id, 
-                        value:  step2FormInputs[i].checked
-                    });
+                    if ( step2FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 2,
+                            key: step2FormInputs[i].id, 
+                            value:  step2FormInputs[i].checked
+                        });
+                    }
+                } else if ( step2FormInputs[i].type == "radio" ) {
+                    if ( step2FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 2,
+                            key: step2FormInputs[i].name, 
+                            value:  step2FormInputs[i].value
+                        });
+                    }
                 } else {
-                    payloadNode.push({
-                        step: 2,
-                        key: step2FormInputs[i].id, 
-                        value:  step2FormInputs[i].value
-                    });
+                    if ( step2FormInputs[i].value ) {
+                        payloadNode.push({
+                            step: 2,
+                            key: step2FormInputs[i].id, 
+                            value:  step2FormInputs[i].value
+                        });                       
+                    }
                 }
             }
         }
 
         for ( i = 0; i < step3FormInputs.length; i++ ) {
             if ( step3FormInputs[i].id) {
-                console.log("Form inputs for step 3");
-                console.log(step1FormInputs[i]);
                 if ( step3FormInputs[i].type == "checkbox") {
-                    payloadNode.push({
-                        step: 3,
-                        key: step3FormInputs[i].id, 
-                        value:  step3FormInputs[i].checked
-                    });
+                    if ( step3FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 3,
+                            key: step3FormInputs[i].id, 
+                            value:  step3FormInputs[i].checked
+                        });
+                    }
+                } else if ( step3FormInputs[i].type == "radio" ) {
+                    if ( step3FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 3,
+                            key: step3FormInputs[i].name, 
+                            value:  step3FormInputs[i].value
+                        });
+                    }
                 } else {
-                    payloadNode.push({
-                        step: 3,
-                        key: step3FormInputs[i].id, 
-                        value:  step3FormInputs[i].value
-                    });
+                    if ( step3FormInputs[i].value ) {
+                        payloadNode.push({
+                            step: 3,
+                            key: step3FormInputs[i].id, 
+                            value:  step3FormInputs[i].value
+                        });                       
+                    }
                 }
             }
         }
@@ -1170,14 +1208,29 @@ define([
 
             } else if ( summaryPayload[z].step == 2 ) {
 
-                $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+'</dt>');
-                $("#summary-online-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');                
+                if ( summaryPayload[z].key == "promotionType" && summaryPayload[z].value == "online" || summaryPayload.[z].value == "online_instore" ) {
+
+                    $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+'</dt>');
+                    $("#summary-online-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
+
+                } else {
+                    
+                    $("#summary-online-setup").append('<p>No online codes setup</p>');
+
+                }                
 
             } else if ( summaryPayload[z].step == 3 ) {
 
-                $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
-                $("#summary-instore-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
+                if ( summaryPayload[z].key == "promotionType" && summaryPayload[z].value == "instore" || summaryPayload.[z].value == "online_instore" ) {
 
+                    $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
+                    $("#summary-instore-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
+                
+                } else {
+                    
+                    $("#summary-instore-setup").append('<p>No instore codes setup</p>');
+
+                }       
             }
 
         }
