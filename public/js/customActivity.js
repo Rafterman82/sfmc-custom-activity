@@ -1108,7 +1108,7 @@ define([
                             payloadNode.push({
                                 step: 1,
                                 key: step1FormInputs[i].id, 
-                                value:  decodeURI(step1FormInputs[i].value)
+                                value:  step1FormInputs[i].value.split("%20").join(" ");
                             }); 
                         } else {
                             payloadNode.push({
@@ -1191,6 +1191,8 @@ define([
     }
 
     function updateSummaryPage(summaryPayload) {
+
+        $("#summary-main-setup, #summary-online-setup, #summary-instore-setup").empty();
 
         if ( debug ) {
             console.log("Build Payload for summary update it")
