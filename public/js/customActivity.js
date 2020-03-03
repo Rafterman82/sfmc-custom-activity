@@ -1108,7 +1108,7 @@ define([
                             payloadNode.push({
                                 step: 1,
                                 key: step1FormInputs[i].id, 
-                                value:  encodeURI(step1FormInputs[i].value)
+                                value:  decodeURI(step1FormInputs[i].value)
                             }); 
                         } else {
                             payloadNode.push({
