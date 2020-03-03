@@ -38,3 +38,6 @@ body {
 .slds-notify_toast, .slds-notify--toast {
 	min-width:97%!important;
 }
+#summary-instore-setup dt, #summary-online-setup dt, #summary-main-setup dt {
+	text-transform: capitalize;
+}
