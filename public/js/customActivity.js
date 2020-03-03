@@ -1104,7 +1104,7 @@ define([
                     }
                 } else {
                     if ( step1FormInputs[i].value ) {
-                        if ( step1FormInputs[i].id == "#email_template") {
+                        if ( step1FormInputs[i].key == "email_template") {
                             payloadNode.push({
                                 step: 1,
                                 key: step1FormInputs[i].id, 
@@ -1215,18 +1215,14 @@ define([
                         }
                     }
 
-                    summaryPayload[z].key = cleanUpKeyText(summaryPayload[z].key);
-
-                    $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
+                    $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+cleanUpKeyText(summaryPayload[z].key)+':</dt>');
                     $("#summary-main-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
 
                 } else if ( summaryPayload[z].step == 2 ) {
 
                     if ( summaryPromotionType == "online" || summaryPromotionType == "online_instore" ) {
 
-                        summaryPayload[z].key = cleanUpKeyText(summaryPayload[z].key);
-
-                        $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+'</dt>');
+                        $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+cleanUpKeyText(summaryPayload[z].key)+'</dt>');
                         $("#summary-online-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
 
                     }              
@@ -1235,9 +1231,7 @@ define([
 
                     if ( summaryPromotionType == "instore" || summaryPromotionType == "online_instore" ) {
 
-                        summaryPayload[z].key = cleanUpKeyText(summaryPayload[z].key);
-
-                        $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+summaryPayload[z].key+':</dt>');
+                        $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'">'+cleanUpKeyText(summaryPayload[z].key)+':</dt>');
                         $("#summary-instore-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
                     
                     }     
