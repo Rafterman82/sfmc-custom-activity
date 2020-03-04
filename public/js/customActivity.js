@@ -646,11 +646,11 @@ define([
                         console.log(result.items[i]);
                     }
                     // do something with substr[i]
-                    $("#voucher_pot_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
-                    $("#voucher_pot_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
-                    $("#voucher_pot_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
-                    $("#voucher_pot_4").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
-                    $("#voucher_pot_5").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
+                    $("#unique_code_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
+                    $("#unique_code_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
+                    $("#unique_code_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
+                    $("#unique_code_4").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
+                    $("#unique_code_5").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + result.items[i].values.count  + "</option>");
                 }
                 updateApiStatus("voucherpot-api", true);
             }
