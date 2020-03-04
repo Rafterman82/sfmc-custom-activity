@@ -1247,6 +1247,8 @@ define([
             console.log(buildPayload);
         }
 
+        var currentPrimaryKey = "TEST123";
+
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
@@ -1256,7 +1258,14 @@ define([
         payload['arguments'].execute.inArguments = [{buildPayload}];
 
         // set isConfigured to true
-        payload['metaData'].isConfigured = true;
+        if ( currentPrimaryKey ) {
+            // sent to de and configured
+            payload['metaData'].isConfigured = true;            
+        } else {
+            // not sent to de but configured
+            payload['metaData'].isConfigured = false;
+        }
+        
 
         if ( debug ) {
             console.log("Payload including in args")
