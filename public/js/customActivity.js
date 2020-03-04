@@ -1104,19 +1104,11 @@ define([
                     }
                 } else {
                     if ( step1FormInputs[i].value ) {
-                        if ( step1FormInputs[i].key == "email_template") {
-                            payloadNode.push({
-                                step: 1,
-                                key: step1FormInputs[i].id, 
-                                value:  step1FormInputs[i].value.split("%20").join(" ")
-                            }); 
-                        } else {
-                            payloadNode.push({
-                                step: 1,
-                                key: step1FormInputs[i].id, 
-                                value:  step1FormInputs[i].value
-                            });                             
-                        }
+                        payloadNode.push({
+                            step: 1,
+                            key: step1FormInputs[i].id, 
+                            value:  step1FormInputs[i].value
+                        });  
                     }
                 }
             }
@@ -1215,6 +1207,10 @@ define([
                         } else if ( summaryPromotionType == "instore") {
                             $("#summary-online-setup").append('<p>No codes setup.</p>');
                         }
+                    }
+
+                    if ( summaryPayload[z].key == "email_template" ) {
+                        summaryPayload[z].value == decodeURI(summaryPayload[z].value);
                     }
 
                     $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'"><b>'+cleanUpKeyText(summaryPayload[z].key)+'</b></dt>');
