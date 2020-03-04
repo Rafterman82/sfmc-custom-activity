@@ -340,6 +340,9 @@ define([
             for ( q = 0; q < argumentsSummaryPayload.length; q++ ) {
 
                 if ( argumentsSummaryPayload[q].type == "checkbox") {
+                    if ( debug ) {
+                        console.log("Prepop: " + argumentsSummaryPayload[q].key + ", with value: " + argumentsSummaryPayload[q].value);
+                    }
                     if ( argumentsSummaryPayload[q].value ) {
                         $("#" + argumentsSummaryPayload[q].key).val(true);
                         $("#" + argumentsSummaryPayload[q].key).prop('checked', true);
