@@ -1108,7 +1108,7 @@ define([
                             payloadNode.push({
                                 step: 1,
                                 key: step1FormInputs[i].id, 
-                                value:  step1FormInputs[i].value.split("%20").join(" ");
+                                value:  step1FormInputs[i].value.split("%20").join(" ")
                             }); 
                         } else {
                             payloadNode.push({
