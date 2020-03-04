@@ -1315,7 +1315,7 @@
 
     <div id="step3" class="step">
         <div class="slds-grid slds-gutters">
-            <div class="slds-col slds-size_1-of-1">
+            <div class="slds-col slds-size_3-of-4">
                 <article class="slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -1342,6 +1342,39 @@
                         <button class="slds-button slds-button_destructive">Remove this promotion?</button>
                         <dl class="slds-list_horizontal slds-wrap" id="summary-main-setup">
                         </dl>
+                    </div>
+                </article>
+            </div>
+            <div class="slds-col slds-size_3-of-4">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-remove_relationship" title="remove_relationship">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#remove_relationship"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Control Area</span>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                                        <span>Control Area</span>
+                                    </a>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <button class="slds-button slds-button_success" id="control_action_optima">Send to Optima?</button>
+                        <div class="slds-box slds-box_x-small">
+                            <h2><red>Danger Zone</red></h2>
+                            <button class="slds-button slds-text-destructive" id="control_action_edit">Edit this promotion?</button>
+                            <button class="slds-button slds-button_destructive" id="control_action_remove">Remove this promotion?</button>
+                            <p><red>Warning</red> - Removing this promotion will remove this association from the the main promotion table. Editing this promotion will set the "REFRESH_FLAG" to "true" for re-send to Optima.
+                            </p>
+                        </div>
                     </div>
                 </article>
             </div>
