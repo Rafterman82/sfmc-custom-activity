@@ -749,11 +749,10 @@ define([
 
             } else if ( currentStep.key === 'step3' ) {
 
-                console.log("save to de");
-                saveToDataExtension(buildActivityPayload());
-                setTimeout(function() {
-                    save();
-                }, 3000);
+                if ( debug ) {
+                    console.log("Close and save in cache");
+                }
+                save();
 
             } else {
 
@@ -810,11 +809,10 @@ define([
 
             } else if ( currentStep.key === 'step3' ) {
 
-                console.log("save to de");
-                saveToDataExtension(buildActivityPayload());
-                setTimeout(function() {
-                    save();
-                }, 3000);      
+                if ( debug ) {
+                    console.log("Close and save in cache");
+                }
+                save();      
 
             } else {
 
@@ -871,11 +869,10 @@ define([
 
             } else if ( currentStep.key === 'step3' ) {
 
-                console.log("save to de");
-                saveToDataExtension(buildActivityPayload());
-                setTimeout(function() {
-                    save();
-                }, 3000);
+                if ( debug ) {
+                    console.log("Close and save in cache");
+                }
+                save();
 
             } else if ( currentStep.key === 'step1' ) {
 
@@ -1245,20 +1242,28 @@ define([
 
         var buildPayload = buildActivityPayload();
 
+        if (debug) {
+            console.log("Build Payload is:");
+            console.log(buildPayload);
+        }
+
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
-        payload.name = buildPayload.campaign_name;
+        payload.name = "test";
 
         payload['arguments'].execute.inArguments = [{buildPayload}];
 
+        // set isConfigured to true
         payload['metaData'].isConfigured = true;
 
         if ( debug ) {
+            console.log("Payload including in args")
             console.log(payload);
         }
 
+        // trigger payload save
         connection.trigger('updateActivity', payload);
     }
 
