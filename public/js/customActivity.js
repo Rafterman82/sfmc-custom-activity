@@ -1247,7 +1247,7 @@ define([
             console.log(buildPayload);
         }
 
-        var currentPrimaryKey = "TEST123";
+        var currentPrimaryKey = "PROMOTIONKEY123";
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
@@ -1260,6 +1260,7 @@ define([
         // set isConfigured to true
         if ( currentPrimaryKey ) {
             // sent to de and configured
+            payload['metaData'].promotionKey = currentPrimaryKey;
             payload['metaData'].isConfigured = true;            
         } else {
             // not sent to de but configured
