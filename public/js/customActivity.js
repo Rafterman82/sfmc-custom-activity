@@ -1197,7 +1197,6 @@ define([
 
             if ( summaryPayload[z].value != "no-code" ) {
 
-
                 if ( summaryPayload[z].step == 1 ) {
 
                     if ( summaryPayload[z].key == "promotionType" ) {
@@ -1209,12 +1208,8 @@ define([
                         }
                     }
 
-                    if ( summaryPayload[z].key == "email_template" ) {
-                        summaryPayload[z].value == decodeURI(summaryPayload[z].value);
-                    }
-
                     $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak slds-truncate" title="'+summaryPayload[z].key+'"><b>'+cleanUpKeyText(summaryPayload[z].key)+'</b></dt>');
-                    $("#summary-main-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
+                    $("#summary-main-setup").append('<dd class="slds-item_detail slds-truncate" title="Description for '+summaryPayload[z].value+'">'+cleanUpValueText(summaryPayload[z].value)+'</dd>');
 
                 } else if ( summaryPayload[z].step == 2 ) {
 
@@ -1240,6 +1235,10 @@ define([
 
     function cleanUpKeyText(keyString) {
         return keyString.split("_").join(" ");
+    }
+
+    function cleanUpValueText(valueString) {
+        return decodeURI(valueString);
     }
 
     function save() {
