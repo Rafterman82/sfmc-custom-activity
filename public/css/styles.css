@@ -41,3 +41,6 @@ body {
 #summary-instore-setup dt, #summary-online-setup dt, #summary-main-setup dt {
 	text-transform: capitalize;
 }
+.slds-item_detail, .slds-item_label {
+	width: 50%!important;
+}
