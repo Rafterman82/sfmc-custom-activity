@@ -6,7 +6,7 @@ define([
     'use strict';
 
     var debug                       = true;
-    var apiWaitTime                 = 1500;
+    var apiWaitTime                 = 500;
     var stepToValidate;
     var connection                  = new Postmonger.Session();
     var payload                     = {};
@@ -322,7 +322,7 @@ define([
             }, apiWaitTime);
         }
 
-        apiWaitTime = apiWaitTime + 500;
+        apiWaitTime = apiWaitTime + 200;
 
     }
 
