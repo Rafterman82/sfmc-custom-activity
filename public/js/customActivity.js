@@ -339,6 +339,35 @@ define([
 
             for ( q = 0; q < argumentsSummaryPayload.length; q++ ) {
 
+                if ( argumentsSummaryPayload[q].type == "checkbox") {
+                    if ( argumentsSummaryPayload[q].value == true || argumentsSummaryPayload[q].value == "True" || argumentsSummaryPayload[q].value == "true") {
+                        $("#step" + (argumentsSummaryPayload[q].step - 1) + " #" + argumentsSummaryPayload[q].key).prop('checked', true);
+                    } else {
+                        $("#step" + (argumentsSummaryPayload[q].step - 1) + " #" + argumentsSummaryPayload[q].key).prop('checked', false);
+                    }
+                } else if ( argumentsSummaryPayload[q].type == "radio") {
+                    if ( argumentsSummaryPayload[q].key == "promotionType") {
+                        if ( argumentsSummaryPayload[q].value == "online") {
+                            $("#step0 #radio-1").prop('checked', true);
+                            $("#step1 #radio-1").click();
+                        } else if ( argumentsSummaryPayload[q].value == "instore") {
+                            $("#step0 #radio-2").prop('checked', true);
+                            $("#step1 #radio-2").click();
+                        } else if ( argumentsSummaryPayload[q].value == "online_instore") {
+                            $("#step0 #radio-3").prop('checked', true);
+                            $("#step1 #radio-3").click();
+                        }
+                    } else if ( argumentsSummaryPayload[q].key == "onlinePromotionType") {
+                        if ( argumentsSummaryPayload[q].value == "global" ) {
+                            $("#step1 #radio-5").prop('checked', true);
+                            $("#step1 #radio-5").click();
+                        } else if ( argumentsSummaryPayload[q].value == "unique") {
+                            $("#step1 #radio-6").prop('checked', true);
+                            $("#step1 #radio-6").click();
+                        }
+                    }
+                }
+
                 $("#step" + (argumentsSummaryPayload[q].step - 1) + " #" + argumentsSummaryPayload[q].key).val(argumentsSummaryPayload[q].value);
 
             } 
