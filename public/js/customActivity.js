@@ -339,17 +339,15 @@ define([
 
             for ( q = 0; q < argumentsSummaryPayload.length; q++ ) {
                 if ( debug ) {
-                    console.log("Prepop: " + argumentsSummaryPayload[q].key + ", with value: " + argumentsSummaryPayload[q].value);
+                    console.log("Prepop: " + argumentsSummaryPayload[q].key + ", with value: " + argumentsSummaryPayload[q].value + ", and type: " + argumentsSummaryPayload[q].type);
                 }
                 if ( argumentsSummaryPayload[q].type == "checkbox") {
 
                     if ( argumentsSummaryPayload[q].value ) {
                         $("#" + argumentsSummaryPayload[q].key).val(true);
-                        $("#" + argumentsSummaryPayload[q].key).prop('checked', true);
-                        $("#" + argumentsSummaryPayload[q].key).click();
-                    } else {
-                        $("#" + argumentsSummaryPayload[q].key).prop('checked', false);
+                        $("#" + argumentsSummaryPayload[q].key).prop('checked', "checked");
                     }
+                    
                 } else if ( argumentsSummaryPayload[q].type == "radio") {
                     if ( argumentsSummaryPayload[q].key == "promotionType") {
                         if ( argumentsSummaryPayload[q].value == "online") {
