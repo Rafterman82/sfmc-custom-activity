@@ -65,8 +65,10 @@ define([
         if ( debug ) {
             console.log("Payload is:");
             console.log(payload.arguments.execute.inArguments[0]);
-            console.log("summary payload is:");
+            console.log("Summary payload is:");
             console.log(argumentsSummaryPayload.buildPayload);
+            console.log("Promotion Meta Data is:");
+            console.log(payload.metadata)
         }
 
         var hasInArguments = Boolean(
