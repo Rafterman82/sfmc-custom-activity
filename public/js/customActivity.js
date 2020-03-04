@@ -98,7 +98,7 @@ define([
             var argPromotionType;
 
             for ( r = 0; r < argumentsSummaryPayload.buildPayload.length; r++ ) {
-                if ( argumentsSummaryPayload.buildPayload[r].key == "promotion_type" ) {
+                if ( argumentsSummaryPayload.buildPayload[r].key == "promotionType" ) {
                     argPromotionType = argumentsSummaryPayload.buildPayload[r].value;
                 }
             }
