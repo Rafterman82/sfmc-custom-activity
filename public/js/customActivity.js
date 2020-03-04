@@ -340,7 +340,7 @@ define([
             for ( q = 0; q < argumentsSummaryPayload.length; q++ ) {
 
                 if ( argumentsSummaryPayload[q].type == "checkbox") {
-                    if ( argumentsSummaryPayload[q].value == true || argumentsSummaryPayload[q].value == "True" || argumentsSummaryPayload[q].value == "true") {
+                    if ( argumentsSummaryPayload[q].value ) {
                         $("#" + argumentsSummaryPayload[q].key).val(true);
                         $("#" + argumentsSummaryPayload[q].key).prop('checked', true);
                         $("#" + argumentsSummaryPayload[q].key).click();
