@@ -93,7 +93,23 @@ define([
                 console.log("inside if statement i.e. promotion key is present")
                 console.log(argumentsSummaryPayload.buildPayload);
             }
+
+            var r;
+            var argPromotionType;
+
+            for ( r = 0; r < argumentsSummaryPayload.buildPayload.length; r++ ) {
+                if ( argumentsSummaryPayload.buildPayload[r].key == "promotion_type" ) {
+                    argPromotionType = argumentsSummaryPayload.buildPayload[r].value;
+                }
+            }
             // argument data present, pre pop and redirect to summary page
+            prePopulateFields(argumentsSummaryPayload.buildPayload);
+
+            // update summary page
+            updateSummaryPage(argumentsSummaryPayload.buildPayload);
+
+            // trigger steps
+            triggerSteps(argumentsSummaryPayload.buildPayload, argPromotionType);
 
         }      
     }
@@ -310,11 +326,88 @@ define([
 
     }
 
-    function prePopulateFields(prePop, argumentsSummaryPayload) {
+    function prePopulateFields(argumentsSummaryPayload) {
 
         if ( debug) {
             console.log("payload sent to prepop function");
             console.log(argumentsSummaryPayload);
+        }
+
+        setTimeout(function(){ 
+
+            var q;
+
+            for ( q = 0; q < argumentsSummaryPayload.length; q++ ) {
+
+                $("#step" + (argumentsSummaryPayload[q].step - 1) + " #" + argumentsSummaryPayload[q].key).val(argumentsSummaryPayload[q].value);
+
+            } 
+        }, 2000);
+    }
+
+    function triggerSteps(argumentsSummaryPayload, argPromotionType) {
+
+        // argument data present, pre pop and redirect to summary page
+        var prepopPromotionType = argPromotionType;
+
+        if ( debug ) {
+            console.log("prepopPromotionType is");
+            console.log(prepopPromotionType);
+        }
+
+        var prePop;
+
+        if ( prepopPromotionType == 'online' ) {
+            steps[1].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 30);
+        } else if ( prepopPromotionType == 'instore' ) {
+            steps[2].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 30);
+        } else  if ( prepopPromotionType == 'online_instore' ) {
+            steps[1].active = true;
+            steps[2].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 30);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 40);
+        } else {
+            if ( debug ) {
+                console.log('nothing to pre-pop setting step 0 and first radio checked');
+            }
+            $("#radio-1").prop("checked", true).trigger("click");
+        }
+        if ( debug ) {
+            console.log(prePop);
         }
 
     }
@@ -1090,7 +1183,8 @@ define([
                         payloadNode.push({
                             step: 1,
                             key: step1FormInputs[i].id, 
-                            value:  step1FormInputs[i].checked
+                            value:  step1FormInputs[i].checked,
+                            type: "checkbox"
                         });
                     }
                 } else if ( step1FormInputs[i].type == "radio" ) {
@@ -1098,7 +1192,8 @@ define([
                         payloadNode.push({
                             step: 1,
                             key: step1FormInputs[i].name, 
-                            value:  step1FormInputs[i].value
+                            value:  step1FormInputs[i].value,
+                            type: "radio"
                         });
                     }
                 } else {
@@ -1106,7 +1201,8 @@ define([
                         payloadNode.push({
                             step: 1,
                             key: step1FormInputs[i].id, 
-                            value:  step1FormInputs[i].value
+                            value:  step1FormInputs[i].value,
+                            type: "input"
                         });  
                     }
                 }
@@ -1120,7 +1216,8 @@ define([
                         payloadNode.push({
                             step: 2,
                             key: step2FormInputs[i].id, 
-                            value:  step2FormInputs[i].checked
+                            value:  step2FormInputs[i].checked,
+                            type: "checkbox"
                         });
                     }
                 } else if ( step2FormInputs[i].type == "radio" ) {
@@ -1128,7 +1225,8 @@ define([
                         payloadNode.push({
                             step: 2,
                             key: step2FormInputs[i].name, 
-                            value:  step2FormInputs[i].value
+                            value:  step2FormInputs[i].value,
+                            type: "radio"
                         });
                     }
                 } else {
@@ -1136,7 +1234,8 @@ define([
                         payloadNode.push({
                             step: 2,
                             key: step2FormInputs[i].id, 
-                            value:  step2FormInputs[i].value
+                            value:  step2FormInputs[i].value,
+                            type: "input"
                         });                       
                     }
                 }
