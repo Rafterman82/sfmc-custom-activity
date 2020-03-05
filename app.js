@@ -342,7 +342,7 @@ app.post('/dataextension/add', function (req, res){
 		console.dir("Step is: " + req.body[i].step + ", Key is: " + req.body[i].key + ", Value is: " + req.body[i].value + ", Type is: " + req.body[i].type);
 	
 		campaignPromotionAssociationData.push({
-	        req.body[i].key: req.body[i].value,
+	        req.body[i].key: req.body[i].value
 	    });
 
 	}
