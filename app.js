@@ -236,11 +236,12 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 });
 
 // insert data into data extension
-app.post('/dataextension/add', urlencodedparser, function (req, res){ 
+app.post('/dataextension/add', function (req, res){ 
 	
-	console.dir("Request Body is ");
+	console.dir("Full request is: ");
+	console.dir("Request Body is: ");
 	console.dir(req.body);
-	res.json({requestBody: req.body})
+	res.json({"success": true});
 
 });
 
