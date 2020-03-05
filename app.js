@@ -110,9 +110,11 @@ function getOauth2Token() {
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
 
+    var oauth = await getOauth2Token();
+
 	axios.get(incrementsUrl, { 
 		headers: { 
-			Authorization: getOauth2Token()
+			Authorization: oauth
 		}
 	})
 	.then(incrementsResponse => {
@@ -129,9 +131,11 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 //Fetch rows from promotions data extension
 app.get("/dataextension/lookup/promotions", (req, res, next) => {
 
+	var oauth = await getOauth2Token();
+
     axios.get(promotionsUrl, { 
     	headers: { 
-    		Authorization: getOauth2Token() 
+    		Authorization: oauth 
     	} 
     })
     .then(promotionsResponse => {
@@ -146,11 +150,11 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 //Fetch rows from promotions data extension
 app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 
-	var oauthToken = getOauth2Token();
+	var oauth = await getOauth2Token();
 
     axios.get(globalCodesUrl, { 
     	headers: { 
-    		Authorization: oauthToken
+    		Authorization: oauth
     	}
     })
     .then(globalCodesResponse => {
@@ -164,11 +168,11 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 //Fetch rows from control group data extension
 app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 
-	var oauthToken = getOauth2Token();
+	var oauth = await getOauth2Token();
 
     axios.get(controlGroupsUrl, { 
     	headers: { 
-    		Authorization: oauthToken 
+    		Authorization: oauth 
     	} 
     })
     .then(controlGroupsResponse => {
@@ -183,11 +187,11 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 //Fetch rows from voucher data extension
 app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 
-	var oauthToken = getOauth2Token();
+	var oauth = await getOauth2Token();
 
     axios.get(voucherPotsUrl, { 
     	headers: { 
-    		Authorization: oauthToken 
+    		Authorization: oauth 
     	} 
     })
     .then(voucherPotsResponse => {
@@ -201,12 +205,12 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 //Fetch email templates
 app.get("/dataextension/lookup/templates", (req, res, next) => {
 
-	var oauthToken = getOauth2Token();
+	var oauth = await getOauth2Token();
 
    	axios({
 		method: 'post',
 		url: templatesUrl,
-		headers: {'Authorization': oauthToken},
+		headers: {'Authorization': oauth},
 		data: templatePayload
 	})
 	.then(function (templatesResponse) {		
