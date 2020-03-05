@@ -122,9 +122,7 @@ define([
             var promotionType = $("input[name='promotionType']:checked").val();
 
             if ( debug ) {
-
                 console.log(promotionType);
-
             }
 
             if ( promotionType === 'online' ) {
@@ -296,6 +294,11 @@ define([
 
         // select first input
         $("#radio-1").click();
+
+        // handler for Optima button
+        $("#control_action_optima").click(function(){
+            saveToDataExtension(buildActivityPayload());
+        });
 
     }
 
@@ -1169,16 +1172,12 @@ define([
                 type: 'POST',
                 cache: false, 
                 data: payloadToSave, 
-                success: function(data){
+                success: function(addResponse){
                     if ( debug ) {
-                        /*console.log(data);*/  
-                    }
-                    var saveResponseData = data;
-                    if ( debug ) {
-                        console.log(saveResponseData);
+                        console.log(addResponse);  
                     }
 
-                    addPromotionKeyToArgs(saveResponseData);
+                    //addPromotionKeyToArgs(saveResponseData);
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {
@@ -1187,6 +1186,7 @@ define([
                 }
             }); 
         } catch(e) {
+            console.log("Error saving data");
             console.log(e);
         }
 
