@@ -343,16 +343,16 @@ app.post('/dataextension/add', function (req, res){
 
 	for ( var i = 0; i < req.body.length; i++ ) {
 		console.dir("Step is: " + req.body[i].step + ", Key is: " + req.body[i].key + ", Value is: " + req.body[i].value + ", Type is: " + req.body[i].type);
-		campaignPromotionAssociationData[0].push([req.body[i].key]: req.body[i].value);
+		campaignPromotionAssociationData[req.body[i].key = req.body[i].value;
 
 	}
     console.log("Dump payload");
-    console.dir(campaignPromotionAssociationData[0]);
+    console.dir(campaignPromotionAssociationData);
 	var associationPayload = [{
         "keys": {
             "promotion_key": 12345
         },
-        "values": campaignPromotionAssociationData[0]
+        "values": campaignPromotionAssociationData
     }];
 
 	getOauth2Token().then((tokenResponse) => {
