@@ -110,8 +110,7 @@ const getOauth2Token = () => new Promise((resolve) => {
 app.get("/dataextension/lookup/increments", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
-	    //r is 1
-	    console.dir('r is 1:', tokenResponse);
+
 		axios.get(incrementsUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -132,8 +131,7 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 app.get("/dataextension/lookup/promotions", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
-	    //r is 1
-	    console.dir('r is 1:', tokenResponse);
+
 		axios.get(promotionsUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -154,8 +152,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
-	    //r is 1
-	    console.dir('r is 1:', tokenResponse);
+
 		axios.get(globalCodesUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -176,8 +173,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
-	    //r is 1
-	    console.dir('r is 1:', tokenResponse);
+
 		axios.get(controlGroupsUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -199,8 +195,7 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
-	    //r is 1
-	    console.dir('r is 1:', tokenResponse);
+
 		axios.get(voucherPotsUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -221,20 +216,20 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 app.get("/dataextension/lookup/templates", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
-	    //r is 1
-	    console.dir('r is 1:', tokenResponse);
-		axios.get(templatesUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
+
+	   	axios({
+			method: 'post',
+			url: templatesUrl,
+			headers: {'Authorization': tokenResponse},
+			data: templatePayload
 		})
-		.then(response => {
-			// If request is good... 
+		.then(function (response) {
+			//console.dir(response.data);
 			res.json(response.data);
 		})
-		.catch((error) => {
-		    console.dir("Error getting templates");
-		    console.dir(error);
+		.catch(function (error) {
+			console.dir(error);
+			return error;
 		});
 	})	
 
