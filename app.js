@@ -335,8 +335,8 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 // insert data into data extension
 app.post('/dataextension/add', function (req, res){ 
 	
-	console.dir(JSON.parse(req.body));
-	res.send(req.body);
+	console.dir(JSON.stringfy(req.body));
+	res.send(JSON.stringfy(req.body));
 
 });
 
