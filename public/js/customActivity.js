@@ -1172,11 +1172,6 @@ define([
                 type: 'POST',
                 cache: false, 
                 data: JSON.stringify(payloadToSave),
-                dataType: 'json',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
                 success: function(addResponse){
                     if ( debug ) {
                         console.log(addResponse);  
