@@ -1170,14 +1170,11 @@ define([
             $.ajax({ 
                 url: '/dataextension/add',
                 type: 'POST',
-                cache: false, 
                 data: JSON.stringify(payloadToSave),
-                success: function(addResponse){
-                    if ( debug ) {
-                        console.log(addResponse);  
-                    }
-
-                    //addPromotionKeyToArgs(saveResponseData);
+                contentType: 'application/json',                     
+                success: function(data) {
+                    console.log('success');
+                    console.log(JSON.stringify(data));
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {

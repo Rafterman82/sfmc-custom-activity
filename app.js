@@ -80,6 +80,8 @@ const templatePayload = {
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.raw({type: 'application/jwt'}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Express in Development Mode
 if ('development' == app.get('env')) {
@@ -238,16 +240,8 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 // insert data into data extension
 app.post('/dataextension/add', function (req, res){ 
 	
-	console.dir("Full request is: ");
-	console.dir(req);
-	console.dir("Request Body is: ");
-	console.dir(req.body);
-	res.json({
-		"success": true,
-		"payload": {
-			"data": req
-		}
-	});
+	console.log('body: ' + JSON.stringify(req.body));
+	res.send(req.body);
 
 });
 
