@@ -41,6 +41,7 @@ const incrementsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" +
 const globalCodesUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.globalVoucherPot + "/rowset";
 const controlGroupsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.controlGroupsDataExtension + "/rowset";
 const voucherPotsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.voucherPotsDataExtension + "/rowset";
+const campaignAssociationUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
 const templatesUrl = marketingCloud.restUrl + "asset/v1/content/assets/query";
 const templatePayload = {
     "page":
@@ -335,9 +336,41 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 // insert data into data extension
 app.post('/dataextension/add', function (req, res){ 
 
+	var campaignPromotionAssociationData = [];
+
 	for ( var i = 0; i < req.body.length; i++ ) {
 		console.dir("Step is: " + req.body[i].step + ", Key is: " + req.body[i].key + ", Value is: " + req.body[i].value + ", Type is: " + req.body[i].type);
+	
+		campaignPromotionAssociationData.push({
+	        req.body[i].key: req.body[i].value,
+	    });
+
 	}
+
+	var associationPayload = [{
+        "keys": {
+            "promotion_key": 12345
+        },
+        "values": campaignPromotionAssociationData
+    }];
+
+	getOauth2Token().then((tokenResponse) => {
+
+	   	axios({
+			method: 'post',
+			url: campaignAssociationUrl,
+			headers: {'Authorization': tokenResponse},
+			data: associationPayload
+		})
+		.then(function (response) {
+			console.dir(response.data);
+			//res.json(response.data);
+		})
+		.catch(function (error) {
+			console.dir(error);
+			return error;
+		});
+	})	
 
 	res.send(JSON.stringify(req.body));
 
