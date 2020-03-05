@@ -116,7 +116,7 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
 	    //r is 1
-	    console.log('r is 1:', tokenResponse);
+	    console.dir('r is 1:', tokenResponse);
 		axios.get(incrementsUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -138,7 +138,7 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
 	    //r is 1
-	    console.log('r is 1:', tokenResponse);
+	    console.dir('r is 1:', tokenResponse);
 		axios.get(promotionsUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -160,7 +160,7 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
 	    //r is 1
-	    console.log('r is 1:', tokenResponse);
+	    console.dir('r is 1:', tokenResponse);
 		axios.get(globalCodesUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -182,7 +182,7 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
 	    //r is 1
-	    console.log('r is 1:', tokenResponse);
+	    console.dir('r is 1:', tokenResponse);
 		axios.get(controlGroupsUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -205,7 +205,7 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
 	    //r is 1
-	    console.log('r is 1:', tokenResponse);
+	    console.dir('r is 1:', tokenResponse);
 		axios.get(voucherPotsUrl, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -227,7 +227,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 
 	getOauth2Token().then((tokenResponse) => {
 	    //r is 1
-	    console.log('r is 1:', tokenResponse);
+	    console.dir('r is 1:', tokenResponse);
 		axios.get(templatesUrl, { 
 			headers: { 
 				Authorization: tokenResponse
