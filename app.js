@@ -340,9 +340,7 @@ app.post('/dataextension/add', function (req, res){
 
 	for ( var i = 0; i < req.body.length; i++ ) {
 		console.dir("Step is: " + req.body[i].step + ", Key is: " + req.body[i].key + ", Value is: " + req.body[i].value + ", Type is: " + req.body[i].type);
-		campaignPromotionAssociationData.push({
-	        [req.body[i].key]: req.body[i].value
-	    });
+		campaignPromotionAssociationData[0].push("'" + [req.body[i].key]+"'": req.body[i].value);
 
 	}
 
@@ -350,7 +348,7 @@ app.post('/dataextension/add', function (req, res){
         "keys": {
             "promotion_key": 12345
         },
-        "values": campaignPromotionAssociationData
+        "values": campaignPromotionAssociationData[0]
     }];
 
 	getOauth2Token().then((tokenResponse) => {
