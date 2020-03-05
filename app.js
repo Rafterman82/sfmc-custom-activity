@@ -98,6 +98,7 @@ function getOauth2Token() {
 		}
 	})
 	.then(function (oauthResponse) {
+		console.dir('Bearer '.concat(oauthResponse.data.access_token));
 		return 'Bearer '.concat(oauthResponse.data.access_token);
 	})
 	.catch(function (error) {
@@ -145,9 +146,11 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 //Fetch rows from promotions data extension
 app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 
+	var oauthToken = getOauth2Token();
+
     axios.get(globalCodesUrl, { 
     	headers: { 
-    		Authorization: getOauth2Token()
+    		Authorization: oauthToken
     	}
     })
     .then(globalCodesResponse => {
@@ -161,9 +164,11 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 //Fetch rows from control group data extension
 app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 
+	var oauthToken = getOauth2Token();
+
     axios.get(controlGroupsUrl, { 
     	headers: { 
-    		Authorization: getOauth2Token() 
+    		Authorization: oauthToken 
     	} 
     })
     .then(controlGroupsResponse => {
@@ -178,9 +183,11 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 //Fetch rows from voucher data extension
 app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 
+	var oauthToken = getOauth2Token();
+
     axios.get(voucherPotsUrl, { 
     	headers: { 
-    		Authorization: getOauth2Token() 
+    		Authorization: oauthToken 
     	} 
     })
     .then(voucherPotsResponse => {
@@ -194,10 +201,12 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 //Fetch email templates
 app.get("/dataextension/lookup/templates", (req, res, next) => {
 
+	var oauthToken = getOauth2Token();
+
    	axios({
 		method: 'post',
 		url: templatesUrl,
-		headers: {'Authorization': getOauth2Token()},
+		headers: {'Authorization': oauthToken},
 		data: templatePayload
 	})
 	.then(function (templatesResponse) {		
