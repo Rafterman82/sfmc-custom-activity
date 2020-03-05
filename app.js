@@ -117,9 +117,9 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 				Authorization: tokenResponse
 			}
 		})
-		.then(incrementsResponse => {
+		.then(response => {
 			// If request is good... 
-			res.json(incrementsResponse.data);
+			res.json(response.data);
 		})
 		.catch((error) => {
 		    console.dir("Error getting increments");
@@ -139,9 +139,9 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 				Authorization: tokenResponse
 			}
 		})
-		.then(promotionsResponse => {
+		.then(response => {
 			// If request is good... 
-			res.json(promotionssResponse.data);
+			res.json(response.data);
 		})
 		.catch((error) => {
 		    console.dir("Error getting promotions");
@@ -161,9 +161,9 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 				Authorization: tokenResponse
 			}
 		})
-		.then(globalCodesResponse => {
+		.then(response => {
 			// If request is good... 
-			res.json(globalcodesResponse.data);
+			res.json(response.data);
 		})
 		.catch((error) => {
 		    console.dir("Error getting global code");
@@ -183,9 +183,9 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 				Authorization: tokenResponse
 			}
 		})
-		.then(controlGroupsResponse => {
+		.then(response => {
 			// If request is good... 
-			res.json(contolGroupsResponse.data);
+			res.json(response.data);
 		})
 		.catch((error) => {
 		    console.dir("Error getting control groups");
@@ -206,9 +206,9 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 				Authorization: tokenResponse
 			}
 		})
-		.then(voucherPotsResponse => {
+		.then(response => {
 			// If request is good... 
-			res.json(voucherPotsResponse.data);
+			res.json(response.data);
 		})
 		.catch((error) => {
 		    console.dir("Error getting voucher pots");
@@ -228,9 +228,9 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 				Authorization: tokenResponse
 			}
 		})
-		.then(templatesResponse => {
+		.then(response => {
 			// If request is good... 
-			res.json(templatesResponse.data);
+			res.json(response.data);
 		})
 		.catch((error) => {
 		    console.dir("Error getting templates");
