@@ -239,9 +239,15 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 app.post('/dataextension/add', function (req, res){ 
 	
 	console.dir("Full request is: ");
+	console.dir(req);
 	console.dir("Request Body is: ");
 	console.dir(req.body);
-	res.json({"success": true});
+	res.json({
+		"success": true,
+		"payload": {
+			"data": req
+		}
+	});
 
 });
 
