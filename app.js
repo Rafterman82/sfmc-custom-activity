@@ -239,8 +239,8 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 app.post('/dataextension/add', urlencodedparser, function (req, res){ 
 	
 	console.dir("Request Body is ");
-	console.dir(req);
-	res(req);
+	console.dir(req.body);
+	res.json({requestBody: req.body})
 
 });
 

@@ -1171,7 +1171,9 @@ define([
                 url: '/dataextension/add',
                 type: 'POST',
                 cache: false, 
-                data: payloadToSave, 
+                data: payloadToSave,
+                dataType: 'json',
+                contentType: 'application/json',
                 success: function(addResponse){
                     if ( debug ) {
                         console.log(addResponse);  
