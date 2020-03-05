@@ -86,11 +86,6 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
-// functions
-function getOauth2Token() {
-
-}
-
 const getOauth2Token = () => new Promise((resolve) => {
 	axios({
 		method: 'post',
