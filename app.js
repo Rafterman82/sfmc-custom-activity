@@ -88,6 +88,10 @@ if ('development' == app.get('env')) {
 
 // functions
 function getOauth2Token() {
+
+}
+
+const getOauth2Token = () => new Promise((resolve) => {
 	axios({
 		method: 'post',
 		url: marketingCloud.authUrl,
@@ -99,127 +103,145 @@ function getOauth2Token() {
 	})
 	.then(function (oauthResponse) {
 		console.dir('Bearer '.concat(oauthResponse.data.access_token));
-		return 'Bearer '.concat(oauthResponse.data.access_token);
+		return resolve('Bearer '.concat(oauthResponse.data.access_token));
 	})
 	.catch(function (error) {
 		console.dir("Error getting Oauth Token");
 		console.dir(error);
 	});
-}
+});
 
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
 
-    var oauth = await getOauth2Token();
-
-	axios.get(incrementsUrl, { 
-		headers: { 
-			Authorization: oauth
-		}
+	getOauth2Token().then((tokenResponse) => {
+	    //r is 1
+	    console.log('r is 1:', tokenResponse);
+		axios.get(incrementsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(incrementsResponse => {
+			// If request is good... 
+			res.json(incrementsResponse.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting increments");
+		    console.dir(error);
+		});
 	})
-	.then(incrementsResponse => {
-		// If request is good... 
-		res.json(incrementsResponse.data);
-	})
-	.catch((error) => {
-	    console.dir("Error getting increments");
-	    console.dir(error);
-	});		
-
 });
 
 //Fetch rows from promotions data extension
 app.get("/dataextension/lookup/promotions", (req, res, next) => {
 
-	var oauth = await getOauth2Token();
-
-    axios.get(promotionsUrl, { 
-    	headers: { 
-    		Authorization: oauth 
-    	} 
-    })
-    .then(promotionsResponse => {
-        // If request is good...
-        res.json(promotionsResponse.data);
-    }).catch((error) => {
-        console.dir("Error getting promotions");
-        console.dir(error);
-    });		
+	getOauth2Token().then((tokenResponse) => {
+	    //r is 1
+	    console.log('r is 1:', tokenResponse);
+		axios.get(promotionsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(promotionsResponse => {
+			// If request is good... 
+			res.json(promotionssResponse.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting promotions");
+		    console.dir(error);
+		});
+	})	
 });
 
 //Fetch rows from promotions data extension
 app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 
-	var oauth = await getOauth2Token();
-
-    axios.get(globalCodesUrl, { 
-    	headers: { 
-    		Authorization: oauth
-    	}
-    })
-    .then(globalCodesResponse => {
-        // If request is good...
-        res.json(globalCodesResponse.data);
-    }).catch((error) => {
-        console.dir('error getting global codes ' + error);
-    });		
+	getOauth2Token().then((tokenResponse) => {
+	    //r is 1
+	    console.log('r is 1:', tokenResponse);
+		axios.get(globalCodesUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(globalCodesResponse => {
+			// If request is good... 
+			res.json(globalcodesResponse.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting global code");
+		    console.dir(error);
+		});
+	})		
 });
 
 //Fetch rows from control group data extension
 app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 
-	var oauth = await getOauth2Token();
-
-    axios.get(controlGroupsUrl, { 
-    	headers: { 
-    		Authorization: oauth 
-    	} 
-    })
-    .then(controlGroupsResponse => {
-        // If request is good...
-        res.json(controlGroupsResponse.data);
-    }).catch((error) => {
-        console.dir('error getting control groups ' + error);
-    });		
+	getOauth2Token().then((tokenResponse) => {
+	    //r is 1
+	    console.log('r is 1:', tokenResponse);
+		axios.get(controlGroupsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(controlGroupsResponse => {
+			// If request is good... 
+			res.json(contolGroupsResponse.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting control groups");
+		    console.dir(error);
+		});
+	})		
 
 });
 
 //Fetch rows from voucher data extension
 app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 
-	var oauth = await getOauth2Token();
-
-    axios.get(voucherPotsUrl, { 
-    	headers: { 
-    		Authorization: oauth 
-    	} 
-    })
-    .then(voucherPotsResponse => {
-        // If request is good...
-        res.json(voucherPotsResponse.data);
-    }).catch((error) => {
-        console.dir('error getting voucher pots ' + error);
-    });		
+	getOauth2Token().then((tokenResponse) => {
+	    //r is 1
+	    console.log('r is 1:', tokenResponse);
+		axios.get(voucherPotsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(voucherPotsResponse => {
+			// If request is good... 
+			res.json(voucherPotsResponse.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting voucher pots");
+		    console.dir(error);
+		});
+	})		
 });
 
 //Fetch email templates
 app.get("/dataextension/lookup/templates", (req, res, next) => {
 
-	var oauth = await getOauth2Token();
-
-   	axios({
-		method: 'post',
-		url: templatesUrl,
-		headers: {'Authorization': oauth},
-		data: templatePayload
-	})
-	.then(function (templatesResponse) {		
-		res.json(templatesResponse.data);
-	})
-	.catch(function (error) {
-		console.dir(error);
-		return error;
-	});	
+	getOauth2Token().then((tokenResponse) => {
+	    //r is 1
+	    console.log('r is 1:', tokenResponse);
+		axios.get(templatesUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(templatesResponse => {
+			// If request is good... 
+			res.json(templatesResponse.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting templates");
+		    console.dir(error);
+		});
+	})	
 
 });
 
