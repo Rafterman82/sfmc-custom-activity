@@ -108,6 +108,101 @@ const getOauth2Token = () => new Promise((resolve) => {
 	});
 });
 
+const getIncrements = () => new Promise((resolve) => {
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(incrementsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			res.json(response.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting increments");
+		    console.dir(error);
+		});
+	})
+});
+
+const savePromotionDescriptions = () => new Promise((resolve) => {
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(incrementsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			res.json(response.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting increments");
+		    console.dir(error);
+		});
+	})
+});
+
+const saveCommunicationCells = () => new Promise((resolve) => {
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(incrementsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			res.json(response.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting increments");
+		    console.dir(error);
+		});
+	})
+});
+
+const saveCampaignPromotionAssociation = () => new Promise((resolve) => {
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(incrementsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			res.json(response.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting increments");
+		    console.dir(error);
+		});
+	})
+});
+
+const saveIncrements = () => new Promise((resolve) => {
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(incrementsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			res.json(response.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting increments");
+		    console.dir(error);
+		});
+	})
+});
+
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
 
