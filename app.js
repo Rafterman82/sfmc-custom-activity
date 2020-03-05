@@ -240,7 +240,7 @@ app.post('/dataextension/add', urlencodedparser, function (req, res){
 	
 	console.dir("Request Body is ");
 	console.dir(req);
-	res.json(req);
+	res(req);
 
 });
 
