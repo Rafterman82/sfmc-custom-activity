@@ -341,16 +341,26 @@ app.post('/dataextension/add', function (req, res){
 	console.dir("Dump request body");
 	console.dir(req.body);
 
+	var email_template_key;
+
 	for ( var i = 0; i < req.body.length; i++ ) {
 		console.dir("Step is: " + req.body[i].step + ", Key is: " + req.body[i].key + ", Value is: " + req.body[i].value + ", Type is: " + req.body[i].type);
-		campaignPromotionAssociationData[req.body[i].key] = req.body[i].value;
+		
+
+		if ( req.body[i].key == "email_template" ) {
+			email_template_key = req.body[i].value;
+		} else {
+			campaignPromotionAssociationData[req.body[i].key] = req.body[i].value;
+		}
+
 
 	}
     console.log("Dump payload");
     console.dir(campaignPromotionAssociationData);
 	var associationPayload = [{
         "keys": {
-            "promotion_key": 12345
+            "promotion_key": 12345,
+            "email_template": email_template_key
         },
         "values": campaignPromotionAssociationData
     }];
