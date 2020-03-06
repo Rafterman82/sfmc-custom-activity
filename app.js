@@ -355,6 +355,8 @@ app.post('/dataextension/add', function (req, res){
         "values": campaignPromotionAssociationData
     }];
 
+    console.dir(associationPayload);
+
 	getOauth2Token().then((tokenResponse) => {
 
 	   	axios({
