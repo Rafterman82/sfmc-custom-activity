@@ -352,7 +352,7 @@ app.post('/dataextension/add', function (req, res){
         "keys": {
             "promotion_key": 12345
         },
-        "values": JSON.stringify(campaignPromotionAssociationData)
+        "values": {campaignPromotionAssociationData}
     }];
 
     console.dir(associationPayload);
