@@ -336,7 +336,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 // insert data into data extension
 app.post('/dataextension/add', function (req, res){ 
 
-	var campaignPromotionAssociationData = [];
+	var campaignPromotionAssociationData = {};
 
 	console.dir("Dump request body");
 	console.dir(req.body);
@@ -352,7 +352,7 @@ app.post('/dataextension/add', function (req, res){
         "keys": {
             "promotion_key": 12345
         },
-        "values": {campaignPromotionAssociationData}
+        "values": campaignPromotionAssociationData
     }];
 
     console.dir(associationPayload);
