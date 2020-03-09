@@ -362,9 +362,7 @@ app.post('/dataextension/add', function (req, res){
         "values": campaignPromotionAssociationData
     }];
 
-    if ( debug ) {
-    	console.dir(associationPayload);
-    }
+	console.dir(associationPayload);
 
     saveToDataExtension(associationPayload, campaignAssociationUrl).then(response => {
   		/* stuff */
