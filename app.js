@@ -355,8 +355,7 @@ app.post('/dataextension/add', function (req, res){
 
 
 	}
-    console.log("Dump payload");
-    console.dir(campaignPromotionAssociationData);
+
 	var associationPayload = [{
         "keys": {
             "promotion_key": 12345,
@@ -365,8 +364,10 @@ app.post('/dataextension/add', function (req, res){
         "values": campaignPromotionAssociationData
     }];
 
-    console.dir(associationPayload);
-
+    if ( debug ) {
+    	console.dir(associationPayload);
+    }
+    
 	getOauth2Token().then((tokenResponse) => {
 
 	   	axios({
