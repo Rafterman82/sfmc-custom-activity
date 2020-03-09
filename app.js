@@ -36,13 +36,17 @@ if ( !local ) {
 }
 
 // url constants
-const promotionsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.promotionsListDataExtension + "/rowset?$filter=ExecutedBy%20eq%20'TpAdmin'";
-const incrementsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.promotionIncrementExtension + "/rowset";
-const globalCodesUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.globalVoucherPot + "/rowset";
-const controlGroupsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.controlGroupsDataExtension + "/rowset";
-const voucherPotsUrl = marketingCloud.restUrl + "data/v1/customobjectdata/key/" + marketingCloud.voucherPotsDataExtension + "/rowset";
-const campaignAssociationUrl = marketingCloud.restUrl + "hub/v1/dataevents/key:" + marketingCloud.insertDataExtension + "/rowset";
-const templatesUrl = marketingCloud.restUrl + "asset/v1/content/assets/query";
+const promotionsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.promotionsListDataExtension 		+ "/rowset?$filter=ExecutedBy%20eq%20'TpAdmin'";
+const incrementsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.promotionIncrementExtension 		+ "/rowset";
+const globalCodesUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.globalVoucherPot 					+ "/rowset";
+const controlGroupsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.controlGroupsDataExtension 		+ "/rowset";
+const voucherPotsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.voucherPotsDataExtension 			+ "/rowset";
+const campaignAssociationUrl 	= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.insertDataExtension 				+ "/rowset";
+const descriptionUrl 			= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.promotionDescriptionDataExtension 	+ "/rowset";
+const communicationCellUrl 		= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.communicationCellDataExtension 	+ "/rowset";
+const templatesUrl 				= marketingCloud.restUrl + "asset/v1/content/assets/query";
+
+// json template payload
 const templatePayload = {
     "page":
     {
@@ -89,7 +93,7 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
-const getOauth2Token = () => new Promise((resolve) => {
+const getOauth2Token = () => new Promise((resolve, reject) => {
 	axios({
 		method: 'post',
 		url: marketingCloud.authUrl,
@@ -105,7 +109,7 @@ const getOauth2Token = () => new Promise((resolve) => {
 	})
 	.catch(function (error) {
 		console.dir("Error getting Oauth Token");
-		console.dir(error);
+		return reject(error);
 	});
 });
 
@@ -128,21 +132,21 @@ const getIncrements = () => new Promise((resolve) => {
 	})
 });
 
-const savePromotionDescriptions = () => new Promise((resolve) => {
+const saveToDataExtension = (targetUrl, payload) => new Promise((resolve, reject) => {
 	getOauth2Token().then((tokenResponse) => {
-
-		axios.get(incrementsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
+	   	axios({
+			method: 'post',
+			url: targetUrl,
+			headers: {'Authorization': tokenResponse},
+			data: payload
 		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
+		.then(function (response) {
+			console.dir(response.data);
+			return resolve(response.data);
 		})
-		.catch((error) => {
-		    console.dir("Error getting increments");
-		    console.dir(error);
+		.catch(function (error) {
+			console.dir(error);
+			return reject(error);
 		});
 	})
 });
@@ -346,13 +350,7 @@ app.post('/dataextension/add', function (req, res){
 	for ( var i = 0; i < req.body.length; i++ ) {
 		console.dir("Step is: " + req.body[i].step + ", Key is: " + req.body[i].key + ", Value is: " + req.body[i].value + ", Type is: " + req.body[i].type);
 		
-
-		if ( req.body[i].key == "email_template" ) {
-			email_template_key = req.body[i].value;
-		} else {
-			campaignPromotionAssociationData[req.body[i].key] = req.body[i].value;
-		}
-
+		campaignPromotionAssociationData[req.body[i].key] = req.body[i].value;
 
 	}
 
@@ -367,25 +365,12 @@ app.post('/dataextension/add', function (req, res){
     if ( debug ) {
     	console.dir(associationPayload);
     }
+
+    saveToDataExtension(associationPayload, campaignAssociationUrl).then(response => {
+  		/* stuff */
+  		console.dir(response);
+	});
     
-	getOauth2Token().then((tokenResponse) => {
-
-	   	axios({
-			method: 'post',
-			url: campaignAssociationUrl,
-			headers: {'Authorization': tokenResponse},
-			data: associationPayload
-		})
-		.then(function (response) {
-			console.dir(response.data);
-			//res.json(response.data);
-		})
-		.catch(function (error) {
-			console.dir(error);
-			return error;
-		});
-	})	
-
 	res.send(JSON.stringify(req.body));
 
 });
