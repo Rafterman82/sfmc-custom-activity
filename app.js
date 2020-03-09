@@ -151,63 +151,6 @@ const saveToDataExtension = (targetUrl, payload) => new Promise((resolve, reject
 	})
 });
 
-const saveCommunicationCells = () => new Promise((resolve) => {
-	getOauth2Token().then((tokenResponse) => {
-
-		axios.get(incrementsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting increments");
-		    console.dir(error);
-		});
-	})
-});
-
-const saveCampaignPromotionAssociation = () => new Promise((resolve) => {
-	getOauth2Token().then((tokenResponse) => {
-
-		axios.get(incrementsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting increments");
-		    console.dir(error);
-		});
-	})
-});
-
-const saveIncrements = () => new Promise((resolve) => {
-	getOauth2Token().then((tokenResponse) => {
-
-		axios.get(incrementsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting increments");
-		    console.dir(error);
-		});
-	})
-});
-
 //Fetch increment values
 app.get("/dataextension/lookup/increments", (req, res, next) => {
 
@@ -364,7 +307,7 @@ app.post('/dataextension/add', function (req, res){
 
 	console.dir(associationPayload);
 
-    saveToDataExtension(associationPayload, campaignAssociationUrl).then(response => {
+    saveToDataExtension(campaignAssociationUrl, associationPayload).then(response => {
   		/* stuff */
   		console.dir(response);
 	});
