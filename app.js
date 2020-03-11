@@ -328,7 +328,9 @@ function buildPromotionDescriptionPayload(payload) {
 	var uniqueCodes = 0;
 	var instoreCodes = 0;
 	var totalCodes = 0;
-	var ticker = 1;
+	var onlineTicker = 1;
+	var instoreTicker = 1;
+	var promotionTicker = 1;
 
 	for ( var i = 1; i <= 10; i++ ) {
 		if ( payload.promotionType == "online" ) {
@@ -361,9 +363,9 @@ function buildPromotionDescriptionPayload(payload) {
 	promotionDescriptionData["promotions"] = {};
 
 	for ( var i = 1; i <= totalCodes; i++ ) {
+		var promotionArrayKey = "promotion_" + ticker;
 		if ( payload.promotionType == "online" ) {
-			if ( payload["global_code_" + ticker] != "no-code" || payload["unique_code_" + ticker] != "no-code" ) {
-				var promotionArrayKey = "promotion_" + ticker;
+			if ( payload["global_code_" + onlineTicker] != "no-code" || payload["unique_code_" + onlineTicker] != "no-code" ) {
 				promotionDescriptionData.promotions[promotionArrayKey] = {};
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Online";
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.campaign_name;
@@ -373,21 +375,37 @@ function buildPromotionDescriptionPayload(payload) {
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 			= payload.offer_medium_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload.promotion_group_id_online;
 				if ( payload.onlinePromotionType == "global" ) {
-					promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 				= payload["global_code_" + ticker];
-					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["global_code_" + ticker +"_promo_id"];
-					promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["global_code_" + ticker +"_valid_from"];
-					promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["global_code_" + ticker +"_valid_to"];
-					promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"] 			= payload["global_code_" + ticker +"_valid_from"];
-					promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["global_code_" + ticker +"_valid_to"];
+					promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 				= payload["global_code_" + onlineTicker];
+					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["global_code_" + onlineTicker +"_promo_id"];
+					promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["global_code_" + onlineTicker +"_valid_from"];
+					promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["global_code_" + onlineTicker +"_valid_to"];
+					promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"] 			= payload["global_code_" + onlineTicker +"_valid_from"];
+					promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["global_code_" + onlineTicker +"_valid_to"];
 				} else if (payload.onlinePromotionType == "unique" ) {
 					promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 		= "-";
-					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 	= payload["unique_code_" + ticker +"_promo_id"];
+					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 	= payload["unique_code_" + onlineTicker +"_promo_id"];
 				}
+				onlineTicker++;
 				ticker++;
 			}
 		} else if ( payload.promotionType == "instore" ) {
-			if ( payload.instore_code_1 != "no-code" ) {
-
+			if ( payload["instore_code_" + instoreTicker] != "no-code" ) {
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Instore";
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.campaign_name;
+				promotionDescriptionData.promotions[promotionArrayKey]["ts_and_cs"] 			= "-";
+				promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 				= payload["instore_code_" + instoreTicker];
+				promotionDescriptionData.promotions[promotionArrayKey]["promotion_id "]			= payload["instore_code_" + instoreTicker +"_promo_id"];
+				promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["instore_code_" + instoreTicker +"_valid_from"];
+				promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["instore_code_" + instoreTicker +"_valid_to"];
+				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom "]			= payload["instore_code_" + instoreTicker +"_valid_from"];
+				promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["instore_code_" + instoreTicker +"_valid_to"];
+				promotionDescriptionData.promotions[promotionArrayKey]["number_of_redemptions"] = payload["instore_code_" + instoreTicker +"_redemption"];
+				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 	= payload.print_at_till_instore;
+				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 		= payload.instant_win_instore;
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 			= payload.offer_medium_instore;
+				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload.promotion_group_id_instore;
+				instoreTicker++;
+				ticker++;
 			}
 		}
 	}
