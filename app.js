@@ -288,9 +288,10 @@ function buildAssociationPayload(payload) {
 	}
 	return campaignPromotionAssociationData;
 }
+
 function buildCommunicationCellPayload(payload) {
 	var communicationCellData = {
-			"not_control" = {
+			"not_control": {
 		    	"cell_code"					: campaignPromotionAssociationData["cell_code"],
 		    	"cell_name"					: campaignPromotionAssociationData["cell_name"],
 		        "campaign_name"				: campaignPromotionAssociationData["campaign_name"],
@@ -299,8 +300,8 @@ function buildCommunicationCellPayload(payload) {
 		        "cell_type"					: "1",
 		        "channel"					: "2",
 		        "is_putput_flag"			: "1"				
-			}
-			"control" = {
+			},
+			"control": {
 		    	"cell_code"					: campaignPromotionAssociationData["cell_code"],
 		    	"cell_name"					: campaignPromotionAssociationData["cell_name"],
 		        "campaign_name"				: campaignPromotionAssociationData["campaign_name"],
