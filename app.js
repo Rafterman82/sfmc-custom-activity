@@ -330,19 +330,23 @@ function buildPromotionDescriptionPayload(payload) {
 	for ( var i = 1; i <= 10; i++ ) {
 		if ( payload.promotionType == "online" ) {
 			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
-				if ( payload.onlinePromotionType == "Global" ) {
+				if ( payload.onlinePromotionType == "global" ) {
 					globalCodes++;
-				} else if (payload.onlinePromotionType == "Unique" ) {
+					online_id++;
+				} else if (payload.onlinePromotionType == "unique" ) {
 					uniqueCodes++;
+					online_id++;
 				}
 			}
 		} else if ( payload.promotionType == "instore" ) {
 			if ( payload.instore_code_1 != "no-code" ) {
 				instoreCodes++;
+				instore_id++;
 			}
 		}
 	}
-	console.dir("Global Codes:" + globalCodes +", Unique Codes:" + uniqueCodes + ", Instore Codes: " + instoreCodes);
+	console.dir("Global Codes: " + globalCodes +", Unique Codes:" + uniqueCodes + ", Instore Codes: " + instoreCodes);
+	console.dir("Online Codes:" + online_id + ", Instore Codes:" + instore_id);
 	return promotionDescriptionData;
 }
 
