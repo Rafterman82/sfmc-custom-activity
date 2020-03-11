@@ -282,9 +282,9 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 });
 
 function buildAssociationPayload(payload) {
-	for ( var i = 0; i < req.body.length; i++ ) {
-		console.dir("Step is: " + req.body[i].step + ", Key is: " + req.body[i].key + ", Value is: " + req.body[i].value + ", Type is: " + req.body[i].type);
-		campaignPromotionAssociationData[req.body[i].key] = req.body[i].value;
+	for ( var i = 0; i < payload.length; i++ ) {
+		console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
+		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
 	}
 	return campaignPromotionAssociationData;
 }
