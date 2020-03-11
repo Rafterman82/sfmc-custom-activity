@@ -282,6 +282,7 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 });
 
 function buildAssociationPayload(payload) {
+	var campaignPromotionAssociationData = {};
 	for ( var i = 0; i < payload.length; i++ ) {
 		console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
 		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
@@ -315,7 +316,6 @@ function buildCommunicationCellPayload(payload) {
 	return communicationCellData;
 }
 function buildPromotionDescriptionPayload(payload) {
-	var campaignPromotionAssociationData = {};
 	var promotionDescriptionData = {};
 	var instore_id = 1;
 	var online_id = 1;
