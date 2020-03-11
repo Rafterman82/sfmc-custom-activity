@@ -365,19 +365,21 @@ function buildPromotionDescriptionPayload(payload) {
 	return promotionDescriptionData;
 }
 
+async function buildAndSend(payload) {
+	const associationPayload = await buildAssociationPayload(payload);
+	const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
+	const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload);
+	await saveToDataExtension(campaignAssociationUrl, associationPayload);
+	console.dir(`${ associationPayload } ${ communicationCellPayload } ${ promotionDescriptionPayload }`);
+}
+
 // insert data into data extension
 app.post('/dataextension/add', function (req, res){ 
 
 	console.dir("Dump request body");
 	console.dir(req.body);
-
-	//res.send(JSON.stringify(req.body));
-
-	const associationPayload = await buildAssociationPayload(req.body)
-	const communicationCellPayload = await buildCommunicationCellPayload(associationPayload)
-	const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload)
-	await saveToDataExtension(campaignAssociationUrl, associationPayload)
-
+	res.send(JSON.stringify(req.body));
+	buildAndSend(req.body);
 
 });
 
