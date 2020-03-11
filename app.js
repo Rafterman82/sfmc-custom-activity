@@ -330,7 +330,7 @@ function buildPromotionDescriptionPayload(payload) {
 	var totalCodes = 0;
 	var onlineTicker = 1;
 	var instoreTicker = 1;
-	var promotionTicker = 1;
+	var ticker = 1;
 
 	for ( var i = 1; i <= 10; i++ ) {
 		if ( payload.promotionType == "online" ) {
