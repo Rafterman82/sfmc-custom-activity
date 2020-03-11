@@ -364,7 +364,7 @@ function buildPromotionDescriptionPayload(payload) {
 
 	for ( var i = 1; i <= totalCodes; i++ ) {
 		var promotionArrayKey = "promotion_" + ticker;
-		if ( payload.promotionType == "online" ) {
+		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
 			if ( payload["global_code_" + onlineTicker] != "no-code" || payload["unique_code_" + onlineTicker] != "no-code" ) {
 				promotionDescriptionData.promotions[promotionArrayKey] = {};
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Online";
@@ -388,7 +388,7 @@ function buildPromotionDescriptionPayload(payload) {
 				onlineTicker++;
 				ticker++;
 			}
-		} else if ( payload.promotionType == "instore" ) {
+		} else if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
 			if ( payload["instore_code_" + instoreTicker] != "no-code" ) {
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Instore";
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.campaign_name;
@@ -399,7 +399,7 @@ function buildPromotionDescriptionPayload(payload) {
 				promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["instore_code_" + instoreTicker +"_valid_to"];
 				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom "]			= payload["instore_code_" + instoreTicker +"_valid_from"];
 				promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["instore_code_" + instoreTicker +"_valid_to"];
-				promotionDescriptionData.promotions[promotionArrayKey]["number_of_redemptions"] = payload["instore_code_" + instoreTicker +"_redemption"];
+				promotionDescriptionData.promotions[promotionArrayKey]["number_of_redemptions"] = payload["instore_code_" + instoreTicker +"_redemptions"];
 				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 	= payload.print_at_till_instore;
 				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 		= payload.instant_win_instore;
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 			= payload.offer_medium_instore;
