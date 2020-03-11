@@ -344,9 +344,15 @@ function buildPromotionDescriptionPayload(payload) {
 				}
 			}
 		} else if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
+			console.dir("instore type");
 			if ( payload["instore_code_" + instore_id] != "no-code" ) {
+				console.dir("instore_code_" + instore_id);
+				console.dir("instore code found");
 				instoreCodes++;
 				instore_id++;
+			} else {
+				console.dir("no code found for :");
+				console.dir("instore_code_" + instore_id);
 			}
 		}
 	}
