@@ -318,6 +318,8 @@ function buildCommunicationCellPayload(payload) {
 	return communicationCellData;
 }
 function buildPromotionDescriptionPayload(payload) {
+
+	console.dir(payload);
 	var promotionDescriptionData = {};
 	var instore_id = 1;
 	var online_id = 1;
