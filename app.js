@@ -212,17 +212,14 @@ console.dir(insertPayload);
 
 		var insertPayload = [];
 
-		console.dir(payload);
-		console.dir(payload.promotions);
-
-		for ( var i = 0; i < payload.promotions.length; i++ ) {
-			insertPayload += {
+		for ( var i = 1; i <= Object.keys(payload.promotions).length; i++ ) {
+			insertPayload.push({
 		        "keys": {
-		            [keyName]: parseInt((key + 1))
+		            [keyName]: parseInt((key + i ))
 		        },
-		        "values": payload.promotions["promotion_" + (i + 1)],
+		        "values": payload.promotions["promotion_" + i],
 
-	    	};
+	    	});
 		}
 		console.dir("Promo desc data: ");
 		console.dir(insertPayload);
