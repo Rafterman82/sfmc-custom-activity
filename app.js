@@ -344,7 +344,7 @@ function buildPromotionDescriptionPayload(payload) {
 				}
 			}
 		} else if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
-			if ( payload.instore_code_1 != "no-code" ) {
+			if ( payload["instore_code_" + instore_id] != "no-code" ) {
 				instoreCodes++;
 				instore_id++;
 			}
