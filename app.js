@@ -331,6 +331,7 @@ function buildPromotionDescriptionPayload(payload) {
 		if ( payload.promotionType == "online" ) {
 			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
 				if ( payload.onlinePromotionType == "global" ) {
+					promotionDescriptionData["promotions"]["promotion_" + i]["bar_code"] = payload["global_code_" + online_id];
 					globalCodes++;
 					online_id++;
 				} else if (payload.onlinePromotionType == "unique" ) {
@@ -346,7 +347,7 @@ function buildPromotionDescriptionPayload(payload) {
 		}
 	}
 	console.dir("Global Codes: " + globalCodes +", Unique Codes:" + uniqueCodes + ", Instore Codes: " + instoreCodes);
-	console.dir("Online Codes:" + online_id + ", Instore Codes:" + instore_id);
+	console.dir("Online Codes Next Inrement:" + online_id + ", Instore Codes Next inrement:" + instore_id);
 	return promotionDescriptionData;
 }
 
