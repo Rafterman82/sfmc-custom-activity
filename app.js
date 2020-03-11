@@ -321,7 +321,7 @@ function buildPromotionDescriptionPayload(payload) {
 	var online_id = 1;
 	for ( var i = 1; i <= 10; i++ ) {
 		if ( campaignPromotionAssociationData.promotionType == "online" ) {
-			if ( campaignPromotionAssociationData.["global_code_" + online_id] != "no-code" || campaignPromotionAssociationData.["unique_code_" + online_id] != "no-code" ) {
+			if ( campaignPromotionAssociationData["global_code_" + online_id] != "no-code" || campaignPromotionAssociationData["unique_code_" + online_id] != "no-code" ) {
 				promotionDescriptionData.promotions["promotion_" + i].offer_channel 			= "Online";
 				promotionDescriptionData.promotions["promotion_" + i].offer_description 		= campaignPromotionAssociationData.offer_description_online;
 				promotionDescriptionData.promotions["promotion_" + i].ts_and_cs 				= "-";
