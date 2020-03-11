@@ -213,13 +213,13 @@ console.dir(insertPayload);
 		var insertPayload = [];
 
 		for ( var i = 0; i < payload.promotions.length; i++ ) {
-			insertPayload += [{
+			insertPayload += {
 		        "keys": {
 		            [keyName]: parseInt((key + 1))
 		        },
 		        "values": payload.promotions["promotion_" + (i + 1)],
 
-	    	}];
+	    	};
 		}
 
 		console.dir(insertPayload);
