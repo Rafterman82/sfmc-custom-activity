@@ -299,8 +299,8 @@ define([
         $("#global_code_1, #global_code_2, #global_code_3, #global_code_4, #global_code_5").change(function(){
             var globalCodeIndex = this.id.slice(-1); 
             // set data value
-            $("#global_code_"+instoreCodeIndex+"_valid_from").val($("option:selected", this).attr("data-attribute-validfrom"));
-            $("#global_code_"+instoreCodeIndex+"_valid_to").val($("option:selected", this).attr("data-attribute-validto"));
+            $("#global_code_"+globalCodeIndex+"_valid_from").val($("option:selected", this).attr("data-attribute-validfrom"));
+            $("#global_code_"+globalCodeIndex+"_valid_to").val($("option:selected", this).attr("data-attribute-validto"));
         });
 
         // select first input
