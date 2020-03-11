@@ -392,7 +392,7 @@ function buildPromotionDescriptionPayload(payload) {
 		}
 	}
 
-	console.dir(promotionDescriptionData.promotions);
+	console.dir(promotionDescriptionData.promotions.promotion_1);
 
 	return promotionDescriptionData;
 }
