@@ -362,7 +362,7 @@ function buildPromotionDescriptionPayload(payload) {
 
 	for ( var i = 1; i <= totalCodes; i++ ) {
 		if ( payload.promotionType == "online" ) {
-			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
+			if ( payload["global_code_" + ticker] != "no-code" || payload["unique_code_" + ticker] != "no-code" ) {
 				var promotionArrayKey = "promotion_" + ticker;
 				promotionDescriptionData.promotions[promotionArrayKey] = {};
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Online";
@@ -392,7 +392,7 @@ function buildPromotionDescriptionPayload(payload) {
 		}
 	}
 
-	console.dir(promotionDescriptionData.promotions.promotion_1);
+	console.dir(promotionDescriptionData);
 
 	return promotionDescriptionData;
 }
