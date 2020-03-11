@@ -387,7 +387,7 @@ function buildPromotionDescriptionPayload(payload) {
 		var promotionArrayKey = "promotion_" + ticker;
 		console.dir("Promo ticker is promotion_" + ticker);
 		console.dir("I is " + i);
-		console.dir("Total Codes is " totalCodes);
+		console.dir("Total Codes is " + totalCodes);
 
 		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
 
