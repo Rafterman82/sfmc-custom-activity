@@ -331,8 +331,13 @@ function buildPromotionDescriptionPayload(payload) {
 	var onlineTicker = 1;
 	var instoreTicker = 1;
 	var ticker = 1;
+	if ( payload.promotionType == "online" || payload.promotionType == "online" ) {
+		var loopCount = 5
+	} else if ( payload.promotionType == "online_instore") {
+		var loopCount = 10;
+	}
 
-	for ( var i = 1; i <= 10; i++ ) {
+	for ( var i = 1; i <= loopCount; i++ ) {
 		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
 			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
 				if ( payload.onlinePromotionType == "global") {
