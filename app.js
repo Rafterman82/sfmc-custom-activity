@@ -212,7 +212,7 @@ console.dir(insertPayload);
 
 		var insertPayload = [];
 
-		for ( i = 0; i < payload.promotions.length; i++) {
+		for ( var i = 0; i < payload.promotions.length; i++ ) {
 			insertPayload += [{
 		        "keys": {
 		            [keyName]: parseInt((key + 1))
