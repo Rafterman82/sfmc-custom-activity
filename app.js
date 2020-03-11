@@ -212,6 +212,9 @@ console.dir(insertPayload);
 
 		var insertPayload = [];
 
+		console.dir(payload);
+		console.dir(payload.promotions);
+
 		for ( var i = 0; i < payload.promotions.length; i++ ) {
 			insertPayload += {
 		        "keys": {
@@ -221,7 +224,7 @@ console.dir(insertPayload);
 
 	    	};
 		}
-
+		console.dir("Promo desc data: ");
 		console.dir(insertPayload);
 
 		return resolve(insertPayload);
