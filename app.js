@@ -402,7 +402,6 @@ async function buildAndSend(payload) {
 		const associationPayload = await buildAssociationPayload(payload);
 		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
 		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload);
-		console.dir(promotionDescriptionPayload);
 		await saveToDataExtension(campaignAssociationUrl, associationPayload);
 	} catch(err) {
 		console.dir(err);
