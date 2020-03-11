@@ -335,13 +335,13 @@ function buildPromotionDescriptionPayload(payload) {
 	for ( var i = 1; i <= 10; i++ ) {
 		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
 			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
-				if ( payload.onlinePromotionType == "global" && payload.["global_code_" + online_id] != "no-code") {
+				if ( payload.onlinePromotionType == "global" && payload["global_code_" + online_id] != "no-code" ) {
 					globalCodes++;
 					online_id++;
 					console.dir("global_code_" + online_id);
 					console.dir("global code found");
 				}
-				if (payload.onlinePromotionType == "unique" && payload.["unique_code_" + online_id] != "no-code") {
+				if ( payload.onlinePromotionType == "unique" && payload["unique_code_" + online_id] != "no-code" ) {
 					uniqueCodes++;
 					online_id++;
 					console.dir("unique_code_" + online_id);
