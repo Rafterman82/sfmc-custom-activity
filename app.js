@@ -370,6 +370,8 @@ function buildPromotionDescriptionPayload(payload) {
 	promotionDescriptionData["promotions"] = {};
 
 	for ( var i = 1; i <= totalCodes; i++ ) {
+		console.dir("Current promotion array is:");
+		console.dir(promotionDescriptionData);
 		var promotionArrayKey = "promotion_" + ticker;
 		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
 			if ( payload["global_code_" + onlineTicker] != "no-code" || payload["unique_code_" + onlineTicker] != "no-code" ) {
