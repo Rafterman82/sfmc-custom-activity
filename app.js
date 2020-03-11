@@ -373,11 +373,11 @@ app.post('/dataextension/add', function (req, res){
 
 	//res.send(JSON.stringify(req.body));
 
-	const associationPayload = await buildAssociationPayload(req.body);
-	const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
-	const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload);
-	await saveToDataExtension(campaignAssociationUrl, associationPayload);
-	console.dir("Async functions run successfully");
+	const associationPayload = await buildAssociationPayload(req.body)
+	const communicationCellPayload = await buildCommunicationCellPayload(associationPayload)
+	const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload)
+	await saveToDataExtension(campaignAssociationUrl, associationPayload)
+
 
 });
 
