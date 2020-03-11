@@ -133,7 +133,7 @@ const getIncrements = () => new Promise((resolve, reject) => {
 	})
 });
 
-const saveToDataExtension = (targetUrl, payload, key, isPromotion) => new Promise((resolve, reject) => {
+const saveToDataExtension = (targetUrl, payload, key, dataType, keyName) => new Promise((resolve, reject) => {
 
 	console.dir("Target URL:");
 	console.dir(targetUrl);
@@ -141,25 +141,108 @@ const saveToDataExtension = (targetUrl, payload, key, isPromotion) => new Promis
 	console.dir(payload);
 	console.dir("Key:");
 	console.dir(key);
-	console.dir("Is promotion description:");
-	console.dir(isPromotion);
-	/**getOauth2Token().then((tokenResponse) => {
-	   	axios({
-			method: 'post',
-			url: targetUrl,
-			headers: {'Authorization': tokenResponse},
-			data: payload
-		})
-		.then(function (response) {
-			console.dir(response.data);
-			return resolve(response.data);
-		})
-		.catch(function (error) {
-			console.dir(error);
-			return reject(error);
-		});
-	})**/
-	return true;
+	console.dir("Type:");
+	console.dir(dataType);
+	console.dir("Key name:");
+	console.dir(keyName)
+
+	if ( dataType == "cpa" ) {
+
+		var insertPayload = [{
+	        "keys": {
+	            [keyName]: (key + 1)
+	        },
+	        "values": payload
+    	}];
+console.dir(insertPayload);
+    	return resolve(insertPayload);
+
+		/**getOauth2Token().then((tokenResponse) => {
+		   	axios({
+				method: 'post',
+				url: targetUrl,
+				headers: {'Authorization': tokenResponse},
+				data: payload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				return resolve(response.data);
+			})
+			.catch(function (error) {
+				console.dir(error);
+				return reject(error);
+			});
+		})**/		
+	} else if ( dataType == "communication_cell") {
+		var insertPayload = [{
+	        "keys": {
+	            [keyName]: parseInt((key + 1))
+	        },
+	        "values": payload.control,
+
+    	},
+    	{
+	        "keys": {
+	            [keyName]: parseInt((key + 2))
+	        },
+	        "values": payload.not_control,
+	        
+    	}];
+    	console.dir(insertPayload);
+
+    	return resolve(insertPayload);
+/**
+		getOauth2Token().then((tokenResponse) => {
+		   	axios({
+				method: 'post',
+				url: targetUrl,
+				headers: {'Authorization': tokenResponse},
+				data: payload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				return resolve(response.data);
+			})
+			.catch(function (error) {
+				console.dir(error);
+				return reject(error);
+			});
+		})	**/	
+	} else if ( dataType == "promotion_description") {
+
+		var insertPayload = [];
+
+		for ( i = 0; i < payload.promotions.length; i++) {
+			insertPayload += [{
+		        "keys": {
+		            [keyName]: parseInt((key + 1))
+		        },
+		        "values": payload.promotions["promotion_" + (i + 1)],
+
+	    	}];
+		}
+
+		console.dir(insertPayload);
+
+		return resolve(insertPayload);
+/**
+		getOauth2Token().then((tokenResponse) => {
+		   	axios({
+				method: 'post',
+				url: targetUrl,
+				headers: {'Authorization': tokenResponse},
+				data: payload
+			})
+			.then(function (response) {
+				console.dir(response.data);
+				return resolve(response.data);
+			})
+			.catch(function (error) {
+				console.dir(error);
+				return reject(error);
+			});
+		})	**/	
+	}
 });
 
 //Fetch increment values
@@ -466,9 +549,9 @@ async function buildAndSend(payload) {
 		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
 		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload);
 		const incrementData = await getIncrements();
-		await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.mc_unique_promotion_id_increment, false);
-		await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, false);
-		await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.promotion_key, true);
+		await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.mc_unique_promotion_id_increment, "cpa", "promotion_key");
+		await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
+		await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.promotion_key, "promotion_description", "mc_unique_promotion_id");
 	} catch(err) {
 		console.dir(err);
 	}
