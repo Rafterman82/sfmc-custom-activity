@@ -285,6 +285,10 @@ define([
                 var instoreCodeLoyaltyPromotion = false;
             }
 
+            // set data value
+            $("#instore_code_"+instoreCodeIndex+"_valid_from").val($("option:selected", this).attr("data-attribute-validfrom"));
+            $("#instore_code_"+instoreCodeIndex+"_valid_to").val($("option:selected", this).attr("data-attribute-validto"));
+
             // set promo id
             $("#instore_code_"+instoreCodeIndex+"_promo_id").val(this.value);
 

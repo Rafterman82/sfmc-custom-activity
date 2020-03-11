@@ -366,7 +366,7 @@ function buildPromotionDescriptionPayload(payload) {
 				var promotionArrayKey = "promotion_" + ticker;
 				promotionDescriptionData.promotions[promotionArrayKey] = {};
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Online";
-				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.offer_description_online;
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.campaign_name;
 				promotionDescriptionData.promotions[promotionArrayKey]["ts_and_cs"] 			= "-";
 				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 	= payload.print_at_till_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 		= payload.instant_win_online;
