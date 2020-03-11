@@ -124,7 +124,7 @@ const getIncrements = () => new Promise((resolve, reject) => {
 		})
 		.then(response => {
 			// If request is good... 
-			return resolve(response.data);
+			return resolve(response.data.items[0].values);
 		})
 		.catch((error) => {
 		    console.dir("Error getting increments");
@@ -133,7 +133,12 @@ const getIncrements = () => new Promise((resolve, reject) => {
 	})
 });
 
-const saveToDataExtension = (targetUrl, payload) => new Promise((resolve, reject) => {
+const saveToDataExtension = (targetUrl, payload, key, isPromotion) => new Promise((resolve, reject) => {
+
+	console.dir(targetUrl);
+	console.dir(payload);
+	console.dir(key);
+	console.dir(isPromotion);
 	/**getOauth2Token().then((tokenResponse) => {
 	   	axios({
 			method: 'post',
@@ -456,7 +461,10 @@ async function buildAndSend(payload) {
 		const associationPayload = await buildAssociationPayload(payload);
 		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
 		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload);
-		await saveToDataExtension(campaignAssociationUrl, associationPayload);
+		const incrementData = await getIncrements();
+		await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.mc_unique_promotion_id_increment, false);
+		await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, false);
+		await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.promotion_key, true);
 	} catch(err) {
 		console.dir(err);
 	}
