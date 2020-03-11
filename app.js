@@ -351,7 +351,7 @@ function buildPromotionDescriptionPayload(payload) {
 
 	totalCodes = (online_id - 1) + (instore_id - 1);
 
-	console.dir("Total Codes in use:" totalCodes);
+	console.dir("Total Codes in use:" + totalCodes);
 
 	console.dir("Global Codes: " + globalCodes +", Unique Codes:" + uniqueCodes + ", Instore Codes: " + instoreCodes);
 	console.dir("Online Codes Next Inrement:" + online_id + ", Instore Codes Next inrement:" + instore_id);
