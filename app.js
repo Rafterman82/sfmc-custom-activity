@@ -134,7 +134,7 @@ const getIncrements = () => new Promise((resolve, reject) => {
 });
 
 const saveToDataExtension = (targetUrl, payload) => new Promise((resolve, reject) => {
-	getOauth2Token().then((tokenResponse) => {
+	/**getOauth2Token().then((tokenResponse) => {
 	   	axios({
 			method: 'post',
 			url: targetUrl,
@@ -149,7 +149,8 @@ const saveToDataExtension = (targetUrl, payload) => new Promise((resolve, reject
 			console.dir(error);
 			return reject(error);
 		});
-	})
+	})**/
+	return true;
 });
 
 //Fetch increment values
@@ -318,20 +319,21 @@ function buildCommunicationCellPayload(payload) {
 	return communicationCellData;
 }
 function buildPromotionDescriptionPayload(payload) {
-
+	console.dir("payload is:");
 	console.dir(payload);
-	var promotionDescriptionData = {};
+
 	var instore_id = 1;
 	var online_id = 1;
 	var globalCodes = 0;
 	var uniqueCodes = 0;
 	var instoreCodes = 0;
+	var totalCodes = 0;
+	var ticker = 1;
 
 	for ( var i = 1; i <= 10; i++ ) {
 		if ( payload.promotionType == "online" ) {
 			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
 				if ( payload.onlinePromotionType == "global" ) {
-					promotionDescriptionData["promotions"]["promotion_" + i]["bar_code"] = payload["global_code_" + online_id];
 					globalCodes++;
 					online_id++;
 				} else if (payload.onlinePromotionType == "unique" ) {
@@ -346,8 +348,50 @@ function buildPromotionDescriptionPayload(payload) {
 			}
 		}
 	}
+
+	totalCodes = (online_id - 1) + (instore_id - 1);
+
+	console.dir("Total Codes in use:" totalCodes);
+
 	console.dir("Global Codes: " + globalCodes +", Unique Codes:" + uniqueCodes + ", Instore Codes: " + instoreCodes);
 	console.dir("Online Codes Next Inrement:" + online_id + ", Instore Codes Next inrement:" + instore_id);
+
+	var promotionDescriptionData = {};
+	
+	promotionDescriptionData["promotions"] = {};
+
+	for ( var i = 1; i <= totalCodes; i++ ) {
+		if ( payload.promotionType == "online" ) {
+			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
+				var promotionArrayKey = "promotion_" + ticker;
+				promotionDescriptionData.promotions[promotionArrayKey] = {};
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Online";
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.offer_description_online;
+				promotionDescriptionData.promotions[promotionArrayKey]["ts_and_cs"] 			= "-";
+				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 	= payload.print_at_till_online;
+				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 		= payload.instant_win_online;
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 			= payload.offer_medium_online;
+				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload.promotion_group_id_online;
+				if ( payload.onlinePromotionType == "global" ) {
+					promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 				= payload["global_code_" + ticker];
+					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["global_code_" + ticker +"_promo_id"];
+					promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["global_code_" + ticker +"_valid_from"];
+					promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["global_code_" + ticker +"_valid_to"];
+					promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"] 			= payload["global_code_" + ticker +"_valid_from"];
+					promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["global_code_" + ticker +"_valid_to"];
+				} else if (payload.onlinePromotionType == "unique" ) {
+					promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 		= "-";
+					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 	= payload["unique_code_" + ticker +"_promo_id"];
+				}
+				ticker++;
+			}
+		} else if ( payload.promotionType == "instore" ) {
+			if ( payload.instore_code_1 != "no-code" ) {
+
+			}
+		}
+	}
+
 	return promotionDescriptionData;
 }
 
