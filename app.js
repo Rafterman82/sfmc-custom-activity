@@ -287,6 +287,7 @@ function buildAssociationPayload(payload) {
 		console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
 		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
 	}
+	console.dir(campaignPromotionAssociationData);
 	return campaignPromotionAssociationData;
 }
 
@@ -313,10 +314,12 @@ function buildCommunicationCellPayload(payload) {
 		        "is_putput_flag"			: "0"				
 			}
 	};
+	console.dir(communicationCellData);
 	return communicationCellData;
 }
 function buildPromotionDescriptionPayload(payload) {
 	var promotionDescriptionData = {};
+	promotionDescriptionData = promotionDescriptionData.promotions;
 	var instore_id = 1;
 	var online_id = 1;
 	for ( var i = 1; i <= 10; i++ ) {
@@ -362,6 +365,7 @@ function buildPromotionDescriptionPayload(payload) {
 			}
 		}
 	}
+	console.dir(promotionDescriptionData);
 	return promotionDescriptionData;
 }
 
