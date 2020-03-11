@@ -396,6 +396,7 @@ function buildPromotionDescriptionPayload(payload) {
 			}
 		} else if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
 			if ( payload["instore_code_" + instoreTicker] != "no-code" ) {
+				promotionDescriptionData.promotions[promotionArrayKey] = {};
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Instore";
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.campaign_name;
 				promotionDescriptionData.promotions[promotionArrayKey]["ts_and_cs"] 			= "-";
