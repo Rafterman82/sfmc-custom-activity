@@ -333,7 +333,7 @@ function buildPromotionDescriptionPayload(payload) {
 	var ticker = 1;
 
 	for ( var i = 1; i <= 10; i++ ) {
-		if ( payload.promotionType == "online" ) {
+		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
 			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
 				if ( payload.onlinePromotionType == "global" ) {
 					globalCodes++;
@@ -343,7 +343,7 @@ function buildPromotionDescriptionPayload(payload) {
 					online_id++;
 				}
 			}
-		} else if ( payload.promotionType == "instore" ) {
+		} else if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
 			if ( payload.instore_code_1 != "no-code" ) {
 				instoreCodes++;
 				instore_id++;
