@@ -135,9 +135,13 @@ const getIncrements = () => new Promise((resolve, reject) => {
 
 const saveToDataExtension = (targetUrl, payload, key, isPromotion) => new Promise((resolve, reject) => {
 
+	console.dir("Target URL:");
 	console.dir(targetUrl);
+	console.dir("Payload:");
 	console.dir(payload);
+	console.dir("Key:");
 	console.dir(key);
+	console.dir("Is promotion description:");
 	console.dir(isPromotion);
 	/**getOauth2Token().then((tokenResponse) => {
 	   	axios({
@@ -435,10 +439,10 @@ function buildPromotionDescriptionPayload(payload) {
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.campaign_name;
 				promotionDescriptionData.promotions[promotionArrayKey]["ts_and_cs"] 			= "-";
 				promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 				= payload["instore_code_" + instoreTicker];
-				promotionDescriptionData.promotions[promotionArrayKey]["promotion_id "]			= payload["instore_code_" + instoreTicker +"_promo_id"];
+				promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"]			= payload["instore_code_" + instoreTicker +"_promo_id"];
 				promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["instore_code_" + instoreTicker +"_valid_from"];
 				promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["instore_code_" + instoreTicker +"_valid_to"];
-				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom "]			= payload["instore_code_" + instoreTicker +"_valid_from"];
+				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"]			= payload["instore_code_" + instoreTicker +"_valid_from"];
 				promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["instore_code_" + instoreTicker +"_valid_to"];
 				promotionDescriptionData.promotions[promotionArrayKey]["number_of_redemptions"] = payload["instore_code_" + instoreTicker +"_redemptions"];
 				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 	= payload.print_at_till_instore;
