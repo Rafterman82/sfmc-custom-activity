@@ -385,7 +385,14 @@ function buildPromotionDescriptionPayload(payload) {
 
 	for ( var i = 1; i <= totalCodes; i++ ) {
 		var promotionArrayKey = "promotion_" + ticker;
+		console.dir("Promo ticker is promotion_" + ticker);
+		console.dir("I is " + i);
+		console.dir("Total Codes is " totalCodes);
+
 		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
+
+			console.dir("Promotion Type is " + payload.promotionType);
+			console.dir("in online mode");
 			if ( payload["global_code_" + onlineTicker] != "no-code" || payload["unique_code_" + onlineTicker] != "no-code" ) {
 				promotionDescriptionData.promotions[promotionArrayKey] = {};
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Online";
@@ -411,6 +418,9 @@ function buildPromotionDescriptionPayload(payload) {
 			}
 		}
 		if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
+
+			console.log("Promotion Type is " + payload.promotionType);
+			console.dir("In instore mode");
 			if ( payload["instore_code_" + instoreTicker] != "no-code" ) {
 				promotionDescriptionData.promotions[promotionArrayKey] = {};
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Instore";
