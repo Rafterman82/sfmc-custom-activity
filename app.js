@@ -641,9 +641,10 @@ app.post('/dataextension/add', async function (req, res){
 	console.dir("Dump request body");
 	console.dir(req.body);
 	try {
-		res.send(await sendBackPayload(req.body));
+		await sendBackPayload(req.body)
+		res.send(JSON.stringify({"success": true}));
 	} catch(err) {
-		res.send(err);
+		console.dir(err);
 	}
 	
 });
