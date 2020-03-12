@@ -426,42 +426,21 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 
 });
 
-function buildAssociationPayload(payload, incrementData) {
+function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	var campaignPromotionAssociationData = {};
 	for ( var i = 0; i < payload.length; i++ ) {
 		console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
 		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
 	}
 	console.dir(campaignPromotionAssociationData);
-	var globalCodes = 0;
-	var uniqueCodes = 0;
-	var instoreCodes = 0;
-	var totalCodes = 0;
+
 	var mcUniqueIdForAssociation = incrementData.mc_unique_promotion_id_increment;
-	var commCellForAssociation = incrementData.communication_cell_id_increment;
+	var commCellForAssociation = incrementData.communication_cell_code_id_increment;
 
 	console.dir("comm cell id in desc build is:");
 	console.dir(mcUniqueIdForAssociation)
 
-	for ( var i = 1; i <= 5; i++) {
-		if ( payload["global_code_" + i] != "no-code" ) {
-			globalCodes++;
-		}
-	}
-	for ( var i = 1; i <= 5; i++) {
-		if ( payload["unique_code_" + i] != "no-code" ) {
-			uniqueCodes++;
-		}
-	}
-	for ( var i = 1; i <= 5; i++) {
-		if ( payload["instore_code_" + i] != "no-code" ) {
-			instoreCodes++;
-		}
-	}
-
-	totalCodes = parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes);
-
-	for ( var i = 1; i <= totalCodes; i++ ) {
+	for ( var i = 1; i <= numberOfCodes; i++ ) {
 		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
 	}
 
@@ -498,54 +477,27 @@ function buildCommunicationCellPayload(payload) {
 	console.dir(communicationCellData);
 	return communicationCellData;
 }
-function buildPromotionDescriptionPayload(payload, incrementData) {
+function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes) {
 	console.dir("payload is:");
 	console.dir(payload);
 	console.dir("increment payload");
 	console.dir(incrementData);
+	console.dir("number of codes: ");
+	console.dir(numberOfCodes);
 
-	var globalCodes = 0;
-	var uniqueCodes = 0;
-	var instoreCodes = 0;
-	var totalCodes = 0;
 	var onlineTicker = 1;
 	var instoreTicker = 1;
 	var ticker = 1;
-	var commCellForPromo = incrementData.communication_cell_id_increment;
+	var commCellForPromo = incrementData.communication_cell_code_id_increment;
 
 	console.dir("comm cell id in desc build is:");
 	console.dir(commCellForPromo)
-
-	for ( var i = 1; i <= 5; i++) {
-		if ( payload["global_code_" + i] != "no-code" ) {
-			console.dir(payload["global_code_" + i]);
-			globalCodes++;
-		}
-	}
-	for ( var i = 1; i <= 5; i++) {
-		if ( payload["unique_code_" + i] != "no-code" ) {
-			console.dir(payload["unique_code_" + i]);
-			uniqueCodes++;
-		}
-	}
-	for ( var i = 1; i <= 5; i++) {
-		if ( payload["instore_code_" + i] != "no-code" ) {
-			console.dir(payload["instore_code_" + i]);
-			instoreCodes++;
-		}
-	}
-
-	totalCodes = parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes);
-
-	console.dir("Total Codes in use:" + totalCodes);
-
-	console.dir("Global Codes: " + globalCodes +", Unique Codes:" + uniqueCodes + ", Instore Codes: " + instoreCodes);
 
 	var promotionDescriptionData = {};
 	
 	promotionDescriptionData["promotions"] = {};
 
-	for ( var i = 1; i <= totalCodes; i++ ) {
+	for ( var i = 1; i <= numberOfCodes; i++ ) {
 		var promotionArrayKey = "promotion_" + ticker;
 		console.dir("Promo ticker is promotion_" + ticker);
 		console.dir("I is " + i);
@@ -615,12 +567,40 @@ function buildPromotionDescriptionPayload(payload, incrementData) {
 	return promotionDescriptionData;
 }
 
+function countCodes(payload) {
+	var globalCodes = 0;
+	var uniqueCodes = 0;
+	var instoreCodes = 0;
+	var totalCodes = 0;
+
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["global_code_" + i] != "no-code" ) {
+			console.dir(payload["global_code_" + i]);
+			globalCodes++;
+		}
+	}
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["unique_code_" + i] != "no-code" ) {
+			console.dir(payload["unique_code_" + i]);
+			uniqueCodes++;
+		}
+	}
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["instore_code_" + i] != "no-code" ) {
+			console.dir(payload["instore_code_" + i]);
+			instoreCodes++;
+		}
+	}
+	return parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes);
+}
+
 async function buildAndSend(payload) {
 	try {
+		const numberOfCodes = await countCodes(payload);
 		const incrementData = await getIncrements();
-		const associationPayload = await buildAssociationPayload(payload, incrementData);
+		const associationPayload = await buildAssociationPayload(payload, incrementData, numberOfCodes);
 		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
-		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload, incrementData);
+		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload, incrementData, numberOfCodes);
 		const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.mc_unique_promotion_id_increment, "cpa", "promotion_key");
 		const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
 		const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.promotion_key, "promotion_description", "mc_unique_promotion_id");
