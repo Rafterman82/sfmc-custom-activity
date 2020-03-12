@@ -257,10 +257,10 @@ const updateIncrements = (targetUrl, promotionObject, communicationCellObject, m
 	console.dir(mcUniquePromotionObject[(parseInt(numberOfCodes) - 1)].keys.mc_unique_promotion_id);
 
 	var mcInc = mcUniquePromotionObject[(parseInt(numberOfCodes) - 1)].keys.mc_unique_promotion_id;
-	var updatedIncrementObject;
-	updatedIncrementObject["mc_unique_promotion_id_increment"] = parseInt(mcInc) + 1;
-	updatedIncrementObject["communication_cell_code_id_increment"] = parseInt(communicationCellObject[1].keys.communication_cell_id) + 1;
-	updatedIncrementObject["promotion_key"] = parseInt(promotionObject[0].keys.promotion_key) + 1;
+	var updatedIncrementObject = {};
+	updatedIncrementObject.mc_unique_promotion_id_increment = parseInt(mcInc) + 1;
+	updatedIncrementObject.communication_cell_code_id_increment = parseInt(communicationCellObject[1].keys.communication_cell_id) + 1;
+	updatedIncrementObject.promotion_key = parseInt(promotionObject[0].keys.promotion_key) + 1;
 
 	console.dir(updatedIncrementObject);
 
