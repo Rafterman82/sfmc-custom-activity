@@ -123,7 +123,8 @@ const getIncrements = () => new Promise((resolve, reject) => {
 			}
 		})
 		.then(response => {
-			// If request is good... 
+			// If request is good...
+			console.dir(response.data.items[0].values);
 			return resolve(response.data.items[0].values);
 		})
 		.catch((error) => {
