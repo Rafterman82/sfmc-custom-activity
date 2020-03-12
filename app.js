@@ -288,8 +288,6 @@ const updateIncrements = (targetUrl, promotionObject, communicationCellObject, m
 			return reject(error);
 		});
 	})	
-	**/
-	return resolve(true);
 	
 });
 
