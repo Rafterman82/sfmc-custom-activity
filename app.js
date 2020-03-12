@@ -637,10 +637,10 @@ async function sendBackPayload(payload) {
 
 }
 // insert data into data extension
-app.post('/dataextension/add', function (req, res){ 
+app.post('/dataextension/add', async function (req, res){ 
 	console.dir("Dump request body");
 	console.dir(req.body);
-	res.send(sendBackPayload(req.body));	
+	res.send(await sendBackPayload(req.body));
 });
 
 // Custom Hello World Activity Routes
