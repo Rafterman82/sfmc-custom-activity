@@ -610,7 +610,7 @@ function countCodes(payload) {
 
 async function buildAndSend(payload) {
 	console.dir("Payload in build and send:");
-	console.dir(payload.mark_for_delete);
+	console.dir(payload);
 	try {
 		const numberOfCodes = await countCodes(payload);
 		const incrementData = await getIncrements();
