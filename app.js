@@ -518,16 +518,19 @@ function buildPromotionDescriptionPayload(payload, incrementData) {
 
 	for ( var i = 1; i <= 5; i++) {
 		if ( payload["global_code_" + i] != "no-code" ) {
+			console.dir(payload["global_code_" + i]);
 			globalCodes++;
 		}
 	}
 	for ( var i = 1; i <= 5; i++) {
 		if ( payload["unique_code_" + i] != "no-code" ) {
+			console.dir(payload["unique_code_" + i]);
 			uniqueCodes++;
 		}
 	}
 	for ( var i = 1; i <= 5; i++) {
 		if ( payload["instore_code_" + i] != "no-code" ) {
+			console.dir(payload["instore_code_" + i]);
 			instoreCodes++;
 		}
 	}
