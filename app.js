@@ -442,6 +442,8 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	console.dir(mcUniqueIdForAssociation);
 	console.dir("comm cell inc in desc build is:");
 	console.dir(commCellForAssociation);
+	console.dir("no of codes:");
+	console.dir(numberOfCodes);
 
 	for ( var i = 1; i <= numberOfCodes; i++ ) {
 		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
@@ -503,7 +505,6 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 		var promotionArrayKey = "promotion_" + ticker;
 		console.dir("Promo ticker is promotion_" + ticker);
 		console.dir("I is " + i);
-		console.dir("Total Codes is " + totalCodes);
 
 		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
 
@@ -593,6 +594,8 @@ function countCodes(payload) {
 			instoreCodes++;
 		}
 	}
+	console.dir("num of codes:");
+	console.dir(parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes));
 	return parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes);
 }
 
