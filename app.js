@@ -609,6 +609,8 @@ function countCodes(payload) {
 }
 
 async function buildAndSend(payload) {
+	console.dir("Payload in build and send:");
+	console.dir(payload);
 	try {
 		const numberOfCodes = await countCodes(payload);
 		const incrementData = await getIncrements();
@@ -616,9 +618,12 @@ async function buildAndSend(payload) {
 		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
 		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload, incrementData, numberOfCodes);
 		const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.promotion_key, "cpa", "promotion_key");
-		const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
-		const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.mc_unique_promotion_id_increment, "promotion_description", "mc_unique_promotion_id");
-		await updateIncrements(updateIncrementsUrl, promotionObject, communicationCellObject, mcUniquePromotionObject, numberOfCodes);
+		if ( associationPayload.mark_for_delete == "false" ) {
+			const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
+			const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.mc_unique_promotion_id_increment, "promotion_description", "mc_unique_promotion_id");
+			await updateIncrements(updateIncrementsUrl, promotionObject, communicationCellObject, mcUniquePromotionObject, numberOfCodes);
+		}
+		
 		return associationPayload;
 	} catch(err) {
 		console.dir(err);
