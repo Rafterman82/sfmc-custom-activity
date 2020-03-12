@@ -642,7 +642,7 @@ app.post('/dataextension/add', async function (req, res){
 	console.dir(req.body);
 	try {
 		const nextKey = await sendBackPayload(req.body)
-		res.send({nextKey});
+		res.send(JSON.stringify(nextKey);
 	} catch(err) {
 		console.dir(err);
 	}
