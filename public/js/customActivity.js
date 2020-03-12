@@ -313,7 +313,7 @@ define([
         });
         $("#control_action_remove").click(function(){
             $("#promo_key_input").append('<input id="mark_for_delete" type="hidden" value="true" />');
-            saveToDataExtension(buildActivityPayload());
+            removePromotion(buildActivityPayload());
         });
 
     }
@@ -1224,7 +1224,7 @@ define([
 
         try {
             $.ajax({ 
-                url: '/dataextension/remove',
+                url: '/dataextension/add',
                 type: 'POST',
                 data: JSON.stringify(payloadToSave),
                 contentType: 'application/json',                     
