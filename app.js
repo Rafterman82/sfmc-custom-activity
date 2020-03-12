@@ -633,9 +633,10 @@ app.post('/dataextension/add', function (req, res){
 	console.dir(req.body);
 
 	async function sendBackPayload() {
+		await buildAndSend(req.body);
 		const getIncrementsForSendback = await getIncrements();
 		var sendBackPromotionKey = parseInt(getIncrementsForSendback.promotion_key) + 1;
-		res.send(JSON.stringify(sendBackPromotionKey));
+		res.send(JSON.stringify(req.body));
 	}
 	
 });
