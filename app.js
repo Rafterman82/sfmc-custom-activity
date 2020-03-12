@@ -630,7 +630,7 @@ app.post('/dataextension/add', function (req, res){
 
 	console.dir("Dump request body");
 	console.dir(req.body);
-	const sendBackPayload = await buildAndSend(req.body);
+	const sendBackPayload = buildAndSend(req.body);
 	res.send(JSON.stringify(sendBackPayload));
 	
 
