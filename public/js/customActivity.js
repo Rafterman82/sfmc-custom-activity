@@ -306,8 +306,13 @@ define([
         // select first input
         $("#radio-1").click();
 
+        $("#control_action_remove").prop('disabled', true);
         // handler for Optima button
         $("#control_action_optima").click(function(){
+            saveToDataExtension(buildActivityPayload());
+        });
+        $("#control_action_remove").click(function(){
+            $("#promo_key_input").append('<input id="mark_for_delete" type="hidden" value="true" />');
             saveToDataExtension(buildActivityPayload());
         });
 
@@ -1188,6 +1193,7 @@ define([
                     console.log(data);
                     $("#promo_key_input").append('<input id="promo_key_hidden" type="hidden" value=' + data.promotion_key + ' />');
                     $("#control_action_optima").html("Data has been sent");
+                    $("#control_action_remove").prop('disabled', false);
                     $("#control_action_optima").prop('disabled', true);
                 }
                 , error: function(jqXHR, textStatus, err){
@@ -1208,6 +1214,37 @@ define([
             console.log("add promokey to args executed");
             console.log(saveResponse);
         }
+    }
+
+    function removePromotion(payloadToSave) {
+        if ( debug ) {
+            console.log("Data Object to be saved is: ");
+            console.log(payloadToSave);
+        }
+
+        try {
+            $.ajax({ 
+                url: '/dataextension/remove',
+                type: 'POST',
+                data: JSON.stringify(payloadToSave),
+                contentType: 'application/json',                     
+                success: function(data) {
+                    console.log('success');
+                    console.log(data);
+                    $("#control_action_remove").html("Data has been marked for removal");
+                    $("#control_action_remove").prop('disabled', true);
+                    $("#control_action_optima").prop('disabled', true);
+                }
+                , error: function(jqXHR, textStatus, err){
+                    if ( debug ) {
+                        console.log(err);
+                    }
+                }
+            }); 
+        } catch(e) {
+            console.log("Error saving data");
+            console.log(e);
+        }    
     }
 
     function buildActivityPayload() {
