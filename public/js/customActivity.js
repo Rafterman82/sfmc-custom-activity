@@ -1186,6 +1186,9 @@ define([
                 success: function(data) {
                     console.log('success');
                     console.log(JSON.stringify(data));
+                    const thisPromoKey = data.promotion_key;
+                    $("#control_action_optima").html("Data has been sent");
+                    $('#control_action_optima').prop('disabled', true);
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {
@@ -1215,6 +1218,10 @@ define([
 
         var i;
         var payloadNode = [];
+        payloadNode.push({
+            key: "promotion_key", 
+            value:  thisPromoKey
+        });
 
         for ( i = 0; i < step1FormInputs.length; i++ ) {
             if ( step1FormInputs[i].id) {
@@ -1384,15 +1391,6 @@ define([
         var buildPayload = buildActivityPayload();
 
         // replace with res from save to DE function
-        var currentPrimaryKey = "PROMOTIONKEY123";
-
-        if ( currentPrimaryKey ) {
-            buildPayload.push({
-                step: 0,
-                key: "promotion_key", 
-                value:  currentPrimaryKey
-            });
-        }
 
         if (debug) {
             console.log("Build Payload is:");
@@ -1403,12 +1401,12 @@ define([
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
-        payload.name = "test";
+        payload.name = $("#campaign_name").val();
 
         payload['arguments'].execute.inArguments = [{buildPayload}];
 
         // set isConfigured to true
-        if ( currentPrimaryKey ) {
+        if ( buildPayload.promotion_key ) {
             // sent to de and configured
             payload['metaData'].isConfigured = true;            
         } else {
