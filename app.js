@@ -571,6 +571,16 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 }
 
 function countCodes(payload) {
+
+	console.dir("payload passed to count");
+	console.dir(payload);
+
+	console.dir("get code as example");
+	console.dir(payload.global_code_1);
+
+	console.dir("get code as example dynamically");
+	console.dir(payload["global_code_1"]);
+
 	var globalCodes = 0;
 	var uniqueCodes = 0;
 	var instoreCodes = 0;
@@ -578,19 +588,16 @@ function countCodes(payload) {
 
 	for ( var i = 1; i <= 5; i++) {
 		if ( payload["global_code_" + i] != "no-code" ) {
-			console.dir(payload["global_code_" + i]);
 			globalCodes++;
 		}
 	}
 	for ( var i = 1; i <= 5; i++) {
 		if ( payload["unique_code_" + i] != "no-code" ) {
-			console.dir(payload["unique_code_" + i]);
 			uniqueCodes++;
 		}
 	}
 	for ( var i = 1; i <= 5; i++) {
 		if ( payload["instore_code_" + i] != "no-code" ) {
-			console.dir(payload["instore_code_" + i]);
 			instoreCodes++;
 		}
 	}
