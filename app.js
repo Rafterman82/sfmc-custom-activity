@@ -447,8 +447,8 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
 	}
 
-	campaignPromotionAssociationData["communication_cell_code_id"] = parseInt(commCellForAssociation) + 1;
-	campaignPromotionAssociationData["communication_cell_code_id_control"] = parseInt(commCellForAssociation) + 2;
+	campaignPromotionAssociationData["communication_cell_id"] = parseInt(commCellForAssociation) + 1;
+	campaignPromotionAssociationData["communication_cell_id_control"] = parseInt(commCellForAssociation) + 2;
 
 	return campaignPromotionAssociationData;
 }
