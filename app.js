@@ -458,7 +458,7 @@ function buildAssociationPayload(payload, incrementData) {
 		}
 	}
 
-	totalCodes = parseInt(globalCodes) + parseInt(unqiueCodes) + parseInt(instoreCodes);
+	totalCodes = parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes);
 
 	for ( var i = 1; i <= totalCodes; i++ ) {
 		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
@@ -522,7 +522,7 @@ function buildPromotionDescriptionPayload(payload, incrementData) {
 	}
 	for ( var i = 1; i <= 5; i++) {
 		if ( payload["unique_code_" + i] != "no-code" ) {
-			unqiueCodes++;
+			uniqueCodes++;
 		}
 	}
 	for ( var i = 1; i <= 5; i++) {
@@ -531,7 +531,7 @@ function buildPromotionDescriptionPayload(payload, incrementData) {
 		}
 	}
 
-	totalCodes = parseInt(globalCodes) + parseInt(unqiueCodes) + parseInt(instoreCodes);
+	totalCodes = parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes);
 
 	console.dir("Total Codes in use:" + totalCodes);
 
