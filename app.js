@@ -514,6 +514,8 @@ function buildCommunicationCellPayload(payload) {
 function buildPromotionDescriptionPayload(payload, incrementData) {
 	console.dir("payload is:");
 	console.dir(payload);
+	console.dir("increment payload");
+	console.dir(incrementData);
 
 	var instore_id = 1;
 	var online_id = 1;
