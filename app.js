@@ -640,10 +640,14 @@ async function sendBackPayload(payload) {
 app.post('/dataextension/add', async function (req, res){ 
 	console.dir("Dump request body");
 	console.dir(req.body);
-	res.send(await sendBackPayload(req.body));
+	try {
+		res.send(await sendBackPayload(req.body));
+	} catch(err) {
+		res.send(err);
+	}
+	
 });
 
-// Custom Hello World Activity Routes
 app.post('/journeybuilder/save/', activity.save );
 app.post('/journeybuilder/validate/', activity.validate );
 app.post('/journeybuilder/publish/', activity.publish );
