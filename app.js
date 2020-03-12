@@ -619,6 +619,7 @@ async function buildAndSend(payload) {
 		const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
 		const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.promotion_key, "promotion_description", "mc_unique_promotion_id");
 		await updateIncrements(updateIncrementsUrl, promotionObject, communicationCellObject, mcUniquePromotionObject, numberOfCodes);
+		return associationPayload;
 	} catch(err) {
 		console.dir(err);
 	}
@@ -629,8 +630,9 @@ app.post('/dataextension/add', function (req, res){
 
 	console.dir("Dump request body");
 	console.dir(req.body);
-	res.send(JSON.stringify(req.body));
-	buildAndSend(req.body);
+	const sendBackPayload = await buildAndSend(req.body);
+	res.send(JSON.stringify(sendBackPayload));
+	
 
 });
 
