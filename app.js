@@ -429,16 +429,19 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	var campaignPromotionAssociationData = {};
 	for ( var i = 0; i < payload.length; i++ ) {
-		console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
+		//console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
 		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
 	}
+	console.dir("building association payload")
 	console.dir(campaignPromotionAssociationData);
 
 	var mcUniqueIdForAssociation = incrementData.mc_unique_promotion_id_increment;
 	var commCellForAssociation = incrementData.communication_cell_code_id_increment;
 
-	console.dir("comm cell id in desc build is:");
-	console.dir(mcUniqueIdForAssociation)
+	console.dir("mc inc in desc build is:");
+	console.dir(mcUniqueIdForAssociation);
+	console.dir("comm cell inc in desc build is:");
+	console.dir(commCellForAssociation);
 
 	for ( var i = 1; i <= numberOfCodes; i++ ) {
 		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
@@ -447,7 +450,6 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	campaignPromotionAssociationData["communication_cell_code_id"] = parseInt(commCellForAssociation) + 1;
 	campaignPromotionAssociationData["communication_cell_code_id_control"] = parseInt(commCellForAssociation) + 2;
 
-	console.dir("Total Codes in use:" + totalCodes);
 	return campaignPromotionAssociationData;
 }
 
