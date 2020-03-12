@@ -615,9 +615,9 @@ async function buildAndSend(payload) {
 		const associationPayload = await buildAssociationPayload(payload, incrementData, numberOfCodes);
 		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
 		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload, incrementData, numberOfCodes);
-		const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.mc_unique_promotion_id_increment, "cpa", "promotion_key");
+		const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.promotion_key, "cpa", "promotion_key");
 		const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
-		const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.promotion_key, "promotion_description", "mc_unique_promotion_id");
+		const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.mc_unique_promotion_id_increment, "promotion_description", "mc_unique_promotion_id");
 		await updateIncrements(updateIncrementsUrl, promotionObject, communicationCellObject, mcUniquePromotionObject, numberOfCodes);
 		return associationPayload;
 	} catch(err) {
