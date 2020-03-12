@@ -1219,8 +1219,8 @@ define([
         var i;
         var payloadNode = [];
         payloadNode.push({
-            key: promotion_key, 
-            value:  $("#promo_key_hidden").val()
+            "key": promotion_key, 
+            "value": $("#promo_key_hidden").val()
         });
 
         for ( i = 0; i < step1FormInputs.length; i++ ) {
