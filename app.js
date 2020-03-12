@@ -255,7 +255,7 @@ const updateIncrements = (targetUrl, promotionObject, communicationCellObject, m
 	console.dir(communicationCellObject);
 
 	console.dir("pro desc Object Response:");
-	console.dir(mcUniquePromotionIdObject);
+	console.dir(mcUniquePromotionObject);
 
 /**
 	var incrementObject;
