@@ -449,7 +449,7 @@ function buildAssociationPayload(payload, incrementData) {
 	}
 	for ( var i = 1; i <= 5; i++) {
 		if ( payload["unique_code_" + i] != "no-code" ) {
-			unqiueCodes++;
+			uniqueCodes++;
 		}
 	}
 	for ( var i = 1; i <= 5; i++) {
