@@ -311,10 +311,10 @@ define([
         $("#control_action_optima").click(function(){
             saveToDataExtension(buildActivityPayload());
         });
-        $("#control_action_remove").click(function(){
-            $("#promo_key_input").append('<input id="mark_for_delete" type="hidden" value="true" />');
-            removePromotion(buildActivityPayload());
-        });
+        /**$("#control_action_remove").click(function(){
+            $("#promo_key_input").append('<input id="mark_for_delete" type="hidden" value="true />');
+            saveToDataExtension(buildActivityPayload());
+        });**/
 
     }
 
@@ -1191,7 +1191,7 @@ define([
                 success: function(data) {
                     console.log('success');
                     console.log(data);
-                    $("#promo_key_input").append('<input id="promo_key_hidden" type="hidden" value=' + data + ' />');
+                    $("#promo_key_input").append('<input id="promo_key_hidden" type="hidden" value=' + data.promotion_key + ' />');
                     $("#control_action_optima").html("Data has been sent");
                     $("#control_action_remove").prop('disabled', false);
                     $("#control_action_optima").prop('disabled', true);
@@ -1216,7 +1216,7 @@ define([
         }
     }
 
-    function removePromotion(payloadToSave) {
+    /**function removePromotion(payloadToSave) {
         if ( debug ) {
             console.log("Data Object to be saved is: ");
             console.log(payloadToSave);
@@ -1224,7 +1224,7 @@ define([
 
         try {
             $.ajax({ 
-                url: '/dataextension/add',
+                url: '/dataextension/remove',
                 type: 'POST',
                 data: JSON.stringify(payloadToSave),
                 contentType: 'application/json',                     
@@ -1245,7 +1245,7 @@ define([
             console.log("Error saving data");
             console.log(e);
         }    
-    }
+    }**/
 
     function buildActivityPayload() {
 

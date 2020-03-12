@@ -609,25 +609,16 @@ function countCodes(payload) {
 }
 
 async function buildAndSend(payload) {
-	console.dir("Payload Hidden Promo Key");
-	console.dir(payload.promo_key_hidden);
-	console.dir("Payload mark for delete");
-	console.dir(payload.mark_for_delete);
 	try {
 		const numberOfCodes = await countCodes(payload);
 		const incrementData = await getIncrements();
 		const associationPayload = await buildAssociationPayload(payload, incrementData, numberOfCodes);
 		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
 		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload, incrementData, numberOfCodes);
-		if ( payload.mark_for_delete == "false") {
-			const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, payload.mark_for_delete, "cpa", "promotion_key");
-			const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
-			const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.mc_unique_promotion_id_increment, "promotion_description", "mc_unique_promotion_id");
-			await updateIncrements(updateIncrementsUrl, promotionObject, communicationCellObject, mcUniquePromotionObject, numberOfCodes);
-		} else {
-			const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, payload.promo_key_hidden, "cpa", "promotion_key");
-		}
-		
+		const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.promotion_key, "cpa", "promotion_key");
+		const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
+		const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.mc_unique_promotion_id_increment, "promotion_description", "mc_unique_promotion_id");
+		await updateIncrements(updateIncrementsUrl, promotionObject, communicationCellObject, mcUniquePromotionObject, numberOfCodes);
 		return associationPayload;
 	} catch(err) {
 		console.dir(err);
