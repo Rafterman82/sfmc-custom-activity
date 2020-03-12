@@ -223,8 +223,6 @@ const saveToDataExtension = (targetUrl, payload, key, dataType, keyName) => new 
 		console.dir("Promo desc data: ");
 		console.dir(insertPayload);
 
-		return resolve(insertPayload);
-
 		getOauth2Token().then((tokenResponse) => {
 		   	axios({
 				method: 'post',
