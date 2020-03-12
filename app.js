@@ -150,7 +150,7 @@ const saveToDataExtension = (targetUrl, payload, key, dataType, keyName) => new 
 
 		var insertPayload = [{
 	        "keys": {
-	            [keyName]: (key + 1)
+	            [keyName]: (parseInt(key) + 1)
 	        },
 	        "values": payload
     	}];
@@ -176,14 +176,14 @@ const saveToDataExtension = (targetUrl, payload, key, dataType, keyName) => new 
 	} else if ( dataType == "communication_cell") {
 		var insertPayload = [{
 	        "keys": {
-	            [keyName]: parseInt((key + 1))
+	            [keyName]: (parseInt(key) + 1)
 	        },
 	        "values": payload.control,
 
     	},
     	{
 	        "keys": {
-	            [keyName]: parseInt((key + 2))
+	            [keyName]: (parseInt(key) + 2)
 	        },
 	        "values": payload.not_control,
 	        
@@ -213,7 +213,7 @@ const saveToDataExtension = (targetUrl, payload, key, dataType, keyName) => new 
 		for ( var i = 1; i <= Object.keys(payload.promotions).length; i++ ) {
 			insertPayload.push({
 		        "keys": {
-		            [keyName]: parseInt((key + i ))
+		            [keyName]: (parseInt(key) + i)
 		        },
 		        "values": payload.promotions["promotion_" + i],
 
@@ -425,13 +425,62 @@ app.get("/dataextension/lookup/templates", (req, res, next) => {
 
 });
 
-function buildAssociationPayload(payload) {
+function buildAssociationPayload(payload, incrementData) {
 	var campaignPromotionAssociationData = {};
 	for ( var i = 0; i < payload.length; i++ ) {
 		console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
 		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
 	}
 	console.dir(campaignPromotionAssociationData);
+	var instore_id = 1;
+	var online_id = 1;
+	var globalCodes = 0;
+	var uniqueCodes = 0;
+	var instoreCodes = 0;
+	var totalCodes = 0;
+	var mcUniqueIdForAssociation = incrementData.mc_unique_promotion_id_increment;
+	var commCellForAssociation = incrementData.communication_cell_code_id_increment
+	if ( payload.promotionType == "online" || payload.promotionType == "online" ) {
+		var loopCount = 5
+	} else if ( payload.promotionType == "online_instore") {
+		var loopCount = 10;
+	}
+
+	for ( var i = 1; i <= loopCount; i++ ) {
+		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
+			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
+				if ( payload.onlinePromotionType == "global") {
+					if ( payload["global_code_" + online_id] != "no-code" ) {
+						globalCodes++;
+						online_id++;
+					}
+				} else if ( payload.onlinePromotionType == "unique") {
+					if ( payload["unique_code_" + online_id] != "no-code" ) {
+						uniqueCodes++;
+						online_id++;
+					}
+				}
+			}
+		}
+		if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
+			console.dir("instore type");
+			if ( payload["instore_code_" + instore_id] != "no-code" ) {
+				instoreCodes++;
+				instore_id++;
+			}
+		}
+	}
+
+	totalCodes = (online_id - 1) + (instore_id - 1);
+
+	for ( var i = 1; i <= totalCodes; i++ ) {
+		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
+	}
+
+	campaignPromotionAssociationData["communication_cell_code_id"] = parseInt(commCellForAssociation) + 1;
+	campaignPromotionAssociationData["communication_cell_code_id_control"] = parseInt(commCellForAssociation) + 2;
+
+	console.dir("Total Codes in use:" + totalCodes);
 	return campaignPromotionAssociationData;
 }
 
@@ -461,7 +510,7 @@ function buildCommunicationCellPayload(payload) {
 	console.dir(communicationCellData);
 	return communicationCellData;
 }
-function buildPromotionDescriptionPayload(payload) {
+function buildPromotionDescriptionPayload(payload, incrementData) {
 	console.dir("payload is:");
 	console.dir(payload);
 
@@ -474,6 +523,7 @@ function buildPromotionDescriptionPayload(payload) {
 	var onlineTicker = 1;
 	var instoreTicker = 1;
 	var ticker = 1;
+	var commCellIdForPromo = incrementData.communication_cell_id_increment;
 	if ( payload.promotionType == "online" || payload.promotionType == "online" ) {
 		var loopCount = 5
 	} else if ( payload.promotionType == "online_instore") {
@@ -546,15 +596,16 @@ function buildPromotionDescriptionPayload(payload) {
 				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 		= payload.instant_win_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 			= payload.offer_medium_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload.promotion_group_id_online;
+				promotionDescriptionData.promotions[promotionArrayKey]["communication_cell_id"] = parseInt(commCellIdForPromo) + 1;
 				if ( payload.onlinePromotionType == "global" ) {
-					promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 				= payload["global_code_" + onlineTicker];
+					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 				= payload["global_code_" + onlineTicker];
 					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["global_code_" + onlineTicker +"_promo_id"];
 					promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["global_code_" + onlineTicker +"_valid_from"];
 					promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["global_code_" + onlineTicker +"_valid_to"];
 					promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"] 			= payload["global_code_" + onlineTicker +"_valid_from"];
 					promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["global_code_" + onlineTicker +"_valid_to"];
 				} else if (payload.onlinePromotionType == "unique" ) {
-					promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 		= "-";
+					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 		= "-";
 					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 	= payload["unique_code_" + onlineTicker +"_promo_id"];
 				}
 				onlineTicker++;
@@ -569,20 +620,21 @@ function buildPromotionDescriptionPayload(payload) {
 			if ( payload["instore_code_" + instoreTicker] != "no-code" ) {
 				console.dir("ADDING INSTORE DATA");
 				promotionDescriptionData.promotions[promotionArrayKey] = {};
-				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 		= "Instore";
-				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 	= payload.campaign_name;
-				promotionDescriptionData.promotions[promotionArrayKey]["ts_and_cs"] 			= "-";
-				promotionDescriptionData.promotions[promotionArrayKey]["bar_code"] 				= payload["instore_code_" + instoreTicker];
-				promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"]			= payload["instore_code_" + instoreTicker +"_promo_id"];
-				promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["instore_code_" + instoreTicker +"_valid_from"];
-				promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["instore_code_" + instoreTicker +"_valid_to"];
-				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"]			= payload["instore_code_" + instoreTicker +"_valid_from"];
-				promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["instore_code_" + instoreTicker +"_valid_to"];
-				promotionDescriptionData.promotions[promotionArrayKey]["number_of_redemptions"] = payload["instore_code_" + instoreTicker +"_redemptions"];
-				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 	= payload.print_at_till_instore;
-				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 		= payload.instant_win_instore;
-				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 			= payload.offer_medium_instore;
-				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload.promotion_group_id_instore;
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_channel"] 				= "Instore";
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_description"] 			= payload.campaign_name;
+				promotionDescriptionData.promotions[promotionArrayKey]["ts_and_cs"] 					= "-";
+				promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 						= payload["instore_code_" + instoreTicker];
+				promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"]					= payload["instore_code_" + instoreTicker +"_promo_id"];
+				promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 			= payload["instore_code_" + instoreTicker +"_valid_from"];
+				promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 			= payload["instore_code_" + instoreTicker +"_valid_to"];
+				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"]					= payload["instore_code_" + instoreTicker +"_valid_from"];
+				promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 					= payload["instore_code_" + instoreTicker +"_valid_to"];
+				promotionDescriptionData.promotions[promotionArrayKey]["number_of_redemptions_allowed"] = payload["instore_code_" + instoreTicker +"_redemptions"];
+				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 			= payload.print_at_till_instore;
+				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 				= payload.instant_win_instore;
+				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 					= payload.offer_medium_instore;
+				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 			= payload.promotion_group_id_instore;
+				promotionDescriptionData.promotions[promotionArrayKey]["communication_cell_id"] 		= parseInt(commCellIdForPromo) + 1;
 				instoreTicker++;
 				ticker++;
 			}
@@ -596,10 +648,10 @@ function buildPromotionDescriptionPayload(payload) {
 
 async function buildAndSend(payload) {
 	try {
-		const associationPayload = await buildAssociationPayload(payload);
-		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
-		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload);
 		const incrementData = await getIncrements();
+		const associationPayload = await buildAssociationPayload(payload, incrementData);
+		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
+		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload, incrementData);
 		const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.mc_unique_promotion_id_increment, "cpa", "promotion_key");
 		const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
 		const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.promotion_key, "promotion_description", "mc_unique_promotion_id");
