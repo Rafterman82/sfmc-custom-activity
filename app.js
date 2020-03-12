@@ -625,20 +625,22 @@ async function buildAndSend(payload) {
 	}
 }
 
-
-// insert data into data extension
-app.post('/dataextension/add', function (req, res){ 
-
-	console.dir("Dump request body");
-	console.dir(req.body);
-
-	async function sendBackPayload() {
+async function sendBackPayload() {
+	try {
 		await buildAndSend(req.body);
 		const getIncrementsForSendback = await getIncrements();
 		var sendBackPromotionKey = parseInt(getIncrementsForSendback.promotion_key) + 1;
-		res.send(JSON.stringify(req.body));
+		return sendBackPromotionKey
+	} catch(err) {
+		console.dir(err);
 	}
-	
+
+}
+// insert data into data extension
+app.post('/dataextension/add', function (req, res){ 
+	console.dir("Dump request body");
+	console.dir(req.body);
+	res.send(sendBackPayload());	
 });
 
 // Custom Hello World Activity Routes
