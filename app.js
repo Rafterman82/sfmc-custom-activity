@@ -625,9 +625,9 @@ async function buildAndSend(payload) {
 	}
 }
 
-async function sendBackPayload() {
+async function sendBackPayload(payload) {
 	try {
-		await buildAndSend(req.body);
+		await buildAndSend(payload);
 		const getIncrementsForSendback = await getIncrements();
 		var sendBackPromotionKey = parseInt(getIncrementsForSendback.promotion_key) + 1;
 		return sendBackPromotionKey
@@ -640,7 +640,7 @@ async function sendBackPayload() {
 app.post('/dataextension/add', function (req, res){ 
 	console.dir("Dump request body");
 	console.dir(req.body);
-	res.send(sendBackPayload());	
+	res.send(sendBackPayload(req.body));	
 });
 
 // Custom Hello World Activity Routes
