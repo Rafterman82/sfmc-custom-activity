@@ -617,11 +617,13 @@ async function buildAndSend(payload) {
 		const associationPayload = await buildAssociationPayload(payload, incrementData, numberOfCodes);
 		const communicationCellPayload = await buildCommunicationCellPayload(associationPayload);
 		const promotionDescriptionPayload = await buildPromotionDescriptionPayload(associationPayload, incrementData, numberOfCodes);
-		const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.promotion_key, "cpa", "promotion_key");
 		if ( !payload.mark_for_delete ) {
+			const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, payload.mark_for_delete, "cpa", "promotion_key");
 			const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
 			const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.mc_unique_promotion_id_increment, "promotion_description", "mc_unique_promotion_id");
 			await updateIncrements(updateIncrementsUrl, promotionObject, communicationCellObject, mcUniquePromotionObject, numberOfCodes);
+		} else {
+			const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, payload.promotion_key, "cpa", "promotion_key");
 		}
 		
 		return associationPayload;
