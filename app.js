@@ -433,7 +433,10 @@ function buildAssociationPayload(payload, incrementData) {
 		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
 	}
 	console.dir(campaignPromotionAssociationData);
-
+	var globalCodes = 0;
+	var uniqueCodes = 0;
+	var instoreCodes = 0;
+	var totalCodes = 0;
 	var mcUniqueIdForAssociation = incrementData.mc_unique_promotion_id_increment;
 
 	console.dir("comm cell id in desc build is:");
