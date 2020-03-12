@@ -641,8 +641,8 @@ app.post('/dataextension/add', async function (req, res){
 	console.dir("Dump request body");
 	console.dir(req.body);
 	try {
-		await sendBackPayload(req.body)
-		res.send(JSON.stringify({"success": true}));
+		const nextKey = await sendBackPayload(req.body)
+		res.send(JSON.stringify({"promotion_key": nextKey}));
 	} catch(err) {
 		console.dir(err);
 	}
