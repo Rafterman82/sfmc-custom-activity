@@ -1185,8 +1185,8 @@ define([
                 contentType: 'application/json',                     
                 success: function(data) {
                     console.log('success');
-                    console.log(JSON.stringify(data));
-                    const thisPromoKey = data.promotion_key;
+                    console.log(data);
+                    //const thisPromoKey = data.promotion_key;
                     $("#control_action_optima").html("Data has been sent");
                     $('#control_action_optima').prop('disabled', true);
                 }
@@ -1218,10 +1218,7 @@ define([
 
         var i;
         var payloadNode = [];
-        payloadNode.push({
-            key: "promotion_key", 
-            value:  thisPromoKey
-        });
+
 
         for ( i = 0; i < step1FormInputs.length; i++ ) {
             if ( step1FormInputs[i].id) {
