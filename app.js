@@ -256,20 +256,18 @@ const updateIncrements = (targetUrl, promotionObject, communicationCellObject, m
 	console.dir("pro desc Object Response:");
 	console.dir(mcUniquePromotionObject[(parseInt(numberOfCodes) - 1)].keys.mc_unique_promotion_id);
 
-/**
-	var incrementObject;
+	var updatedIncrementObject;
+	updatedIncrementObject.mc_unique_promotion_id = parseInt(mcUniquePromotionObject[(parseInt(numberOfCodes) - 1)].keys.mc_unique_promotion_id) + 1;
+	updatedIncrementObject.communication_cell_id = parseInt(communicationCellObject[1].keys.communication_cell_id) + 1;
+	updatedIncrementObject.promotion_key = parseInt(promotionObject[0].keys.promotion_key) + 1;
 
-	incrementObject.mc_unique_promotion_id = mcUniquePromotionIdKey;
-	incrementObject.communication_cell_id = communicationCellIdKey;
-	incrementObject.promotion_key = promotionKey;
-
-	console.dir(incrementObject);
+	console.dir(updatedIncrementObject);
 
 	var insertPayload = [{
         "keys": {
             "increment_key": 1
         },
-        "values": incrementObject
+        "values": updatedIncrementObject
 	}];
 		
 	console.dir(insertPayload);
@@ -279,7 +277,7 @@ const updateIncrements = (targetUrl, promotionObject, communicationCellObject, m
 			method: 'post',
 			url: targetUrl,
 			headers: {'Authorization': tokenResponse},
-			data: payload
+			data: insertPayload
 		})
 		.then(function (response) {
 			console.dir(response.data);
