@@ -603,7 +603,7 @@ async function buildAndSend(payload) {
 		const promotionObject = await saveToDataExtension(campaignAssociationUrl, associationPayload, incrementData.mc_unique_promotion_id_increment, "cpa", "promotion_key");
 		const communicationCellObject = await saveToDataExtension(communicationCellUrl, communicationCellPayload, incrementData.communication_cell_code_id_increment, "communication_cell", "communication_cell_id");
 		const mcUniquePromotionObject = await saveToDataExtension(descriptionUrl, promotionDescriptionPayload, incrementData.promotion_key, "promotion_description", "mc_unique_promotion_id");
-		await updateIncrements(incrementsUrl, promotionKey, communicationCellIdKey, mcUniquePromotionKey);
+		await updateIncrements(incrementsUrl, promotionObject, communicationCellObject, mcUniquePromotionObject);
 	} catch(err) {
 		console.dir(err);
 	}
