@@ -438,6 +438,7 @@ function buildAssociationPayload(payload, incrementData) {
 	var instoreCodes = 0;
 	var totalCodes = 0;
 	var mcUniqueIdForAssociation = incrementData.mc_unique_promotion_id_increment;
+	var commCellForAssociation = incrementData.communication_cell_id_increment;
 
 	console.dir("comm cell id in desc build is:");
 	console.dir(mcUniqueIdForAssociation)
