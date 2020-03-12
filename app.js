@@ -162,7 +162,7 @@ const saveToDataExtension = (targetUrl, payload, key, dataType, keyName) => new 
 				method: 'post',
 				url: targetUrl,
 				headers: {'Authorization': tokenResponse},
-				data: payload
+				data: insertPayload
 			})
 			.then(function (response) {
 				console.dir(response.data);
@@ -195,7 +195,7 @@ const saveToDataExtension = (targetUrl, payload, key, dataType, keyName) => new 
 				method: 'post',
 				url: targetUrl,
 				headers: {'Authorization': tokenResponse},
-				data: payload
+				data: insertPayload
 			})
 			.then(function (response) {
 				console.dir(response.data);
@@ -229,7 +229,7 @@ const saveToDataExtension = (targetUrl, payload, key, dataType, keyName) => new 
 				method: 'post',
 				url: targetUrl,
 				headers: {'Authorization': tokenResponse},
-				data: payload
+				data: insertPayload
 			})
 			.then(function (response) {
 				console.dir(response.data);
