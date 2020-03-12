@@ -433,46 +433,29 @@ function buildAssociationPayload(payload, incrementData) {
 		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
 	}
 	console.dir(campaignPromotionAssociationData);
-	var instore_id = 1;
-	var online_id = 1;
-	var globalCodes = 0;
-	var uniqueCodes = 0;
-	var instoreCodes = 0;
-	var totalCodes = 0;
+
 	var mcUniqueIdForAssociation = incrementData.mc_unique_promotion_id_increment;
-	var commCellForAssociation = incrementData.communication_cell_code_id_increment
-	if ( payload.promotionType == "online" || payload.promotionType == "online" ) {
-		var loopCount = 5
-	} else if ( payload.promotionType == "online_instore") {
-		var loopCount = 10;
-	}
 
-	for ( var i = 1; i <= loopCount; i++ ) {
-		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
-			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
-				if ( payload.onlinePromotionType == "global") {
-					if ( payload["global_code_" + online_id] != "no-code" ) {
-						globalCodes++;
-						online_id++;
-					}
-				} else if ( payload.onlinePromotionType == "unique") {
-					if ( payload["unique_code_" + online_id] != "no-code" ) {
-						uniqueCodes++;
-						online_id++;
-					}
-				}
-			}
+	console.dir("comm cell id in desc build is:");
+	console.dir(mcUniqueIdForAssociation)
+
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["global_code_" + i] != "no-code" ) {
+			globalCodes++;
 		}
-		if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
-			console.dir("instore type");
-			if ( payload["instore_code_" + instore_id] != "no-code" ) {
-				instoreCodes++;
-				instore_id++;
-			}
+	}
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["unique_code_" + i] != "no-code" ) {
+			unqiueCodes++;
+		}
+	}
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["instore_code_" + i] != "no-code" ) {
+			instoreCodes++;
 		}
 	}
 
-	totalCodes = (online_id - 1) + (instore_id - 1);
+	totalCodes = parseInt(globalCodes) + parseInt(unqiueCodes) + parseInt(instoreCodes);
 
 	for ( var i = 1; i <= totalCodes; i++ ) {
 		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
@@ -517,8 +500,6 @@ function buildPromotionDescriptionPayload(payload, incrementData) {
 	console.dir("increment payload");
 	console.dir(incrementData);
 
-	var instore_id = 1;
-	var online_id = 1;
 	var globalCodes = 0;
 	var uniqueCodes = 0;
 	var instoreCodes = 0;
@@ -526,54 +507,32 @@ function buildPromotionDescriptionPayload(payload, incrementData) {
 	var onlineTicker = 1;
 	var instoreTicker = 1;
 	var ticker = 1;
-	var commCellIdForPromo = incrementData.communication_cell_id_increment;
-	if ( payload.promotionType == "online" || payload.promotionType == "online" ) {
-		var loopCount = 5
-	} else if ( payload.promotionType == "online_instore") {
-		var loopCount = 10;
-	}
+	var commCellForPromo = incrementData.communication_cell_id_increment;
 
-	for ( var i = 1; i <= loopCount; i++ ) {
-		if ( payload.promotionType == "online" || payload.promotionType == "online_instore" ) {
-			if ( payload["global_code_" + online_id] != "no-code" || payload["unique_code_" + online_id] != "no-code" ) {
-				if ( payload.onlinePromotionType == "global") {
-					if ( payload["global_code_" + online_id] != "no-code" ) {
-						console.dir("global_code_" + online_id);
-						console.dir("global code found");
-						globalCodes++;
-						online_id++;
-					}
+	console.dir("comm cell id in desc build is:");
+	console.dir(commCellForPromo)
 
-				} else if ( payload.onlinePromotionType == "unique") {
-					if ( payload["unique_code_" + online_id] != "no-code" ) {
-						console.dir("unique_code_" + online_id);
-						console.dir("unique code found");
-						uniqueCodes++;
-						online_id++;
-					}
-				}
-			}
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["global_code_" + i] != "no-code" ) {
+			globalCodes++;
 		}
-		if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
-			console.dir("instore type");
-			if ( payload["instore_code_" + instore_id] != "no-code" ) {
-				console.dir("instore_code_" + instore_id);
-				console.dir("instore code found");
-				instoreCodes++;
-				instore_id++;
-			} else {
-				console.dir("no code found for :");
-				console.dir("instore_code_" + instore_id);
-			}
+	}
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["unique_code_" + i] != "no-code" ) {
+			unqiueCodes++;
+		}
+	}
+	for ( var i = 1; i <= 5; i++) {
+		if ( payload["instore_code_" + i] != "no-code" ) {
+			instoreCodes++;
 		}
 	}
 
-	totalCodes = (online_id - 1) + (instore_id - 1);
+	totalCodes = parseInt(globalCodes) + parseInt(unqiueCodes) + parseInt(instoreCodes);
 
 	console.dir("Total Codes in use:" + totalCodes);
 
 	console.dir("Global Codes: " + globalCodes +", Unique Codes:" + uniqueCodes + ", Instore Codes: " + instoreCodes);
-	console.dir("Online Codes Next Inrement:" + online_id + ", Instore Codes Next inrement:" + instore_id);
 
 	var promotionDescriptionData = {};
 	
@@ -599,7 +558,7 @@ function buildPromotionDescriptionPayload(payload, incrementData) {
 				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 		= payload.instant_win_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 			= payload.offer_medium_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload.promotion_group_id_online;
-				promotionDescriptionData.promotions[promotionArrayKey]["communication_cell_id"] = parseInt(commCellIdForPromo) + 1;
+				promotionDescriptionData.promotions[promotionArrayKey]["communication_cell_id"] = parseInt(commCellForPromo) + 1;
 				if ( payload.onlinePromotionType == "global" ) {
 					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 				= payload["global_code_" + onlineTicker];
 					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["global_code_" + onlineTicker +"_promo_id"];
@@ -637,7 +596,7 @@ function buildPromotionDescriptionPayload(payload, incrementData) {
 				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 				= payload.instant_win_instore;
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 					= payload.offer_medium_instore;
 				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 			= payload.promotion_group_id_instore;
-				promotionDescriptionData.promotions[promotionArrayKey]["communication_cell_id"] 		= parseInt(commCellIdForPromo) + 1;
+				promotionDescriptionData.promotions[promotionArrayKey]["communication_cell_id"] 		= parseInt(commCellForPromo) + 1;
 				instoreTicker++;
 				ticker++;
 			}
