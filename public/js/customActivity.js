@@ -1186,9 +1186,9 @@ define([
                 success: function(data) {
                     console.log('success');
                     console.log(data);
-                    //const thisPromoKey = data.promotion_key;
+                    $("#promo_key_input").append('<input id="promo_key_hidden" type="hidden" value=' + data.promotion_key + ' />';
                     $("#control_action_optima").html("Data has been sent");
-                    $('#control_action_optima').prop('disabled', true);
+                    $("#control_action_optima").prop('disabled', true);
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {
@@ -1218,7 +1218,10 @@ define([
 
         var i;
         var payloadNode = [];
-
+        payloadNode.push({
+            key: promotion_key, 
+            value:  $("#promo_key_hidden").val()
+        });
 
         for ( i = 0; i < step1FormInputs.length; i++ ) {
             if ( step1FormInputs[i].id) {
