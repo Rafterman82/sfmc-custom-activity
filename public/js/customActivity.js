@@ -1219,7 +1219,7 @@ define([
         var i;
         var payloadNode = [];
         payloadNode.push({
-            "key": promotion_key, 
+            "key": "promotion_key", 
             "value": $("#promo_key_hidden").val()
         });
 
