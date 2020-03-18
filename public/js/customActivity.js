@@ -96,12 +96,20 @@ define([
 
             var r;
             var argPromotionType;
+            var argKey;
 
             for ( r = 0; r < argumentsSummaryPayload.buildPayload.length; r++ ) {
                 if ( argumentsSummaryPayload.buildPayload[r].key == "promotionType" ) {
-                    argPromotionType = argumentsSummaryPayload.buildPayload[r].value;
+                    argPromotionType = argumentsSummaryPayload.buildPayload[r].value; 
+                } else if ( argumentsSummaryPayload.buildPayload[r].key == "promotion_key_hidden" ) {
+                    argKey = argumentsSummaryPayload.buildPayload[r].value;
+                    $("#promotion_key_hidden").val(argKey);
+                    $("#control_action_optima").html("Data has been sent");
+                    $("#control_action_remove").prop('disabled', false);
+                    $("#control_action_optima").prop('disabled', true);                    
                 }
             }
+
             // argument data present, pre pop and redirect to summary page
             prePopulateFields(argumentsSummaryPayload.buildPayload);
 
