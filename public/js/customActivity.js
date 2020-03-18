@@ -1191,7 +1191,7 @@ define([
                 success: function(data) {
                     console.log('success');
                     console.log(data);
-                    $("#promo_key_input").append('<input id="promo_key_hidden" type="hidden" value=' + data + ' />');
+                    $("#promotion_key").val(data);
                     $("#control_action_optima").html("Data has been sent");
                     $("#control_action_remove").prop('disabled', false);
                     $("#control_action_optima").prop('disabled', true);
@@ -1445,12 +1445,11 @@ define([
         // set isConfigured to true
         if ( buildPayload.promotion_key ) {
             // sent to de and configured
-            payload['metaData'].isConfigured = true;            
+            payload['metaData'].isConfigured = true;
         } else {
             // not sent to de but configured
             payload['metaData'].isConfigured = false;
         }
-        
 
         if ( debug ) {
             console.log("Payload including in args")
