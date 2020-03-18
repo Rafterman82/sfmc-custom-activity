@@ -1432,6 +1432,7 @@ define([
         if (debug) {
             console.log("Build Payload is:");
             console.log(JSON.stringify(buildPayload));
+            console.log(buildPayload.promotion_key);
         }        
 
         // 'payload' is initialized on 'initActivity' above.
