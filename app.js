@@ -426,7 +426,12 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	var campaignPromotionAssociationData = {};
 	for ( var i = 0; i < payload.length; i++ ) {
 		//console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
-		campaignPromotionAssociationData[payload[i].key] = payload[i].value;
+		
+		if ( campaignPromotionAssociationData[payload[i].key] == "email_template" ) {
+			campaignPromotionAssociationData[payload[i].key] = payload[i].value;
+		} else {
+			campaignPromotionAssociationData[payload[i].key] = decodeURIComponent(payload[i].value);
+		}
 	}
 	console.dir("building association payload")
 	console.dir(campaignPromotionAssociationData);
