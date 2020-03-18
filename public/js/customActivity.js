@@ -1438,10 +1438,14 @@ define([
         var argPromotionKey;
 
         for ( var w = 0; w < buildPayload.length; w++ ) {
+            console.log("inside build payload loop");
+            console.log(buildPayload[w]);
             if ( buildPayload[w].key == "promotion_key") {
                 argPromotionKey = buildPayload[w].value;
             }
-        }   
+        }
+
+        console.log(argPromotionKey); 
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
