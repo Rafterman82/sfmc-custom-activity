@@ -1436,11 +1436,12 @@ define([
         for ( var w = 0; w < buildPayload.length; w++ ) {
             console.log("inside build payload loop");
             console.log(buildPayload[w]);
-            if ( buildPayload[w].key == "promotion_key") {
+            if ( buildPayload[w].key == "promotion_key_hidden") {
                 argPromotionKey = buildPayload[w].value;
             }
         }
 
+        console.log("arg key");
         console.log(argPromotionKey); 
 
         // 'payload' is initialized on 'initActivity' above.
