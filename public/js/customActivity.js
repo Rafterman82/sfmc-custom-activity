@@ -1467,7 +1467,7 @@ define([
         }
 
         // trigger payload save
-        //connection.trigger('updateActivity', payload);
+        connection.trigger('updateActivity', payload);
     }
 
 });
