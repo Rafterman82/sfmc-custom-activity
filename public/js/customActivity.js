@@ -1433,7 +1433,15 @@ define([
             console.log("Build Payload is:");
             console.log(JSON.stringify(buildPayload));
             console.log(buildPayload.promotion_key);
-        }        
+        }
+
+        var argPromotionKey;
+
+        for ( var w = 0; w < buildPayload.length; w++ ) {
+            if ( buildPayload[w].key == "promotion_key") {
+                argPromotionKey = buildPayload[w].value;
+            }
+        }   
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
@@ -1444,7 +1452,7 @@ define([
         payload['arguments'].execute.inArguments = [{buildPayload}];
 
         // set isConfigured to true
-        if ( buildPayload.promotion_key ) {
+        if ( argPromotionKey ) {
             // sent to de and configured
             payload['metaData'].isConfigured = true;
         } else {
@@ -1458,7 +1466,7 @@ define([
         }
 
         // trigger payload save
-        connection.trigger('updateActivity', payload);
+        //connection.trigger('updateActivity', payload);
     }
 
 });
