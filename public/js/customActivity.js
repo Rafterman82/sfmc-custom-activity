@@ -1431,7 +1431,7 @@ define([
 
         if (debug) {
             console.log("Build Payload is:");
-            console.log(buildPayload);
+            console.log(JSON.stringify(buildPayload));
         }        
 
         // 'payload' is initialized on 'initActivity' above.
@@ -1453,7 +1453,7 @@ define([
 
         if ( debug ) {
             console.log("Payload including in args")
-            console.log(payload);
+            console.log(payload.arguments.execute.inArguments);
         }
 
         // trigger payload save
