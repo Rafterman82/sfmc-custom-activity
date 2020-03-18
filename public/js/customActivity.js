@@ -1257,7 +1257,7 @@ define([
         var payloadNode = [];
         payloadNode.push({
             "key": "promotion_key", 
-            "value": $("#promo_key_hidden").val()
+            "value": $("#promotion_key").val()
         });
 
         for ( i = 0; i < step1FormInputs.length; i++ ) {
