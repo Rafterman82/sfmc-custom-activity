@@ -1255,10 +1255,6 @@ define([
 
         var i;
         var payloadNode = [];
-        payloadNode.push({
-            "key": "promotion_key", 
-            "value": $("#promotion_key").val()
-        });
 
         for ( i = 0; i < step1FormInputs.length; i++ ) {
             if ( step1FormInputs[i].id) {
