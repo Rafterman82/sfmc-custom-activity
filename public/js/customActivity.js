@@ -1191,7 +1191,7 @@ define([
                 success: function(data) {
                     console.log('success');
                     console.log(data);
-                    $("#promo_key_input").append('<input id="promo_key_hidden" type="hidden" value=' + data.promotion_key + ' />');
+                    $("#promo_key_input").append('<input id="promo_key_hidden" type="hidden" value=' + data + ' />');
                     $("#control_action_optima").html("Data has been sent");
                     $("#control_action_remove").prop('disabled', false);
                     $("#control_action_optima").prop('disabled', true);
