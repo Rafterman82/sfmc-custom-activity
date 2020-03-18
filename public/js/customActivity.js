@@ -1191,7 +1191,7 @@ define([
                 success: function(data) {
                     console.log('success');
                     console.log(data);
-                    $("#promotion_key").val(data);
+                    $("#promotion_key_hidden").val(data);
                     $("#control_action_optima").html("Data has been sent");
                     $("#control_action_remove").prop('disabled', false);
                     $("#control_action_optima").prop('disabled', true);
