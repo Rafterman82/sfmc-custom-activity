@@ -463,7 +463,7 @@ define([
             setTimeout(function() {
                 showStep(null, 3);
             }, 30);
-        } else if ( prepopPromotionType == 'instore' ) {
+        } else if ( prepopPromotionType == 'instore' || prepopPromotionType == 'nocode' ) {
             steps[2].active = true;
             steps[3].active = true;
             connection.trigger('updateSteps', steps);
