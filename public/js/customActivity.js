@@ -831,7 +831,7 @@ define([
                     // do something with substr[i]
                     $("#update_contacts").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
                 }
-                updateApiStatus("updatecontacts-api", true);
+                updateApiStatus("updatecontact-api", true);
             }
         });
     }
