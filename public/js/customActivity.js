@@ -1452,7 +1452,7 @@ define([
                         var summaryPromotionType = summaryPayload[z].value;
                         if ( summaryPromotionType == "online") {
                             $("#summary-instore-setup").append('<p>No codes setup.</p>');
-                        } else if ( summaryPromotionType == "instore") {
+                        } else if ( summaryPromotionType == "instore" || summaryPromotionType == "nocode" ) {
                             $("#summary-online-setup").append('<p>No codes setup.</p>');
                         }
                     }
@@ -1471,7 +1471,7 @@ define([
 
                 } else if ( summaryPayload[z].step == 3 ) {
 
-                    if ( summaryPromotionType == "instore" || summaryPromotionType == "online_instore" ) {
+                    if ( summaryPromotionType == "instore" || summaryPromotionType == "online_instore" || summaryPromotionType == "nocode" ) {
 
                         $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak" title="'+summaryPayload[z].key+'"><b>'+cleanUpKeyText(summaryPayload[z].key)+'</b></dt>');
                         $("#summary-instore-setup").append('<dd class="slds-item_detail" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
