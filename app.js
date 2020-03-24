@@ -556,7 +556,7 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 				} else if (payload.onlinePromotionType == "unique" ) {
 					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 				= "-";
 					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["unique_code_" + onlineTicker +"_promo_id"];
-					promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload["global_code_" + onlineTicker +"_promo_group_id"];
+					promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload["unique_code_" + onlineTicker +"_promo_group_id"];
 				}
 				onlineTicker++;
 				ticker++;
@@ -565,7 +565,7 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 		if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
 			var promotionArrayKey = "promotion_" + ticker;
 			console.dir("Promo ticker is promotion_" + ticker);
-			console.log("Promotion Type is " + payload.promotionType);
+			console.dir("Promotion Type is " + payload.promotionType);
 			console.dir("In instore mode");
 			if ( payload["instore_code_" + instoreTicker] != "no-code" ) {
 				console.dir("ADDING INSTORE DATA");
@@ -584,7 +584,6 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 			= payload.print_at_till_instore;
 				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 				= payload.instant_win_instore;
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 					= payload.offer_medium_instore;
-				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 			= payload.promotion_group_id_instore;
 				promotionDescriptionData.promotions[promotionArrayKey]["communication_cell_id"] 		= parseInt(commCellForPromo) + 1;
 				instoreTicker++;
 				ticker++;
