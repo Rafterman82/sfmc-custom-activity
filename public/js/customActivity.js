@@ -420,6 +420,9 @@ define([
                         } else if ( argumentsSummaryPayload[q].value == "online_instore") {
                             $("#radio-3").prop('checked', true);
                             $("#radio-3").click();
+                        } else if ( argumentsSummaryPayload[q].value == "nocode") {
+                            $("#radio-4").prop('checked', true);
+                            $("#radio-4").click();
                         }
                     } else if ( argumentsSummaryPayload[q].key == "onlinePromotionType") {
                         if ( argumentsSummaryPayload[q].value == "global" ) {
