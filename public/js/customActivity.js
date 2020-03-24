@@ -976,7 +976,7 @@ define([
 
             }
 
-        } else if ( promotionType == 'instore' ) {
+        } else if ( promotionType == 'instore' || promotionType == 'nocode' ) {
 
             if ( currentStep.key === 'step0') {
 
