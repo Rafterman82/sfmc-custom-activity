@@ -24,7 +24,7 @@ if ( !local ) {
 	  appUrl: 									process.env.baseUrl,
 	  promotionsListDataExtension: 				process.env.promotionsListDataExtension,
 	  controlGroupsDataExtension: 				process.env.controlGroupsDataExtension,
-	  updateContactsDataExtensionkey: 			process.env.updateContactsDataExtension,
+	  updateContactsDataExtension: 				process.env.updateContactsDataExtension,
 	  voucherPotsDataExtension: 				process.env.voucherPotsDataExtension,
 	  insertDataExtension: 						process.env.insertDataExtension,
 	  globalVoucherPot: 						process.env.globalVoucherPot,
