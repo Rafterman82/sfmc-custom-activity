@@ -540,7 +540,7 @@ define([
 
             var onelineCodeType = $(".online_promotion_type:checked").val();
 
-            var step1Selectors = ["#"+onelineCodeType+"_code_1", "#"+onelineCodeType+"_code_1_promo_id", "#promotion_group_id_online"];
+            var step1Selectors = ["#"+onelineCodeType+"_code_1", "#"+onelineCodeType+"_code_1_promo_id", "#"+onelineCodeType+"_code_1_promo_group_id"];
             var step1ErrorCount = 0;
 
             for ( var l = 0; l < step1Selectors.length; l++ ) {
@@ -565,7 +565,7 @@ define([
 
         } else if ( stepToValidate == 2 ) {
 
-            var step2Selectors = ["#instore_code_1", "#instore_code_1_promo_id", "#promotion_group_id_instore"];
+            var step2Selectors = ["#instore_code_1", "#instore_code_1_promo_id", "#instore_code_1_promo_group_id"];
             var step2ErrorCount = 0;
 
             for ( var m = 0; m < step2Selectors.length; m++ ) {
