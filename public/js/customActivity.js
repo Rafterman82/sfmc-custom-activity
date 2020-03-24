@@ -167,6 +167,10 @@ define([
                 steps[2].active = true; // toggle active
                 $("#email_template_box").show();
                 $("update_contact_box").hide();
+                $("#code2").hide();
+                $("#code3").hide();
+                $("#code4").hide();
+                $("#code5").hide();
 
                 if ( debug ) {
                     console.log(onlineSetupStepEnabled);
@@ -201,7 +205,7 @@ define([
                 }
                 connection.trigger('updateSteps', steps);
 
-            } else if ( promotionType === 'no_code' ) {
+            } else if ( promotionType === 'nocode' ) {
 
                 if ( debug ) {
                     console.log("trigger step 2");   
