@@ -51,6 +51,7 @@ define([
         lookupTemplates();
         lookupVoucherPots();
         lookupControlGroups();
+        lookupUpdateContacts();
         loadEvents();
         setGlobalCodeBlock();
     }
@@ -143,6 +144,8 @@ define([
                 steps[1].active = true; // toggle active
                 instoreSetupStepEnabled = false; // toggle status
                 steps[2].active = false; // toggle active
+                $("#email_template_box").show();
+                $("update_contact_box").hide();
 
                 if ( debug ) {
                     console.log(onlineSetupStepEnabled);
@@ -162,6 +165,8 @@ define([
                 steps[1].active = false; // toggle active
                 instoreSetupStepEnabled = true; // toggle status
                 steps[2].active = true; // toggle active
+                $("#email_template_box").show();
+                $("update_contact_box").hide();
 
                 if ( debug ) {
                     console.log(onlineSetupStepEnabled);
@@ -186,6 +191,8 @@ define([
 
                 instoreSetupStepEnabled = true; // toggle status
                 steps[2].active = true; // toggle active
+                $("#email_template_box").show();
+                $("update_contact_box").hide();
 
                 if ( debug ) {
                     console.log(steps);
@@ -196,7 +203,26 @@ define([
 
             } else if ( promotionType === 'no_code' ) {
 
-                // do we add another step for just association
+                if ( debug ) {
+                    console.log("trigger step 2");   
+                }
+                
+                onlineSetupStepEnabled = false; // toggle status
+                steps[1].active = false; // toggle active
+                instoreSetupStepEnabled = true; // toggle status
+                steps[2].active = true; // toggle active
+
+                // hide email input and show update contact input
+                $("#email_template_box").hide();
+                $("update_contact_box").show();
+
+                if ( debug ) {
+                    console.log(onlineSetupStepEnabled);
+                    console.log(instoreSetupStepEnabled);
+                    console.log(steps);                    
+                }
+
+                connection.trigger('updateSteps', steps);
             }
 
         });
@@ -299,6 +325,9 @@ define([
 
             // set promo id
             $("#instore_code_"+instoreCodeIndex+"_promo_id").val(this.value);
+
+            // set promo id
+            $("#instore_code_"+instoreCodeIndex+"_promo_group_id").val(this.value);
 
             // set loyalty promotion
             $("#instore_code_"+instoreCodeIndex+"_loyalty_promotion").val(instoreCodeLoyaltyPromotion);
@@ -779,6 +808,34 @@ define([
         });
     }
 
+    function lookupUpdateContacts() {
+
+        // access offer types and build select input
+        $.ajax({
+            url: "/dataextension/lookup/updatecontacts",
+            error: function() {
+                updateApiStatus("updatecontacts-api", false);
+            },  
+            success: function(result){
+
+                if ( debug ) {
+                    console.log('lookup update contacts executed');
+                    console.log(result.items);               
+                }
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i]);
+                    }
+                    // do something with substr[i]
+                    $("#update_contacts").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+                }
+                updateApiStatus("updatecontacts-api", true);
+            }
+        });
+    }
+
     function lookupVoucherPots() {
 
         // access offer types and build select input
@@ -1200,8 +1257,9 @@ define([
                     console.log('success');
                     console.log(data);
                     $("#promotion_key_hidden").val(data);
+                    $("#main_setup_key").html(data);
                     $("#control_action_optima").html("Data has been sent");
-                    $("#control_action_remove").prop('disabled', false);
+                    $("#control_action_test").prop('disabled', true);
                     $("#control_action_optima").prop('disabled', true);
                 }
                 , error: function(jqXHR, textStatus, err){

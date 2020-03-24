@@ -24,6 +24,7 @@ if ( !local ) {
 	  appUrl: 									process.env.baseUrl,
 	  promotionsListDataExtension: 				process.env.promotionsListDataExtension,
 	  controlGroupsDataExtension: 				process.env.controlGroupsDataExtension,
+	  updateContactsDataExtensionkey: 			process.env.updateContactsDataExtension,
 	  voucherPotsDataExtension: 				process.env.voucherPotsDataExtension,
 	  insertDataExtension: 						process.env.insertDataExtension,
 	  globalVoucherPot: 						process.env.globalVoucherPot,
@@ -40,6 +41,7 @@ const promotionsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/
 const incrementsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.promotionIncrementExtension 		+ "/rowset";
 const globalCodesUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.globalVoucherPot 					+ "/rowset";
 const controlGroupsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.controlGroupsDataExtension 		+ "/rowset";
+const controlGroupsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.updateContactsDataExtension 		+ "/rowset";
 const voucherPotsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.voucherPotsDataExtension 			+ "/rowset";
 const campaignAssociationUrl 	= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.insertDataExtension 				+ "/rowset";
 const descriptionUrl 			= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.promotionDescriptionDataExtension 	+ "/rowset";
@@ -378,6 +380,28 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 
 });
 
+//Fetch rows from update contacts data extension
+app.get("/dataextension/lookup/updatecontacts", (req, res, next) => {
+
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(updateContactsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			res.json(response.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting update contacts");
+		    console.dir(error);
+		});
+	})		
+
+});
+
 //Fetch rows from voucher data extension
 app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 
@@ -520,18 +544,19 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 	= payload.print_at_till_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 		= payload.instant_win_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["offer_medium"] 			= payload.offer_medium_online;
-				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload.promotion_group_id_online;
 				promotionDescriptionData.promotions[promotionArrayKey]["communication_cell_id"] = parseInt(commCellForPromo) + 1;
 				if ( payload.onlinePromotionType == "global" ) {
 					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 				= payload["global_code_" + onlineTicker];
 					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["global_code_" + onlineTicker +"_promo_id"];
+					promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload["global_code_" + onlineTicker +"_promo_group_id"];
 					promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["global_code_" + onlineTicker +"_valid_from"];
 					promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["global_code_" + onlineTicker +"_valid_to"];
 					promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"] 			= payload["global_code_" + onlineTicker +"_valid_from"];
 					promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["global_code_" + onlineTicker +"_valid_to"];
 				} else if (payload.onlinePromotionType == "unique" ) {
-					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 		= "-";
-					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 	= payload["unique_code_" + onlineTicker +"_promo_id"];
+					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 				= "-";
+					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["unique_code_" + onlineTicker +"_promo_id"];
+					promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload["global_code_" + onlineTicker +"_promo_group_id"];
 				}
 				onlineTicker++;
 				ticker++;
@@ -550,6 +575,7 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 				promotionDescriptionData.promotions[promotionArrayKey]["ts_and_cs"] 					= "-";
 				promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 						= payload["instore_code_" + instoreTicker];
 				promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"]					= payload["instore_code_" + instoreTicker +"_promo_id"];
+				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"]			= payload["instore_code_" + instoreTicker +"_promo_group_id"];
 				promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 			= payload["instore_code_" + instoreTicker +"_valid_from"];
 				promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 			= payload["instore_code_" + instoreTicker +"_valid_to"];
 				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"]					= payload["instore_code_" + instoreTicker +"_valid_from"];
@@ -642,7 +668,7 @@ async function sendBackPayload(payload) {
 
 }
 // insert data into data extension
-app.post('/dataextension/add', async function (req, res){ 
+app.post('/dataextension/add/', async function (req, res){ 
 	console.dir("Dump request body");
 	console.dir(req.body);
 	try {
