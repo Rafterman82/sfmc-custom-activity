@@ -167,10 +167,7 @@ define([
                 steps[2].active = true; // toggle active
                 $("#email_template_box").show();
                 $("update_contact_box").hide();
-                $("#code2").hide();
-                $("#code3").hide();
-                $("#code4").hide();
-                $("#code5").hide();
+
 
                 if ( debug ) {
                     console.log(onlineSetupStepEnabled);
@@ -218,7 +215,11 @@ define([
 
                 // hide email input and show update contact input
                 $("#email_template_box").hide();
-                $("update_contact_box").show();
+                $("#update_contact_box").show();
+                $("#code2").hide();
+                $("#code3").hide();
+                $("#code4").hide();
+                $("#code5").hide();
 
                 if ( debug ) {
                     console.log(onlineSetupStepEnabled);
