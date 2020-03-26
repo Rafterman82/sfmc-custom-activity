@@ -106,7 +106,6 @@ define([
                     argKey = argumentsSummaryPayload.buildPayload[r].value;
                     $("#promotion_key_hidden").val(argKey);
                     $("#control_action_optima").html("Data has been sent");
-                    $("#control_action_remove").prop('disabled', false);
                     $("#control_action_optima").prop('disabled', true);                    
                 }
             }
@@ -194,6 +193,10 @@ define([
                 steps[2].active = true; // toggle active
                 $("#email_template_box").show();
                 $("update_contact_box").hide();
+                $("#code2").show();
+                $("#code3").show();
+                $("#code4").show();
+                $("#code5").show();
 
                 if ( debug ) {
                     console.log(steps);
@@ -348,10 +351,14 @@ define([
         // select first input
         $("#radio-1").click();
 
-        $("#control_action_remove").prop('disabled', true);
         // handler for Optima button
         $("#control_action_optima").click(function(){
-            saveToDataExtension(buildActivityPayload());
+            saveToDataExtension(buildActivityPayload(true));
+        });
+
+        // handler for Optima button
+        $("#control_action_test").click(function(){
+            saveToDataExtension(buildActivityPayload(false));
         });
         /**$("#control_action_remove").click(function(){
             $("#promo_key_input").append('<input id="mark_for_delete" type="hidden" value="true />');
@@ -1289,37 +1296,6 @@ define([
             console.log(saveResponse);
         }
     }
-
-    /**function removePromotion(payloadToSave) {
-        if ( debug ) {
-            console.log("Data Object to be saved is: ");
-            console.log(payloadToSave);
-        }
-
-        try {
-            $.ajax({ 
-                url: '/dataextension/remove',
-                type: 'POST',
-                data: JSON.stringify(payloadToSave),
-                contentType: 'application/json',                     
-                success: function(data) {
-                    console.log('success');
-                    console.log(data);
-                    $("#control_action_remove").html("Data has been marked for removal");
-                    $("#control_action_remove").prop('disabled', true);
-                    $("#control_action_optima").prop('disabled', true);
-                }
-                , error: function(jqXHR, textStatus, err){
-                    if ( debug ) {
-                        console.log(err);
-                    }
-                }
-            }); 
-        } catch(e) {
-            console.log("Error saving data");
-            console.log(e);
-        }    
-    }**/
 
     function buildActivityPayload() {
 
