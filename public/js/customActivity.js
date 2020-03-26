@@ -166,6 +166,10 @@ define([
                 steps[2].active = true; // toggle active
                 $("#email_template_box").show();
                 $("update_contact_box").hide();
+                $("#code2").show();
+                $("#code3").show();
+                $("#code4").show();
+                $("#code5").show();
 
 
                 if ( debug ) {
