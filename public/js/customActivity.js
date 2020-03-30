@@ -357,17 +357,15 @@ define([
 
         // handler for Optima button
         $("#control_action_optima").click(function(){
-            saveToDataExtension(buildActivityPayload(true));
+            $("#sent").val(true);
+            saveToDataExtension(buildActivityPayload());
         });
 
         // handler for Optima button
         $("#control_action_test").click(function(){
-            saveToDataExtension(buildActivityPayload(false));
-        });
-        /**$("#control_action_remove").click(function(){
-            $("#promo_key_input").append('<input id="mark_for_delete" type="hidden" value="true />');
             saveToDataExtension(buildActivityPayload());
-        });**/
+            $("#sent").val(false);
+        });
 
     }
 

@@ -470,7 +470,11 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	console.dir("no of codes:");
 	console.dir(numberOfCodes);
 
-	for ( var i = 1; i <= numberOfCodes; i++ ) {
+	for ( var i = 1; i <= numberOfCodes.online_codes; i++ ) {
+		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
+	}
+
+	for ( var i = 6; i <= (numberOfCodes.instore_codes + 5); i++ ) {
 		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
 	}
 
@@ -635,7 +639,12 @@ function countCodes(payload) {
 	}
 	console.dir("num of codes:");
 	console.dir(parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes));
-	return parseInt(globalCodes) + parseInt(uniqueCodes) + parseInt(instoreCodes);
+	var requiredOnlineCodes = parseInt(globalCodes) + parseInt(uniqueCodes);
+	var countPayload = {
+		"online_codes": requiredOnlineCodes,
+		"instore_codes": parseInt(instoreCodes)
+	}
+	return countPayload;
 }
 
 async function buildAndSend(payload) {
@@ -657,10 +666,10 @@ async function buildAndSend(payload) {
 
 async function sendBackPayload(payload) {
 	try {
-		await buildAndSend(payload);
+		const fullAssociationPayload = await buildAndSend(payload);
 		const getIncrementsForSendback = await getIncrements();
 		var sendBackPromotionKey = parseInt(getIncrementsForSendback.promotion_key) + 1;
-		return sendBackPromotionKey
+		return fullAssociationPayload
 	} catch(err) {
 		console.dir(err);
 	}
@@ -671,8 +680,8 @@ app.post('/dataextension/add/', async function (req, res){
 	console.dir("Dump request body");
 	console.dir(req.body);
 	try {
-		const nextKey = await sendBackPayload(req.body)
-		res.send(JSON.stringify(nextKey));
+		const returnedPayload = await sendBackPayload(req.body)
+		res.send(JSON.stringify(returnedPayload));
 	} catch(err) {
 		console.dir(err);
 	}
