@@ -30,7 +30,6 @@ define([
 
     setTimeout(function(){ 
         $("#spinner").hide();
-        console.log("here");
     }, 4000);
 
     $(window).ready(onRender);

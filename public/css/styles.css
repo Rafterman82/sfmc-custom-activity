@@ -47,6 +47,6 @@ body {
 #update_contact_box {
 	display:none;
 }
-..slds-notify_container {
+.slds-notify_container {
 	z-index: 9000!important;
 }
