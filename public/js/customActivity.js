@@ -1390,7 +1390,8 @@ define([
                         payloadNode.push({
                             step: 3,
                             key: step3FormInputs[i].id, 
-                            value:  step3FormInputs[i].checked
+                            value:  step3FormInputs[i].checked,
+                            type: "checkbox"
                         });
                     }
                 } else if ( step3FormInputs[i].type == "radio" ) {
@@ -1398,7 +1399,8 @@ define([
                         payloadNode.push({
                             step: 3,
                             key: step3FormInputs[i].name, 
-                            value:  step3FormInputs[i].value
+                            value:  step3FormInputs[i].value,
+                            type: "radio"
                         });
                     }
                 } else {
@@ -1406,7 +1408,8 @@ define([
                         payloadNode.push({
                             step: 3,
                             key: step3FormInputs[i].id, 
-                            value:  step3FormInputs[i].value
+                            value:  step3FormInputs[i].value,
+                            type: "input"
                         });                       
                     }
                 }
