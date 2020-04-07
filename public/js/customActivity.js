@@ -107,10 +107,18 @@ define([
                 if ( argumentsSummaryPayload.buildPayload[r].key == "promotionType" ) {
                     argPromotionType = argumentsSummaryPayload.buildPayload[r].value; 
                 } else if ( argumentsSummaryPayload.buildPayload[r].key == "promotion_key_hidden" ) {
-                    argKey = argumentsSummaryPayload.buildPayload[r].value;
-                    $("#promotion_key_hidden").val(argKey);
-                    $("#control_action_optima").html("Data has been sent");
-                    $("#control_action_optima").prop('disabled', true);                    
+
+                    if ( argumentsSummaryPayload.buildPayload[r].value ) {
+                        argKey = argumentsSummaryPayload.buildPayload[r].value;
+                        $("#promotion_key_hidden").val(argKey);
+                        $("#control_action_test").html("Data has been sent");
+                        $("#control_action_test").prop('disabled', true);
+                        $("#control_action_option").prop('disabled', false);
+                    } else {
+                        $("#control_action_test").prop('disabled', false);
+                        $("#control_action_option").prop('disabled', true); 
+                        $("#control_action_test").html("Save and Test");                       
+                    }
                 }
             }
 
@@ -1284,7 +1292,7 @@ define([
                     console.log(data);
                     $("#promotion_key_hidden").val(data);
                     $("#main_setup_key").html(data);
-                    $("#control_action_optima").html("Data has been sent");
+                    $("#control_action_test").html("Data has been sent");
                     $("#control_action_test").prop('disabled', true);
                     $("#control_action_optima").prop('disabled', false);
                 }
