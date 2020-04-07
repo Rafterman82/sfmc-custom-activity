@@ -28,6 +28,11 @@ define([
         console.log("Current Step is: " + currentStep);
     }
 
+    setTimeout(function(){ 
+        $("#spinner").hide();
+        console.log("here");
+    }, 4000);
+
     $(window).ready(onRender);
 
     connection.on('initActivity', initialize);
@@ -119,7 +124,12 @@ define([
             // trigger steps
             triggerSteps(argumentsSummaryPayload.buildPayload, argPromotionType);
 
-        }      
+            setTimeout(function(){ 
+                $("#spinner").hide();
+                console.log("here");
+            }, 4000);
+
+        }
     }
 
     function loadEvents() {
