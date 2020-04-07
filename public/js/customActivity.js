@@ -366,13 +366,13 @@ define([
 
         // handler for Optima button
         $("#control_action_optima").click(function(){
+            updateDataExtension($("promotion_key_hidden").val());
             $("#sent").val(true);
-            saveToDataExtension(buildActivityPayload());
         });
 
         // handler for Optima button
         $("#control_action_test").click(function(){
-            saveToDataExtension(buildActivityPayload());
+            saveToDataExtension(buildActivityPayload(), false);
             $("#sent").val(false);
         });
 
@@ -1286,7 +1286,7 @@ define([
                     $("#main_setup_key").html(data);
                     $("#control_action_optima").html("Data has been sent");
                     $("#control_action_test").prop('disabled', true);
-                    $("#control_action_optima").prop('disabled', true);
+                    $("#control_action_optima").prop('disabled', false);
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {
@@ -1299,6 +1299,10 @@ define([
             console.log(e);
         }
 
+    }
+
+    function updateDataExtension(hiddenPromotionKey) {
+        return true;
     }
 
     function addPromotionKeyToArgs(saveResponse) {
