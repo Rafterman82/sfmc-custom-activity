@@ -111,7 +111,7 @@ define([
                     if ( argumentsSummaryPayload.buildPayload[r].value ) {
                         argKey = argumentsSummaryPayload.buildPayload[r].value;
                         $("#promotion_key_hidden").val(argKey);
-                        $("#control_action_test").html("Data has been sent");
+                        $("#control_action_test").html("Data has been saved");
                         $("#control_action_test").prop('disabled', true);
                         $("#control_action_optima").prop('disabled', false);
                         $("#main_setup_key").html(argKey);
@@ -1293,7 +1293,7 @@ define([
                     console.log(data);
                     $("#promotion_key_hidden").val(data);
                     $("#main_setup_key").html(data);
-                    $("#control_action_test").html("Data has been sent");
+                    $("#control_action_test").html("Data has been saved");
                     $("#control_action_test").prop('disabled', true);
                     $("#control_action_optima").prop('disabled', false);
                 }
