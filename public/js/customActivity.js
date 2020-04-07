@@ -113,10 +113,11 @@ define([
                         $("#promotion_key_hidden").val(argKey);
                         $("#control_action_test").html("Data has been sent");
                         $("#control_action_test").prop('disabled', true);
-                        $("#control_action_option").prop('disabled', false);
+                        $("#control_action_optima").prop('disabled', false);
+                        $("#main_setup_key").html(argKey);
                     } else {
                         $("#control_action_test").prop('disabled', false);
-                        $("#control_action_option").prop('disabled', true); 
+                        $("#control_action_optima").prop('disabled', true); 
                         $("#control_action_test").html("Save and Test");                       
                     }
                 }
