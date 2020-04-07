@@ -673,9 +673,9 @@ async function buildAndSend(payload) {
 
 async function sendBackPayload(payload) {
 	try {
+		const getIncrementsForSendback = await getIncrements();
 		var sendBackPromotionKey = parseInt(getIncrementsForSendback.promotion_key) + 1;
 		const fullAssociationPayload = await buildAndSend(payload);
-		const getIncrementsForSendback = await getIncrements();
 		return sendBackPromotionKey;
 	} catch(err) {
 		console.dir(err);
