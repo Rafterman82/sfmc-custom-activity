@@ -256,8 +256,11 @@ const updateIncrements = (targetUrl, promotionObject, communicationCellObject, m
 	console.dir("comm Object Response:");
 	console.dir(communicationCellObject[1].keys.communication_cell_id);
 
+	console.dir("number of codes");
+	console.dir(numberOfCodes);
+
 	console.dir("pro desc Object Response:");
-	console.dir(mcUniquePromotionObject[(parseInt(numberOfCodes) - 1)].keys.mc_unique_promotion_id);
+	console.dir(mcUniquePromotionObject);
 
 	var mcInc = mcUniquePromotionObject[(parseInt(numberOfCodes) - 1)].keys.mc_unique_promotion_id;
 	var updatedIncrementObject = {};
