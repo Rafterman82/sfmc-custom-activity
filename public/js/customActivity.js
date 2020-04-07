@@ -367,11 +367,13 @@ define([
         // handler for Optima button
         $("#control_action_optima").click(function(){
             $("#sent").val(true);
+            save();
             saveToDataExtension(buildActivityPayload());
         });
 
         // handler for Optima button
         $("#control_action_test").click(function(){
+            save();
             saveToDataExtension(buildActivityPayload());
             $("#sent").val(false);
         });
