@@ -153,7 +153,7 @@ define([
                 instoreSetupStepEnabled = false; // toggle status
                 steps[2].active = false; // toggle active
                 $("#email_template_box").show();
-                $("update_contact_box").hide();
+                $("#update_contact_box").hide();
 
                 if ( debug ) {
                     console.log(onlineSetupStepEnabled);
@@ -174,7 +174,7 @@ define([
                 instoreSetupStepEnabled = true; // toggle status
                 steps[2].active = true; // toggle active
                 $("#email_template_box").show();
-                $("update_contact_box").hide();
+                $("#update_contact_box").hide();
                 $("#code2").show();
                 $("#code3").show();
                 $("#code4").show();
@@ -205,7 +205,7 @@ define([
                 instoreSetupStepEnabled = true; // toggle status
                 steps[2].active = true; // toggle active
                 $("#email_template_box").show();
-                $("update_contact_box").hide();
+                $("#update_contact_box").hide();
                 $("#code2").show();
                 $("#code3").show();
                 $("#code4").show();
