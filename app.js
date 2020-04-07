@@ -262,7 +262,9 @@ const updateIncrements = (targetUrl, promotionObject, communicationCellObject, m
 	console.dir("pro desc Object Response:");
 	console.dir(mcUniquePromotionObject);
 
-	var mcInc = mcUniquePromotionObject[(parseInt(numberOfCodes) - 1)].keys.mc_unique_promotion_id;
+	var totalCodesForIncrement = numberOfCodes.instore_codes + numberOfCodes.online_codes;
+
+	var mcInc = mcUniquePromotionObject[(parseInt(totalCodesForIncrement) - 1)].keys.mc_unique_promotion_id;
 	var updatedIncrementObject = {};
 	updatedIncrementObject.mc_unique_promotion_id_increment = parseInt(mcInc) + 1;
 	updatedIncrementObject.communication_cell_code_id_increment = parseInt(communicationCellObject[1].keys.communication_cell_id) + 1;
@@ -533,7 +535,9 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 	
 	promotionDescriptionData["promotions"] = {};
 
-	for ( var i = 1; i <= numberOfCodes; i++ ) {
+	var totalCodesNeeded = numberOfCodes.instore_codes + numberOfCodes.online_codes;
+
+	for ( var i = 1; i <= totalCodesNeeded; i++ ) {
 		var promotionArrayKey = "promotion_" + ticker;
 		console.dir("Promo ticker is promotion_" + ticker);
 		console.dir("I is " + i);
