@@ -696,10 +696,24 @@ app.post('/dataextension/add/', async function (req, res){
 	
 });
 
+function getDateString() {
+	let date_ob = new Date();
+	let date = ("0" + date_ob.getDate()).slice(-2);
+	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+	let year = date_ob.getFullYear();
+	let hours = date_ob.getHours();
+	let minutes = date_ob.getMinutes();
+	let seconds = date_ob.getSeconds();
+	let dateString = year + "/" + month + "/" + date + " " + hours + ":" + minutes + ":" + seconds;	
+	return dateString;
+}
+
 async function updateExistingPromotion(existingKey) {
 
 	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
 	console.dir(lookupCampaigns);
+
+	var currentDateTimeStamp = getDateString();
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -713,21 +727,60 @@ async function updateExistingPromotion(existingKey) {
 			//res.json(response.data);
 			console.dir(response.data.items[0].keys);
 			console.dir(response.data.items[0].values);
-			return response.data;
-			/*
-			var updatePayload = [{
+
+			for ( var v = 1; v <= 10; v++ ) {
+				if ( response.data.items[0].items["mc_id_" + v] =! "-" ) {
+					// update each promo desc
+					var updatePromoPayload = [{
+				        "keys": {
+				            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].items["mc_id_" + v]
+				        },
+				        "values": {
+				        	"SENT": true,
+				        	"DATE_ADDED": currentDateTimeStamp
+				        }
+					}];
+						
+					console.dir(updatePromoPayload);
+
+					getOauth2Token().then((tokenResponse) => {
+					   	axios({
+							method: 'post',
+							url: descriptionUrl,
+							headers: {'Authorization': tokenResponse},
+							data: updatePromoPayload
+						})
+						.then(function (response) {
+							console.dir(response.data);
+							return resolve(response.data);
+						})
+						.catch(function (error) {
+							console.dir(error);
+							return reject(error);
+						});
+					})	
+
+				}
+			}
+
+			var updateCommPayload = [{
 		        "keys": {
-		            "promotion_key": existingKey
+		            "COMMUNICATION_CELL_ID": response.data.items[0]communication_cell_id
 		        },
-		        "values": updatedIncrementObject
+		        "values": {
+		        	"SENT": true,
+		        	"BASE_CONTACT_DATE": currentDateTimeStamp
+		        }
 			}];
+				
+			console.dir(updateCommPayload);
 
 			getOauth2Token().then((tokenResponse) => {
 			   	axios({
 					method: 'post',
-					url: campaignAssociationUrl,
+					url: communicationCellUrl,
 					headers: {'Authorization': tokenResponse},
-					data: updatePayload
+					data: updateCommPayload
 				})
 				.then(function (response) {
 					console.dir(response.data);
@@ -737,7 +790,67 @@ async function updateExistingPromotion(existingKey) {
 					console.dir(error);
 					return reject(error);
 				});
-			})*/	
+			})
+
+			var updateCommControlPayload = [{
+		        "keys": {
+		            "COMMUNICATION_CELL_ID": response.data.items[0]communication_cell_id_control
+		        },
+		        "values": {
+		        	"SENT": true,
+		        	"BASE_CONTACT_DATE": currentDateTimeStamp
+		        }
+			}];
+				
+			console.dir(updateCommPayload);
+
+			getOauth2Token().then((tokenResponse) => {
+			   	axios({
+					method: 'post',
+					url: communicationCellUrl,
+					headers: {'Authorization': tokenResponse},
+					data: updateCommControlPayload
+				})
+				.then(function (response) {
+					console.dir(response.data);
+					return resolve(response.data);
+				})
+				.catch(function (error) {
+					console.dir(error);
+					return reject(error);
+				});
+			})
+
+			var updateCpaPayload = [{
+		        "keys": {
+		            "promotion_key": response.data.keys[0]promotion_key
+		        },
+		        "values": {
+		        	"sent_to_optima": true,
+		        	"date_edited": currentDateTimeStamp
+		        }
+			}];
+				
+			console.dir(updateCpaPayload);
+
+			getOauth2Token().then((tokenResponse) => {
+			   	axios({
+					method: 'post',
+					url: campaignAssociationUrl,
+					headers: {'Authorization': tokenResponse},
+					data: updateCpaPayload
+				})
+				.then(function (response) {
+					console.dir(response.data);
+					return resolve(response.data);
+				})
+				.catch(function (error) {
+					console.dir(error);
+					return reject(error);
+				});
+			})
+
+			return response.data;	
 
 		})
 		.catch((error) => {
