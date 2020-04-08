@@ -1311,7 +1311,31 @@ define([
     }
 
     function updateDataExtension(hiddenPromotionKey) {
-        return true;
+        if ( debug ) {
+            console.log("Key for updates is: ");
+            console.log(hiddenPromotionKey);
+        }
+
+        try {
+            $.ajax({ 
+                url: '/dataextension/update',
+                type: 'POST',
+                data: JSON.stringify(hiddenPromotionKey),
+                contentType: 'application/json',                     
+                success: function(data) {
+                    console.log('update sent');
+                    console.log(data);
+                }
+                , error: function(jqXHR, textStatus, err){
+                    if ( debug ) {
+                        console.log(err);
+                    }
+                }
+            }); 
+        } catch(e) {
+            console.log("Error updating data");
+            console.log(e);
+        }
     }
 
     function addPromotionKeyToArgs(saveResponse) {

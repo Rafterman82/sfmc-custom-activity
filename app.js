@@ -43,10 +43,11 @@ const globalCodesUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key
 const controlGroupsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.controlGroupsDataExtension 		+ "/rowset";
 const updateContactsUrl 		= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.updateContactsDataExtension 		+ "/rowset";
 const voucherPotsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.voucherPotsDataExtension 			+ "/rowset";
+const getCampaignsUrl	 		= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.insertDataExtension				+ "/rowset?$filter=";
 const campaignAssociationUrl 	= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.insertDataExtension 				+ "/rowset";
 const descriptionUrl 			= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.promotionDescriptionDataExtension 	+ "/rowset";
 const communicationCellUrl 		= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.communicationCellDataExtension 	+ "/rowset";
-const updateIncrementsUrl 		= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.promotionIncrementExtension 	+ "/rowset";
+const updateIncrementsUrl 		= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.promotionIncrementExtension 		+ "/rowset";
 const templatesUrl 				= marketingCloud.restUrl + "asset/v1/content/assets/query";
 
 // json template payload
@@ -689,6 +690,69 @@ app.post('/dataextension/add/', async function (req, res){
 	try {
 		const returnedPayload = await sendBackPayload(req.body)
 		res.send(JSON.stringify(returnedPayload));
+	} catch(err) {
+		console.dir(err);
+	}
+	
+});
+
+async function updateExistingPromotion(existingKey, updateUrl) {
+
+	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
+
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(lookupCampaigns, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			//res.json(response.data);
+			console.log(response.data);
+			return response.data;
+			/*
+			var updatePayload = [{
+		        "keys": {
+		            "promotion_key": existingKey
+		        },
+		        "values": updatedIncrementObject
+			}];
+
+			getOauth2Token().then((tokenResponse) => {
+			   	axios({
+					method: 'post',
+					url: campaignAssociationUrl,
+					headers: {'Authorization': tokenResponse},
+					data: updatePayload
+				})
+				.then(function (response) {
+					console.dir(response.data);
+					return resolve(response.data);
+				})
+				.catch(function (error) {
+					console.dir(error);
+					return reject(error);
+				});
+			})*/	
+
+		})
+		.catch((error) => {
+		    console.dir("Error getting promotions");
+		    console.dir(error);
+		});
+	})	
+	
+}
+
+// insert data into data extension
+app.post('/dataextension/update/', async function (req, res){ 
+	console.dir("Dump update request body");
+	console.dir(req.body);
+	try {
+		const returnedUpdate = await updateExistingPromotion(req.body, updateUrl);
+		res.send(JSON.stringify(returnedUpdate));
 	} catch(err) {
 		console.dir(err);
 	}
