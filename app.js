@@ -729,7 +729,7 @@ async function updateExistingPromotion(existingKey) {
 			console.dir(response.data.items[0].values);
 
 			for ( var v = 1; v <= 10; v++ ) {
-				if ( response.data.items[0].items["mc_id_" + v] =! "-" ) {
+				if ( response.data.items[0].values["mc_id_" + v] =! "-" ) {
 					// update each promo desc
 					var updatePromoPayload = [{
 				        "keys": {
