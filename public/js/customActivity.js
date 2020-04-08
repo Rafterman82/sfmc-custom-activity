@@ -375,7 +375,7 @@ define([
 
         // handler for Optima button
         $("#control_action_optima").click(function(){
-            updateDataExtension($("promotion_key_hidden").val());
+            updateDataExtension($("#promotion_key_hidden").val());
             $("#sent").val(true);
         });
 
@@ -1316,11 +1316,14 @@ define([
             console.log(hiddenPromotionKey);
         }
 
+        var updateNode = [];
+        updateNode["key"] = hiddenPromotionKey;
+
         try {
             $.ajax({ 
                 url: '/dataextension/update',
                 type: 'POST',
-                data: JSON.stringify(hiddenPromotionKey),
+                data: JSON.stringify(updateNode),
                 contentType: 'application/json',                     
                 success: function(data) {
                     console.log('update sent');
