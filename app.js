@@ -752,11 +752,11 @@ async function updateExistingPromotion(existingKey) {
 						})
 						.then(function (response) {
 							console.dir(response.data);
-							return resolve(response.data);
+							//return resolve(response.data);
 						})
 						.catch(function (error) {
 							console.dir(error);
-							return reject(error);
+							//return reject(error);
 						});
 					})	
 
@@ -784,11 +784,11 @@ async function updateExistingPromotion(existingKey) {
 				})
 				.then(function (response) {
 					console.dir(response.data);
-					return resolve(response.data);
+					//return resolve(response.data);
 				})
 				.catch(function (error) {
 					console.dir(error);
-					return reject(error);
+					//return reject(error);
 				});
 			})
 
@@ -813,11 +813,11 @@ async function updateExistingPromotion(existingKey) {
 				})
 				.then(function (response) {
 					console.dir(response.data);
-					return resolve(response.data);
+					//return resolve(response.data);
 				})
 				.catch(function (error) {
 					console.dir(error);
-					return reject(error);
+					//return reject(error);
 				});
 			})
 
@@ -842,11 +842,11 @@ async function updateExistingPromotion(existingKey) {
 				})
 				.then(function (response) {
 					console.dir(response.data);
-					return resolve(response.data);
+					//return resolve(response.data);
 				})
 				.catch(function (error) {
 					console.dir(error);
-					return reject(error);
+					//return reject(error);
 				});
 			})
 
