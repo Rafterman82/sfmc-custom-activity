@@ -1335,6 +1335,9 @@ define([
                 success: function(data) {
                     console.log('update sent');
                     console.log(data);
+                    $("#control_action_optima").prop('disabled', true);
+                    $("#promotion_state_hidden").val(true);
+
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {
@@ -1560,11 +1563,12 @@ define([
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
         payload.name = $("#campaign_name").val();
+        var promoState = $("#promotion_state_hidden").val();
 
         payload['arguments'].execute.inArguments = [{buildPayload}];
 
         // set isConfigured to true
-        if ( argPromotionKey ) {
+        if ( argPromotionKey && promoState ) {
             // sent to de and configured
             payload['metaData'].isConfigured = true;
         } else {
