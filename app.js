@@ -699,6 +699,7 @@ app.post('/dataextension/add/', async function (req, res){
 async function updateExistingPromotion(existingKey) {
 
 	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
+	console.dir(lookupCampaigns);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -710,7 +711,7 @@ async function updateExistingPromotion(existingKey) {
 		.then(response => {
 			// If request is good... 
 			//res.json(response.data);
-			console.log(response.data);
+			console.dirß(response.data);
 			return response.data;
 			/*
 			var updatePayload = [{
@@ -750,12 +751,14 @@ async function updateExistingPromotion(existingKey) {
 app.post('/dataextension/update/', async function (req, res){ 
 	console.dir("Dump update request body");
 	console.dir(req.body);
-	/*try {
-		const returnedUpdate = await updateExistingPromotion(req.body);
+	console.dir("the update key is");
+	console.dir(req.body.key);
+	try {
+		const returnedUpdate = await updateExistingPromotion(req.body.key);
 		res.send(JSON.stringify(returnedUpdate));
 	} catch(err) {
 		console.dir(err);
-	}*/
+	}
 	
 });
 
