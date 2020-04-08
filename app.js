@@ -711,7 +711,7 @@ async function updateExistingPromotion(existingKey) {
 		.then(response => {
 			// If request is good... 
 			//res.json(response.data);
-			console.dirß(response.data);
+			console.dir(response.data);
 			return response.data;
 			/*
 			var updatePayload = [{
