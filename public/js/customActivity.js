@@ -1319,6 +1319,10 @@ define([
         var updateNode = [];
         updateNode["key"] = hiddenPromotionKey;
 
+        updateNode.push({
+            key: hiddenPromotionKey
+        });
+
         console.log("Update node is");
         console.log(updateNode);
 
