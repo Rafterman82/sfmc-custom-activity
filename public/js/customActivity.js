@@ -1319,6 +1319,9 @@ define([
         var updateNode = [];
         updateNode["key"] = hiddenPromotionKey;
 
+        console.log("Update node is");
+        console.log(updateNode);
+
         try {
             $.ajax({ 
                 url: '/dataextension/update',

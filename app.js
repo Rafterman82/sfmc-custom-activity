@@ -750,12 +750,12 @@ async function updateExistingPromotion(existingKey) {
 app.post('/dataextension/update/', async function (req, res){ 
 	console.dir("Dump update request body");
 	console.dir(req.body);
-	try {
+	/*try {
 		const returnedUpdate = await updateExistingPromotion(req.body);
 		res.send(JSON.stringify(returnedUpdate));
 	} catch(err) {
 		console.dir(err);
-	}
+	}*/
 	
 });
 
