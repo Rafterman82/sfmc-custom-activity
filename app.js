@@ -752,9 +752,9 @@ app.post('/dataextension/update/', async function (req, res){
 	console.dir("Dump update request body");
 	console.dir(req.body);
 	console.dir("the update key is");
-	console.dir(req.body.key);
+	console.dir(req.body[0].key);
 	try {
-		const returnedUpdate = await updateExistingPromotion(req.body.key);
+		const returnedUpdate = await updateExistingPromotion(req.body[0].key);
 		res.send(JSON.stringify(returnedUpdate));
 	} catch(err) {
 		console.dir(err);
