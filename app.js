@@ -696,7 +696,7 @@ app.post('/dataextension/add/', async function (req, res){
 	
 });
 
-async function updateExistingPromotion(existingKey, updateUrl) {
+async function updateExistingPromotion(existingKey) {
 
 	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
 
@@ -751,7 +751,7 @@ app.post('/dataextension/update/', async function (req, res){
 	console.dir("Dump update request body");
 	console.dir(req.body);
 	try {
-		const returnedUpdate = await updateExistingPromotion(req.body, updateUrl);
+		const returnedUpdate = await updateExistingPromotion(req.body);
 		res.send(JSON.stringify(returnedUpdate));
 	} catch(err) {
 		console.dir(err);
