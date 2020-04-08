@@ -733,7 +733,7 @@ async function updateExistingPromotion(existingKey) {
 					// update each promo desc
 					var updatePromoPayload = [{
 				        "keys": {
-				            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].items["mc_id_" + v]
+				            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].values["mc_id_" + v]
 				        },
 				        "values": {
 				        	"SENT": true,
@@ -765,7 +765,7 @@ async function updateExistingPromotion(existingKey) {
 
 			var updateCommPayload = [{
 		        "keys": {
-		            "COMMUNICATION_CELL_ID": response.data.items[0]communication_cell_id
+		            "COMMUNICATION_CELL_ID": response.data.items[0].values.communication_cell_id
 		        },
 		        "values": {
 		        	"SENT": true,
@@ -794,7 +794,7 @@ async function updateExistingPromotion(existingKey) {
 
 			var updateCommControlPayload = [{
 		        "keys": {
-		            "COMMUNICATION_CELL_ID": response.data.items[0]communication_cell_id_control
+		            "COMMUNICATION_CELL_ID": response.data.items[0].values.communication_cell_id_control
 		        },
 		        "values": {
 		        	"SENT": true,
@@ -823,7 +823,7 @@ async function updateExistingPromotion(existingKey) {
 
 			var updateCpaPayload = [{
 		        "keys": {
-		            "promotion_key": response.data.keys[0]promotion_key
+		            "promotion_key": response.data.items[0].keys.promotion_key
 		        },
 		        "values": {
 		        	"sent_to_optima": true,
