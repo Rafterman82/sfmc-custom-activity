@@ -888,7 +888,7 @@ app.post('/dataextension/set-live/', async function (req, res){
 	console.dir("Dump update request body");
 	console.dir(req.body);
 	console.dir("the update key is");
-	console.dir(req.body[0].key);
+	console.dir(req.body[0].value);
 	try {
 		const returnedUpdate = await setLive(req.body[0].key);
 		res.send(JSON.stringify(returnedUpdate));
@@ -903,7 +903,7 @@ app.post('/dataextension/update-existing/', async function (req, res){
 	console.dir("Dump update request body");
 	console.dir(req.body);
 	console.dir("the update key is");
-	console.dir(req.body[0].key);
+	console.dir(req.body[0].value);
 	try {
 		//const returnedUpdate = await updateExistingPromotion(req.body[0].key);
 		//res.send(JSON.stringify(returnedUpdate));
