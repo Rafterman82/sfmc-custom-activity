@@ -375,8 +375,14 @@ define([
 
         // handler for Optima button
         $("#control_action_optima").click(function(){
-            updateDataExtension($("#promotion_key_hidden").val());
+            setLive($("#promotion_key_hidden").val());
             $("#sent").val(true);
+        });
+
+        // handler for Optima button
+        $("#control_action_update").click(function(){
+            updateExistingPromotion($("#promotion_key_hidden").val(), buildActivityPayload());
+            $("#sent").val(false);
         });
 
         // handler for Optima button
@@ -1295,6 +1301,7 @@ define([
                     $("#main_setup_key").html(data);
                     $("#control_action_test").html("Data has been saved");
                     $("#control_action_test").prop('disabled', true);
+                    $("#control_action_update").prop('disabled', false);
                     $("#control_action_optima").prop('disabled', false);
                 }
                 , error: function(jqXHR, textStatus, err){
@@ -1310,7 +1317,47 @@ define([
 
     }
 
-    function updateDataExtension(hiddenPromotionKey) {
+    /*
+     * Function add data to data extension
+     */
+
+    function updateExistingPromotion(hiddenPromotionKey, payloadToSave) {
+
+        if ( debug ) {
+            console.log("Data Object to be updated is: ");
+            console.log(payloadToSave);
+        }
+
+        try {
+            $.ajax({ 
+                url: '/dataextension/update-existing',
+                type: 'POST',
+                data: JSON.stringify(payloadToSave),
+                contentType: 'application/json',                     
+                success: function(data) {
+                    console.log('success');
+                    console.log(data);
+                    $("#promotion_key_hidden").val(data);
+                    $("#main_setup_key").html(data);
+                    $("#control_action_update").html("Update saved");
+                    $("#control_action_test").prop('disabled', true);
+                    $("#control_action_update").prop('disabled', false);
+                    $("#control_action_optima").prop('disabled', false);
+                }
+                , error: function(jqXHR, textStatus, err){
+                    if ( debug ) {
+                        console.log(err);
+                    }
+                }
+            }); 
+        } catch(e) {
+            console.log("Error saving data");
+            console.log(e);
+        }
+
+    }
+
+    function setLive(hiddenPromotionKey) {
         if ( debug ) {
             console.log("Key for updates is: ");
             console.log(hiddenPromotionKey);
@@ -1328,7 +1375,7 @@ define([
 
         try {
             $.ajax({ 
-                url: '/dataextension/update',
+                url: '/dataextension/set-live',
                 type: 'POST',
                 data: JSON.stringify(updateNode),
                 contentType: 'application/json',                     

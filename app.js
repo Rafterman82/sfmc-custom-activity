@@ -44,6 +44,7 @@ const controlGroupsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/k
 const updateContactsUrl 		= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.updateContactsDataExtension 		+ "/rowset";
 const voucherPotsUrl 			= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.voucherPotsDataExtension 			+ "/rowset";
 const getCampaignsUrl	 		= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.insertDataExtension				+ "/rowset?$filter=";
+const getAllCampaigns	 		= marketingCloud.restUrl + "data/v1/customobjectdata/key/" 	+ marketingCloud.insertDataExtension				+ "/rowset";
 const campaignAssociationUrl 	= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.insertDataExtension 				+ "/rowset";
 const descriptionUrl 			= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.promotionDescriptionDataExtension 	+ "/rowset";
 const communicationCellUrl 		= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.communicationCellDataExtension 	+ "/rowset";
@@ -328,6 +329,27 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 	getOauth2Token().then((tokenResponse) => {
 
 		axios.get(promotionsUrl, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			res.json(response.data);
+		})
+		.catch((error) => {
+		    console.dir("Error getting promotions");
+		    console.dir(error);
+		});
+	})	
+});
+
+//Fetch rows from promotions data extension
+app.get("/dataextension/lookup/campaigns", (req, res, next) => {
+
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(getAllCampaigns, { 
 			headers: { 
 				Authorization: tokenResponse
 			}
@@ -708,7 +730,7 @@ function getDateString() {
 	return dateString;
 }
 
-async function updateExistingPromotion(existingKey) {
+async function setLive(existingKey) {
 
 	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
 	console.dir(lookupCampaigns);
@@ -862,14 +884,30 @@ async function updateExistingPromotion(existingKey) {
 }
 
 // insert data into data extension
-app.post('/dataextension/update/', async function (req, res){ 
+app.post('/dataextension/set-live/', async function (req, res){ 
 	console.dir("Dump update request body");
 	console.dir(req.body);
 	console.dir("the update key is");
 	console.dir(req.body[0].key);
 	try {
-		const returnedUpdate = await updateExistingPromotion(req.body[0].key);
+		const returnedUpdate = await setLive(req.body[0].key);
 		res.send(JSON.stringify(returnedUpdate));
+	} catch(err) {
+		console.dir(err);
+	}
+	
+});
+
+// insert data into data extension
+app.post('/dataextension/update-existing/', async function (req, res){ 
+	console.dir("Dump update request body");
+	console.dir(req.body);
+	console.dir("the update key is");
+	console.dir(req.body[0].key);
+	try {
+		//const returnedUpdate = await updateExistingPromotion(req.body[0].key);
+		//res.send(JSON.stringify(returnedUpdate));
+		res.send({"success": "true"});
 	} catch(err) {
 		console.dir(err);
 	}
