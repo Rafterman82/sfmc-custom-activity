@@ -883,6 +883,203 @@ async function setLive(existingKey) {
 	
 }
 
+async function updateExistingPromotion(existingKey, payloadBody) {
+
+	console.dir("Payload Body for update is");
+	console.dir(payloadBody);
+
+	/**var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
+	console.dir(lookupCampaigns);
+
+	var currentDateTimeStamp = getDateString();
+
+	getOauth2Token().then((tokenResponse) => {
+
+		axios.get(lookupCampaigns, { 
+			headers: { 
+				Authorization: tokenResponse
+			}
+		})
+		.then(response => {
+			// If request is good... 
+			//res.json(response.data);
+			console.dir(response.data.items[0].keys);
+			console.dir(response.data.items[0].values);
+
+			for ( var v = 1; v <= 10; v++ ) {
+				if ( response.data.items[0].values["mc_id_" + v] =! "-" ) {
+
+					if ( v >= 1 && v <= 5 ) {
+
+						// these are online codes
+						// update each promo desc
+						var updatePromoPayload = [{
+					        "keys": {
+					            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].values["mc_id_" + v]
+					        },
+					        "values": {
+					        	"SENT": false,
+					        	"DATE_ADDED": currentDateTimeStamp,
+					        	"PROMOTION_ID": payload[0]
+					        }
+						}];
+							
+						console.dir(updatePromoPayload);
+
+						getOauth2Token().then((tokenResponse) => {
+						   	axios({
+								method: 'post',
+								url: descriptionUrl,
+								headers: {'Authorization': tokenResponse},
+								data: updatePromoPayload
+							})
+							.then(function (response) {
+								console.dir(response.data);
+								//return resolve(response.data);
+							})
+							.catch(function (error) {
+								console.dir(error);
+								//return reject(error);
+							});
+						})	
+
+					} else if ( v >= 6 && v <= 10 ) {
+
+						// these are instore codes
+						// update each promo desc
+						var updatePromoPayload = [{
+					        "keys": {
+					            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].values["mc_id_" + v]
+					        },
+					        "values": {
+					        	"SENT": false,
+					        	"DATE_ADDED": currentDateTimeStamp,
+					        	"PROMOTION_ID": payload[0]
+					        }
+						}];
+							
+						console.dir(updatePromoPayload);
+
+						getOauth2Token().then((tokenResponse) => {
+						   	axios({
+								method: 'post',
+								url: descriptionUrl,
+								headers: {'Authorization': tokenResponse},
+								data: updatePromoPayload
+							})
+							.then(function (response) {
+								console.dir(response.data);
+								//return resolve(response.data);
+							})
+							.catch(function (error) {
+								console.dir(error);
+								//return reject(error);
+							});
+						})	
+
+					}
+
+				}
+			}
+
+			var updateCommPayload = [{
+		        "keys": {
+		            "COMMUNICATION_CELL_ID": response.data.items[0].values.communication_cell_id
+		        },
+		        "values": {
+		        	"SENT": true,
+		        	"BASE_CONTACT_DATE": currentDateTimeStamp
+		        }
+			}];
+				
+			console.dir(updateCommPayload);
+
+			getOauth2Token().then((tokenResponse) => {
+			   	axios({
+					method: 'post',
+					url: communicationCellUrl,
+					headers: {'Authorization': tokenResponse},
+					data: updateCommPayload
+				})
+				.then(function (response) {
+					console.dir(response.data);
+					//return resolve(response.data);
+				})
+				.catch(function (error) {
+					console.dir(error);
+					//return reject(error);
+				});
+			})
+
+			var updateCommControlPayload = [{
+		        "keys": {
+		            "COMMUNICATION_CELL_ID": response.data.items[0].values.communication_cell_id_control
+		        },
+		        "values": {
+		        	"SENT": true,
+		        	"BASE_CONTACT_DATE": currentDateTimeStamp
+		        }
+			}];
+				
+			console.dir(updateCommPayload);
+
+			getOauth2Token().then((tokenResponse) => {
+			   	axios({
+					method: 'post',
+					url: communicationCellUrl,
+					headers: {'Authorization': tokenResponse},
+					data: updateCommControlPayload
+				})
+				.then(function (response) {
+					console.dir(response.data);
+					//return resolve(response.data);
+				})
+				.catch(function (error) {
+					console.dir(error);
+					//return reject(error);
+				});
+			})
+
+			var updateCpaPayload = [{
+		        "keys": {
+		            "promotion_key": response.data.items[0].keys.promotion_key
+		        },
+		        "values": {
+		        	"sent_to_optima": true,
+		        	"date_edited": currentDateTimeStamp
+		        }
+			}];
+				
+			console.dir(updateCpaPayload);
+
+			getOauth2Token().then((tokenResponse) => {
+			   	axios({
+					method: 'post',
+					url: campaignAssociationUrl,
+					headers: {'Authorization': tokenResponse},
+					data: updateCpaPayload
+				})
+				.then(function (response) {
+					console.dir(response.data);
+					//return resolve(response.data);
+				})
+				.catch(function (error) {
+					console.dir(error);
+					//return reject(error);
+				});
+			})
+
+			return response.data;	
+
+		})
+		.catch((error) => {
+		    console.dir("Error getting promotions");
+		    console.dir(error);
+		});
+	})	**/
+	
+}
+
 // insert data into data extension
 app.post('/dataextension/set-live/', async function (req, res){ 
 	console.dir("Dump update request body");
@@ -905,8 +1102,7 @@ app.post('/dataextension/update-existing/', async function (req, res){
 	console.dir("the update key is");
 	console.dir(req.body[0].value);
 	try {
-		//const returnedUpdate = await updateExistingPromotion(req.body[0].key);
-		//res.send(JSON.stringify(returnedUpdate));
+		const updateExistingPromotionStatus = await updateExistingPromotion(req.body[0].key, req.body);
 		res.send({"success": "true"});
 	} catch(err) {
 		console.dir(err);
