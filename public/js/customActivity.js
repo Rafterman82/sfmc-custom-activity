@@ -843,10 +843,15 @@ define([
                         var i;
                         for (i = 0; i < result.items.length; ++i) {
                             if ( debug ) {
+                                console.log("The keys for the campaign lookup is");
                                 console.log(result.items[i].keys);
+                                console.log("And the email template we are on is");
+                                console.log(result.items[i].values.email_template);
                             }
                             // do something with substr[i]
                             $("#email_template > option").each(function() {
+                                console.log("the select option is");
+                                console.log(this.value);
                                 if ( this.value == result.items[i].values.email_template ) {
                                     $(this).remove();
                                 }
