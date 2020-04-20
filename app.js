@@ -886,9 +886,9 @@ async function setLive(existingKey) {
 async function updateExistingPromotion(existingKey, payloadBody) {
 
 	console.dir("Payload Body for update is");
-	console.dir(payloadBody);
+	console.dir(payloadBody[0]);
 
-	/**var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
+	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
 	console.dir(lookupCampaigns);
 
 	var currentDateTimeStamp = getDateString();
@@ -912,40 +912,94 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 					if ( v >= 1 && v <= 5 ) {
 
 						// these are online codes
-						// update each promo desc
-						var updatePromoPayload = [{
-					        "keys": {
-					            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].values["mc_id_" + v]
-					        },
-					        "values": {
-					        	"SENT": false,
-					        	"DATE_ADDED": currentDateTimeStamp,
-					        	"PROMOTION_ID": payload[0]
-					        }
-						}];
-							
-						console.dir(updatePromoPayload);
 
-						getOauth2Token().then((tokenResponse) => {
-						   	axios({
-								method: 'post',
-								url: descriptionUrl,
-								headers: {'Authorization': tokenResponse},
-								data: updatePromoPayload
+						if ( payloadBody[0].onlinePromotionType == "global" ) {
+
+							// update each promo desc
+							var updatePromoPayload = [{
+						        "keys": {
+						            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].values["mc_id_" + v]
+						        },
+						        "values": {
+						        	"SENT": false,
+						        	"DATE_ADDED": currentDateTimeStamp,
+						        	"PROMOTION_ID": payloadBody[0]["global_code_" + v + "_promo_id"],
+						        	"PROMOTION_GROUP_ID": payloadBody[0]["global_code_" + v + "_promo_group_id"],
+						        	"PRINT_AT_TILL": payloadBody[0]["print_at_till_online"],
+						        	"INSTANT_WIN": payloadBody[0]["instant_win_online"],
+						        	"VALID_FROM_DATETIME": payloadBody[0]["global_code_1_valid_from"],
+						        	"VALID_TO_DATETIME": payloadBody[0]["global_code_" + v + "_valid_to"],
+						        	"VISIBLE_FROM_DATETIME": payloadBody[0]["global_code_1_valid_from"],
+						        	"VISIBLE_TO_DATETIME": payloadBody[0]["global_code_" + v + "_valid_to"],
+						        	"OFFER_DESCRIPTION": payloadBody[0]["campaign_name"],
+						        	"OFFER_CHANNEL": payloadBody[0]["offer_medium_online"]
+						        }
+							}];
+								
+							console.dir(updatePromoPayload);
+
+							getOauth2Token().then((tokenResponse) => {
+							   	axios({
+									method: 'post',
+									url: descriptionUrl,
+									headers: {'Authorization': tokenResponse},
+									data: updatePromoPayload
+								})
+								.then(function (response) {
+									console.dir(response.data);
+									//return resolve(response.data);
+								})
+								.catch(function (error) {
+									console.dir(error);
+									//return reject(error);
+								});
+							})	
+
+						} else ( payloadBody[0].onlinePromotionType == "unique" ) {
+
+							// update each promo desc
+							var updatePromoPayload = [{
+						        "keys": {
+						            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].values["mc_id_" + v]
+						        },
+						        "values": {
+						        	"SENT": false,
+						        	"DATE_ADDED": currentDateTimeStamp,
+						        	"PROMOTION_ID": payloadBody[0]["unique_code_" + v + "_promo_id"],
+						        	"PROMOTION_GROUP_ID": payloadBody[0]["unique_code_" + v + "_promo_group_id"],
+						        	"PRINT_AT_TILL": payloadBody[0]["print_at_till_online"],
+						        	"INSTANT_WIN": payloadBody[0]["instant_win_online"],
+						        	"VALID_FROM_DATETIME": payloadBody[0]["unique_code_1_valid_from"],
+						        	"VALID_TO_DATETIME": payloadBody[0]["unique_code_" + v + "_valid_to"],
+						        	"VISIBLE_FROM_DATETIME": payloadBody[0]["unique_code_1_valid_from"],
+						        	"VISIBLE_TO_DATETIME": payloadBody[0]["unique_code_" + v + "_valid_to"],
+						        	"OFFER_DESCRIPTION": payloadBody[0]["campaign_name"],
+						        	"OFFER_CHANNEL": payloadBody[0]["offer_medium_online"]
+						        }
+							}];
+								
+							console.dir(updatePromoPayload);
+
+							getOauth2Token().then((tokenResponse) => {
+							   	axios({
+									method: 'post',
+									url: descriptionUrl,
+									headers: {'Authorization': tokenResponse},
+									data: updatePromoPayload
+								})
+								.then(function (response) {
+									console.dir(response.data);
+									//return resolve(response.data);
+								})
+								.catch(function (error) {
+									console.dir(error);
+									//return reject(error);
+								});
 							})
-							.then(function (response) {
-								console.dir(response.data);
-								//return resolve(response.data);
-							})
-							.catch(function (error) {
-								console.dir(error);
-								//return reject(error);
-							});
-						})	
+						}	
 
 					} else if ( v >= 6 && v <= 10 ) {
 
-						// these are instore codes
 						// update each promo desc
 						var updatePromoPayload = [{
 					        "keys": {
@@ -954,7 +1008,16 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 					        "values": {
 					        	"SENT": false,
 					        	"DATE_ADDED": currentDateTimeStamp,
-					        	"PROMOTION_ID": payload[0]
+					        	"PROMOTION_ID": payloadBody[0]["instore_code_" + v + "_promo_id"],
+					        	"PROMOTION_GROUP_ID": payloadBody[0]["instore_code_" + v + "_promo_group_id"],
+					        	"PRINT_AT_TILL": payloadBody[0]["print_at_till_instore"],
+					        	"INSTANT_WIN": payloadBody[0]["instant_win_instore"],
+					        	"VALID_FROM_DATETIME": payloadBody[0]["instore_code_1_valid_from"],
+					        	"VALID_TO_DATETIME": payloadBody[0]["instore_code_" + v + "_valid_to"],
+					        	"VISIBLE_FROM_DATETIME": payloadBody[0]["instore_code_1_valid_from"],
+					        	"VISIBLE_TO_DATETIME": payloadBody[0]["instore_code_" + v + "_valid_to"],
+					        	"OFFER_DESCRIPTION": payloadBody[0]["campaign_name"],
+					        	"OFFER_CHANNEL": payloadBody[0]["offer_medium_instore"]
 					        }
 						}];
 							
@@ -987,8 +1050,16 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 		            "COMMUNICATION_CELL_ID": response.data.items[0].values.communication_cell_id
 		        },
 		        "values": {
-		        	"SENT": true,
+		        	"SENT": false,
 		        	"BASE_CONTACT_DATE": currentDateTimeStamp
+			    	"cell_code"					: payloadBody[0]["cell_code"],
+			    	"cell_name"					: payloadBody[0]["cell_name"],
+			        "campaign_name"				: payloadBody[0]["campaign_name"],
+			        "campaign_id"				: payloadBody[0]["campaign_id"],
+			        "campaign_code"				: payloadBody[0]["campaign_code"],
+			        "cell_type"					: "1",
+			        "channel"					: "2",
+			        "is_putput_flag"			: "1"	
 		        }
 			}];
 				
@@ -1016,8 +1087,16 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 		            "COMMUNICATION_CELL_ID": response.data.items[0].values.communication_cell_id_control
 		        },
 		        "values": {
-		        	"SENT": true,
+		        	"SENT": false,
 		        	"BASE_CONTACT_DATE": currentDateTimeStamp
+			    	"cell_code"					: payloadBody[0]["cell_code"],
+			    	"cell_name"					: payloadBody[0]["cell_name"],
+			        "campaign_name"				: payloadBody[0]["campaign_name"],
+			        "campaign_id"				: payloadBody[0]["campaign_id"],
+			        "campaign_code"				: payloadBody[0]["campaign_code"],
+			        "cell_type"					: "2",
+			        "channel"					: "2",
+			        "is_putput_flag"			: "0"
 		        }
 			}];
 				
@@ -1040,14 +1119,27 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 				});
 			})
 
+			var updatedCampaignPromotionAssociationData = {};
+
+			for ( var i = 0; i < payloadBody.length; i++ ) {
+				//console.dir("Step is: " + payload[i].step + ", Key is: " + payload[i].key + ", Value is: " + payload[i].value + ", Type is: " + payload[i].type);
+	
+				if ( updatedCampaignPromotionAssociationData[payloadBody[i].key] == "email_template" ) {
+					updatedCampaignPromotionAssociationData[payloadBody[i].key] = payloadBody[i].value;
+				} else {
+					updatedCampaignPromotionAssociationData[payloadBody[i].key] = decodeURIComponent(payloadBody[i].value);
+				}
+			}
+
+			updatedCampaignPromotionAssociationData["sent_to_optima"] = false;
+			updatedCampaignPromotionAssociationData["date_edited"] = currentDateTimeStamp;
+
+
 			var updateCpaPayload = [{
 		        "keys": {
 		            "promotion_key": response.data.items[0].keys.promotion_key
 		        },
-		        "values": {
-		        	"sent_to_optima": true,
-		        	"date_edited": currentDateTimeStamp
-		        }
+		        "values": updatedCampaignPromotionAssociationData
 			}];
 				
 			console.dir(updateCpaPayload);
@@ -1076,7 +1168,7 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 		    console.dir("Error getting promotions");
 		    console.dir(error);
 		});
-	})	**/
+	})
 	
 }
 
