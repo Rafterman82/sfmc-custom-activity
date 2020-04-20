@@ -32,6 +32,9 @@ body {
 #step2alert {
 	display: none;
 }
+#step3alert {
+	margin-bottom: 10px;
+}
 .slds-scoped-notification {
 	width:100%;
 }
