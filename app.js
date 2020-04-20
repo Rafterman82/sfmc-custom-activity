@@ -1051,7 +1051,7 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 		        },
 		        "values": {
 		        	"SENT": false,
-		        	"BASE_CONTACT_DATE": currentDateTimeStamp
+		        	"BASE_CONTACT_DATE": currentDateTimeStamp,
 			    	"cell_code"					: payloadBody[0]["cell_code"],
 			    	"cell_name"					: payloadBody[0]["cell_name"],
 			        "campaign_name"				: payloadBody[0]["campaign_name"],
@@ -1088,7 +1088,7 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 		        },
 		        "values": {
 		        	"SENT": false,
-		        	"BASE_CONTACT_DATE": currentDateTimeStamp
+		        	"BASE_CONTACT_DATE": currentDateTimeStamp,
 			    	"cell_code"					: payloadBody[0]["cell_code"],
 			    	"cell_name"					: payloadBody[0]["cell_name"],
 			        "campaign_name"				: payloadBody[0]["campaign_name"],
