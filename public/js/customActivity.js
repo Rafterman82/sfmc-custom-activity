@@ -112,7 +112,7 @@ define([
                         $("#promotion_key_hidden").val(argKey);
                         $("#control_action_update").prop('disabled', false)
                         $("#control_action_test").prop('disabled', true);
-                        $("#control_action_optima").prop('disabled', true);
+                        $("#control_action_optima").prop('disabled', false);
                         $("#main_setup_key").html(argKey);
                     } else {
                         $("#control_action_test").prop('disabled', false);
