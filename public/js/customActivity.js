@@ -437,6 +437,13 @@ define([
                 if ( debug ) {
                     console.log("Prepop: " + argumentsSummaryPayload[q].key + ", with value: " + argumentsSummaryPayload[q].value + ", and type: " + argumentsSummaryPayload[q].type);
                 }
+
+                if ( argumentsSummaryPayload[q].key == "sent" && argumentsSummaryPayload[q].value ) {
+                    // set go live button disabled and 
+                    $("#control_action_optima").prop('disabled', true);
+                    $("#control_action_update").prop('disabled', true);
+                }
+
                 if ( argumentsSummaryPayload[q].type == "checkbox") {
 
                     if ( argumentsSummaryPayload[q].value ) {
@@ -1385,6 +1392,7 @@ define([
                     console.log('update sent');
                     console.log(data);
                     $("#control_action_optima").prop('disabled', true);
+                    $("#control_action_update").prop('disabled', true);
                     $("#promotion_state_hidden").val(true);
 
                 }
