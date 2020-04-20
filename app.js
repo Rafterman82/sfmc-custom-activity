@@ -1179,7 +1179,7 @@ app.post('/dataextension/set-live/', async function (req, res){
 	console.dir("the update key is");
 	console.dir(req.body[0].value);
 	try {
-		const returnedUpdate = await setLive(req.body[0].key);
+		const returnedUpdate = await setLive(req.body[0].value);
 		res.send(JSON.stringify(returnedUpdate));
 	} catch(err) {
 		console.dir(err);
