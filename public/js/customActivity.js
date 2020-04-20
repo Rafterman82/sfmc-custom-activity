@@ -825,9 +825,40 @@ define([
                     $('#email_template option[value="loading"]').remove();
                     $("#email_template").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");
                 }
-                updateApiStatus("email-api", true);
+
+                // access offer types and build select input
+                $.ajax({
+
+                    url: "/dataextension/lookup/campaigns", 
+                    error: function() {
+                        updateApiStatus("email-api", false);
+                    }, 
+                    success: function(result){
+
+                        if ( debug ) {
+                            console.log('lookup campaigns executed');
+                            console.log(result.items);               
+                        }
+
+                        var i;
+                        for (i = 0; i < result.items.length; ++i) {
+                            if ( debug ) {
+                                console.log(result.items[i].keys);
+                            }
+                            // do something with substr[i]
+                            $("#email_template > option").each(function() {
+                                if ( this.value == result.items[i].values.email_template ) {
+                                    $(this).remove();
+                                }
+                            });
+                        }
+
+                        updateApiStatus("email-api", true);
+                    }
+                });
             }
         });
+
     }
 
     function lookupControlGroups() {
