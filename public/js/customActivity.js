@@ -122,7 +122,12 @@ define([
                         $("#control_action_optima").prop('disabled', true); 
                         $("#control_action_test").html("Save and Test");                       
                     }
+                } else if (argumentsSummaryPayload.buildPayload[r].key == "sent" && argumentsSummaryPayload.buildPayload[r].key == "true" ) {
+                    $("#control_action_test").prop('disabled', true);
+                    $("#control_action_update").prop('disable', true);
+                    $("#control_action_optima").prop('disabled', true); 
                 }
+
             }
 
             // argument data present, pre pop and redirect to summary page
