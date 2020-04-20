@@ -1194,7 +1194,7 @@ app.post('/dataextension/update-existing/', async function (req, res){
 	console.dir("the update key is");
 	console.dir(req.body[0].value);
 	try {
-		const updateExistingPromotionStatus = await updateExistingPromotion(req.body[0].key, req.body);
+		const updateExistingPromotionStatus = await updateExistingPromotion(req.body[0].value, req.body);
 		res.send({"success": "true"});
 	} catch(err) {
 		console.dir(err);
