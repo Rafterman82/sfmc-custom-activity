@@ -99,11 +99,10 @@ define([
                 console.log(argumentsSummaryPayload.buildPayload);
             }
 
-            var r;
             var argPromotionType;
             var argKey;
 
-            for ( r = 0; r < argumentsSummaryPayload.buildPayload.length; r++ ) {
+            for ( var r = 0; r < argumentsSummaryPayload.buildPayload.length; r++ ) {
                 if ( argumentsSummaryPayload.buildPayload[r].key == "promotionType" ) {
                     argPromotionType = argumentsSummaryPayload.buildPayload[r].value; 
                 } else if ( argumentsSummaryPayload.buildPayload[r].key == "promotion_key_hidden" ) {
@@ -112,7 +111,7 @@ define([
                         argKey = argumentsSummaryPayload.buildPayload[r].value;
                         $("#promotion_key_hidden").val(argKey);
                         $("#control_action_update").prop('disabled', true)
-                        $("#control_action_test").prop('disabled', true);
+                        $("#control_action_test").prop('disabled', false);
                         $("#control_action_optima").prop('disabled', true);
                         $("#main_setup_key").html(argKey);
                     } else {
@@ -121,12 +120,16 @@ define([
                         $("#control_action_optima").prop('disabled', true); 
                         $("#control_action_test").html("Save and Test");                       
                     }
-                } else if (argumentsSummaryPayload.buildPayload[r].key == "sent" && argumentsSummaryPayload.buildPayload[r].key == "true" ) {
-                    $("#control_action_test").prop('disabled', true);
-                    $("#control_action_update").prop('disable', true);
-                    $("#control_action_optima").prop('disabled', true); 
                 }
+            }
 
+            for ( var r = 0; r < argumentsSummaryPayload.buildPayload.length; r++ ) {
+
+                if (argumentsSummaryPayload.buildPayload[r].key == "sent" && argumentsSummaryPayload.buildPayload[r].key == "true" ) {
+                        $("#control_action_test").prop('disabled', true);
+                        $("#control_action_update").prop('disable', true);
+                        $("#control_action_optima").prop('disabled', true); 
+                }
             }
 
             // argument data present, pre pop and redirect to summary page
