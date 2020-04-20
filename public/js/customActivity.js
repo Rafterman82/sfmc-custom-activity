@@ -851,8 +851,8 @@ define([
                             // do something with substr[i]
                             $("#email_template > option").each(function() {
                                 console.log("the select option is");
-                                console.log(this.name);
-                                if ( this.name == result.items[i].values.email_template ) {
+                                console.log(this.value);
+                                if ( this.value == encodeURI(result.items[i].values.email_template) ) {
                                     $(this).remove();
                                 }
                             });
