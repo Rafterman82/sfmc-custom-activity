@@ -955,7 +955,7 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 								});
 							})	
 
-						} else ( payloadBody[0].onlinePromotionType == "unique" ) {
+						} else if ( payloadBody[0].onlinePromotionType == "unique" ) {
 
 							// update each promo desc
 							var updatePromoPayload = [{
