@@ -1604,7 +1604,7 @@ define([
 
         for ( z = 0; z < summaryPayload.length; z++ ) {
 
-            if ( summaryPayload[z].value != "no-code" || summaryPayload[z].value == false || summaryPayload[z].value == "false" ) {
+            if ( summaryPayload[z].value != "no-code" || summaryPayload[z].value != false || summaryPayload[z].value != "false" ) {
 
                 if ( summaryPayload[z].step == 1 ) {
 
