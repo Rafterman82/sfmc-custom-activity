@@ -1470,9 +1470,16 @@ define([
                         payloadNode.push({
                             step: 1,
                             key: step1FormInputs[i].id, 
-                            value:  step1FormInputs[i].checked,
+                            value:  true,
                             type: "checkbox"
                         });
+                    } else {
+                        payloadNode.push({
+                            step: 1,
+                            key: step1FormInputs[i].id, 
+                            value:  false,
+                            type: "checkbox"
+                        });                        
                     }
                 } else if ( step1FormInputs[i].type == "radio" ) {
                     if ( step1FormInputs[i].checked ) {
@@ -1503,9 +1510,16 @@ define([
                         payloadNode.push({
                             step: 2,
                             key: step2FormInputs[i].id, 
-                            value:  step2FormInputs[i].checked,
+                            value:  true,
                             type: "checkbox"
                         });
+                    } else {
+                        payloadNode.push({
+                            step: 2,
+                            key: step2FormInputs[i].id, 
+                            value:  false,
+                            type: "checkbox"
+                        });                        
                     }
                 } else if ( step2FormInputs[i].type == "radio" ) {
                     if ( step2FormInputs[i].checked ) {
@@ -1536,9 +1550,16 @@ define([
                         payloadNode.push({
                             step: 3,
                             key: step3FormInputs[i].id, 
-                            value:  step3FormInputs[i].checked,
+                            value:  true,
                             type: "checkbox"
                         });
+                    } else {
+                        payloadNode.push({
+                            step: 3,
+                            key: step3FormInputs[i].id, 
+                            value:  false,
+                            type: "checkbox"
+                        });                        
                     }
                 } else if ( step3FormInputs[i].type == "radio" ) {
                     if ( step3FormInputs[i].checked ) {
