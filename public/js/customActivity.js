@@ -1385,8 +1385,6 @@ define([
                 success: function(data) {
                     console.log('success');
                     console.log(data);
-                    $("#promotion_key_hidden").val(data);
-                    $("#main_setup_key").html(data);
                     $("#control_action_update").html("Update saved");
                     $("#control_action_test").prop('disabled', true);
                     $("#control_action_update").prop('disabled', false);
