@@ -814,13 +814,13 @@ define([
 
                 if ( debug ) {
                     console.log('lookup templates executed');
-                    console.log(result.items);               
+                    //console.log(result.items);               
                 }
 
                 var i;
                 for (i = 0; i < result.items.length; ++i) {
                     if ( debug ) {
-                        console.log(result.items[i]);
+                        //console.log(result.items[i]);
                     }
                     // do something with substr[i]
                     $('#email_template option[value="loading"]').remove();
@@ -838,7 +838,7 @@ define([
 
                         if ( debug ) {
                             console.log('lookup campaigns executed');
-                            console.log(result.items);               
+                            //console.log(result.items);               
                         }
 
                         var i;
