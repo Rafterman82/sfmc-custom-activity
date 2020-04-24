@@ -852,9 +852,9 @@ define([
                             // do something with substr[i]
                             $("#email_template > option").each(function() {
                                 console.log("the select option is");
-                                console.log(this.value);
-                                if ( result.items[i].values.sent_to_optima == "true" || result.items[i].values.sent_to_optima == true ) {
-                                    if ( this.value == encodeURI(result.items[i].values.email_template) && this.value != "no-template" ) {
+                                console.log(decodeURI(this.value));
+                                if ( result.items[i].values.sent_to_optima == "True" || result.items[i].values.sent_to_optima == true ) {
+                                    if ( decodeURI(this.value) == result.items[i].values.email_template && this.value != "no-template" ) {
                                         $(this).remove();
                                     }
                                 }
