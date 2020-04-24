@@ -853,7 +853,7 @@ define([
                             $("#email_template > option").each(function() {
                                 console.log("the select option is");
                                 console.log(this.value);
-                                if ( result.items[i].values.sent == "true" || result.items[i].values.sent == true ) {
+                                if ( result.items[i].values.sent_to_optima == "true" || result.items[i].values.sent_to_optima == true ) {
                                     if ( this.value == encodeURI(result.items[i].values.email_template) && this.value != "no-template" ) {
                                         $(this).remove();
                                     }
