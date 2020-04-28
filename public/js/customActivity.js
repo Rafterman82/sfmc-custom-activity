@@ -1621,7 +1621,7 @@ define([
                         // show control group block
                         $("#control-group-association").show();
 
-                    }  else if ( summaryPayload[z].key == "control_group" && summaryPayload[z].value != "no-code" ) {
+                    }  else if ( summaryPayload[z].key == "update_contacts" && summaryPayload[z].value != "no-code" ) {
 
                         // update control DE value is SQL statement
                         $("#update_contact_data_extension").text(summaryPayload[z].value);
