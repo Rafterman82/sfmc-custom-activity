@@ -53,3 +53,9 @@ body {
 .slds-notify_container {
 	z-index: 9000!important;
 }
+#control-group-association {
+	display:none;
+}
+#control-group-association {
+	display:none;
+}

@@ -1618,7 +1618,7 @@
             </div>
         </div>
         <div class="slds-grid slds-gutters">
-            <div class="slds-col slds-size_1-of-2 slds-m-vertical_xx-small">
+            <div class="slds-col slds-size_1-of-2 slds-m-vertical_xx-small" id="control-group-association">
                 <article class="slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -1638,18 +1638,14 @@
                                 </h2>
                                 <p>
                                     SELECT<br>PARTY_ID,<br>GETDATE() AS CONTACT_DATE,<br>(SELECT PromoTable.communication_cell_id_control 
-                                    FROM campaignPromotionAssociation_NEW_SIT as PromoTable WHERE PromoTable.control_group = '<span id="control_group_data_extension">SOME_DE</span>') as COMMUNICATION_CELL_ID<br>FROM<br><span id="control_group_data_extension">SOME_DE</span>
+                                    FROM campaignPromotionAssociation_NEW_SIT as PromoTable WHERE PromoTable.control_group = '<span id="control_group_data_extension"></span>') as COMMUNICATION_CELL_ID<br>FROM<br><span id="control_group_data_extension"></span>
                                 </p>
                             </div>
                         </header>
                     </div>
-                    <div class="slds-card__body slds-card__body_inner">
-                        <dl class="slds-list_horizontal slds-wrap" id="summary-online-setup">
-                        </dl>
-                    </div>
                 </article>
             </div>
-            <div class="slds-col slds-size_1-of-2 slds-m-vertical_xx-small">
+            <div class="slds-col slds-size_1-of-2 slds-m-vertical_xx-small" id="no-email-association">
                 <article class="slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -1668,15 +1664,11 @@
                                     </a>
                                 </h2>
                                 <p>
-                                    SELECT<br>UpdateContactDE.PARTY_ID,<br>PromoTable.MC_ID_1 as MC_UNIQUE_PROMOTION_ID,<br>GETDATE() as ASSIGNMENT_DATETIME<br>
-                                    FROM<br><span id="no_code_data_extension">SOME_DE</span> as UpdateContactDE<br>LEFT JOIN campaignPromotionAssociation_NEW_SIT as PromoTable<br>ON PromoTable.MC_ID_1 = UpdateContactDE.PROMOTION_KEY
+                                    SELECT<br><span id="update_contact_data_extension"></span>.PARTY_ID,<br>PromoTable.MC_ID_1 as MC_UNIQUE_PROMOTION_ID,<br>GETDATE() as ASSIGNMENT_DATETIME<br>
+                                    FROM<br><span id="update_contact_data_extension"></span> as UpdateContactDE<br>LEFT JOIN campaignPromotionAssociation_NEW_SIT as PromoTable<br>ON PromoTable.MC_ID_1 = <span id="update_contact_data_extension"></span>.PROMOTION_KEY
                                 </p>
                             </div>
                         </header>
-                    </div>
-                    <div class="slds-card__body slds-card__body_inner">
-                        <dl class="slds-list_horizontal slds-wrap" id="summary-instore-setup">
-                        </dl>
                     </div>
                 </article>
             </div>

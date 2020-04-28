@@ -1613,6 +1613,22 @@ define([
                         } else if ( summaryPromotionType == "instore" || summaryPromotionType == "nocode" ) {
                             $("#summary-online-setup").append('<p>No codes setup.</p>');
                         }
+                    } else if ( summaryPayload[z].key == "control_group" && summaryPayload[z].value != "no-code" ) {
+
+                        // update control DE value is SQL statement
+                        $("#control_group_data_extension").text(summaryPayload[z].value);
+
+                        // show control group block
+                        $("#control-group-association").show();
+
+                    }  else if ( summaryPayload[z].key == "control_group" && summaryPayload[z].value != "no-code" ) {
+
+                        // update control DE value is SQL statement
+                        $("#update_contact_data_extension").text(summaryPayload[z].value);
+
+                        // show control group block
+                        $("#no-email-association-association").show();
+
                     }
 
                     $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak" title="'+summaryPayload[z].key+'"><b>'+cleanUpKeyText(summaryPayload[z].key)+'</b></dt>');
