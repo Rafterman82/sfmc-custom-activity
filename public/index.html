@@ -1640,7 +1640,7 @@
                                 <br>
                                 <p>
                                     SELECT<br>PARTY_ID,<br>GETDATE() AS CONTACT_DATE,<br>(SELECT PromoTable.communication_cell_id_control 
-                                    FROM campaignPromotionAssociation_NEW_SIT as PromoTable WHERE PromoTable.control_group = '<span id="control_group_data_extension"></span>') as COMMUNICATION_CELL_ID<br>FROM<br><span id="control_group_data_extension"></span>
+                                    FROM campaignPromotionAssociation_NEW_SIT as PromoTable WHERE PromoTable.control_group = '<span class="control_group_data_extension"></span>') as COMMUNICATION_CELL_ID<br>FROM<br><span class="control_group_data_extension"></span>
                                 </p>
                             </div>
                         </header>
@@ -1668,8 +1668,8 @@
                                 <p>Copy and paste the below SQL into a new automation after the update contact data extension has filled up with contacts</p>
                                 <br>
                                 <p>
-                                    SELECT<br><span id="update_contact_data_extension"></span>.PARTY_ID,<br>PromoTable.MC_ID_1 as MC_UNIQUE_PROMOTION_ID,<br>GETDATE() as ASSIGNMENT_DATETIME<br>
-                                    FROM<br><span id="update_contact_data_extension"></span> as UpdateContactDE<br>LEFT JOIN campaignPromotionAssociation_NEW_SIT as PromoTable<br>ON PromoTable.MC_ID_1 = <span id="update_contact_data_extension"></span>.PROMOTION_KEY
+                                    SELECT<br><span class="update_contact_data_extension"></span>.PARTY_ID,<br>PromoTable.MC_ID_1 as MC_UNIQUE_PROMOTION_ID,<br>GETDATE() as ASSIGNMENT_DATETIME<br>
+                                    FROM<br><span class="update_contact_data_extension"></span> as UpdateContactDE<br>LEFT JOIN campaignPromotionAssociation_NEW_SIT as PromoTable<br>ON PromoTable.MC_ID_1 = <span class="update_contact_data_extension"></span>.PROMOTION_KEY
                                 </p>
                             </div>
                         </header>

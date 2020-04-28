@@ -1616,7 +1616,7 @@ define([
                     } else if ( summaryPayload[z].key == "control_group" && summaryPayload[z].value != "no-code" ) {
 
                         // update control DE value is SQL statement
-                        $("#control_group_data_extension").text(summaryPayload[z].value);
+                        $(".control_group_data_extension").text(summaryPayload[z].value);
 
                         // show control group block
                         $("#control-group-association").show();
@@ -1624,7 +1624,7 @@ define([
                     }  else if ( summaryPayload[z].key == "update_contacts" && summaryPayload[z].value != "no-code" ) {
 
                         // update control DE value is SQL statement
-                        $("#update_contact_data_extension").text(summaryPayload[z].value);
+                        $(".update_contact_data_extension").text(summaryPayload[z].value);
 
                         // show control group block
                         $("#no-email-association-association").show();
