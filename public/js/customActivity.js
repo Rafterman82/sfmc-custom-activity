@@ -370,6 +370,9 @@ define([
 
             // set loyalty promotion
             $("#instore_code_"+instoreCodeIndex+"_loyalty_promotion").val(instoreCodeLoyaltyPromotion);
+
+            // set redemptions 1
+            $("#instore_code_"+instoreCodeIndex+"_redemptions").val(1);
         });
 
         $("#global_code_1, #global_code_2, #global_code_3, #global_code_4, #global_code_5").change(function(){
