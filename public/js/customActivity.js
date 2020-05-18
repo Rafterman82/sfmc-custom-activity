@@ -1621,7 +1621,7 @@ define([
                         console.log("Show control group block");
 
                         // update control DE value is SQL statement
-                        $(".control_group_data_extension").text(summaryPayload[z].value);
+                        $(".control_group_data_extension").text(decodeURI(summaryPayload[z].value));
 
                         // show control group block
                         $("#control-group-association").show();
@@ -1631,7 +1631,7 @@ define([
                         console.log("Show no association block");
 
                         // update control DE value is SQL statement
-                        $(".update_contact_data_extension").text(summaryPayload[z].value);
+                        $(".update_contact_data_extension").text(decodeURI(summaryPayload[z].value));
 
                         // show control group block
                         $("#no-email-association").show();
