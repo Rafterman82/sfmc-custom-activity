@@ -1636,6 +1636,13 @@ define([
                         // show control group block
                         $("#no-email-association").show();
 
+                    } else if ( summaryPayload[z].key == "promotion_state_hidden" && summaryPayload[z].value == "true" ) {
+
+                        $("#control_action_update").prop('disabled', true);
+                        $("#control_action_optima").prop('disabled', true);
+                        $("#control_action_test").prop('disabled', true);
+                        $("#control_action_option").text("Promotion is live");
+
                     }
 
                     $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak" title="'+summaryPayload[z].key+'"><b>'+cleanUpKeyText(summaryPayload[z].key)+'</b></dt>');
