@@ -1641,7 +1641,7 @@ define([
                         $("#control_action_update").prop('disabled', true);
                         $("#control_action_optima").prop('disabled', true);
                         $("#control_action_test").prop('disabled', true);
-                        $("#control_action_option").text("Promotion is live");
+                        $("#control_action_option").html("Promotion is live");
 
                     }
 
