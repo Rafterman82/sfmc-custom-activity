@@ -30,7 +30,7 @@ define([
 
     setTimeout(function(){ 
         $("#spinner").hide();
-    }, 4000);
+    }, 30000);
 
     $(window).ready(onRender);
 
@@ -836,6 +836,7 @@ define([
                     url: "/dataextension/lookup/campaigns", 
                     error: function() {
                         updateApiStatus("email-api", false);
+                        $("#spinner").hide();
                     }, 
                     success: function(result){
 
@@ -1619,7 +1620,7 @@ define([
                     } else if ( summaryPayload[z].key == "promotion_key_hidden" ) {
 
                         $(".promotion_key_sql").text(summaryPayload[z].value);
-                        
+
                     } else if ( summaryPayload[z].key == "control_group" && summaryPayload[z].value != "no-code" ) {
 
                         console.log("Show control group block");
