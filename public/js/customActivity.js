@@ -1616,6 +1616,10 @@ define([
                         } else if ( summaryPromotionType == "instore" || summaryPromotionType == "nocode" ) {
                             $("#summary-online-setup").append('<p>No codes setup.</p>');
                         }
+                    } else if ( summaryPayload[z].key == "promotion_key_hidden" ) {
+
+                        $(".promotion_key_sql").text(summaryPayload[z].value);
+                        
                     } else if ( summaryPayload[z].key == "control_group" && summaryPayload[z].value != "no-code" ) {
 
                         console.log("Show control group block");

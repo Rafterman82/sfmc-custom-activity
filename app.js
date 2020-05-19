@@ -509,7 +509,7 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 
 	if ( numberOfCodes.instore_codes > 0 ) {
 		for ( var i = 1; i <= numberOfCodes.instore_codes; i++ ) {
-			campaignPromotionAssociationData["mc_id_" + (5 + i)] = currentMcUniqueIdIncrement;
+			campaignPromotionAssociationData["mc_id_" + (5 + i)] = nextMcUniqueIdIncrement;
 			nextMcUniqueIdIncrement++;
 		}
 	}

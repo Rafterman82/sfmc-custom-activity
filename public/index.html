@@ -1639,9 +1639,14 @@
                                 <p>Copy and paste the below SQL into a new automation after the control group data extension has filled up with contacts</p>
                                 <br>
                                 <p>
-                                    SELECT<br>PARTY_ID,<br>GETDATE() AS CONTACT_DATE,<br>(SELECT PromoTable.communication_cell_id_control 
-                                    FROM campaignPromotionAssociation_NEW_PROD as PromoTable WHERE PromoTable.control_group = '<span class="control_group_data_extension"></span>') as COMMUNICATION_CELL_ID<br>FROM<br>
-                                    [<span class="control_group_data_extension"></span>]
+                                    SELECT<br>
+                                    PARTY_ID,<br>
+                                    GETDATE() AS CONTACT_DATE,<br>
+                                    cpa.communication_cell_id_control as COMMUNICATION_CELL_ID<br>
+                                    FROM<br>
+                                    [<span class="control_group_data_extension"></span>]<br>
+                                    LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
+                                    ON cpa.promotion_key = <span class="promotion_key_sql"></span>
                                 </p>
                             </div>
                         </header>
@@ -1676,7 +1681,7 @@
                                     FROM<br>
                                     [<span class="update_contact_data_extension"></span>] as bucket<br>
                                     LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
-                                    ON cpa.promotion_key = bucket.PROMOTION_KEY
+                                    ON cpa.promotion_key = <span class="promotion_key_sql"></span>
                                 </p>
                             </div>
                         </header>
@@ -1711,7 +1716,7 @@
                                     FROM<br>
                                     [<span class="update_contact_data_extension"></span>] as bucket<br>
                                     LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
-                                    ON cpa.promotion_key = bucket.PROMOTION_KEY
+                                    ON cpa.promotion_key = <span class="promotion_key_sql"></span>
                                 </p>
                             </div>
                         </header>
