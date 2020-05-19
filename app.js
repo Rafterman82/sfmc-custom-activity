@@ -604,7 +604,7 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 				ticker++;
 			}
 		}
-		if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" ) {
+		if ( payload.promotionType == "instore" || payload.promotionType == "online_instore" || payload.promotionType == "nocode" ) {
 			var promotionArrayKey = "promotion_" + ticker;
 			console.dir("Promo ticker is promotion_" + ticker);
 			console.dir("Promotion Type is " + payload.promotionType);
@@ -630,25 +630,6 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 				instoreTicker++;
 				ticker++;
 			}
-		}
-		if ( payload.promotionType == "nocode" ) {
-			// must be instant win or print at till, just instore code 1
-				promotionDescriptionData.promotions[1] = {};
-				promotionDescriptionData.promotions[1]["offer_channel"] 				= "Instore";
-				promotionDescriptionData.promotions[1]["offer_description"] 			= payload.campaign_name;
-				promotionDescriptionData.promotions[1]["ts_and_cs"] 					= "-";
-				promotionDescriptionData.promotions[1]["barcode"] 						= payload["instore_code_1"];
-				promotionDescriptionData.promotions[1]["promotion_id"]					= payload["instore_code_1_promo_id"];
-				promotionDescriptionData.promotions[1]["promotion_group_id"]			= payload["instore_code_1_promo_group_id"];
-				promotionDescriptionData.promotions[1]["valid_from_datetime"] 			= payload["instore_code_1_valid_from"];
-				promotionDescriptionData.promotions[1]["valid_to_datetime"] 			= payload["instore_code_1_valid_to"];
-				promotionDescriptionData.promotions[1]["visiblefrom"]					= payload["instore_code_1_valid_from"];
-				promotionDescriptionData.promotions[1]["visibleto"] 					= payload["instore_code_1_valid_to"];
-				promotionDescriptionData.promotions[1]["number_of_redemptions_allowed"] = payload["instore_code_1_redemptions"];
-				promotionDescriptionData.promotions[1]["print_at_till_flag"] 			= payload.print_at_till_instore;
-				promotionDescriptionData.promotions[1]["instant_win_flag"] 				= payload.instant_win_instore;
-				promotionDescriptionData.promotions[1]["offer_medium"] 					= payload.offer_medium_instore;
-				promotionDescriptionData.promotions[1]["communication_cell_id"] 		= parseInt(commCellForPromo) + 1;
 		}
 	}
 
