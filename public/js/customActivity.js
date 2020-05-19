@@ -565,12 +565,20 @@ define([
             var step0Selectors = ["#email_template", "#cell_code", "#cell_name", "#campaign_id", "#campaign_name", "#campaign_code"];
             var step0ErrorCount = 0;
 
+            var promotionSelectedType = $(".promotion_type:checked").val();
+
             for ( var n = 0; n < step0Selectors.length; n++ ) {
 
                 console.log("The selector is " + step0Selectors[n]);
 
                 if ( !$(step0Selectors[n]).val() ) {
 
+                    step0ErrorCount++;
+                }
+            }
+            if ( promotionSelectedType == 'nocode') {
+                // instant win print at till, check update contact is selected
+                if ( $("#update_contacts").val() == "no-code") {
                     step0ErrorCount++;
                 }
             }
