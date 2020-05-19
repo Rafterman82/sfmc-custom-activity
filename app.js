@@ -498,12 +498,20 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	console.dir("no of codes:");
 	console.dir(numberOfCodes);
 
-	for ( var i = 1; i <= numberOfCodes.online_codes; i++ ) {
-		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
+	var nextMcUniqueIdIncrement = parseInt(mcUniqueIdForAssociation) + 1;
+
+	if ( numberOfCodes.online_codes > 0 ) {
+		for ( var i = 1; i <= numberOfCodes.online_codes; i++ ) {
+			campaignPromotionAssociationData["mc_id_" + i] = nextMcUniqueIdIncrement;
+			nextMcUniqueIdIncrement++;
+		}
 	}
 
-	for ( var i = 6; i <= (numberOfCodes.instore_codes + 5); i++ ) {
-		campaignPromotionAssociationData["mc_id_" + i] = 5 + parseInt(mcUniqueIdForAssociation) + i;
+	if ( numberOfCodes.instore_codes > 0 ) {
+		for ( var i = 1; i <= numberOfCodes.instore_codes; i++ ) {
+			campaignPromotionAssociationData["mc_id_" + (5 + i)] = currentMcUniqueIdIncrement;
+			nextMcUniqueIdIncrement++;
+		}
 	}
 
 	campaignPromotionAssociationData["communication_cell_id"] = parseInt(commCellForAssociation) + 1;
