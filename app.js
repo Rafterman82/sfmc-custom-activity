@@ -503,7 +503,7 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	}
 
 	for ( var i = 6; i <= (numberOfCodes.instore_codes + 5); i++ ) {
-		campaignPromotionAssociationData["mc_id_" + i] = parseInt(mcUniqueIdForAssociation) + i;
+		campaignPromotionAssociationData["mc_id_" + i] = 5 + parseInt(mcUniqueIdForAssociation) + i;
 	}
 
 	campaignPromotionAssociationData["communication_cell_id"] = parseInt(commCellForAssociation) + 1;

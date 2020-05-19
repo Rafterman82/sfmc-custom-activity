@@ -1633,8 +1633,10 @@ define([
                         // update control DE value is SQL statement
                         $(".update_contact_data_extension").text(decodeURI(summaryPayload[z].value));
 
-                        // show control group block
+                        // show association and communication SQL
                         $("#no-email-association").show();
+                        $("#if028").show();
+
 
                     } else if ( summaryPayload[z].key == "promotion_state_hidden" && summaryPayload[z].value == "true" ) {
 

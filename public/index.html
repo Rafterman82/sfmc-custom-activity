@@ -1618,7 +1618,7 @@
             </div>
         </div>
         <div class="slds-grid slds-gutters">
-            <div class="slds-col slds-size_1-of-2 slds-m-vertical_xx-small" id="control-group-association">
+            <div class="slds-col slds-size_1-of-3 slds-m-vertical_xx-small" id="control-group-association">
                 <article class="slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -1648,7 +1648,7 @@
                     </div>
                 </article>
             </div>
-            <div class="slds-col slds-size_1-of-2 slds-m-vertical_xx-small" id="no-email-association">
+            <div class="slds-col slds-size_1-of-3 slds-m-vertical_xx-small" id="no-email-association">
                 <article class="slds-card">
                     <div class="slds-card__header slds-grid">
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -1663,7 +1663,7 @@
                             <div class="slds-media__body">
                                 <h2 class="slds-card__header-title">
                                     <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
-                                        <span>Association without a code</span>
+                                        <span>Association without a code IF024</span>
                                     </a>
                                 </h2>
                                 <p>Copy and paste the below SQL into a new automation after the update contact data extension has filled up with contacts</p>
@@ -1673,6 +1673,41 @@
                                     bucket.PARTY_ID,<br>
                                     cpa.MC_ID_6 as MC_UNIQUE_PROMOTION_ID,<br>
                                     GETDATE() as ASSIGNMENT_DATETIME<br>
+                                    FROM<br>
+                                    [<span class="update_contact_data_extension"></span>] as bucket<br>
+                                    LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
+                                    ON cpa.promotion_key = bucket.PROMOTION_KEY
+                                </p>
+                            </div>
+                        </header>
+                    </div>
+                </article>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-m-vertical_xx-small" id="if028">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">association without a code</span>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                                        <span>Communication History</span>
+                                    </a>
+                                </h2>
+                                <p>Copy and paste the below SQL into a new automation after the update contact data extension has filled up with contacts</p>
+                                <br>
+                                <p>
+                                    SELECT<br>
+                                    bucket.PARTY_ID,<br>
+                                    cpa.communication_cell_id as COMMUNICATION_CELL_ID
+                                    GETDATE() as CONTACT_DATE<br>
                                     FROM<br>
                                     [<span class="update_contact_data_extension"></span>] as bucket<br>
                                     LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
