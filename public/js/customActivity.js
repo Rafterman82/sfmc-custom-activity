@@ -141,11 +141,6 @@ define([
             // trigger steps
             triggerSteps(argumentsSummaryPayload.buildPayload, argPromotionType);
 
-            setTimeout(function(){ 
-                $("#spinner").hide();
-                console.log("here");
-            }, 4000);
-
         }
     }
 
