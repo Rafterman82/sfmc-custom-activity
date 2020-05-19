@@ -860,7 +860,10 @@ define([
                         }
 
                         updateApiStatus("email-api", true);
-                        $("#spinner").hide();
+                        setTimeout(function(){ 
+                            $("#spinner").hide();
+                            console.log("here");
+                        }, 4000);
                     }
                 });
             }
