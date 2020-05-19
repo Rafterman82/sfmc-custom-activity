@@ -836,7 +836,6 @@ define([
                     url: "/dataextension/lookup/campaigns", 
                     error: function() {
                         updateApiStatus("email-api", false);
-                        $("#spinner").hide();
                     }, 
                     success: function(result){
 
@@ -866,6 +865,7 @@ define([
                         }
 
                         updateApiStatus("email-api", true);
+                        $("#spinner").hide();
                     }
                 });
             }
