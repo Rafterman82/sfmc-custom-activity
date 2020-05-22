@@ -527,7 +527,11 @@ function odbcDateTimeEnforcement(dateString) {
 		var newDate = splitComp[0].split("/").reverse().join("-");
 	 	return newDate + " " + splitComp[1];
 	} else {
-		return dateString.split("/").reverse().join("-") + " 00:00:00";
+		if ( !dateString || dateString == "" ) {
+			return "";
+		} else {
+			return dateString.split("/").reverse().join("-") + " 00:00:00";
+		}
 	}
 }
 
