@@ -770,12 +770,14 @@ async function setLive(existingKey) {
 		.then(response => {
 			// If request is good... 
 			//res.json(response.data);
+			console.log(response.data.items);
 			console.dir(response.data.items[0].keys);
 			console.dir(response.data.items[0].values);
 
 			for ( var v = 1; v <= 10; v++ ) {
 				if ( response.data.items[0].values["mc_id_" + v] =! "-" ) {
 					// update each promo desc
+
 					var updatePromoPayload = [{
 				        "keys": {
 				            "MC_UNIQUE_PROMOTION_ID": response.data.items[0].values["mc_id_" + v]
