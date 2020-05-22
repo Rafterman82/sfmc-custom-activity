@@ -778,12 +778,13 @@ async function setLive(existingKey) {
 			//res.json(response.data);
 			console.dir("Response from CPA lookup get");
 			console.dir(response.data.items);
-			console.dir(response.data.items[0].keys);
-			console.dir(response.data.items[0].values);
+			//console.dir(response.data.items[0].keys);
+			//console.dir(response.data.items[0].values);
 
 			for ( var v = 1; v <= 10; v++ ) {
-				if ( response.data.items[0].values["mc_id_" + v] =! "-" ) {
+				if ( response.data.items[0].values["mc_id_" + v] != "-" ) {
 					// update each promo desc
+					console.dir("found a match");
 
 					var updatePromoPayload = [{
 				        "keys": {
