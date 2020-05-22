@@ -755,6 +755,7 @@ function getDateString() {
 
 async function setLive(existingKey) {
 
+	console.log("existing key is");
 	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
 	console.dir(lookupCampaigns);
 
