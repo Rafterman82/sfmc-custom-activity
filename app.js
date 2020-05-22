@@ -755,14 +755,19 @@ function getDateString() {
 
 async function setLive(existingKey) {
 
-	console.log("existing key is");
-	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
+	console.dir("set live key is");
+	console.dir(existingKey);
+	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'";
+	console.dir("Looking up CPA's URL");
 	console.dir(lookupCampaigns);
 
 	var currentDateTimeStamp = getDateString();
+	console.dir("The current DT stamp is");
+	console.dir(currentDateTimeStamp);
 
 	getOauth2Token().then((tokenResponse) => {
 
+		console.dir("perform CPA lookup")
 		axios.get(lookupCampaigns, { 
 			headers: { 
 				Authorization: tokenResponse
@@ -771,7 +776,8 @@ async function setLive(existingKey) {
 		.then(response => {
 			// If request is good... 
 			//res.json(response.data);
-			console.log(response.data.items);
+			console.dir("Response from CPA lookup get");
+			console.dir(response.data.items);
 			console.dir(response.data.items[0].keys);
 			console.dir(response.data.items[0].values);
 
@@ -799,10 +805,12 @@ async function setLive(existingKey) {
 							data: updatePromoPayload
 						})
 						.then(function (response) {
+							console.dir("Promotion POST success");
 							console.dir(response.data);
 							//return resolve(response.data);
 						})
 						.catch(function (error) {
+							console.dir("Promotion POST failure");
 							console.dir(error);
 							//return reject(error);
 						});
