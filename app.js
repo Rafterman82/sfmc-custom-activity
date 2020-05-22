@@ -520,6 +520,17 @@ function buildAssociationPayload(payload, incrementData, numberOfCodes) {
 	return campaignPromotionAssociationData;
 }
 
+function odbcDateTimeEnforcement(dateString) {
+
+	if ( dateString.indexOf(":") > 0 ) {
+		var splitComp = dateString.split(" ");
+		var newDate = splitComp[0].split("/").reverse().join("-");
+	 	return newDate + " " + splitComp[1];
+	} else {
+		return dateString.split("/").reverse().join("-") + " 00:00:00";
+	}
+}
+
 function buildCommunicationCellPayload(payload) {
 	var communicationCellData = {
 			"not_control": {
@@ -591,10 +602,10 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 				= payload["global_code_" + onlineTicker];
 					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["global_code_" + onlineTicker +"_promo_id"];
 					promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"] 	= payload["global_code_" + onlineTicker +"_promo_group_id"];
-					promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= payload["global_code_" + onlineTicker +"_valid_from"];
-					promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= payload["global_code_" + onlineTicker +"_valid_to"];
-					promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"] 			= payload["global_code_" + onlineTicker +"_valid_from"];
-					promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= payload["global_code_" + onlineTicker +"_valid_to"];
+					promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 	= odbcDateTimeEnforcement(payload["global_code_" + onlineTicker +"_valid_from"]);
+					promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 	= odbcDateTimeEnforcement(payload["global_code_" + onlineTicker +"_valid_to"]);
+					promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"] 			= odbcDateTimeEnforcement(payload["global_code_" + onlineTicker +"_valid_from"]);
+					promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 			= odbcDateTimeEnforcement(payload["global_code_" + onlineTicker +"_valid_to"]);
 				} else if (payload.onlinePromotionType == "unique" ) {
 					promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 				= "-";
 					promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"] 			= payload["unique_code_" + onlineTicker +"_promo_id"];
@@ -618,10 +629,10 @@ function buildPromotionDescriptionPayload(payload, incrementData, numberOfCodes)
 				promotionDescriptionData.promotions[promotionArrayKey]["barcode"] 						= payload["instore_code_" + instoreTicker];
 				promotionDescriptionData.promotions[promotionArrayKey]["promotion_id"]					= payload["instore_code_" + instoreTicker +"_promo_id"];
 				promotionDescriptionData.promotions[promotionArrayKey]["promotion_group_id"]			= payload["instore_code_" + instoreTicker +"_promo_group_id"];
-				promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 			= payload["instore_code_" + instoreTicker +"_valid_from"];
-				promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 			= payload["instore_code_" + instoreTicker +"_valid_to"];
-				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"]					= payload["instore_code_" + instoreTicker +"_valid_from"];
-				promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 					= payload["instore_code_" + instoreTicker +"_valid_to"];
+				promotionDescriptionData.promotions[promotionArrayKey]["valid_from_datetime"] 			= odbcDateTimeEnforcement(payload["instore_code_" + instoreTicker +"_valid_from"]);
+				promotionDescriptionData.promotions[promotionArrayKey]["valid_to_datetime"] 			= odbcDateTimeEnforcement(payload["instore_code_" + instoreTicker +"_valid_to"]);
+				promotionDescriptionData.promotions[promotionArrayKey]["visiblefrom"]					= odbcDateTimeEnforcement(payload["instore_code_" + instoreTicker +"_valid_from"]);
+				promotionDescriptionData.promotions[promotionArrayKey]["visibleto"] 					= odbcDateTimeEnforcement(payload["instore_code_" + instoreTicker +"_valid_to"]);
 				promotionDescriptionData.promotions[promotionArrayKey]["number_of_redemptions_allowed"] = payload["instore_code_" + instoreTicker +"_redemptions"];
 				promotionDescriptionData.promotions[promotionArrayKey]["print_at_till_flag"] 			= payload.print_at_till_instore;
 				promotionDescriptionData.promotions[promotionArrayKey]["instant_win_flag"] 				= payload.instant_win_instore;
