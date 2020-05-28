@@ -6,6 +6,7 @@ define([
     'use strict';
 
     var debug                       = true;
+    var apiWaitTime                 = 500;
     var stepToValidate;
     var connection                  = new Postmonger.Session();
     var payload                     = {};
@@ -26,6 +27,10 @@ define([
     if ( debug ) {
         console.log("Current Step is: " + currentStep);
     }
+
+    setTimeout(function(){ 
+        $("#spinner").hide();
+    }, 30000);
 
     $(window).ready(onRender);
 
@@ -50,7 +55,9 @@ define([
         lookupTemplates();
         lookupVoucherPots();
         lookupControlGroups();
+        lookupUpdateContacts();
         loadEvents();
+        setGlobalCodeBlock();
     }
 
     function initialize (data) {
@@ -63,8 +70,10 @@ define([
         if ( debug ) {
             console.log("Payload is:");
             console.log(payload.arguments.execute.inArguments[0]);
-            console.log("summary payload is:");
+            console.log("Summary payload is:");
             console.log(argumentsSummaryPayload.buildPayload);
+            console.log("Promotion Meta Data is:");
+            console.log(payload.metadata)
         }
 
         var hasInArguments = Boolean(
@@ -87,81 +96,52 @@ define([
 
             if ( debug ) {
                 console.log("inside if statement i.e. promotion key is present")
-            }
-            // argument data present, pre pop and redirect to summary page
-            var prepopPromotionType = argumentsSummaryPayload.buildPayload.promotion_type;
-
-            if ( debug ) {
-                console.log("prepopPromotionType is");
-                console.log(prepopPromotionType);
+                console.log(argumentsSummaryPayload.buildPayload);
             }
 
-            var prePop;
+            var argPromotionType;
+            var argKey;
 
-            if ( prepopPromotionType == 'online' ) {
-                prePop = 'online';
-                prePopulateFields(prePop, argumentsSummaryPayload);
-                updateSummaryPage(argumentsSummaryPayload.buildPayload);
-                steps[1].active = true;
-                steps[3].active = true;
-                connection.trigger('updateSteps', steps);
-                setTimeout(function() {
-                    connection.trigger('nextStep');
-                }, 10);
-                setTimeout(function() {
-                    connection.trigger('nextStep');
-                }, 20);
-                setTimeout(function() {
-                    showStep(null, 3);
-                }, 100);
-            } else if ( prepopPromotionType == 'instore' ) {
-                prePop = 'instore';
-                prePopulateFields(prePop, argumentsSummaryPayload);
-                updateSummaryPage(argumentsSummaryPayload.buildPayload);
-                steps[2].active = true;
-                steps[3].active = true;
-                connection.trigger('updateSteps', steps);
-                setTimeout(function() {
-                    connection.trigger('nextStep');
-                }, 10);
-                setTimeout(function() {
-                    connection.trigger('nextStep');
-                }, 20);
-                setTimeout(function() {
-                    showStep(null, 3);
-                }, 100);
-            } else  if ( prepopPromotionType == 'online_instore' ) {
-                prePop = 'online_instore';
-                prePopulateFields(prePop, argumentsSummaryPayload);
-                updateSummaryPage(argumentsSummaryPayload.buildPayload);
-                steps[1].active = true;
-                steps[2].active = true;
-                steps[3].active = true;
-                connection.trigger('updateSteps', steps);
-                setTimeout(function() {
-                    connection.trigger('nextStep');
-                }, 10);
-                setTimeout(function() {
-                    connection.trigger('nextStep');
-                }, 20);
-                setTimeout(function() {
-                    connection.trigger('nextStep');
-                }, 30);
-                setTimeout(function() {
-                    showStep(null, 3);
-                }, 100);
-            } else{
-                prePop = 'not-set';
-                if ( debug ) {
-                    console.log('nothing to pre-pop setting step 0 and first radio checked');
+            for ( var r = 0; r < argumentsSummaryPayload.buildPayload.length; r++ ) {
+                if ( argumentsSummaryPayload.buildPayload[r].key == "promotionType" ) {
+                    argPromotionType = argumentsSummaryPayload.buildPayload[r].value; 
+                } else if ( argumentsSummaryPayload.buildPayload[r].key == "promotion_key_hidden" ) {
+
+                    if ( argumentsSummaryPayload.buildPayload[r].value ) {
+                        argKey = argumentsSummaryPayload.buildPayload[r].value;
+                        $("#promotion_key_hidden").val(argKey);
+                        $("#control_action_update").prop('disabled', false)
+                        $("#control_action_test").prop('disabled', true);
+                        $("#control_action_optima").prop('disabled', false);
+                        $("#main_setup_key").html(argKey);
+                    } else {
+                        $("#control_action_test").prop('disabled', false);
+                        $("#control_action_update").prop('disable', true);
+                        $("#control_action_optima").prop('disabled', true); 
+                        $("#control_action_test").html("Save and Test");                       
+                    }
                 }
-                $("#radio-1").prop("checked", true).trigger("click");
-            }
-            if ( debug ) {
-                console.log(prePop);
             }
 
-        }      
+            for ( var r = 0; r < argumentsSummaryPayload.buildPayload.length; r++ ) {
+
+                if (argumentsSummaryPayload.buildPayload[r].key == "sent" && argumentsSummaryPayload.buildPayload[r].key == "true" ) {
+                        $("#control_action_test").prop('disabled', true);
+                        $("#control_action_update").prop('disable', true);
+                        $("#control_action_optima").prop('disabled', true); 
+                }
+            }
+
+            // argument data present, pre pop and redirect to summary page
+            prePopulateFields(argumentsSummaryPayload.buildPayload);
+
+            // update summary page
+            updateSummaryPage(argumentsSummaryPayload.buildPayload);
+
+            // trigger steps
+            triggerSteps(argumentsSummaryPayload.buildPayload, argPromotionType);
+
+        }
     }
 
     function loadEvents() {
@@ -172,9 +152,7 @@ define([
             var promotionType = $("input[name='promotionType']:checked").val();
 
             if ( debug ) {
-
                 console.log(promotionType);
-
             }
 
             if ( promotionType === 'online' ) {
@@ -187,6 +165,8 @@ define([
                 steps[1].active = true; // toggle active
                 instoreSetupStepEnabled = false; // toggle status
                 steps[2].active = false; // toggle active
+                $("#email_template_box").show();
+                $("#update_contact_box").hide();
 
                 if ( debug ) {
                     console.log(onlineSetupStepEnabled);
@@ -206,6 +186,13 @@ define([
                 steps[1].active = false; // toggle active
                 instoreSetupStepEnabled = true; // toggle status
                 steps[2].active = true; // toggle active
+                $("#email_template_box").show();
+                $("#update_contact_box").hide();
+                $("#code2").show();
+                $("#code3").show();
+                $("#code4").show();
+                $("#code5").show();
+
 
                 if ( debug ) {
                     console.log(onlineSetupStepEnabled);
@@ -230,6 +217,12 @@ define([
 
                 instoreSetupStepEnabled = true; // toggle status
                 steps[2].active = true; // toggle active
+                $("#email_template_box").show();
+                $("#update_contact_box").hide();
+                $("#code2").show();
+                $("#code3").show();
+                $("#code4").show();
+                $("#code5").show();
 
                 if ( debug ) {
                     console.log(steps);
@@ -238,6 +231,32 @@ define([
                 }
                 connection.trigger('updateSteps', steps);
 
+            } else if ( promotionType === 'nocode' ) {
+
+                if ( debug ) {
+                    console.log("trigger step 2");   
+                }
+                
+                onlineSetupStepEnabled = false; // toggle status
+                steps[1].active = false; // toggle active
+                instoreSetupStepEnabled = true; // toggle status
+                steps[2].active = true; // toggle active
+
+                // hide email input and show update contact input
+                $("#email_template_box").hide();
+                $("#update_contact_box").show();
+                $("#code2").hide();
+                $("#code3").hide();
+                $("#code4").hide();
+                $("#code5").hide();
+
+                if ( debug ) {
+                    console.log(onlineSetupStepEnabled);
+                    console.log(instoreSetupStepEnabled);
+                    console.log(steps);                    
+                }
+
+                connection.trigger('updateSteps', steps);
             }
 
         });
@@ -248,48 +267,13 @@ define([
             if ( onlinePromotionType == 'global' ) {
 
                 $("#show_unique_codes").hide();
-                // set voucher pots to no-code
-                $("#voucher_pot_1").val("no-code");
-                $("#voucher_pot_2").val("no-code");
-                $("#voucher_pot_3").val("no-code");
-
                 $("#show_global_codes").show();
 
             } else {
 
-                // set global codes to no-code
-                $("#global_code_1").val("no-code");
-                $("#global_code_2").val("no-code");
-                $("#global_code_3").val("no-code");
                 $("#show_unique_codes").show();
                 $("#show_global_codes").hide();
 
-
-            }
-
-        });
-
-        // validate single field
-        $("input").blur(function() {
-
-            validateSingleField($(this));
-
-        });
-        $("input").change(function() {
-
-            validateSingleField($(this));
-
-        });
-
-        $("#email_template").change(function() {
-
-            if ( $(this).val() == "no-template") {
-                $("#email_template_select").addClass("slds-has-error");
-                $("#form-error__email_template").html("You must select a template.");
-                $("#form-error__email_template").show();
-            } else {
-                $("#email_template_select").removeClass("slds-has-error");
-                $("#form-error__email_template").hide();                
             }
 
         });
@@ -326,320 +310,241 @@ define([
 
         });
 
+        // ensure print at till and instant win can never be the same value
+
+        $("#print_at_till_online").change(function() {
+            // set instant win to opposite
+            if ( $("#print_at_till_online").val() == "true" ) {
+                // set instant win to false
+                $('#instant_win_online option[value="false"]').prop("selected", "selected");
+            }
+        });
+
+        $("#instant_win_online").change(function() {
+            // set instant win to opposite
+            if ( $("#instant_win_online").val() == "true" ) {
+                // set instant win to false
+                $('#print_at_till_online option[value="false"]').prop("selected", "selected");
+            }
+        });
+
+        $("#print_at_till_instore").change(function() {
+            // set instant win to opposite
+            if ( $("#print_at_till_instore").val() == "true" ) {
+                // set instant win to false
+                $('#instant_win_instore option[value="false"]').prop("selected", "selected");
+            }
+        });
+
+        $("#instant_win_instore").change(function() {
+            // set instant win to opposite
+            if ( $("#instant_win_instore").val() == "true" ) {
+                // set instant win to false
+                $('#print_at_till_instore option[value="false"]').prop("selected", "selected");
+            }
+        });
+
+        // ensure instore promo id is automatically set and is read-only
+        $("#instore_code_1, #instore_code_2, #instore_code_3, #instore_code_4, #instore_code_5").change(function(){
+            var instoreCodeIndex = this.id.slice(-1); 
+            if ( $("option:selected", this).attr("data-attribute-loyalty") == "True" ) {
+                var instoreCodeLoyaltyPromotion = true;
+            } else {
+                var instoreCodeLoyaltyPromotion = false;
+            }
+
+            // set data value
+            $("#instore_code_"+instoreCodeIndex+"_valid_from").val($("option:selected", this).attr("data-attribute-validfrom"));
+            $("#instore_code_"+instoreCodeIndex+"_valid_to").val($("option:selected", this).attr("data-attribute-validto"));
+
+            // set promo id
+            $("#instore_code_"+instoreCodeIndex+"_promo_id").val(this.value);
+
+            // set promo id
+            $("#instore_code_"+instoreCodeIndex+"_promo_group_id").val(this.value);
+
+            // set loyalty promotion
+            $("#instore_code_"+instoreCodeIndex+"_loyalty_promotion").val(instoreCodeLoyaltyPromotion);
+
+            // set redemptions 1
+            $("#instore_code_"+instoreCodeIndex+"_redemptions").val(1);
+        });
+
+        $("#global_code_1, #global_code_2, #global_code_3, #global_code_4, #global_code_5").change(function(){
+            var globalCodeIndex = this.id.slice(-1); 
+            // set data value
+            $("#global_code_"+globalCodeIndex+"_valid_from").val($("option:selected", this).attr("data-attribute-validfrom"));
+            $("#global_code_"+globalCodeIndex+"_valid_to").val($("option:selected", this).attr("data-attribute-validto"));
+        });
+
+        // select first input
         $("#radio-1").click();
 
-        $("#reuse_voucher_pot_1").val(false);
-        $("#reuse_voucher_pot_2").val(false);
-        $("#reuse_voucher_pot_3").val(false);
-
-        $("#reuse_voucher_pot_1").on('change', function(){
-            $(this).val(this.checked ? true : false);
+        // handler for Optima button
+        $("#control_action_optima").click(function(){
+            setLive($("#promotion_key_hidden").val());
+            $("#sent").val(true);
         });
 
-        $("#reuse_voucher_pot_2").on('change', function(){
-            $(this).val(this.checked ? true : false);
+        // handler for Optima button
+        $("#control_action_update").click(function(){
+            updateExistingPromotion($("#promotion_key_hidden").val(), buildActivityPayload());
+            $("#sent").val(false);
         });
 
-        $("#reuse_voucher_pot_3").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#online_code_date_override_1").val(false);
-        $("#online_code_date_override_2").val(false);
-        $("#online_code_date_override_3").val(false);
-
-        $("#online_code_date_override_1").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#online_code_date_override_2").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#online_code_date_override_3").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-
-
-        $("#instore_code_date_override_1").val(false);
-        $("#instore_code_date_override_2").val(false);
-        $("#instore_code_date_override_3").val(false);
-
-        $("#instore_code_date_override_1").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#instore_code_date_override_2").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-        $("#instore_code_date_override_3").on('change', function(){
-            $(this).val(this.checked ? true : false);
-        });
-
-
-
-        $("#voucher_pot_1").on('change', function(){
-            if ( debug ) {
-                console.log($(this));
-            }
-
-            var vp1count = $($(this)).find(':selected').attr("data-attribute-count");
-            $("#pot_1_count").html("Vouchers in pot 1:" + vp1count);
-
-        });
-        $("#voucher_pot_2").on('change', function(){
-            if ( debug ) {
-                console.log($(this));
-            }
-            var vp2count = $($(this)).find(':selected').attr("data-attribute-count");
-            $("#pot_2_count").html("Vouchers in pot 2:" + vp2count);
-        });
-        $("#voucher_pot_3").on('change', function(){
-            if ( debug ) {
-                console.log($(this));
-            }
-            var vp3count = $($(this)).find(':selected').attr("data-attribute-count");
-            $("#pot_3_count").html("Vouchers in pot 3:" + vp3count);
+        // handler for Optima button
+        $("#control_action_test").click(function(){
+            saveToDataExtension(buildActivityPayload(), false);
+            $("#sent").val(false);
         });
 
     }
 
-    function prePopulateFields(prePop, argumentsSummaryPayload) {
+    function updateApiStatus(endpointSelector, endpointStatus) {
+
+        if ( endpointStatus ) {
+            setTimeout(function() {
+                $("#" + endpointSelector + " > div > div").removeClass("slds-theme_info");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2)").removeClass("slds-icon-utility-info");
+                $("#" + endpointSelector + " > div > div").addClass("slds-theme_success");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2)").addClass("slds-icon-utility-success");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2) svg use").attr("xlink:href","/assets/icons/utility-sprite/svg/symbols.svg#success");
+                $("#" + endpointSelector + " > div > div > .slds-notify__content h2").text($("#" + endpointSelector + " > div > div > .slds-notify__content h2").text().replace("Loading", "Loaded"));
+            }, apiWaitTime);
+        
+        } else {
+            setTimeout(function() {
+                $("#" + endpointSelector + " > div > div").removeClass("slds-theme_info");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2)").removeClass("slds-icon-utility-info");
+                $("#" + endpointSelector + " > div > div").addClass("slds-theme_error");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2)").addClass("slds-icon-utility-error");
+                $("#" + endpointSelector + " > div > div > span:nth-child(2) svg use").attr("xlink:href","/assets/icons/utility-sprite/svg/symbols.svg#error");
+                $("#" + endpointSelector + " > div > div > .slds-notify__content h2").text($("#" + endpointSelector + " > div > div > .slds-notify__content h2").text().replace("Loading", "Error Loading"));
+            }, apiWaitTime);
+        }
+
+        apiWaitTime = apiWaitTime + 200;
+
+    }
+
+    function prePopulateFields(argumentsSummaryPayload) {
 
         if ( debug) {
             console.log("payload sent to prepop function");
             console.log(argumentsSummaryPayload);
-            console.log("promotion type is ");
-            console.log(argumentsSummaryPayload.buildPayload.promotion_type);
+        }
+
+        setTimeout(function(){ 
+
+            var q;
+
+            for ( q = 0; q < argumentsSummaryPayload.length; q++ ) {
+                if ( debug ) {
+                    console.log("Prepop: " + argumentsSummaryPayload[q].key + ", with value: " + argumentsSummaryPayload[q].value + ", and type: " + argumentsSummaryPayload[q].type);
+                }
+
+                if ( argumentsSummaryPayload[q].type == "checkbox") {
+
+                    if ( argumentsSummaryPayload[q].value ) {
+                        $("#" + argumentsSummaryPayload[q].key).val(true);
+                        $("#" + argumentsSummaryPayload[q].key).prop('checked', "checked");
+                    }
+                    
+                } else if ( argumentsSummaryPayload[q].type == "radio") {
+                    if ( argumentsSummaryPayload[q].key == "promotionType") {
+                        if ( argumentsSummaryPayload[q].value == "online") {
+                            $("#radio-1").prop('checked', true);
+                            $("#radio-1").click();
+                        } else if ( argumentsSummaryPayload[q].value == "instore") {
+                            $("#radio-2").prop('checked', true);
+                            $("#radio-2").click();
+                        } else if ( argumentsSummaryPayload[q].value == "online_instore") {
+                            $("#radio-3").prop('checked', true);
+                            $("#radio-3").click();
+                        } else if ( argumentsSummaryPayload[q].value == "nocode") {
+                            $("#radio-4").prop('checked', true);
+                            $("#radio-4").click();
+                        }
+                    } else if ( argumentsSummaryPayload[q].key == "onlinePromotionType") {
+                        if ( argumentsSummaryPayload[q].value == "global" ) {
+                            $("#radio-5").prop('checked', true);
+                            $("#radio-5").click();
+                        } else if ( argumentsSummaryPayload[q].value == "unique") {
+                            $("#radio-6").prop('checked', true);
+                            $("#radio-6").click();
+                        }
+                    }
+                }
+
+                $("#step" + (argumentsSummaryPayload[q].step - 1) + " #" + argumentsSummaryPayload[q].key).val(argumentsSummaryPayload[q].value);
+
+            } 
+        }, 2000);
+    }
+
+    function triggerSteps(argumentsSummaryPayload, argPromotionType) {
+
+        // argument data present, pre pop and redirect to summary page
+        var prepopPromotionType = argPromotionType;
+
+        if ( debug ) {
+            console.log("prepopPromotionType is");
+            console.log(prepopPromotionType);
+        }
+
+        var prePop;
+
+        if ( prepopPromotionType == 'online' ) {
+            steps[1].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 30);
+        } else if ( prepopPromotionType == 'instore' || prepopPromotionType == 'nocode' ) {
+            steps[2].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 30);
+        } else  if ( prepopPromotionType == 'online_instore' ) {
+            steps[1].active = true;
+            steps[2].active = true;
+            steps[3].active = true;
+            connection.trigger('updateSteps', steps);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 10);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 20);
+            setTimeout(function() {
+                connection.trigger('nextStep');
+            }, 30);
+            setTimeout(function() {
+                showStep(null, 3);
+            }, 40);
+        } else {
+            if ( debug ) {
+                console.log('nothing to pre-pop setting step 0 and first radio checked');
+            }
+            $("#radio-1").prop("checked", true).trigger("click");
+        }
+        if ( debug ) {
             console.log(prePop);
-            console.log("voucher pot 1");
-            console.log(argumentsSummaryPayload.buildPayload.voucher_pot_1);
-            console.log("global code 1");
-            console.log(argumentsSummaryPayload.buildPayload.global_code_1);
-            console.log("instore code 1");
-            console.log(argumentsSummaryPayload.buildPayload.instore_code_1);
-            console.log("reuse vp 1 value");
-            console.log(argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1);
-            console.log("online date override");
-            console.log(argumentsSummaryPayload.buildPayload.online_code_date_override_1);
-            console.log("instore date override");
-            console.log(argumentsSummaryPayload.buildPayload.instore_code_date_override_1);
-
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.promotion_type ) {
-            if ( argumentsSummaryPayload.buildPayload.promotion_type == "online" ) {
-                $("#radio-1").prop("checked", true);
-            } else if ( argumentsSummaryPayload.buildPayload.promotion_type == "instore" ) {
-                $("#radio-2").prop("checked", true);
-            } else if ( argumentsSummaryPayload.buildPayload.promotion_type == "online_instore" ) {
-                $("#radio-3").prop("checked", true);
-            }
-        }
-
-        setTimeout(function(){ 
-            if ( argumentsSummaryPayload.buildPayload.email_template ) {
-                $("#email_template").val(encodeURIComponent(argumentsSummaryPayload.buildPayload.email_template));
-            }
-        }, 4000);
-
-        if ( argumentsSummaryPayload.buildPayload.control_group ) {
-            $("#control_group").val(argumentsSummaryPayload.buildPayload.control_group);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.cell_code ) {
-            $("#cell_code").val(argumentsSummaryPayload.buildPayload.cell_code);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.cell_name ) {
-            $("#cell_name").val(argumentsSummaryPayload.buildPayload.cell_name);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.campaign_name ) {
-            $("#campaign_name").val(argumentsSummaryPayload.buildPayload.campaign_name);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.campaign_id ) {
-            $("#campaign_id").val(argumentsSummaryPayload.buildPayload.campaign_id);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.campaign_code ) {
-            $("#campaign_code").val(argumentsSummaryPayload.buildPayload.campaign_code);
-        }
-        setTimeout(function(){ 
-
-            if ( argumentsSummaryPayload.buildPayload.voucher_pot_1) {
-                $("#show_global_codes").hide();
-                $("#show_unique_codes").show();
-                $("#voucher_pot_1").val(argumentsSummaryPayload.buildPayload.voucher_pot_1);
-                console.log("voucher pot 1 had a value");
-
-
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.voucher_pot_2) {
-                $("#voucher_pot_2").val(argumentsSummaryPayload.buildPayload.voucher_pot_2);
-
-
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.voucher_pot_3) {
-                $("#voucher_pot_3").val(argumentsSummaryPayload.buildPayload.voucher_pot_3);
-
-
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.instore_code_1 ) {
-                $("#instore_code_1_instore").val(argumentsSummaryPayload.buildPayload.instore_code_1);
-
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.instore_code_2 ) {
-                $("#instore_code_2_instore").val(argumentsSummaryPayload.buildPayload.instore_code_2);
-
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.instore_code_3 ) {
-                $("#instore_code_3_instore").val(argumentsSummaryPayload.buildPayload.instore_code_3);
-
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.global_code_1 ) {
-                $("#global_code_1").val(argumentsSummaryPayload.buildPayload.global_code_1);
-                $("#show_global_codes").show();
-                $("#show_unique_codes").hide();
-
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.global_code_2 ) {
-                $("#global_code_2").val(argumentsSummaryPayload.buildPayload.global_code_2);
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.global_code_3 ) {
-                $("#global_code_3").val(argumentsSummaryPayload.buildPayload.global_code_3);
-
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_1) {
-                $("#reuse_voucher_pot_1").val(true);
-                $("#reuse_voucher_pot_1").prop('checked', true);
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_2) {
-                $("#reuse_voucher_pot_2").val(true);
-                $("#reuse_voucher_pot_2").prop('checked', true);
-            }
-
-            if ( argumentsSummaryPayload.buildPayload.reuse_voucher_pot_3) {
-                $("#reuse_voucher_pot_3").val(true);
-                $("#reuse_voucher_pot_3").prop('checked', true);
-            }
-
-
-        }, 4000);
-
-        // date override checkboxes
-
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_1) {
-            $("#online_code_date_override_1").val(true);
-            $("#online_code_date_override_1").prop('checked', true);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_2) {
-            $("#online_code_date_override_2").val(true);
-            $("#online_code_date_override_2").prop('checked', true);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.online_code_date_override_3) {
-            $("#online_code_date_override_3").val(true);
-            $("#online_code_date_override_3").prop('checked', true);
-        }
-
-        // data override days to add
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days != '0' ) {
-            $("#online_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_1_days);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days != '0' ) {
-            $("#online_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_2_days);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days && argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days != 0 || argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days != '0') {
-            $("#online_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.online_voucher_date_override_3_days);
-        }
-
-
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_1) {
-            $("#instore_code_date_override_1").val(true);
-            $("#instore_code_date_override_1").prop('checked', true);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_2) {
-            $("#instore_code_date_override_2").val(true);
-            $("#instore_code_date_override_2").prop('checked', true);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.instore_code_date_override_3) {
-            $("#instore_code_date_override_3").val(true);
-            $("#instore_code_date_override_3").prop('checked', true);
-        }
-
-        // data override days to add
-        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days != 0 ) {
-            $("#instore_voucher_date_override_1_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_1_days);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days != 0 ) {
-            $("#instore_voucher_date_override_2_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_2_days);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days  && argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days != "0" || argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days != 0 ) {
-            $("#instore_voucher_date_override_3_days").val(argumentsSummaryPayload.buildPayload.instore_voucher_date_override_3_days);
-        }
-
-
-
-
-        if ( argumentsSummaryPayload.buildPayload.print_at_till_online ) {
-            $("#print_at_till_online").val(argumentsSummaryPayload.buildPayload.print_at_till_online);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.print_at_till_instore ) {
-            $("#print_at_till_instore").val(argumentsSummaryPayload.buildPayload.print_at_till_instore);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.instant_win_online ) {
-            $("#instant_win_online").val(argumentsSummaryPayload.buildPayload.instant_win_online);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.instant_win_instore) {
-            $("#instant_win_instore").val(argumentsSummaryPayload.buildPayload.instant_win_instore);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.offer_medium_instore) {
-            $("#offer_medium_instore").val(argumentsSummaryPayload.buildPayload.offer_medium_instore);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.offer_medium_online) {
-            $("#offer_medium_online").val(argumentsSummaryPayload.buildPayload.offer_medium_online);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.promotion_id_online) {
-            $("#promotion_id_online").val(argumentsSummaryPayload.buildPayload.promotion_id_online);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.promotion_id_instore) {
-            $("#promotion_id_instore").val(argumentsSummaryPayload.buildPayload.promotion_id_instore);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.promotion_group_id_online) {
-            $("#promotion_group_id_online").val(argumentsSummaryPayload.buildPayload.promotion_group_id_online);
-        }
-
-        if ( argumentsSummaryPayload.buildPayload.promotion_group_id_instore) {
-            $("#promotion_group_id_instore").val(argumentsSummaryPayload.buildPayload.promotion_group_id_instore);
         }
 
     }
@@ -657,51 +562,88 @@ define([
 
         } else if ( stepToValidate == 0 ) {
 
-            if ( 
-                !$("#email_template").val() || 
-                !$("#cell_code").val() || 
-                !$("#cell_name").val() || 
-                !$("#campaign_id").val() || 
-                !$("#campaign_name").val() || 
-                !$("#campaign_code").val() 
-                ) {
+            var step0Selectors = ["#email_template", "#cell_code", "#cell_name", "#campaign_id", "#campaign_name", "#campaign_code"];
+            var step0ErrorCount = 0;
 
-                return false;
+            var promotionSelectedType = $(".promotion_type:checked").val();
+
+            for ( var n = 0; n < step0Selectors.length; n++ ) {
+
+                console.log("The selector is " + step0Selectors[n]);
+
+                if ( !$(step0Selectors[n]).val() ) {
+
+                    step0ErrorCount++;
+                }
+            }
+            if ( promotionSelectedType == 'nocode') {
+                // instant win print at till, check update contact is selected
+                if ( $("#update_contacts").val() == "no-code") {
+                    step0ErrorCount++;
+                }
+            }
+
+            if ( step0ErrorCount == 0 ) {
+
+                return true;
 
             } else {
 
-                return true;
+                return false;
+
             }
 
         } else if ( stepToValidate == 1 ) {
 
-            if ( 
-                !$("#global_code_1").val() && !$("#voucher_pot_1").val() || 
-                $("#global_code_1").val() == 'no-code' && $("#voucher_pot_1").val() == 'no-code' || 
-                !$("#promotion_id_online").val() || 
-                !$("#promotion_group_id_online").val() ) {
+            var onelineCodeType = $(".online_promotion_type:checked").val();
 
-                return false;
+            var step1Selectors = ["#"+onelineCodeType+"_code_1", "#"+onelineCodeType+"_code_1_promo_id", "#"+onelineCodeType+"_code_1_promo_group_id"];
+            var step1ErrorCount = 0;
+
+            for ( var l = 0; l < step1Selectors.length; l++ ) {
+
+                console.log("The selector is " + step1Selectors[l]);
+
+                if ( !$(step1Selectors[l]).val() ) {
+
+                    step1ErrorCount++;
+                }
+            }
+
+            if ( step1ErrorCount == 0 ) {
+
+                return true;
 
             } else {
 
-                return true;
+                return false;
+
             }
 
         } else if ( stepToValidate == 2 ) {
 
-            if ( 
-                !$("#instore_code_1_instore").val() || 
-                $("#instore_code_1_instore").val() == 'no-code' || 
-                !$("#promotion_id_instore").val() || 
-                !$("#promotion_group_id_instore").val() ) {
+            var step2Selectors = ["#instore_code_1", "#instore_code_1_promo_id", "#instore_code_1_promo_group_id"];
+            var step2ErrorCount = 0;
 
-                return false;
-            
-            } else {
+            for ( var m = 0; m < step2Selectors.length; m++ ) {
+
+                console.log("The selector is " + step2Selectors[m]);
+
+                if ( !$(step2Selectors[m]).val() ) {
+
+                    step2ErrorCount++;
+                }
+            }
+
+            if ( step2ErrorCount == 0 ) {
 
                 return true;
-            }
+
+            } else {
+
+                return false;
+
+            }            
 
         } else {
 
@@ -723,11 +665,11 @@ define([
         var elementLength = $(element).attr("data-attribute-length");
         var elementType = $(element).attr("data-attribute-type");
 
-        if ( elementId == "promotion_id_online" ) {
+        if ( elementId == "promotion_id_1" ) {
 
             $("#promotion_group_id_online").val(elementValue);
 
-        } else if ( elementId == "promotion_id_instore" ) {
+        } else if ( elementId == "promotion_id_6" ) {
 
             $("#promotion_group_id_instore").val(elementValue);
 
@@ -795,24 +737,27 @@ define([
         return selectedCode !== 'Please select a code' && selectedCode != '';
     }
 
+    function setGlobalCodeBlock() {
+        $("#show_global_codes").show();
+    }
+
     function lookupGlobalCodes() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/globalcodes", success: function(result){
+        $.ajax({
+            url: "/dataextension/lookup/globalcodes", 
+            error: function() {
+                updateApiStatus("onlinecodes-api", false);
+            },
+            success: function(result){
 
-            if ( debug ) {
-                console.log('lookup global codes executed');
-                console.log(result.items);               
-            }
-
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i].keys.couponcode);
+                    console.log('lookup global codes executed');
+                    console.log(result.items);               
                 }
-                
+
                 var i;
-                if ( result.items ) {
+                if ( result.items.length > 0 ) {
                     for (i = 0; i < result.items.length; ++i) {
                         if ( debug ) {
                             console.log(result.items[i].keys.couponcode);
@@ -824,104 +769,205 @@ define([
                         $("#global_code_4").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
                         $("#global_code_5").append("<option data-attribute-validfrom='" + result.items[i].values.validfrom + "' data-attribute-validto='" + result.items[i].values.validto + "' value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
                     }                    
-
                 }
-                // do something with `substr[i]
-                $("#global_code_1").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_2").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-                $("#global_code_3").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
-            }
 
-        }});
+                updateApiStatus("onlinecodes-api", true);
+            }
+        });
     }
 
     function lookupPromos() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/promotions", success: function(result){
+        $.ajax({
 
-            if ( debug ) {
-                console.log('lookup promotions executed');
-                console.log(result.items);               
-            }
+            url: "/dataextension/lookup/promotions",
+            error: function() {
+                updateApiStatus("instorecodes-api", false);
+            }, 
+            success: function(result){
 
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i].keys);
+                    console.log('lookup promotions executed');
+                    console.log(result.items);               
                 }
-                // do something with `substr[i]
-                $("#instore_code_1_instore").append("<option value=" + encodeURI(result.items[i].keys.discountmediaid) + ">" + result.items[i].keys.discountmediaid + " - " + result.items[i].values.name + " - " + result.items[i].values.discountid +"</option>");
-                $("#instore_code_2_instore").append("<option value=" + encodeURI(result.items[i].keys.discountmediaid) + ">" + result.items[i].keys.discountmediaid + " - " + result.items[i].values.name + " - " + result.items[i].values.discountid +"</option>");
-                $("#instore_code_3_instore").append("<option value=" + encodeURI(result.items[i].keys.discountmediaid) + ">" + result.items[i].keys.discountmediaid + " - " + result.items[i].values.name + " - " + result.items[i].values.discountid +"</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i].keys);
+                    }
+                    // do something with `substr[i]
+                    $("#instore_code_1").append("<option data-attribute-loyalty=" + result.items[i].values.bispromotionheader + " data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                    $("#instore_code_2").append("<option data-attribute-loyalty=" + result.items[i].values.bispromotionheader + " data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                    $("#instore_code_3").append("<option data-attribute-loyalty=" + result.items[i].values.bispromotionheader + " data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                    $("#instore_code_4").append("<option data-attribute-loyalty=" + result.items[i].values.bispromotionheader + " data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                    $("#instore_code_5").append("<option data-attribute-loyalty=" + result.items[i].values.bispromotionheader + " data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
+                }
+                updateApiStatus("instorecodes-api", true);
             }
-        }});
+
+        });
     }
 
     function lookupTemplates() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/templates", success: function(result){
+        $.ajax({
 
-            if ( debug ) {
-                console.log('lookup templates executed');
-                console.log(result.items);               
-            }
+            url: "/dataextension/lookup/templates", 
+            error: function() {
+                updateApiStatus("email-api", false);
+            }, 
+            success: function(result){
 
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i]);
+                    console.log('lookup templates executed');
+                    //console.log(result.items);               
                 }
-                // do something with substr[i]
-                $('#email_template option[value="loading"]').remove();
-                $("#email_template").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        //console.log(result.items[i]);
+                    }
+                    // do something with substr[i]
+                    $('#email_template option[value="loading"]').remove();
+                    $("#email_template").append("<option value=" + encodeURI(result.items[i].name) + ">" + result.items[i].name + "</option>");
+                }
+
+                // access offer types and build select input
+                $.ajax({
+
+                    url: "/dataextension/lookup/campaigns", 
+                    error: function() {
+                        updateApiStatus("email-api", false);
+                    }, 
+                    success: function(result){
+
+                        if ( debug ) {
+                            console.log('lookup campaigns executed');
+                            //console.log(result.items);               
+                        }
+
+                        var i;
+                        for (i = 0; i < result.items.length; ++i) {
+                            if ( debug ) {
+                                console.log("The keys for the campaign lookup is");
+                                console.log(result.items[i].keys);
+                                console.log("And the email template we are on is");
+                                console.log(result.items[i].values.email_template);
+                            }
+                            // do something with substr[i]
+                            $("#email_template > option").each(function() {
+                                console.log("the select option is");
+                                console.log(decodeURI(this.value));
+                                if ( result.items[i].values.sent_to_optima == "True" || result.items[i].values.sent_to_optima == true ) {
+                                    if ( decodeURI(this.value) == result.items[i].values.email_template && this.value != "no-template" ) {
+                                        $(this).remove();
+                                    }
+                                }
+                            });
+                        }
+
+                        updateApiStatus("email-api", true);
+                        setTimeout(function(){ 
+                            $("#spinner").hide();
+                            console.log("here");
+                        }, 4000);
+                    }
+                });
             }
-        }});
+        });
+
     }
 
     function lookupControlGroups() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/controlgroups", success: function(result){
+        $.ajax({
+            url: "/dataextension/lookup/controlgroups",
+            error: function() {
+                updateApiStatus("controlgroup-api", false);
+            },  
+            success: function(result){
 
-            if ( debug ) {
-                console.log('lookup control groups executed');
-                console.log(result.items);               
-            }
-
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i]);
+                    console.log('lookup control groups executed');
+                    console.log(result.items);               
                 }
-                // do something with substr[i]
-                $("#control_group").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i]);
+                    }
+                    // do something with substr[i]
+                    $("#control_group").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+                }
+                updateApiStatus("controlgroup-api", true);
             }
-        }});
+        });
+    }
+
+    function lookupUpdateContacts() {
+
+        // access offer types and build select input
+        $.ajax({
+            url: "/dataextension/lookup/updatecontacts",
+            error: function() {
+                updateApiStatus("updatecontacts-api", false);
+            },  
+            success: function(result){
+
+                if ( debug ) {
+                    console.log('lookup update contacts executed');
+                    console.log(result.items);               
+                }
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i]);
+                    }
+                    // do something with substr[i]
+                    $("#update_contacts").append("<option value=" + encodeURI(result.items[i].values.dataextensionname) + ">" + result.items[i].values.dataextensionname + "</option>");
+                }
+                updateApiStatus("updatecontact-api", true);
+            }
+        });
     }
 
     function lookupVoucherPots() {
 
         // access offer types and build select input
-        $.ajax({url: "/dataextension/lookup/voucherpots", success: function(result){
+        $.ajax({
+            url: "/dataextension/lookup/voucherpots",
+            error: function() {
+                updateApiStatus("voucherpot-api", false);
+            },  
+            success: function(result){
 
-            if ( debug ) {
-                console.log('lookup voucher pots executed');
-                console.log(result.items);               
-            }
-
-            var i;
-            for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
-                    console.log(result.items[i]);
+                    console.log('lookup voucher pots executed');
+                    console.log(result.items);               
                 }
-                // do something with substr[i]
-                $("#voucher_pot_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
-                $("#voucher_pot_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + "</option>");
+
+                var i;
+                for (i = 0; i < result.items.length; ++i) {
+                    if ( debug ) {
+                        console.log(result.items[i]);
+                    }
+                    // do something with substr[i]
+                    $("#unique_code_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows) + "</option>");
+                    $("#unique_code_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
+                    $("#unique_code_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
+                    $("#unique_code_4").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
+                    $("#unique_code_5").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
+                }
+                updateApiStatus("voucherpot-api", true);
             }
-        }});
+        });
     }
 
     function toggleStepError(errorStep, errorStatus) {
@@ -996,7 +1042,7 @@ define([
                 if ( validateStep(1) ) {
 
                     if ( debug ) {
-                        console.log("step 0 validated");           
+                        console.log("step 1 validated");           
                     }                    
 
                     toggleStepError(1, "hide");
@@ -1006,7 +1052,7 @@ define([
                 } else {
 
                     if ( debug ) {
-                        console.log("step 0 not validated");           
+                        console.log("step 1 not validated");           
                     }  
 
                     connection.trigger('ready');
@@ -1016,11 +1062,10 @@ define([
 
             } else if ( currentStep.key === 'step3' ) {
 
-                console.log("save to de");
-                saveToDataExtension(buildActivityPayload());
-                setTimeout(function() {
-                    save();
-                }, 3000);
+                if ( debug ) {
+                    console.log("Close and save in cache");
+                }
+                save();
 
             } else {
 
@@ -1028,7 +1073,7 @@ define([
 
             }
 
-        } else if ( promotionType == 'instore' ) {
+        } else if ( promotionType == 'instore' || promotionType == 'nocode' ) {
 
             if ( currentStep.key === 'step0') {
 
@@ -1057,7 +1102,7 @@ define([
                 if ( validateStep(2) ) {
 
                     if ( debug ) {
-                        console.log("step 0 validated");           
+                        console.log("step 2 validated");           
                     }                    
 
                     toggleStepError(2, "hide");
@@ -1067,7 +1112,7 @@ define([
                 } else {
 
                     if ( debug ) {
-                        console.log("step 0 not validated");           
+                        console.log("step 2 not validated");           
                     }  
 
                     connection.trigger('ready');
@@ -1077,11 +1122,10 @@ define([
 
             } else if ( currentStep.key === 'step3' ) {
 
-                console.log("save to de");
-                saveToDataExtension(buildActivityPayload());
-                setTimeout(function() {
-                    save();
-                }, 3000);      
+                if ( debug ) {
+                    console.log("Close and save in cache");
+                }
+                save();      
 
             } else {
 
@@ -1118,7 +1162,7 @@ define([
                 if ( validateStep(2) ) {
 
                     if ( debug ) {
-                        console.log("step 0 validated");           
+                        console.log("step 2 validated");           
                     }                    
 
                     updateSummaryPage(buildActivityPayload());
@@ -1128,7 +1172,7 @@ define([
                 } else {
 
                     if ( debug ) {
-                        console.log("step 0 not validated");           
+                        console.log("step 2 not validated");           
                     }  
 
                     connection.trigger('ready');
@@ -1138,18 +1182,17 @@ define([
 
             } else if ( currentStep.key === 'step3' ) {
 
-                console.log("save to de");
-                saveToDataExtension(buildActivityPayload());
-                setTimeout(function() {
-                    save();
-                }, 3000);
+                if ( debug ) {
+                    console.log("Close and save in cache");
+                }
+                save();
 
             } else if ( currentStep.key === 'step1' ) {
 
                 if ( validateStep(1) ) {
 
                     if ( debug ) {
-                        console.log("step 0 validated");           
+                        console.log("step 1 validated");           
                     }                    
 
                     toggleStepError(1, "hide");
@@ -1158,7 +1201,7 @@ define([
                 } else {
 
                     if ( debug ) {
-                        console.log("step 0 not validated");           
+                        console.log("step 1 not validated");           
                     }  
 
                     connection.trigger('ready');
@@ -1310,18 +1353,17 @@ define([
             $.ajax({ 
                 url: '/dataextension/add',
                 type: 'POST',
-                cache: false, 
-                data: payloadToSave, 
-                success: function(data){
-                    if ( debug ) {
-                        /*console.log(data);*/  
-                    }
-                    var saveResponseData = data;
-                    if ( debug ) {
-                        console.log(saveResponseData);
-                    }
-
-                    addPromotionKeyToArgs(saveResponseData);
+                data: JSON.stringify(payloadToSave),
+                contentType: 'application/json',                     
+                success: function(data) {
+                    console.log('success');
+                    console.log(data);
+                    $("#promotion_key_hidden").val(data);
+                    $("#main_setup_key").html(data);
+                    $("#control_action_test").html("Data has been saved");
+                    $("#control_action_test").prop('disabled', true);
+                    $("#control_action_update").prop('disabled', false);
+                    $("#control_action_optima").prop('disabled', false);
                 }
                 , error: function(jqXHR, textStatus, err){
                     if ( debug ) {
@@ -1330,9 +1372,90 @@ define([
                 }
             }); 
         } catch(e) {
+            console.log("Error saving data");
             console.log(e);
         }
 
+    }
+
+    /*
+     * Function add data to data extension
+     */
+
+    function updateExistingPromotion(hiddenPromotionKey, payloadToSave) {
+
+        if ( debug ) {
+            console.log("Data Object to be updated is: ");
+            console.log(payloadToSave);
+        }
+
+        try {
+            $.ajax({ 
+                url: '/dataextension/update-existing',
+                type: 'POST',
+                data: JSON.stringify(payloadToSave),
+                contentType: 'application/json',                     
+                success: function(data) {
+                    console.log('success');
+                    console.log(data);
+                    $("#control_action_update").html("Update saved");
+                    $("#control_action_test").prop('disabled', true);
+                    $("#control_action_update").prop('disabled', false);
+                    $("#control_action_optima").prop('disabled', false);
+                }
+                , error: function(jqXHR, textStatus, err){
+                    if ( debug ) {
+                        console.log(err);
+                    }
+                }
+            }); 
+        } catch(e) {
+            console.log("Error saving data");
+            console.log(e);
+        }
+
+    }
+
+    function setLive(hiddenPromotionKey) {
+        if ( debug ) {
+            console.log("Key for updates is: ");
+            console.log(hiddenPromotionKey);
+        }
+
+        var updateNode = [];
+        updateNode["key"] = hiddenPromotionKey;
+
+        updateNode.push({
+            key: hiddenPromotionKey
+        });
+
+        console.log("Update node is");
+        console.log(updateNode);
+
+        try {
+            $.ajax({ 
+                url: '/dataextension/set-live',
+                type: 'POST',
+                data: JSON.stringify(updateNode),
+                contentType: 'application/json',                     
+                success: function(data) {
+                    console.log('update sent');
+                    console.log(data);
+                    $("#control_action_optima").prop('disabled', true);
+                    $("#control_action_update").prop('disabled', true);
+                    $("#promotion_state_hidden").val(true);
+
+                }
+                , error: function(jqXHR, textStatus, err){
+                    if ( debug ) {
+                        console.log(err);
+                    }
+                }
+            }); 
+        } catch(e) {
+            console.log("Error updating data");
+            console.log(e);
+        }
     }
 
     function addPromotionKeyToArgs(saveResponse) {
@@ -1344,140 +1467,132 @@ define([
 
     function buildActivityPayload() {
 
-        var step0Selector = "#step0 .slds-form-element__control";
-        var step1Selector = "#step1 .slds-form-element__control";
-        var step2Selector = "#step2 .slds-form-element__control";
+        var step1FormInputs = $("#step0").find(":input");
+        var step2FormInputs = $("#step1").find(":input");
+        var step3FormInputs = $("#step2").find(":input");
 
-        // main promo data
-        var promotionType               = $("#step0 .slds-radio input[name='promotionType']:checked").val();
+        var i;
+        var payloadNode = [];
 
-        // control group
-        var controlGroup                = $("#control_group").val();
+        for ( i = 0; i < step1FormInputs.length; i++ ) {
+            if ( step1FormInputs[i].id) {
+                if ( step1FormInputs[i].type == "checkbox") {
+                    if ( step1FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 1,
+                            key: step1FormInputs[i].id, 
+                            value:  true,
+                            type: "checkbox"
+                        });
+                    } else {
+                        payloadNode.push({
+                            step: 1,
+                            key: step1FormInputs[i].id, 
+                            value:  false,
+                            type: "checkbox"
+                        });                        
+                    }
+                } else if ( step1FormInputs[i].type == "radio" ) {
+                    if ( step1FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 1,
+                            key: step1FormInputs[i].name, 
+                            value:  step1FormInputs[i].value,
+                            type: "radio"
+                        });
+                    }
+                } else {
+                    if ( step1FormInputs[i].value ) {
+                        payloadNode.push({
+                            step: 1,
+                            key: step1FormInputs[i].id, 
+                            value:  step1FormInputs[i].value,
+                            type: "input"
+                        });  
+                    }
+                }
+            }
+        }
 
-        // email template
-        var emailTemplate               = $("#email_template").find(":selected").text();
-            
-        // comms history
-        var cellCode                    = $(step0Selector +  " #cell_code").val();
-        var cellName                    = $(step0Selector +  " #cell_name").val();
-        var campaignName                = $(step0Selector +  " #campaign_name").val();
-        var campaignId                  = $(step0Selector +  " #campaign_id").val();
-        var campaignCode                = $(step0Selector +  " #campaign_code").val();
+        for ( i = 0; i < step2FormInputs.length; i++ ) {
+            if ( step2FormInputs[i].id) {
+                if ( step2FormInputs[i].type == "checkbox") {
+                    if ( step2FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 2,
+                            key: step2FormInputs[i].id, 
+                            value:  true,
+                            type: "checkbox"
+                        });
+                    } else {
+                        payloadNode.push({
+                            step: 2,
+                            key: step2FormInputs[i].id, 
+                            value:  false,
+                            type: "checkbox"
+                        });                        
+                    }
+                } else if ( step2FormInputs[i].type == "radio" ) {
+                    if ( step2FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 2,
+                            key: step2FormInputs[i].name, 
+                            value:  step2FormInputs[i].value,
+                            type: "radio"
+                        });
+                    }
+                } else {
+                    if ( step2FormInputs[i].value ) {
+                        payloadNode.push({
+                            step: 2,
+                            key: step2FormInputs[i].id, 
+                            value:  step2FormInputs[i].value,
+                            type: "input"
+                        });                       
+                    }
+                }
+            }
+        }
 
-        // online unique code setup
-        var voucherPot1                 = $(step1Selector +  " #voucher_pot_1").val();
-        var voucherPot2                 = $(step1Selector +  " #voucher_pot_2").val();
-        var voucherPot3                 = $(step1Selector +  " #voucher_pot_3").val();
-
-        // reuse old online unique codes
-        var reUseVoucherPot1            = $("#reuse_voucher_pot_1").val();
-        var reUseVoucherPot2            = $("#reuse_voucher_pot_2").val();
-        var reUseVoucherPot3            = $("#reuse_voucher_pot_3").val();
-
-        // online global code setup
-        var globalCode1                 = $(step1Selector +  " #global_code_1").val();
-        var globalCode2                 = $(step1Selector +  " #global_code_2").val();
-        var globalCode3                 = $(step1Selector +  " #global_code_3").val();
-
-        // online override dates
-        var overrideOnlineDatesCode1          = $(step1Selector +  " #online_code_date_override_1").val();
-        var overrideOnlineDatesCode2          = $(step1Selector +  " #online_code_date_override_2").val();
-        var overrideOnlineDatesCode3          = $(step1Selector +  " #online_code_date_override_3").val();
-
-        // online override days to add
-        var overrideOnlineDatesCode1days      = $(step1Selector +  " #online_voucher_date_override_1_days").val();
-        var overrideOnlineDatesCode2days      = $(step1Selector +  " #online_voucher_date_override_2_days").val();
-        var overrideOnlineDatesCode3days      = $(step1Selector +  " #online_voucher_date_override_3_days").val();
-
-
-        // online meta data
-        var printAtTillOnline           = $(step1Selector +  " #print_at_till_online").val();
-        var instantWinOnline            = $(step1Selector +  " #instant_win_online").val();
-        var mediumOnline                = $(step1Selector +  " #offer_medium_online").val();
-        var promotionIdOnline           = $(step1Selector +  " #promotion_id_online").val();
-        var promotionGroupIdOnline      = $(step1Selector +  " #promotion_group_id_online").val();
-
-        // online global code setup
-        var instoreCode1                = $(step2Selector +  " #instore_code_1_instore").val();
-        var instoreCode2                = $(step2Selector +  " #instore_code_2_instore").val();
-        var instoreCode3                = $(step2Selector +  " #instore_code_3_instore").val();
-
-        // instore override dates
-        var overrideInstoreDatesCode1          = $(step2Selector +  " #instore_code_date_override_1").val();
-        var overrideInstoreDatesCode2          = $(step2Selector +  " #instore_code_date_override_2").val();
-        var overrideInstoreDatesCode3          = $(step2Selector +  " #instore_code_date_override_3").val();
-
-        // instore override days to add
-        var overrideInstoreDatesCode1days      = $(step2Selector +  " #instore_voucher_date_override_1_days").val();
-        var overrideInstoreDatesCode2days      = $(step2Selector +  " #instore_voucher_date_override_2_days").val();
-        var overrideInstoreDatesCode3days      = $(step2Selector +  " #instore_voucher_date_override_3_days").val();
-
-        // instore meta data
-        var printAtTillInstore          = $(step2Selector +  " #print_at_till_instore").val();
-        var instantWinInstore           = $(step2Selector +  " #instant_win_instore").val();
-        var mediumInstore               = $(step2Selector +  " #offer_medium_instore").val();
-        var promotionIdInstore          = $(step2Selector +  " #promotion_id_instore").val();
-        var promotionGroupIdInstore     = $(step2Selector +  " #promotion_group_id_instore").val();
-
-        payloadNode = {
-
-            "promotion_type"                    : promotionType,
-
-            "control_group"                     : controlGroup,
-
-            "email_template"                    : emailTemplate,
-
-            "cell_code"                         : cellCode,
-            "cell_name"                         : cellName,
-            "campaign_name"                     : campaignName,
-            "campaign_id"                       : campaignId,
-            "campaign_code"                     : campaignCode,
-
-            "voucher_pot_1"                     : voucherPot1,
-            "voucher_pot_2"                     : voucherPot2,
-            "voucher_pot_3"                     : voucherPot3,
-
-            "re_use_voucher_pot_1"              : reUseVoucherPot1,
-            "re_use_voucher_pot_2"              : reUseVoucherPot2,
-            "re_use_voucher_pot_3"              : reUseVoucherPot3,
-
-            "global_code_1"                     : globalCode1,
-            "global_code_2"                     : globalCode2,
-            "global_code_3"                     : globalCode3,
-
-            "online_code_date_override_1"       : overrideOnlineDatesCode1,
-            "online_code_date_override_2"       : overrideOnlineDatesCode2,
-            "online_code_date_override_3"       : overrideOnlineDatesCode3,
-
-            "online_voucher_date_override_1_days" : overrideOnlineDatesCode1days,
-            "online_voucher_date_override_2_days" : overrideOnlineDatesCode2days,
-            "online_voucher_date_override_3_days" : overrideOnlineDatesCode3days,
-
-            "print_at_till_online"              : printAtTillOnline,
-            "instant_win_online"                : instantWinOnline,
-            "offer_medium_online"               : mediumOnline,
-            "promotion_id_online"               : promotionIdOnline,
-            "promotion_group_id_online"         : promotionGroupIdOnline,
-
-            "instore_code_1"                    : instoreCode1,
-            "instore_code_2"                    : instoreCode2,
-            "instore_code_3"                    : instoreCode3,
-
-            "instore_code_date_override_1"       : overrideInstoreDatesCode1,
-            "instore_code_date_override_2"       : overrideInstoreDatesCode2,
-            "instore_code_date_override_3"       : overrideInstoreDatesCode3,
-
-            "instore_voucher_date_override_1_days" : overrideInstoreDatesCode1days,
-            "instore_voucher_date_override_2_days" : overrideInstoreDatesCode2days,
-            "instore_voucher_date_override_3_days" : overrideInstoreDatesCode3days,
-
-            "print_at_till_instore"             : printAtTillInstore,
-            "instant_win_instore"               : instantWinInstore,
-            "offer_medium_instore"              : mediumInstore,
-            "promotion_id_instore"              : promotionIdInstore,
-            "promotion_group_id_instore"        : promotionGroupIdInstore
-
-        };
+        for ( i = 0; i < step3FormInputs.length; i++ ) {
+            if ( step3FormInputs[i].id) {
+                if ( step3FormInputs[i].type == "checkbox") {
+                    if ( step3FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 3,
+                            key: step3FormInputs[i].id, 
+                            value:  true,
+                            type: "checkbox"
+                        });
+                    } else {
+                        payloadNode.push({
+                            step: 3,
+                            key: step3FormInputs[i].id, 
+                            value:  false,
+                            type: "checkbox"
+                        });                        
+                    }
+                } else if ( step3FormInputs[i].type == "radio" ) {
+                    if ( step3FormInputs[i].checked ) {
+                        payloadNode.push({
+                            step: 3,
+                            key: step3FormInputs[i].name, 
+                            value:  step3FormInputs[i].value,
+                            type: "radio"
+                        });
+                    }
+                } else {
+                    if ( step3FormInputs[i].value ) {
+                        payloadNode.push({
+                            step: 3,
+                            key: step3FormInputs[i].id, 
+                            value:  step3FormInputs[i].value,
+                            type: "input"
+                        });                       
+                    }
+                }
+            }
+        }
 
         if ( debug ) {
             console.log(payloadNode);
@@ -1489,37 +1604,145 @@ define([
 
     function updateSummaryPage(summaryPayload) {
 
+        $("#summary-main-setup, #summary-online-setup, #summary-instore-setup").empty();
+
         if ( debug ) {
             console.log("Build Payload for summary update it")
             console.log(summaryPayload);
         }
-        
-        Object.keys(summaryPayload).forEach(function(key) {
-            console.table('Key : ' + key + ', Value : ' + summaryPayload[key]);
-            $("<p>" + key + "</p>").appendTo("#summary_json_key");
-            $("<p>" + summaryPayload[key] + "</p>").appendTo("#summary_json_value");
-        })
-        
+ 
+        var z = 0;
+
+        for ( z = 0; z < summaryPayload.length; z++ ) {
+
+            if ( summaryPayload[z].value != "no-code" || summaryPayload[z].value != false || summaryPayload[z].value != "false" ) {
+
+                if ( summaryPayload[z].step == 1 ) {
+
+                    if ( summaryPayload[z].key == "promotionType" ) {
+                        var summaryPromotionType = summaryPayload[z].value;
+                        if ( summaryPromotionType == "online") {
+                            $("#summary-instore-setup").append('<p>No codes setup.</p>');
+                        } else if ( summaryPromotionType == "instore" || summaryPromotionType == "nocode" ) {
+                            $("#summary-online-setup").append('<p>No codes setup.</p>');
+                        }
+                    } else if ( summaryPayload[z].key == "promotion_key_hidden" ) {
+
+                        $(".promotion_key_sql").text(summaryPayload[z].value);
+
+                    } else if ( summaryPayload[z].key == "control_group" && summaryPayload[z].value != "no-code" ) {
+
+                        console.log("Show control group block");
+
+                        // update control DE value is SQL statement
+                        $(".control_group_data_extension").text(decodeURI(summaryPayload[z].value));
+
+                        // show control group block
+                        $("#control-group-association").show();
+
+                    }  else if ( summaryPayload[z].key == "update_contacts" && summaryPayload[z].value != "no-code" ) {
+
+                        console.log("Show no association block");
+
+                        // update control DE value is SQL statement
+                        $(".update_contact_data_extension").text(decodeURI(summaryPayload[z].value));
+
+                        // show association and communication SQL
+                        $("#no-email-association").show();
+                        $("#if028").show();
+
+
+                    } else if ( summaryPayload[z].key == "promotion_state_hidden" && summaryPayload[z].value == "true" ) {
+
+                        $("#control_action_update").prop('disabled', true);
+                        $("#control_action_optima").prop('disabled', true);
+                        $("#control_action_test").prop('disabled', true);
+                        $("#control_action_option").html("Promotion is live");
+
+                    }
+
+                    $("#summary-main-setup").append('<dt class="slds-item_label slds-text-color_weak" title="'+summaryPayload[z].key+'"><b>'+cleanUpKeyText(summaryPayload[z].key)+'</b></dt>');
+                    $("#summary-main-setup").append('<dd class="slds-item_detail" title="Description for '+summaryPayload[z].value+'">'+cleanUpValueText(summaryPayload[z].value)+'</dd>');
+
+                } else if ( summaryPayload[z].step == 2 ) {
+
+                    if ( summaryPromotionType == "online" || summaryPromotionType == "online_instore" ) {
+
+                        $("#summary-online-setup").append('<dt class="slds-item_label slds-text-color_weak" title="'+summaryPayload[z].key+'"><b>'+cleanUpKeyText(summaryPayload[z].key)+'</b></dt>');
+                        $("#summary-online-setup").append('<dd class="slds-item_detail" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
+
+                    }              
+
+                } else if ( summaryPayload[z].step == 3 ) {
+
+                    if ( summaryPromotionType == "instore" || summaryPromotionType == "online_instore" || summaryPromotionType == "nocode" ) {
+
+                        $("#summary-instore-setup").append('<dt class="slds-item_label slds-text-color_weak" title="'+summaryPayload[z].key+'"><b>'+cleanUpKeyText(summaryPayload[z].key)+'</b></dt>');
+                        $("#summary-instore-setup").append('<dd class="slds-item_detail" title="Description for '+summaryPayload[z].value+'">'+summaryPayload[z].value+'</dd>');
+                    
+                    }     
+                }
+            }
+        }  
+    }
+
+    function cleanUpKeyText(keyString) {
+        return keyString.split("_").join(" ");
+    }
+
+    function cleanUpValueText(valueString) {
+        return decodeURI(valueString);
     }
 
     function save() {
 
         var buildPayload = buildActivityPayload();
 
+        // replace with res from save to DE function
+
+        if (debug) {
+            console.log("Build Payload is:");
+            console.log(JSON.stringify(buildPayload));
+            console.log(buildPayload.promotion_key);
+        }
+
+        var argPromotionKey;
+
+        for ( var w = 0; w < buildPayload.length; w++ ) {
+            console.log("inside build payload loop");
+            console.log(buildPayload[w]);
+            if ( buildPayload[w].key == "promotion_key_hidden") {
+                argPromotionKey = buildPayload[w].value;
+            }
+        }
+
+        console.log("arg key");
+        console.log(argPromotionKey); 
+
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
-        payload.name = buildPayload.campaign_name;
+        payload.name = $("#campaign_name").val();
+        var promoState = $("#promotion_state_hidden").val();
 
         payload['arguments'].execute.inArguments = [{buildPayload}];
 
-        payload['metaData'].isConfigured = true;
-
-        if ( debug ) {
-            console.log(payload);
+        // set isConfigured to true
+        if ( argPromotionKey && promoState ) {
+            // sent to de and configured
+            payload['metaData'].isConfigured = true;
+        } else {
+            // not sent to de but configured
+            payload['metaData'].isConfigured = false;
         }
 
+        if ( debug ) {
+            console.log("Payload including in args")
+            console.log(payload.arguments.execute.inArguments);
+        }
+
+        // trigger payload save
         connection.trigger('updateActivity', payload);
     }
 
