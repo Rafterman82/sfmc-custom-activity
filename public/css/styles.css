@@ -32,6 +32,33 @@ body {
 #step2alert {
 	display: none;
 }
+#step3alert {
+	margin-bottom: 10px;
+}
 .slds-scoped-notification {
 	width:100%;
+}
+.slds-notify_toast, .slds-notify--toast {
+	min-width:97%!important;
+}
+#summary-instore-setup dt, #summary-online-setup dt, #summary-main-setup dt {
+	text-transform: capitalize;
+}
+.slds-item_detail, .slds-item_label {
+	width: 50%!important;
+}
+#update_contact_box {
+	display:none;
+}
+.slds-notify_container {
+	z-index: 9000!important;
+}
+#control-group-association {
+	display:none;
+}
+#no-email-association {
+	display:none;
+}
+#if028 {
+	display:none;
 }
