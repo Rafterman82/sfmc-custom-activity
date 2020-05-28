@@ -809,6 +809,8 @@ define([
             for (i = 0; i < result.items.length; ++i) {
                 if ( debug ) {
                     console.log(result.items[i].keys.couponcode);
+                }
+                
                 var i;
                 if ( result.items ) {
                     for (i = 0; i < result.items.length; ++i) {
@@ -829,6 +831,7 @@ define([
                 $("#global_code_2").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
                 $("#global_code_3").append("<option value=" + encodeURI(result.items[i].keys.couponcode) + ">" + result.items[i].keys.couponcode + "</option>");
             }
+
         }});
     }
 
