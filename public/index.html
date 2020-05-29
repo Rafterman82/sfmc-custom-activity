@@ -437,7 +437,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
+                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small hide-code">
                         <div class="slds-grid">
                             <div class="slds-col">
                                 <div class="slds-form-element sfmc-input">
@@ -498,7 +498,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
+                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small hide-code">
                         <div class="slds-grid">
                             <div class="slds-col">
                                 <div class="slds-form-element sfmc-input">
@@ -559,7 +559,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
+                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small hide-code">
                         <div class="slds-grid">
                             <div class="slds-col">
                                 <div class="slds-form-element sfmc-input">
@@ -620,7 +620,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
+                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small hide-code">
                         <div class="slds-grid">
                             <div class="slds-col">
                                 <div class="slds-form-element sfmc-input">
@@ -761,7 +761,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
+                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small hide-code">
                         <div class="slds-grid">
                             <div class="slds-col">
                                 <div class="slds-form-element sfmc-input">
@@ -837,7 +837,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
+                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small hide-code">
                         <div class="slds-grid">   
                             <div class="slds-col">
                                 <div class="slds-form-element sfmc-input">
@@ -914,7 +914,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
+                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small hide-code">
                         <div class="slds-grid">
                             <div class="slds-col">
                                 <div class="slds-form-element sfmc-input">
@@ -990,7 +990,7 @@
                             </div>
                         </div>
                     </div>          
-                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small">
+                    <div class="slds-box slds-box_xx-small slds-m-vertical_xx-small hide-code">
                         <div class="slds-grid">
                             <div class="slds-col">
                                 <div class="slds-form-element sfmc-input">
@@ -1650,14 +1650,17 @@
                                     </a>
                                 </h2>
                                 <p>Copy and paste the below SQL into a new automation after the control group data extension has filled up with contacts</p>
+                                <ul>
+                                    <li>Target Data Extension: Environment > Outbound > IF028 > PARTY_COMMUNICATION_HISTORY</li>
+                                    <li>Data Action: Append</li>
+                                </ul>
                                 <br>
                                 <p>
                                     SELECT<br>
-                                    PARTY_ID,<br>
-                                    GETDATE() AS CONTACT_DATE,<br>
+                                    bucket.PARTY_ID,<br>
                                     cpa.communication_cell_id_control as COMMUNICATION_CELL_ID<br>
                                     FROM<br>
-                                    [<span class="control_group_data_extension"></span>]<br>
+                                    [<span class="control_group_data_extension"></span>] as bucket<br>
                                     LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
                                     ON cpa.promotion_key = <span class="promotion_key_sql"></span>
                                 </p>
@@ -1685,12 +1688,30 @@
                                     </a>
                                 </h2>
                                 <p>Copy and paste the below SQL into a new automation after the update contact data extension has filled up with contacts</p>
+                                <ul>
+                                    <li>Target Data Extension: Environment > Outbound > IF024 > PROMOTION_ASSIGNMENT</li>
+                                    <li>Data Action: Append</li>
+                                </ul>
                                 <br>
                                 <p>
                                     SELECT<br>
                                     bucket.PARTY_ID,<br>
                                     cpa.MC_ID_6 as MC_UNIQUE_PROMOTION_ID,<br>
                                     GETDATE() as ASSIGNMENT_DATETIME<br>
+                                    FROM<br>
+                                    [<span class="update_contact_data_extension"></span>] as bucket<br>
+                                    LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
+                                    ON cpa.promotion_key = <span class="promotion_key_sql"></span>
+                                </p>
+                                <ul>
+                                    <li>Target Data Extension: Environment > Outbound > IF028 > PARTY_COMMUNICATION_HISTORY</li>
+                                    <li>Data Action: Append</li>
+                                </ul>
+                                <br>
+                                <p>
+                                    SELECT<br>
+                                    bucket.PARTY_ID,<br>
+                                    cpa.communication_cell_id as COMMUNICATION_CELL_ID<br>
                                     FROM<br>
                                     [<span class="update_contact_data_extension"></span>] as bucket<br>
                                     LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>

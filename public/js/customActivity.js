@@ -310,6 +310,27 @@ define([
 
         });
 
+        // if channel is PUSH, hide codes 2345 on both instore and online
+        $("#channel").change(function() {
+            // set instant win to opposite
+            if ( $("#channel").val() == "3" || $("#channel").val() == "4") {
+
+                $(".hide-code").hide();
+                $("#code2").hide();
+                $("#code3").hide();
+                $("#code4").hide();
+                $("#code5").hide();
+
+            } else {
+
+                $(".hide-code").show();
+                $("#code2").show();
+                $("#code3").show();
+                $("#code4").show();
+                $("#code5").show();
+            }
+        });
+
         // ensure print at till and instant win can never be the same value
 
         $("#print_at_till_online").change(function() {
