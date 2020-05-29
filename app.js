@@ -946,7 +946,7 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 	var lookupCampaigns = getCampaignsUrl + "promotion_key%20eq%20'" + existingKey + "'"
 	console.dir(lookupCampaigns);
 
-	var currentDateTimeStamp = getDateString();
+	var currentDateTimeStamp = getDateString(getDateAndOffSet());
 
 	getOauth2Token().then((tokenResponse) => {
 
