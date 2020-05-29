@@ -310,6 +310,27 @@ define([
 
         });
 
+        // if channel is PUSH, hide codes 2345 on both instore and online
+        $("#channel").change(function() {
+            // set instant win to opposite
+            if ( $("#channel").val() == "3" || $("#channel").val() == "4") {
+
+                $(".hide-code").hide();
+                $("#code2").hide();
+                $("#code3").hide();
+                $("#code4").hide();
+                $("#code5").hide();
+
+            } else {
+
+                $(".hide-code").show();
+                $("#code2").show();
+                $("#code3").show();
+                $("#code4").show();
+                $("#code5").show();
+            }
+        });
+
         // ensure print at till and instant win can never be the same value
 
         $("#print_at_till_online").change(function() {
@@ -806,7 +827,6 @@ define([
                         $("#instore_code_4").append("<option data-attribute-loyalty=" + result.items[i].values.bispromotionheader + " data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
                         $("#instore_code_5").append("<option data-attribute-loyalty=" + result.items[i].values.bispromotionheader + " data-attribute-validfrom=" + result.items[i].values.datefrom + " data-attribute-validto=" + result.items[i].values.dateto + " value=" + encodeURI(result.items[i].keys.discountid) + ">" + result.items[i].keys.discountid + " - " + result.items[i].values.name + "</option>");
                     }
-
                 }
                 updateApiStatus("instorecodes-api", true);
             }
@@ -963,11 +983,11 @@ define([
                         console.log(result.items[i]);
                     }
                     // do something with substr[i]
-                    $("#unique_code_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows) + "</option>");
-                    $("#unique_code_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
-                    $("#unique_code_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
-                    $("#unique_code_4").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
-                    $("#unique_code_5").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
+                    $("#unique_code_1").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Type: " + result.items[i].values.type.toUpperCase() + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows) + "</option>");
+                    $("#unique_code_2").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Type: " + result.items[i].values.type.toUpperCase() + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
+                    $("#unique_code_3").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Type: " + result.items[i].values.type.toUpperCase() + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
+                    $("#unique_code_4").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Type: " + result.items[i].values.type.toUpperCase() + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
+                    $("#unique_code_5").append("<option data-attribute-count="+ result.items[i].values.count +" value=" + result.items[i].values.dataextensionname + ">" + result.items[i].values.dataextensionname + " - Type: " + result.items[i].values.type.toUpperCase() + " - Unclaimed Rows: " + (result.items[i].values.count - result.items[i].values.claimedrows)  + "</option>");
                 }
                 updateApiStatus("voucherpot-api", true);
             }
@@ -1363,6 +1383,7 @@ define([
                     console.log('success');
                     console.log(data);
                     $("#promotion_key_hidden").val(data);
+                    $(".promotion_key_sql").html(data);
                     $("#main_setup_key").html(data);
                     $("#control_action_test").html("Data has been saved");
                     $("#control_action_test").prop('disabled', true);
