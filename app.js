@@ -741,16 +741,36 @@ app.post('/dataextension/add/', async function (req, res){
 	
 });
 
-function getDateString() {
-	let date_ob = new Date();
+function getDateString(dateOffSetted) {
+	let date_ob = dateOffSetted;
 	let date = ("0" + date_ob.getDate()).slice(-2);
 	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 	let year = date_ob.getFullYear();
 	let hours = date_ob.getHours();
 	let minutes = date_ob.getMinutes();
-	let seconds = date_ob.getSeconds();
+    let seconds = date_ob.getSeconds();
+    if ( minutes < 10 ) {
+        minutes = "0" + minutes;
+    }
+    if ( seconds < 10 ) {
+        seconds = "0" + seconds;
+    }
+	
 	let dateString = year + "/" + month + "/" + date + " " + hours + ":" + minutes + ":" + seconds;	
 	return dateString;
+}
+
+function getDateAndOffSet() {
+    var dt = new Date();
+    //console.log(dt); // Gives Tue Mar 22 2016 09:30:00 GMT+0530 (IST)
+
+    dt.setTime(dt.getTime()+dt.getTimezoneOffset()*60*1000);
+    //console.log(dt); // Gives Tue Mar 22 2016 04:00:00 GMT+0530 (IST)
+
+    var offset = -300; //Timezone offset for EST in minutes.
+    var estDate = new Date(dt.getTime() + offset*60*1000);
+    console.log(estDate);
+    return estDate; 
 }
 
 async function setLive(existingKey) {
@@ -761,7 +781,7 @@ async function setLive(existingKey) {
 	console.dir("Looking up CPA's URL");
 	console.dir(lookupCampaigns);
 
-	var currentDateTimeStamp = getDateString();
+	var currentDateTimeStamp = getDateString(getDateAndOffSet());
 	console.dir("The current DT stamp is");
 	console.dir(currentDateTimeStamp);
 
