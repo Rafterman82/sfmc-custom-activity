@@ -1380,6 +1380,7 @@ define([
                     console.log('success');
                     console.log(data);
                     $("#promotion_key_hidden").val(data);
+                    $("#promotion_key_sql").val(data);
                     $("#main_setup_key").html(data);
                     $("#control_action_test").html("Data has been saved");
                     $("#control_action_test").prop('disabled', true);
