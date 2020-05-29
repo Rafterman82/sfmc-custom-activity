@@ -1650,6 +1650,7 @@
                                     </a>
                                 </h2>
                                 <p>Copy and paste the below SQL into a new automation after the control group data extension has filled up with contacts</p>
+                                <br>
                                 <ul>
                                     <li><b>Target Data Extension:</b> Environment > Outbound > IF028 > PARTY_COMMUNICATION_HISTORY</li>
                                     <li><b>Data Action:</b> Append</li>
@@ -1703,21 +1704,6 @@
                                     LEFT JOIN campaignPromotionAssociation_NEW_SIT as cpa<br>
                                     ON cpa.promotion_key = <span class="promotion_key_sql"></span>
                                 </p>
-                                <br>
-                                <ul>
-                                    <li><b>Target Data Extension:</b> Environment > Outbound > IF028 > PARTY_COMMUNICATION_HISTORY</li>
-                                    <li><b>Data Action:</b> Append</li>
-                                </ul>
-                                <br>
-                                <p>
-                                    SELECT<br>
-                                    bucket.PARTY_ID,<br>
-                                    cpa.communication_cell_id as COMMUNICATION_CELL_ID<br>
-                                    FROM<br>
-                                    [<span class="update_contact_data_extension"></span>] as bucket<br>
-                                    LEFT JOIN campaignPromotionAssociation_NEW_SIT as cpa<br>
-                                    ON cpa.promotion_key = <span class="promotion_key_sql"></span>
-                                </p>
                             </div>
                         </header>
                     </div>
@@ -1742,6 +1728,11 @@
                                     </a>
                                 </h2>
                                 <p>Copy and paste the below SQL into a new automation after the update contact data extension has filled up with contacts</p>
+                                <br>
+                                <ul>
+                                    <li><b>Target Data Extension:</b> Environment > Outbound > IF028 > PARTY_COMMUNICATION_HISTORY</li>
+                                    <li><b>Data Action:</b> Append</li>
+                                </ul>
                                 <br>
                                 <p>
                                     SELECT<br>
