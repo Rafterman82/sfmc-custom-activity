@@ -1662,7 +1662,7 @@
                                     cpa.communication_cell_id_control as COMMUNICATION_CELL_ID<br>
                                     FROM<br>
                                     [<span class="control_group_data_extension"></span>] as bucket<br>
-                                    LEFT JOIN campaignPromotionAssociation_NEW_SIT as cpa<br>
+                                    LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
                                     ON cpa.promotion_key = <span class="promotion_key_sql"></span>
                                 </p>
                             </div>
@@ -1702,7 +1702,7 @@
                                     GETDATE() as ASSIGNMENT_DATETIME<br>
                                     FROM<br>
                                     [<span class="update_contact_data_extension"></span>] as bucket<br>
-                                    LEFT JOIN campaignPromotionAssociation_NEW_SIT as cpa<br>
+                                    LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
                                     ON cpa.promotion_key = <span class="promotion_key_sql"></span>
                                 </p>
                             </div>
@@ -1742,7 +1742,7 @@
                                     GETDATE() as CONTACT_DATE<br>
                                     FROM<br>
                                     [<span class="update_contact_data_extension"></span>] as bucket<br>
-                                    LEFT JOIN campaignPromotionAssociation_NEW_SIT as cpa<br>
+                                    LEFT JOIN campaignPromotionAssociation_NEW_PROD as cpa<br>
                                     ON cpa.promotion_key = <span class="promotion_key_sql"></span>
                                 </p>
                             </div>
