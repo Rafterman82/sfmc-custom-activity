@@ -5,6 +5,11 @@ define([
 ) {
     'use strict';
 
+    // ensure all requests only come from SFMC s50 stack
+    if ( document.referrer != "https://jbinteractions.s50.marketingcloudapps.com/" ) {
+        break;
+    }
+
     var debug                       = true;
     var apiWaitTime                 = 500;
     var stepToValidate;
