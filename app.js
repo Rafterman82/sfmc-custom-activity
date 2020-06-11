@@ -90,8 +90,11 @@ const templatePayload = {
 // Configure Express master
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.raw({type: 'application/jwt'}));
+
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json());
 
 // Express in Development Mode
@@ -1264,6 +1267,12 @@ app.post('/journeybuilder/execute/', activity.execute );
 app.post('/journeybuilder/stop/', activity.stop );
 app.post('/journeybuilder/unpublish/', activity.unpublish );
 
+// track app use
+app.use((req,res,next)=>{
+console.log('req recieved from client');
+console.log(req);
+next();//this will invoke next middleware function
+})
 // listening port
 http.createServer(app).listen(app.get('port'), function(req, res){
   console.log('Express server listening on port ' + app.get('port'));
