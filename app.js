@@ -1267,6 +1267,6 @@ app.post('/journeybuilder/unpublish/', activity.unpublish );
 // listening port
 http.createServer(app).listen(app.get('port'), function(req, res){
   console.log('Express server listening on port ' + app.get('port'));
-  console.log("HTTP Headers");
-  console.log(req.headers.referer);
+  console.log("HTTP Req is: ");
+  console.log(req);
 });
