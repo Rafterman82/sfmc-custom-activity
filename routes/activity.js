@@ -1,6 +1,8 @@
 'use strict';
 var util = require('util');
 
+console.log("Activity JS loaded");
+
 // Deps
 const path      = require('path');
 const JWT       = require(path.join(__dirname, '..', 'lib', 'jwtDecoder.js'));
