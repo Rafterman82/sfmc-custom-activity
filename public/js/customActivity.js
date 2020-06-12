@@ -77,12 +77,12 @@ define([
             fuel2Token = tokens.fuel2token;
 
             if ( fuel2Token ) {
-                lookupPromos();
-                lookupGlobalCodes();
-                lookupTemplates();
-                lookupVoucherPots();
-                lookupControlGroups();
-                lookupUpdateContacts();
+                lookupPromos(fuel2Token);
+                lookupGlobalCodes(fuel2Token);
+                lookupTemplates(fuel2Token);
+                lookupVoucherPots(fuel2Token);
+                lookupControlGroups(fuel2Token);
+                lookupUpdateContacts(fuel2Token);
                 loadEvents();
                 setGlobalCodeBlock();
             } 
@@ -429,19 +429,19 @@ define([
 
         // handler for Optima button
         $("#control_action_optima").click(function(){
-            setLive($("#promotion_key_hidden").val());
+            setLive($("#promotion_key_hidden").val(), fuel2Token);
             $("#sent").val(true);
         });
 
         // handler for Optima button
         $("#control_action_update").click(function(){
-            updateExistingPromotion($("#promotion_key_hidden").val(), buildActivityPayload());
+            updateExistingPromotion($("#promotion_key_hidden").val(), buildActivityPayload(), fuel2Token);
             $("#sent").val(false);
         });
 
         // handler for Optima button
         $("#control_action_test").click(function(){
-            saveToDataExtension(buildActivityPayload(), false);
+            saveToDataExtension(buildActivityPayload(), false, fuel2Token);
             $("#sent").val(false);
         });
 
@@ -788,11 +788,11 @@ define([
         $("#show_global_codes").show();
     }
 
-    function lookupGlobalCodes() {
+    function lookupGlobalCodes(fuel2Token) {
 
         // access offer types and build select input
         $.ajax({
-            url: "/dataextension/lookup/globalcodes", 
+            url: "/dataextension/lookup/globalcodes/" + fuel2Token, 
             error: function() {
                 updateApiStatus("onlinecodes-api", false);
             },
@@ -823,12 +823,12 @@ define([
         });
     }
 
-    function lookupPromos() {
+    function lookupPromos(fuel2Token) {
 
         // access offer types and build select input
         $.ajax({
 
-            url: "/dataextension/lookup/promotions",
+            url: "/dataextension/lookup/promotions/" + fuel2Token,
             error: function() {
                 updateApiStatus("instorecodes-api", false);
             }, 
@@ -857,12 +857,12 @@ define([
         });
     }
 
-    function lookupTemplates() {
+    function lookupTemplates(fuel2Token) {
 
         // access offer types and build select input
         $.ajax({
 
-            url: "/dataextension/lookup/templates", 
+            url: "/dataextension/lookup/templates/" + fuel2Token, 
             error: function() {
                 updateApiStatus("email-api", false);
             }, 
@@ -886,7 +886,7 @@ define([
                 // access offer types and build select input
                 $.ajax({
 
-                    url: "/dataextension/lookup/campaigns", 
+                    url: "/dataextension/lookup/campaigns/" + fuel2Token, 
                     error: function() {
                         updateApiStatus("email-api", false);
                     }, 
@@ -929,11 +929,11 @@ define([
 
     }
 
-    function lookupControlGroups() {
+    function lookupControlGroups(fuel2Token) {
 
         // access offer types and build select input
         $.ajax({
-            url: "/dataextension/lookup/controlgroups",
+            url: "/dataextension/lookup/controlgroups/" + fuel2Token,
             error: function() {
                 updateApiStatus("controlgroup-api", false);
             },  
@@ -957,11 +957,11 @@ define([
         });
     }
 
-    function lookupUpdateContacts() {
+    function lookupUpdateContacts(fuel2Token) {
 
         // access offer types and build select input
         $.ajax({
-            url: "/dataextension/lookup/updatecontacts",
+            url: "/dataextension/lookup/updatecontacts/" + fuel2Token,
             error: function() {
                 updateApiStatus("updatecontacts-api", false);
             },  
@@ -985,11 +985,11 @@ define([
         });
     }
 
-    function lookupVoucherPots() {
+    function lookupVoucherPots(fuel2Token) {
 
         // access offer types and build select input
         $.ajax({
-            url: "/dataextension/lookup/voucherpots",
+            url: "/dataextension/lookup/voucherpots/" + fuel2Token,
             error: function() {
                 updateApiStatus("voucherpot-api", false);
             },  
@@ -1397,7 +1397,7 @@ define([
      * Function add data to data extension
      */
 
-    function saveToDataExtension(payloadToSave) {
+    function saveToDataExtension(payloadToSave, fuel2Token) {
 
         if ( debug ) {
             console.log("Data Object to be saved is: ");
@@ -1406,7 +1406,7 @@ define([
 
         try {
             $.ajax({ 
-                url: '/dataextension/add',
+                url: '/dataextension/add/' + fuel2Token,
                 type: 'POST',
                 data: JSON.stringify(payloadToSave),
                 contentType: 'application/json',                     
@@ -1438,7 +1438,7 @@ define([
      * Function add data to data extension
      */
 
-    function updateExistingPromotion(hiddenPromotionKey, payloadToSave) {
+    function updateExistingPromotion(hiddenPromotionKey, payloadToSave, fuel2Token) {
 
         if ( debug ) {
             console.log("Data Object to be updated is: ");
@@ -1447,7 +1447,7 @@ define([
 
         try {
             $.ajax({ 
-                url: '/dataextension/update-existing',
+                url: '/dataextension/update-existing/' +  fuel2Token,
                 type: 'POST',
                 data: JSON.stringify(payloadToSave),
                 contentType: 'application/json',                     
@@ -1472,7 +1472,7 @@ define([
 
     }
 
-    function setLive(hiddenPromotionKey) {
+    function setLive(hiddenPromotionKey, fuel2Token) {
         if ( debug ) {
             console.log("Key for updates is: ");
             console.log(hiddenPromotionKey);
@@ -1490,7 +1490,7 @@ define([
 
         try {
             $.ajax({ 
-                url: '/dataextension/set-live',
+                url: '/dataextension/set-live/' + fuel2Token,
                 type: 'POST',
                 data: JSON.stringify(updateNode),
                 contentType: 'application/json',                     

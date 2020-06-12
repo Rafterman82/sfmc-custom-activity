@@ -306,7 +306,10 @@ const updateIncrements = (targetUrl, promotionObject, communicationCellObject, m
 });
 
 //Fetch increment values
-app.get("/dataextension/lookup/increments", (req, res, next) => {
+app.get("/dataextension/lookup/increments/:fuel2Token", (req, res, next) => {
+
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -327,7 +330,10 @@ app.get("/dataextension/lookup/increments", (req, res, next) => {
 });
 
 //Fetch rows from promotions data extension
-app.get("/dataextension/lookup/promotions", (req, res, next) => {
+app.get("/dataextension/lookup/promotions/:fuel2Token", (req, res, next) => {
+
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -348,7 +354,10 @@ app.get("/dataextension/lookup/promotions", (req, res, next) => {
 });
 
 //Fetch rows from promotions data extension
-app.get("/dataextension/lookup/campaigns", (req, res, next) => {
+app.get("/dataextension/lookup/campaigns/:fuel2Token", (req, res, next) => {
+
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -369,7 +378,10 @@ app.get("/dataextension/lookup/campaigns", (req, res, next) => {
 });
 
 //Fetch rows from promotions data extension
-app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
+app.get("/dataextension/lookup/globalcodes/:fuel2Token", (req, res, next) => {
+
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -390,7 +402,10 @@ app.get("/dataextension/lookup/globalcodes", (req, res, next) => {
 });
 
 //Fetch rows from control group data extension
-app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
+app.get("/dataextension/lookup/controlgroups/:fuel2Token", (req, res, next) => {
+
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -412,7 +427,10 @@ app.get("/dataextension/lookup/controlgroups", (req, res, next) => {
 });
 
 //Fetch rows from update contacts data extension
-app.get("/dataextension/lookup/updatecontacts", (req, res, next) => {
+app.get("/dataextension/lookup/updatecontacts/:fuel2Token", (req, res, next) => {
+
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -434,7 +452,10 @@ app.get("/dataextension/lookup/updatecontacts", (req, res, next) => {
 });
 
 //Fetch rows from voucher data extension
-app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
+app.get("/dataextension/lookup/voucherpots/:fuel2Token", (req, res, next) => {
+
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -455,7 +476,10 @@ app.get("/dataextension/lookup/voucherpots", (req, res, next) => {
 });
 
 //Fetch email templates
-app.get("/dataextension/lookup/templates", (req, res, next) => {
+app.get("/dataextension/lookup/templates/:fuel2Token", (req, res, next) => {
+
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 
 	getOauth2Token().then((tokenResponse) => {
 
@@ -732,7 +756,9 @@ async function sendBackPayload(payload) {
 
 }
 // insert data into data extension
-app.post('/dataextension/add/', async function (req, res){ 
+app.post('/dataextension/add/:fuel2Token', async function (req, res){ 
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 	console.dir("Dump request body");
 	console.dir(req.body);
 	try {
@@ -1231,7 +1257,9 @@ async function updateExistingPromotion(existingKey, payloadBody) {
 }
 
 // insert data into data extension
-app.post('/dataextension/set-live/', async function (req, res){ 
+app.post('/dataextension/set-live/:fuel2Token', async function (req, res){
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token); 
 	console.dir("Dump update request body");
 	console.dir(req.body);
 	console.dir("the update key is");
@@ -1246,7 +1274,9 @@ app.post('/dataextension/set-live/', async function (req, res){
 });
 
 // insert data into data extension
-app.post('/dataextension/update-existing/', async function (req, res){ 
+app.post('/dataextension/update-existing/:fuel2Token', async function (req, res){ 
+	console.dir("The fuel token sent is: ");
+	console.dir(req.params.fuel2Token);
 	console.dir("Dump update request body");
 	console.dir(req.body);
 	console.dir("the update key is");
