@@ -338,14 +338,12 @@ app.get("/dataextension/lookup/increments/:fuel2Token", (req, res, next) => {
 
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
+
 	var token = req.params.fuel2Token;
 
 	if ( token ) {
 
 		validateTokenContext(token).then((tokenContext) => {
-
-			console.dir("The fuel token context response is: ");
-
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -362,7 +360,7 @@ app.get("/dataextension/lookup/increments/:fuel2Token", (req, res, next) => {
 				    console.dir("Error getting increments");
 				    console.dir(error);
 				});
-			})			
+			})				
 		})
 	}
 });
@@ -376,7 +374,7 @@ app.get("/dataextension/lookup/promotions/:fuel2Token", (req, res, next) => {
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -393,8 +391,8 @@ app.get("/dataextension/lookup/promotions/:fuel2Token", (req, res, next) => {
 				    console.dir("Error getting promotions");
 				    console.dir(error);
 				});
-			})			
-		}
+			})					
+		})
 	}	
 });
 
@@ -408,7 +406,7 @@ app.get("/dataextension/lookup/campaigns/:fuel2Token", (req, res, next) => {
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -425,8 +423,8 @@ app.get("/dataextension/lookup/campaigns/:fuel2Token", (req, res, next) => {
 				    console.dir("Error getting promotions");
 				    console.dir(error);
 				});
-			})				
-		}
+			})					
+		})
 	}		
 });
 
@@ -441,8 +439,6 @@ app.get("/dataextension/lookup/globalcodes/:fuel2Token", (req, res, next) => {
 	if ( token ) {
 
 		validateTokenContext(token).then((tokenContext) => {
-
-			console.dir("The fuel token context response is: ");
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -459,10 +455,9 @@ app.get("/dataextension/lookup/globalcodes/:fuel2Token", (req, res, next) => {
 				    console.dir("Error getting global code");
 				    console.dir(error);
 				});
-			})			
+			})						
 		})
-	}
-	
+	}	
 });
 
 //Fetch rows from control group data extension
@@ -475,7 +470,7 @@ app.get("/dataextension/lookup/controlgroups/:fuel2Token", (req, res, next) => {
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -493,7 +488,7 @@ app.get("/dataextension/lookup/controlgroups/:fuel2Token", (req, res, next) => {
 				    console.dir(error);
 				});
 			})					
-		}
+		})
 	}
 });
 
@@ -507,7 +502,7 @@ app.get("/dataextension/lookup/updatecontacts/:fuel2Token", (req, res, next) => 
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -525,8 +520,8 @@ app.get("/dataextension/lookup/updatecontacts/:fuel2Token", (req, res, next) => 
 				    console.dir(error);
 				});
 			})				
-		}
-	}	
+		})
+	}
 });
 
 //Fetch rows from voucher data extension
@@ -539,7 +534,7 @@ app.get("/dataextension/lookup/voucherpots/:fuel2Token", (req, res, next) => {
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -556,9 +551,9 @@ app.get("/dataextension/lookup/voucherpots/:fuel2Token", (req, res, next) => {
 				    console.dir("Error getting voucher pots");
 				    console.dir(error);
 				});
-			})			
-		}
-	}	
+			})					
+		})
+	}
 });
 
 //Fetch email templates
@@ -571,7 +566,7 @@ app.get("/dataextension/lookup/templates/:fuel2Token", (req, res, next) => {
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -589,8 +584,8 @@ app.get("/dataextension/lookup/templates/:fuel2Token", (req, res, next) => {
 					console.dir(error);
 					return error;
 				});
-			})			
-		}
+			})					
+		})
 	}
 });
 
@@ -859,15 +854,15 @@ app.post('/dataextension/add/:fuel2Token', async function (req, res){
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
 
 			try {
 				const returnedPayload = await sendBackPayload(req.body)
 				res.send(JSON.stringify(returnedPayload));
 			} catch(err) {
 				console.dir(err);
-			}			
-		}
+			}				
+		})
 	}
 });
 
@@ -1365,19 +1360,20 @@ app.post('/dataextension/set-live/:fuel2Token', async function (req, res){
 	console.dir(req.body);
 	console.dir("the update key is");
 	console.dir(req.body[0].key);
+
 	var token = req.params.fuel2Token;
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
-			
+		validateTokenContext(token).then((tokenContext) => {
+
 			try {
 				const returnedUpdate = await setLive(req.body[0].key);
 				res.send(JSON.stringify(returnedUpdate));
 			} catch(err) {
 				console.dir(err);
-			}		
-		}
+			}					
+		})
 	}
 });
 
@@ -1394,15 +1390,15 @@ app.post('/dataextension/update-existing/:fuel2Token', async function (req, res)
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
 
 			try {
 				const updateExistingPromotionStatus = await updateExistingPromotion(req.body[0].value, req.body);
 				res.send({"success": "true"});
 			} catch(err) {
 				console.dir(err);
-			}			
-		}
+			}						
+		})
 	}
 });
 
