@@ -77,6 +77,7 @@ define([
             fuel2Token = tokens.fuel2token;
 
             if ( fuel2Token ) {
+                $(".showhide").show();
                 lookupPromos(fuel2Token);
                 lookupGlobalCodes(fuel2Token);
                 lookupTemplates(fuel2Token);
