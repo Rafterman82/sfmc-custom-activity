@@ -23,6 +23,7 @@ define([
     var stepValidation = false;
     var payloadToSave;
     var summaryPayload;
+    var fuel2Token;
 
     if ( debug ) {
         console.log("Current Step is: " + currentStep);
@@ -35,10 +36,7 @@ define([
     $(window).ready(onRender);
 
     connection.on('initActivity', initialize);
-    const fuel2Token = connection.on('requestedTokens', onGetTokens);
-
-    console.log("Boolen, does valid fuel token exist");
-    console.log(fuel2Token);
+    connection.on('requestedTokens', onGetTokens);
 
     connection.on('requestedEndpoints', onGetEndpoints);
 
@@ -57,6 +55,9 @@ define([
     }
 
     function initialize (data) {
+
+        console.log("Do we have a fuel token?");
+        console.log(fuel2Token);
 
         lookupPromos();
         lookupGlobalCodes();
@@ -1014,6 +1015,11 @@ define([
 
         console.log("Current Fuel 2 Token object is: ");
         console.log(tokens);
+
+        console.log("The actual token is: ");
+        console.log(tokens.token.fuel2token);
+
+        fuel2Token = tokens.token.fuel2token;
 
         // get fuel token
         if ( tokens.token.fuel2token ) {
