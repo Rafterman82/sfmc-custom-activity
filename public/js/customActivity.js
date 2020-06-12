@@ -47,9 +47,9 @@ define([
         fuel2Token = tokens.fuel2token;   
     });
 
-    if ( fuel2Token ) {
-        connection.on('initActivity', initialize);
-    }
+
+    connection.on('initActivity', initialize);
+   
 
     connection.on('requestedEndpoints', onGetEndpoints);
 
@@ -69,6 +69,8 @@ define([
 
         console.log("Do we have a fuel token?");
         console.log(fuel2Token);
+
+        console.log("The Data sent to init is");
 
         lookupPromos();
         lookupGlobalCodes();
