@@ -1269,13 +1269,10 @@ app.post('/journeybuilder/unpublish/', activity.unpublish );
 
 // track app use
 app.use((req,res,next)=>{
-console.log('req recieved from client');
-console.log(req);
-next();//this will invoke next middleware function
+	console.log('req recieved from client');
+	next();//this will invoke next middleware function
 })
 // listening port
 http.createServer(app).listen(app.get('port'), function(req, res){
   console.log('Express server listening on port ' + app.get('port'));
-  console.log("HTTP Req is: ");
-  console.log(req);
 });

@@ -35,7 +35,6 @@ define([
     $(window).ready(onRender);
 
     connection.on('initActivity', initialize);
-    connection.trigger('requestTokens');
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
 
@@ -51,6 +50,10 @@ define([
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
 
+    }
+
+    function initialize (data) {
+
         lookupPromos();
         lookupGlobalCodes();
         lookupTemplates();
@@ -59,9 +62,6 @@ define([
         lookupUpdateContacts();
         loadEvents();
         setGlobalCodeBlock();
-    }
-
-    function initialize (data) {
         
         if (data) {
             payload = data;
@@ -1007,6 +1007,7 @@ define([
 
     function onGetTokens (tokens) {
         // Response: tokens == { token: <legacy token>, fuel2token: <fuel api token> }
+
         console.log(tokens);
     }
 
