@@ -854,15 +854,16 @@ app.post('/dataextension/add/:fuel2Token', async function (req, res){
 
 	if ( token ) {
 
-		validateTokenContext(token).then((tokenContext) => {
+		var tokenContextResponse  =  await validateTokenContext(token);
+		console.dir(tokenContextResponse);
 
-			try {
-				const returnedPayload = await sendBackPayload(req.body)
-				res.send(JSON.stringify(returnedPayload));
-			} catch(err) {
-				console.dir(err);
-			}				
-		})
+		try {
+			const returnedPayload = await sendBackPayload(req.body)
+			res.send(JSON.stringify(returnedPayload));
+		} catch(err) {
+			console.dir(err);
+		}				
+
 	}
 });
 
@@ -1365,7 +1366,7 @@ app.post('/dataextension/set-live/:fuel2Token', async function (req, res){
 
 	if ( token ) {
 
-		validateTokenContext(token).then((tokenContext) => {
+		//validateTokenContext(token).then((tokenContext) => {
 
 			try {
 				const returnedUpdate = await setLive(req.body[0].key);
@@ -1373,7 +1374,7 @@ app.post('/dataextension/set-live/:fuel2Token', async function (req, res){
 			} catch(err) {
 				console.dir(err);
 			}					
-		})
+		//})
 	}
 });
 
@@ -1390,7 +1391,7 @@ app.post('/dataextension/update-existing/:fuel2Token', async function (req, res)
 
 	if ( token ) {
 
-		validateTokenContext(token).then((tokenContext) => {
+		//validateTokenContext(token).then((tokenContext) => {
 
 			try {
 				const updateExistingPromotionStatus = await updateExistingPromotion(req.body[0].value, req.body);
@@ -1398,7 +1399,7 @@ app.post('/dataextension/update-existing/:fuel2Token', async function (req, res)
 			} catch(err) {
 				console.dir(err);
 			}						
-		})
+		//})
 	}
 });
 
