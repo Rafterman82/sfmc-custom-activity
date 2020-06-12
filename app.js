@@ -491,7 +491,10 @@ app.get("/dataextension/lookup/controlgroups/:fuel2Token", (req, res, next) => {
 				    console.dir(error);
 				});
 			})					
-		})
+		}).catch((error)  => {
+     		console.log("Not Authorised request made.");
+     		res.send("Not Authorised");
+     	})
 	}
 });
 
@@ -523,7 +526,10 @@ app.get("/dataextension/lookup/updatecontacts/:fuel2Token", (req, res, next) => 
 				    console.dir(error);
 				});
 			})				
-		})
+		}).catch((error)  => {
+     		console.log("Not Authorised request made.");
+     		res.send("Not Authorised");
+     	})
 	}
 });
 
@@ -555,7 +561,10 @@ app.get("/dataextension/lookup/voucherpots/:fuel2Token", (req, res, next) => {
 				    console.dir(error);
 				});
 			})					
-		})
+		}).catch((error)  => {
+     		console.log("Not Authorised request made.");
+     		res.send("Not Authorised");
+     	})
 	}
 });
 
@@ -588,7 +597,10 @@ app.get("/dataextension/lookup/templates/:fuel2Token", (req, res, next) => {
 					return error;
 				});
 			})					
-		})
+		}).catch((error)  => {
+     		console.log("Not Authorised request made.");
+     		res.send("Not Authorised");
+     	})
 	}
 });
 
