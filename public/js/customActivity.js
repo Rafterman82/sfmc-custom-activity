@@ -441,7 +441,7 @@ define([
 
         // handler for Optima button
         $("#control_action_test").click(function(){
-            saveToDataExtension(buildActivityPayload(), false, fuel2Token);
+            saveToDataExtension(buildActivityPayload(), fuel2Token);
             $("#sent").val(false);
         });
 
