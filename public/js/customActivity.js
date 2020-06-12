@@ -42,14 +42,14 @@ define([
         console.log(tokens);
         console.log("The actual token is: ");
         console.log(tokens.fuel2token);
-
-        fuel2Token = tokens.fuel2token;
-        connection.on('initActivity', initialize);
-        connection.on('requestedEndpoints', onGetEndpoints);
-        connection.on('clickedNext', onClickedNext);
-        connection.on('clickedBack', onClickedBack);
-        connection.on('gotoStep', onGotoStep);   
+        fuel2Token = tokens.fuel2token; 
     });
+
+    connection.on('initActivity', initialize);
+    connection.on('requestedEndpoints', onGetEndpoints);
+    connection.on('clickedNext', onClickedNext);
+    connection.on('clickedBack', onClickedBack);
+    connection.on('gotoStep', onGotoStep);  
 
     function onRender() {
         var debug = true;
@@ -65,16 +65,29 @@ define([
         console.log(fuel2Token);
 
         console.log("The Data sent to init is");
+        console.log(data);
 
-        lookupPromos();
-        lookupGlobalCodes();
-        lookupTemplates();
-        lookupVoucherPots();
-        lookupControlGroups();
-        lookupUpdateContacts();
-        loadEvents();
-        setGlobalCodeBlock();
-        
+
+        // attempt to get another token
+        connection.on('requestedTokens', async function(tokens) {
+            console.log("Current Fuel 2 Token object is: ");
+            console.log(tokens);
+            console.log("The actual token is: ");
+            console.log(tokens.fuel2token);
+            fuel2Token = tokens.fuel2token;
+
+            if ( fuel2Token ) {
+                lookupPromos();
+                lookupGlobalCodes();
+                lookupTemplates();
+                lookupVoucherPots();
+                lookupControlGroups();
+                lookupUpdateContacts();
+                loadEvents();
+                setGlobalCodeBlock();
+            } 
+        });
+ 
         if (data) {
             payload = data;
             var argumentsSummaryPayload = payload.arguments.execute.inArguments[0];
