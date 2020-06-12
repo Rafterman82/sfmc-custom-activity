@@ -310,23 +310,30 @@ app.get("/dataextension/lookup/increments/:fuel2Token", (req, res, next) => {
 
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
+	var token = req.params.fuel2Token;
 
-	getOauth2Token().then((tokenResponse) => {
+	if ( token ) {
 
-		axios.get(incrementsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting increments");
-		    console.dir(error);
-		});
-	})
+		if ( token.length > 0 ) {
+
+			getOauth2Token().then((tokenResponse) => {
+
+				axios.get(incrementsUrl, { 
+					headers: { 
+						Authorization: tokenResponse
+					}
+				})
+				.then(response => {
+					// If request is good... 
+					res.json(response.data);
+				})
+				.catch((error) => {
+				    console.dir("Error getting increments");
+				    console.dir(error);
+				});
+			})			
+		}
+	}
 });
 
 //Fetch rows from promotions data extension
@@ -334,23 +341,30 @@ app.get("/dataextension/lookup/promotions/:fuel2Token", (req, res, next) => {
 
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
+	var token = req.params.fuel2Token;
 
-	getOauth2Token().then((tokenResponse) => {
+	if ( token ) {
 
-		axios.get(promotionsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting promotions");
-		    console.dir(error);
-		});
-	})	
+		if ( token.length > 0 ) {
+
+			getOauth2Token().then((tokenResponse) => {
+
+				axios.get(promotionsUrl, { 
+					headers: { 
+						Authorization: tokenResponse
+					}
+				})
+				.then(response => {
+					// If request is good... 
+					res.json(response.data);
+				})
+				.catch((error) => {
+				    console.dir("Error getting promotions");
+				    console.dir(error);
+				});
+			})			
+		}
+	}	
 });
 
 //Fetch rows from promotions data extension
@@ -359,22 +373,30 @@ app.get("/dataextension/lookup/campaigns/:fuel2Token", (req, res, next) => {
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
 
-	getOauth2Token().then((tokenResponse) => {
+	var token = req.params.fuel2Token;
 
-		axios.get(getAllCampaigns, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting promotions");
-		    console.dir(error);
-		});
-	})	
+	if ( token ) {
+
+		if ( token.length > 0 ) {
+
+			getOauth2Token().then((tokenResponse) => {
+
+				axios.get(getAllCampaigns, { 
+					headers: { 
+						Authorization: tokenResponse
+					}
+				})
+				.then(response => {
+					// If request is good... 
+					res.json(response.data);
+				})
+				.catch((error) => {
+				    console.dir("Error getting promotions");
+				    console.dir(error);
+				});
+			})				
+		}
+	}		
 });
 
 //Fetch rows from promotions data extension
@@ -383,22 +405,30 @@ app.get("/dataextension/lookup/globalcodes/:fuel2Token", (req, res, next) => {
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
 
-	getOauth2Token().then((tokenResponse) => {
+	var token = req.params.fuel2Token;
 
-		axios.get(globalCodesUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting global code");
-		    console.dir(error);
-		});
-	})		
+	if ( token ) {
+
+		if ( token.length > 0 ) {
+
+			getOauth2Token().then((tokenResponse) => {
+
+				axios.get(globalCodesUrl, { 
+					headers: { 
+						Authorization: tokenResponse
+					}
+				})
+				.then(response => {
+					// If request is good... 
+					res.json(response.data);
+				})
+				.catch((error) => {
+				    console.dir("Error getting global code");
+				    console.dir(error);
+				});
+			})					
+		}
+	}	
 });
 
 //Fetch rows from control group data extension
@@ -407,23 +437,30 @@ app.get("/dataextension/lookup/controlgroups/:fuel2Token", (req, res, next) => {
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
 
-	getOauth2Token().then((tokenResponse) => {
+	var token = req.params.fuel2Token;
 
-		axios.get(controlGroupsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting control groups");
-		    console.dir(error);
-		});
-	})		
+	if ( token ) {
 
+		if ( token.length > 0 ) {
+
+			getOauth2Token().then((tokenResponse) => {
+
+				axios.get(controlGroupsUrl, { 
+					headers: { 
+						Authorization: tokenResponse
+					}
+				})
+				.then(response => {
+					// If request is good... 
+					res.json(response.data);
+				})
+				.catch((error) => {
+				    console.dir("Error getting control groups");
+				    console.dir(error);
+				});
+			})					
+		}
+	}
 });
 
 //Fetch rows from update contacts data extension
@@ -432,23 +469,30 @@ app.get("/dataextension/lookup/updatecontacts/:fuel2Token", (req, res, next) => 
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
 
-	getOauth2Token().then((tokenResponse) => {
+	var token = req.params.fuel2Token;
 
-		axios.get(updateContactsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting update contacts");
-		    console.dir(error);
-		});
-	})		
+	if ( token ) {
 
+		if ( token.length > 0 ) {
+
+			getOauth2Token().then((tokenResponse) => {
+
+				axios.get(updateContactsUrl, { 
+					headers: { 
+						Authorization: tokenResponse
+					}
+				})
+				.then(response => {
+					// If request is good... 
+					res.json(response.data);
+				})
+				.catch((error) => {
+				    console.dir("Error getting update contacts");
+				    console.dir(error);
+				});
+			})				
+		}
+	}	
 });
 
 //Fetch rows from voucher data extension
@@ -457,22 +501,30 @@ app.get("/dataextension/lookup/voucherpots/:fuel2Token", (req, res, next) => {
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
 
-	getOauth2Token().then((tokenResponse) => {
+	var token = req.params.fuel2Token;
 
-		axios.get(voucherPotsUrl, { 
-			headers: { 
-				Authorization: tokenResponse
-			}
-		})
-		.then(response => {
-			// If request is good... 
-			res.json(response.data);
-		})
-		.catch((error) => {
-		    console.dir("Error getting voucher pots");
-		    console.dir(error);
-		});
-	})		
+	if ( token ) {
+
+		if ( token.length > 0 ) {
+
+			getOauth2Token().then((tokenResponse) => {
+
+				axios.get(voucherPotsUrl, { 
+					headers: { 
+						Authorization: tokenResponse
+					}
+				})
+				.then(response => {
+					// If request is good... 
+					res.json(response.data);
+				})
+				.catch((error) => {
+				    console.dir("Error getting voucher pots");
+				    console.dir(error);
+				});
+			})			
+		}
+	}	
 });
 
 //Fetch email templates
@@ -481,24 +533,31 @@ app.get("/dataextension/lookup/templates/:fuel2Token", (req, res, next) => {
 	console.dir("The fuel token sent is: ");
 	console.dir(req.params.fuel2Token);
 
-	getOauth2Token().then((tokenResponse) => {
+	var token = req.params.fuel2Token;
 
-	   	axios({
-			method: 'post',
-			url: templatesUrl,
-			headers: {'Authorization': tokenResponse},
-			data: templatePayload
-		})
-		.then(function (response) {
-			//console.dir(response.data);
-			res.json(response.data);
-		})
-		.catch(function (error) {
-			console.dir(error);
-			return error;
-		});
-	})	
+	if ( token ) {
 
+		if ( token.length > 0 ) {
+
+			getOauth2Token().then((tokenResponse) => {
+
+			   	axios({
+					method: 'post',
+					url: templatesUrl,
+					headers: {'Authorization': tokenResponse},
+					data: templatePayload
+				})
+				.then(function (response) {
+					//console.dir(response.data);
+					res.json(response.data);
+				})
+				.catch(function (error) {
+					console.dir(error);
+					return error;
+				});
+			})			
+		}
+	}
 });
 
 function buildAssociationPayload(payload, incrementData, numberOfCodes) {
@@ -761,13 +820,21 @@ app.post('/dataextension/add/:fuel2Token', async function (req, res){
 	console.dir(req.params.fuel2Token);
 	console.dir("Dump request body");
 	console.dir(req.body);
-	try {
-		const returnedPayload = await sendBackPayload(req.body)
-		res.send(JSON.stringify(returnedPayload));
-	} catch(err) {
-		console.dir(err);
+
+	var token = req.params.fuel2Token;
+
+	if ( token ) {
+
+		if ( token.length > 0 ) {
+
+			try {
+				const returnedPayload = await sendBackPayload(req.body)
+				res.send(JSON.stringify(returnedPayload));
+			} catch(err) {
+				console.dir(err);
+			}			
+		}
 	}
-	
 });
 
 function getDateString(dateOffSetted) {
@@ -1264,13 +1331,20 @@ app.post('/dataextension/set-live/:fuel2Token', async function (req, res){
 	console.dir(req.body);
 	console.dir("the update key is");
 	console.dir(req.body[0].key);
-	try {
-		const returnedUpdate = await setLive(req.body[0].key);
-		res.send(JSON.stringify(returnedUpdate));
-	} catch(err) {
-		console.dir(err);
+	var token = req.params.fuel2Token;
+
+	if ( token ) {
+
+		if ( token.length > 0 ) {
+			
+			try {
+				const returnedUpdate = await setLive(req.body[0].key);
+				res.send(JSON.stringify(returnedUpdate));
+			} catch(err) {
+				console.dir(err);
+			}		
+		}
 	}
-	
 });
 
 // insert data into data extension
@@ -1281,13 +1355,21 @@ app.post('/dataextension/update-existing/:fuel2Token', async function (req, res)
 	console.dir(req.body);
 	console.dir("the update key is");
 	console.dir(req.body[0].value);
-	try {
-		const updateExistingPromotionStatus = await updateExistingPromotion(req.body[0].value, req.body);
-		res.send({"success": "true"});
-	} catch(err) {
-		console.dir(err);
+
+	var token = req.params.fuel2Token;
+
+	if ( token ) {
+
+		if ( token.length > 0 ) {
+
+			try {
+				const updateExistingPromotionStatus = await updateExistingPromotion(req.body[0].value, req.body);
+				res.send({"success": "true"});
+			} catch(err) {
+				console.dir(err);
+			}			
+		}
 	}
-	
 });
 
 app.post('/journeybuilder/save/', activity.save );
