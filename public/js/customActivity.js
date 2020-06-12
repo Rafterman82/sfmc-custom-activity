@@ -44,9 +44,12 @@ define([
         console.log("The actual token is: ");
         console.log(tokens.fuel2token);
 
-        fuel2Token = tokens.fuel2token;
-        connection.on('initActivity', initialize);   
+        fuel2Token = tokens.fuel2token;   
     });
+
+    if ( fuel2Token ) {
+        connection.on('initActivity', initialize);
+    }
 
     connection.on('requestedEndpoints', onGetEndpoints);
 
