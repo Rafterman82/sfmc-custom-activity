@@ -1368,15 +1368,18 @@ app.post('/dataextension/set-live/:fuel2Token', async function (req, res){
 
 	if ( token ) {
 
-		//validateTokenContext(token).then((tokenContext) => {
+		const tokenContextResponse  =  await validateTokenContext(token);
+		console.dir("The returned user id is:");
+		console.dir(tokenContextResponse.data.user);
 
+		if ( tokenContextResponse.data.user ) {
 			try {
 				const returnedUpdate = await setLive(req.body[0].key);
 				res.send(JSON.stringify(returnedUpdate));
 			} catch(err) {
 				console.dir(err);
-			}					
-		//})
+			}			
+		}
 	}
 });
 
@@ -1393,15 +1396,18 @@ app.post('/dataextension/update-existing/:fuel2Token', async function (req, res)
 
 	if ( token ) {
 
-		//validateTokenContext(token).then((tokenContext) => {
+		const tokenContextResponse  =  await validateTokenContext(token);
+		console.dir("The returned user id is:");
+		console.dir(tokenContextResponse.data.user);
 
+		if ( tokenContextResponse.data.user ) {
 			try {
 				const updateExistingPromotionStatus = await updateExistingPromotion(req.body[0].value, req.body);
 				res.send({"success": "true"});
 			} catch(err) {
 				console.dir(err);
-			}						
-		//})
+			}			
+		}
 	}
 });
 
