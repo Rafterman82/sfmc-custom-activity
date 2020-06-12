@@ -47,8 +47,10 @@ define([
         fuel2Token = tokens.fuel2token;   
     });
 
-
-    connection.on('initActivity', initialize);
+    setTimeout(function(){ 
+        connection.on('initActivity', initialize);
+    }, 5000);
+    
    
 
     connection.on('requestedEndpoints', onGetEndpoints);
