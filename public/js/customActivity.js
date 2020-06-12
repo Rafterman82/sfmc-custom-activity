@@ -35,7 +35,7 @@ define([
     $(window).ready(onRender);
 
     connection.on('initActivity', initialize);
-    const fuelToken = connection.on('requestedTokens', onGetTokens);
+    const fuel2Token = connection.on('requestedTokens', onGetTokens);
 
     console.log("Boolen, does valid fuel token exist");
     console.log(fuel2token);
