@@ -125,7 +125,7 @@ const getOauth2Token = () => new Promise((resolve, reject) => {
 const validateTokenContext = (fuel2Token) => new Promise((resolve, reject) => {
 	axios({
 		method: 'get',
-		url: marketingCloud.appUrl + "/platform/v1/tokenContext",
+		url: marketingCloud.restUrl + "/platform/v1/tokenContext",
 		headers: {'Authorization': fuel2Token}
 	})
 	.then(function (tokenResponse) {
