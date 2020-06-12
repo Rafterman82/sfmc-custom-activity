@@ -64,6 +64,7 @@ exports.edit = function (req, res) {
     //console.log( req.body );
     logData(req);
     res.send(200, 'Edit');
+    console.log("Editing the widget");
 };
 
 /*

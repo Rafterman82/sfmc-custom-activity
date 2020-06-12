@@ -35,6 +35,7 @@ define([
     $(window).ready(onRender);
 
     connection.on('initActivity', initialize);
+    connection.trigger('requestTokens');
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
 
@@ -1006,22 +1007,22 @@ define([
 
     function onGetTokens (tokens) {
         // Response: tokens == { token: <legacy token>, fuel2token: <fuel api token> }
-        // console.log(tokens);
+        console.log(tokens);
     }
 
     function onGetEndpoints (endpoints) {
         // Response: endpoints == { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-        // console.log(endpoints);
+        console.log(endpoints);
     }
 
     function onGetSchema (payload) {
         // Response: payload == { schema: [ ... ] };
-        // console.log('requestedSchema payload = ' + JSON.stringify(payload, null, 2));
+        console.log('requestedSchema payload = ' + JSON.stringify(payload, null, 2));
     }
 
     function onGetCulture (culture) {
         // Response: culture == 'en-US'; culture == 'de-DE'; culture == 'fr'; etc.
-        // console.log('requestedCulture culture = ' + JSON.stringify(culture, null, 2));
+        console.log('requestedCulture culture = ' + JSON.stringify(culture, null, 2));
     }
 
     function onClickedNext () {
