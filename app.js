@@ -854,16 +854,18 @@ app.post('/dataextension/add/:fuel2Token', async function (req, res){
 
 	if ( token ) {
 
-		var tokenContextResponse  =  await validateTokenContext(token);
-		console.dir(tokenContextResponse);
+		const tokenContextResponse  =  await validateTokenContext(token);
+		console.dir("The returned user id is:");
+		console.dir(tokenContextResponse.data.user);
 
-		try {
-			const returnedPayload = await sendBackPayload(req.body)
-			res.send(JSON.stringify(returnedPayload));
-		} catch(err) {
-			console.dir(err);
-		}				
-
+		if ( tokenContextResponse.data.user ) {
+			try {
+				const returnedPayload = await sendBackPayload(req.body)
+				res.send(JSON.stringify(returnedPayload));
+			} catch(err) {
+				console.dir(err);
+			}			
+		}
 	}
 });
 
