@@ -1404,6 +1404,9 @@ define([
             console.log(payloadToSave);
         }
 
+        console.log("The fuel token passed to the save function is:");
+        console.log(fuel2Token);
+
         try {
             $.ajax({ 
                 url: '/dataextension/add/' + fuel2Token,
