@@ -136,7 +136,7 @@ const validateTokenContext = (fuel2Token) => new Promise((resolve, reject) => {
 	axios({
 		method: 'get',
 		url: contextUrl,
-		headers: {'Authorization': fuel2Token}
+		headers: {'Authorization': 'Bearer '.concat(fuel2Token)}
 	})
 	.then(function (tokenResponse) {
 		console.dir('Token Response');
