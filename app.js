@@ -122,6 +122,23 @@ const getOauth2Token = () => new Promise((resolve, reject) => {
 	});
 });
 
+const validateTokenContext = (fuel2Token) => new Promise((resolve, reject) => {
+	axios({
+		method: 'get',
+		url: marketingCloud.appUrl + "/platform/v1/tokenContext",
+		headers: {'Authorization': fuel2Token}
+	})
+	.then(function (tokenResponse) {
+		console.dir('Token Response');
+		console.dir(tokenResponse);
+		return resolve(tokenResponse);
+	})
+	.catch(function (error) {
+		console.dir("Error getting token context response");
+		return reject(error);
+	});
+});
+
 const getIncrements = () => new Promise((resolve, reject) => {
 	getOauth2Token().then((tokenResponse) => {
 
@@ -314,7 +331,10 @@ app.get("/dataextension/lookup/increments/:fuel2Token", (req, res, next) => {
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
+
+			console.dir("The fuel token context response is: ");
+
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -332,7 +352,7 @@ app.get("/dataextension/lookup/increments/:fuel2Token", (req, res, next) => {
 				    console.dir(error);
 				});
 			})			
-		}
+		})
 	}
 });
 
@@ -409,7 +429,9 @@ app.get("/dataextension/lookup/globalcodes/:fuel2Token", (req, res, next) => {
 
 	if ( token ) {
 
-		if ( token.length > 0 ) {
+		validateTokenContext(token).then((tokenContext) => {
+
+			console.dir("The fuel token context response is: ");
 
 			getOauth2Token().then((tokenResponse) => {
 
@@ -426,9 +448,10 @@ app.get("/dataextension/lookup/globalcodes/:fuel2Token", (req, res, next) => {
 				    console.dir("Error getting global code");
 				    console.dir(error);
 				});
-			})					
-		}
-	}	
+			})			
+		})
+	}
+	
 });
 
 //Fetch rows from control group data extension
