@@ -49,15 +49,11 @@ define([
 
     setTimeout(function(){ 
         connection.on('initActivity', initialize);
+        connection.on('requestedEndpoints', onGetEndpoints);
+        connection.on('clickedNext', onClickedNext);
+        connection.on('clickedBack', onClickedBack);
+        connection.on('gotoStep', onGotoStep);
     }, 5000);
-    
-   
-
-    connection.on('requestedEndpoints', onGetEndpoints);
-
-    connection.on('clickedNext', onClickedNext);
-    connection.on('clickedBack', onClickedBack);
-    connection.on('gotoStep', onGotoStep);
 
     function onRender() {
         var debug = true;
