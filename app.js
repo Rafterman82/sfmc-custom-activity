@@ -50,6 +50,7 @@ const descriptionUrl 			= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ 
 const communicationCellUrl 		= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.communicationCellDataExtension 	+ "/rowset";
 const updateIncrementsUrl 		= marketingCloud.restUrl + "hub/v1/dataevents/key:" 		+ marketingCloud.promotionIncrementExtension 		+ "/rowset";
 const templatesUrl 				= marketingCloud.restUrl + "asset/v1/content/assets/query";
+const contextUrl = marketingCloud.restUrl + "platform/v1/tokenContext";
 
 // json template payload
 const templatePayload = {
@@ -123,9 +124,18 @@ const getOauth2Token = () => new Promise((resolve, reject) => {
 });
 
 const validateTokenContext = (fuel2Token) => new Promise((resolve, reject) => {
+
+	console.dir("The context endpoint is: ");
+
+	console.dir(contextUrl);
+
+	console.dir("The fuel token passed to this function is: ");
+
+	console.dir(fuel2Token);
+
 	axios({
 		method: 'get',
-		url: marketingCloud.restUrl + "/platform/v1/tokenContext",
+		url: contextUrl,
 		headers: {'Authorization': fuel2Token}
 	})
 	.then(function (tokenResponse) {
@@ -135,6 +145,7 @@ const validateTokenContext = (fuel2Token) => new Promise((resolve, reject) => {
 	})
 	.catch(function (error) {
 		console.dir("Error getting token context response");
+		console.dir(error);
 		return reject(error);
 	});
 });
