@@ -35,16 +35,17 @@ define([
 
     $(window).ready(onRender);
 
-    connection.on('initActivity', initialize);
-    connection.on('requestedTokens', onGetTokens);
-    connection.on('requestedTokens', function(tokens) {
+    
+    //connection.on('requestedTokens', onGetTokens);
+    connection.on('requestedTokens', async function(tokens) {
         console.log("Current Fuel 2 Token object is: ");
         console.log(tokens);
 
         console.log("The actual token is: ");
         console.log(tokens.fuel2token);
 
-        fuel2Token = tokens.fuel2token;    
+        fuel2Token = tokens.fuel2token;
+        connection.on('initActivity', initialize);   
     });
 
     connection.on('requestedEndpoints', onGetEndpoints);
