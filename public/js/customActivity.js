@@ -37,6 +37,15 @@ define([
 
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
+    connection.on('requestedTokens', function(tokens) {
+        console.log("Current Fuel 2 Token object is: ");
+        console.log(tokens);
+
+        console.log("The actual token is: ");
+        console.log(tokens.fuel2token);
+
+        fuel2Token = tokens.fuel2token;    
+    });
 
     connection.on('requestedEndpoints', onGetEndpoints);
 
@@ -48,10 +57,8 @@ define([
         var debug = true;
         // JB will respond the first time 'ready' is called with 'initActivity'
         connection.trigger('ready');
-
         connection.trigger('requestTokens');
         connection.trigger('requestEndpoints');
-
     }
 
     function initialize (data) {
@@ -1017,9 +1024,9 @@ define([
         console.log(tokens);
 
         console.log("The actual token is: ");
-        console.log(tokens.token);
+        console.log(tokens.fuel2token);
 
-        fuel2Token = tokens.token;
+        fuel2Token = tokens.fuel2token;
 
     }
 
