@@ -38,7 +38,7 @@ define([
     const fuel2Token = connection.on('requestedTokens', onGetTokens);
 
     console.log("Boolen, does valid fuel token exist");
-    console.log(fuel2token);
+    console.log(fuel2Token);
 
     connection.on('requestedEndpoints', onGetEndpoints);
 
