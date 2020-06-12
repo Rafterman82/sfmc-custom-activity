@@ -438,31 +438,28 @@ app.get("/dataextension/lookup/globalcodes/:fuel2Token", (req, res, next) => {
 
 	if ( token ) {
 
-		try {
-			validateTokenContext(token).then((tokenContext) => {
+		validateTokenContext(token).then((tokenContext) => {
 
-				getOauth2Token().then((tokenResponse) => {
+			getOauth2Token().then((tokenResponse) => {
 
-					axios.get(globalCodesUrl, { 
-						headers: { 
-							Authorization: tokenResponse
-						}
-					})
-					.then(response => {
-						// If request is good... 
-						res.json(response.data);
-					})
-					.catch((error) => {
-					    console.dir("Error getting global code");
-					    console.dir(error);
-					});
-				})						
-			})
-		} catch(e) {
-			res.send("Not Authorised");
-		}
-
-	}	
+				axios.get(globalCodesUrl, { 
+					headers: { 
+						Authorization: tokenResponse
+					}
+				})
+				.then(response => {
+					// If request is good... 
+					res.json(response.data);
+				})
+				.catch((error) => {
+				    console.dir("Error getting global code");
+				    console.dir(error);
+				});
+			})						
+		}).catch(function () {
+     		console.log("Not Authorised");
+     	}
+    }
 });
 
 //Fetch rows from control group data extension
