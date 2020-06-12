@@ -35,7 +35,11 @@ define([
     $(window).ready(onRender);
 
     connection.on('initActivity', initialize);
-    connection.on('requestedTokens', onGetTokens);
+    const fuelToken = connection.on('requestedTokens', onGetTokens);
+
+    console.log("Boolen, does valid fuel token exist");
+    console.log(fuel2token);
+
     connection.on('requestedEndpoints', onGetEndpoints);
 
     connection.on('clickedNext', onClickedNext);
@@ -1008,7 +1012,15 @@ define([
     function onGetTokens (tokens) {
         // Response: tokens == { token: <legacy token>, fuel2token: <fuel api token> }
 
+        console.log("Current Fuel 2 Token object is: ");
         console.log(tokens);
+
+        // get fuel token
+        if ( tokens.token.fuel2token ) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function onGetEndpoints (endpoints) {
