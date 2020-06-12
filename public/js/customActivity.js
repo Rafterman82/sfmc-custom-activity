@@ -1017,16 +1017,10 @@ define([
         console.log(tokens);
 
         console.log("The actual token is: ");
-        console.log(tokens.token.fuel2token);
+        console.log(tokens.token);
 
-        fuel2Token = tokens.token.fuel2token;
+        fuel2Token = tokens.token;
 
-        // get fuel token
-        if ( tokens.token.fuel2token ) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     function onGetEndpoints (endpoints) {
