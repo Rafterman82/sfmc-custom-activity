@@ -459,7 +459,7 @@ app.get("/dataextension/lookup/globalcodes/:fuel2Token", (req, res, next) => {
 		}).catch((error)  => {
      		console.log("Not Authorised request made.");
      		res.send("Not Authorised");
-     	}
+     	})
     }
 });
 
