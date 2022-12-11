@@ -29,7 +29,7 @@
     "body-parser": "^1.19.0",
     "bower": "^1.8.8",
     "errorhandler": "^1.5.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "request": "^2.88.0",
     "require": "^2.4.20"
